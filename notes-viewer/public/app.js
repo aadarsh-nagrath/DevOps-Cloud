@@ -23,27 +23,38 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Theme Management
+const THEMES = ['light', 'dark', 'cyberpunk', 'nord'];
+
 function initTheme() {
-  const savedTheme = localStorage.getItem('theme') || 'dark';
+  const savedTheme = localStorage.getItem('theme') || 'light';
   document.documentElement.setAttribute('data-theme', savedTheme);
   updateThemeIcon(savedTheme);
 }
 
 function updateThemeIcon(theme) {
   const icon = themeToggleEl.querySelector('i');
+  themeToggleEl.title = `Theme: ${theme.charAt(0).toUpperCase() + theme.slice(1)}`;
+  
   if (theme === 'light') {
     icon.className = 'fa-solid fa-sun';
-  } else {
+  } else if (theme === 'dark') {
     icon.className = 'fa-solid fa-moon';
+  } else if (theme === 'cyberpunk') {
+    icon.className = 'fa-solid fa-bolt';
+  } else if (theme === 'nord') {
+    icon.className = 'fa-solid fa-snowflake';
   }
 }
 
 function toggleTheme() {
-  const current = document.documentElement.getAttribute('data-theme');
-  const next = current === 'light' ? 'dark' : 'light';
-  document.documentElement.setAttribute('data-theme', next);
-  localStorage.setItem('theme', next);
-  updateThemeIcon(next);
+  const current = document.documentElement.getAttribute('data-theme') || 'light';
+  const currentIndex = THEMES.indexOf(current);
+  const nextIndex = (currentIndex + 1) % THEMES.length;
+  const nextTheme = THEMES[nextIndex];
+  
+  document.documentElement.setAttribute('data-theme', nextTheme);
+  localStorage.setItem('theme', nextTheme);
+  updateThemeIcon(nextTheme);
 }
 
 // Fetch Notes list
