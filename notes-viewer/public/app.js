@@ -14,6 +14,7 @@ const totalNotesCountEl = document.getElementById('total-notes-count');
 const themeToggleEl = document.getElementById('theme-toggle');
 const toggleSidebarEl = document.getElementById('toggle-sidebar');
 const sidebarEl = document.querySelector('.sidebar');
+const indexPinEl = document.getElementById('index-pin');
 
 // Initialization
 document.addEventListener('DOMContentLoaded', () => {
@@ -75,13 +76,31 @@ async function fetchNotes() {
     window.isStaticMode = isStaticMode; // Store flag globally
     allNotes = await res.json();
     
-    // Sort notes alphabetically by path
-    allNotes.sort((a, b) => a.path.localeCompare(b.path));
+    // Sort: Index.md always first, rest alphabetically
+    allNotes.sort((a, b) => {
+      const aIsIndex = a.name.toLowerCase() === 'index.md' && !a.path.includes('/');
+      const bIsIndex = b.name.toLowerCase() === 'index.md' && !b.path.includes('/');
+      if (aIsIndex) return -1;
+      if (bIsIndex) return 1;
+      return a.path.localeCompare(b.path);
+    });
     
     totalNotesCountEl.textContent = allNotes.length;
-    renderTree(allNotes);
-    
-    // Handle URL Hash navigation
+
+    // Pin Index.md above the tree and exclude it from the regular list
+    const indexNote = allNotes.find(n => n.name.toLowerCase() === 'index.md' && !n.path.includes('/'));
+    if (indexNote) {
+      indexPinEl.href = `#${encodeURIComponent(indexNote.path)}`;
+      indexPinEl.dataset.path = indexNote.path;
+      indexPinEl.style.display = 'flex';
+      indexPinEl.addEventListener('click', (e) => {
+        e.preventDefault();
+        loadNote(indexNote.path);
+      });
+    }
+    renderTree(allNotes.filter(n => n !== indexNote));
+
+    // Handle URL Hash navigation, or open Index.md by default
     handleHashNavigation();
   } catch (err) {
     notesTreeEl.innerHTML = `<div class="error-msg"><i class="fa-solid fa-triangle-exclamation"></i> Error loading notes list</div>`;
@@ -90,6 +109,7 @@ async function fetchNotes() {
 }
 
 // Handle Hash navigation to support reload/direct linking
+// Falls back to loading Index.md automatically if no hash present
 function handleHashNavigation() {
   const hash = window.location.hash;
   if (hash && hash.startsWith('#')) {
@@ -97,7 +117,13 @@ function handleHashNavigation() {
     const matchedNote = allNotes.find(n => n.path === targetPath);
     if (matchedNote) {
       loadNote(matchedNote.path);
+      return;
     }
+  }
+  // Default: open root Index.md
+  const indexNote = allNotes.find(n => n.name.toLowerCase() === 'index.md' && !n.path.includes('/'));
+  if (indexNote) {
+    loadNote(indexNote.path);
   }
 }
 
@@ -181,6 +207,8 @@ function getFileIconClass(fileName, filePath) {
   const name = fileName.toLowerCase();
   const path = filePath.toLowerCase();
   
+  if (name === 'index.md') return 'fa-solid fa-map icon-index';
+  
   if (path.includes('kubernetes') || path.includes('k8') || path.includes('cka')) {
     return 'fa-solid fa-dharmachakra icon-k8s';
   }
@@ -189,6 +217,12 @@ function getFileIconClass(fileName, filePath) {
   }
   if (path.includes('terraform') || path.includes('cf')) {
     return 'fa-solid fa-cubes icon-terraform';
+  }
+  if (path.includes('azure')) {
+    return 'fa-brands fa-microsoft icon-azure';
+  }
+  if (path.includes('gcp') || path.includes('google')) {
+    return 'fa-brands fa-google icon-gcp';
   }
   if (path.includes('aws') || path.includes('cloud')) {
     return 'fa-solid fa-cloud icon-aws';
@@ -316,21 +350,50 @@ function postProcessNoteContent(container, notePath) {
     img.classList.add('styled-image');
   });
 
-  // 2. Process Video Links (YouTube)
+  // 2. Process links: YouTube embeds and internal .md note navigation
   const links = container.querySelectorAll('a');
   links.forEach(link => {
     const href = link.getAttribute('href');
-    if (href) {
-      const ytEmbedUrl = getYouTubeEmbedUrl(href);
-      if (ytEmbedUrl) {
-        // Create modern responsive video embed frame
-        const videoWrapper = document.createElement('div');
-        videoWrapper.className = 'video-container';
-        videoWrapper.innerHTML = `
-          <iframe src="${ytEmbedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        `;
-        // Insert it right after the link
-        link.parentNode.insertBefore(videoWrapper, link.nextSibling);
+    if (!href) return;
+
+    // 2a. YouTube embed
+    const ytEmbedUrl = getYouTubeEmbedUrl(href);
+    if (ytEmbedUrl) {
+      const videoWrapper = document.createElement('div');
+      videoWrapper.className = 'video-container';
+      videoWrapper.innerHTML = `
+        <iframe src="${ytEmbedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      `;
+      link.parentNode.insertBefore(videoWrapper, link.nextSibling);
+      return;
+    }
+
+    // 2b. Intercept relative internal .md links — navigate inside viewer
+    if (!href.startsWith('http://') && !href.startsWith('https://') && !href.startsWith('#')) {
+      const decodedHref = decodeURIComponent(href);
+      // Resolve relative to note directory
+      let resolvedPath;
+      if (noteDir) {
+        // Normalize path (handle ../ segments)
+        const parts = `${noteDir}/${decodedHref}`.split('/');
+        const resolved = [];
+        for (const part of parts) {
+          if (part === '..') resolved.pop();
+          else if (part !== '.') resolved.push(part);
+        }
+        resolvedPath = resolved.join('/');
+      } else {
+        resolvedPath = decodedHref;
+      }
+
+      // Check if it matches a known note
+      const matchedNote = allNotes.find(n => n.path === resolvedPath || n.path.replace(/\\/g, '/') === resolvedPath);
+      if (matchedNote) {
+        link.setAttribute('href', `#${encodeURIComponent(matchedNote.path)}`);
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          loadNote(matchedNote.path);
+        });
       }
     }
   });
@@ -359,6 +422,7 @@ function getYouTubeEmbedUrl(url) {
 async function loadNote(notePath) {
   // Highlight folder in list
   currentPath = notePath;
+  indexPinEl.classList.toggle('active', indexPinEl.dataset.path === notePath);
   document.querySelectorAll('.tree-file').forEach(el => {
     if (el.dataset.path === notePath) {
       el.classList.add('active');

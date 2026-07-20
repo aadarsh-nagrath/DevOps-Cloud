@@ -180,6 +180,14 @@ body {
   color: var(--text-primary);
 }
 
+/* Pinned Index link, always above the notes tree */
+.index-pin {
+  margin: 0 16px 12px 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 500;
+}
+
 /* Notes Directory Tree Navigation */
 .notes-tree {
   flex-grow: 1;
@@ -586,10 +594,13 @@ body {
 .icon-docker, .folder-docker { color: #0db7ed !important; }
 .icon-terraform, .folder-terraform { color: #844fba !important; }
 .icon-aws { color: #ff9900 !important; }
+.icon-azure { color: #0089d6 !important; }
+.icon-gcp { color: #4285f4 !important; }
 .icon-bash, .folder-scripting { color: #10b981 !important; }
 .icon-jenkins { color: #d24939 !important; }
 .icon-ansible { color: #ee0000 !important; }
 .icon-git { color: #f05032 !important; }
+.icon-index { color: #f59e0b !important; }
 .folder-project { color: #ec4899 !important; }
 
 /* Icon zoom transitions */
