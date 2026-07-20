@@ -1,0 +1,13 @@
+{
+  "name": "devops-cloud-notes-viewer",
+  "version": "1.0.0",
+  "description": "A lightweight Markdown notes viewer for DevOps and Cloud study notes",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "node build-static.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

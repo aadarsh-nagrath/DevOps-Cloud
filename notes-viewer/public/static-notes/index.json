@@ -1,0 +1,836 @@
+[
+  {
+    "name": "Argo-cd.md",
+    "path": "Argo-cd.md",
+    "size": 16175,
+    "mtime": "2026-07-20T07:22:24.093Z"
+  },
+  {
+    "name": "#40daysofkubernetes.md",
+    "path": "CKA/#40daysofkubernetes.md",
+    "size": 2622,
+    "mtime": "2026-07-20T07:22:24.093Z"
+  },
+  {
+    "name": "README.md",
+    "path": "CKA/README.md",
+    "size": 14370,
+    "mtime": "2026-07-20T07:22:24.094Z"
+  },
+  {
+    "name": "README.md",
+    "path": "CKA/Resources/Day01/README.md",
+    "size": 1487,
+    "mtime": "2026-07-20T07:22:24.094Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day01/task.md",
+    "size": 1185,
+    "mtime": "2026-07-20T07:22:24.094Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day02/readme.md",
+    "size": 2082,
+    "mtime": "2026-07-20T07:22:24.094Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day02/task.md",
+    "size": 1236,
+    "mtime": "2026-07-20T07:22:24.094Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day03/readme.md",
+    "size": 2509,
+    "mtime": "2026-07-20T07:22:24.095Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day03/task.md",
+    "size": 1405,
+    "mtime": "2026-07-20T07:22:24.095Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day04/readme.md",
+    "size": 34,
+    "mtime": "2026-07-20T07:22:24.095Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day04/task.md",
+    "size": 1125,
+    "mtime": "2026-07-20T07:22:24.095Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day05/readme.md",
+    "size": 1662,
+    "mtime": "2026-07-20T07:22:24.095Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day05/task.md",
+    "size": 1424,
+    "mtime": "2026-07-20T07:22:24.095Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day06/readme.md",
+    "size": 604,
+    "mtime": "2026-07-20T07:22:24.096Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day06/task.md",
+    "size": 1909,
+    "mtime": "2026-07-20T07:22:24.096Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day07/readme.md",
+    "size": 598,
+    "mtime": "2026-07-20T07:22:24.096Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day07/task.md",
+    "size": 1545,
+    "mtime": "2026-07-20T07:22:24.096Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day08/readme.md",
+    "size": 658,
+    "mtime": "2026-07-20T07:22:24.096Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day08/task.md",
+    "size": 2929,
+    "mtime": "2026-07-20T07:22:24.096Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day09/readme.md",
+    "size": 2821,
+    "mtime": "2026-07-20T07:22:24.096Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day09/task.md",
+    "size": 2135,
+    "mtime": "2026-07-20T07:22:24.097Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day10/readme.md",
+    "size": 674,
+    "mtime": "2026-07-20T07:22:24.097Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day10/task.md",
+    "size": 2342,
+    "mtime": "2026-07-20T07:22:24.097Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day11/readme.md",
+    "size": 1571,
+    "mtime": "2026-07-20T07:22:24.097Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day11/task.md",
+    "size": 1348,
+    "mtime": "2026-07-20T07:22:24.097Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day12/readme.md",
+    "size": 1399,
+    "mtime": "2026-07-20T07:22:24.097Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day12/task.md",
+    "size": 1461,
+    "mtime": "2026-07-20T07:22:24.098Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day13/readme.md",
+    "size": 3500,
+    "mtime": "2026-07-20T07:22:24.098Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day13/task.md",
+    "size": 1730,
+    "mtime": "2026-07-20T07:22:24.098Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day14/readme.md",
+    "size": 2443,
+    "mtime": "2026-07-20T07:22:24.098Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day14/task.md",
+    "size": 1826,
+    "mtime": "2026-07-20T07:22:24.098Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day15/readme.md",
+    "size": 2280,
+    "mtime": "2026-07-20T07:22:24.098Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day15/task.md",
+    "size": 1876,
+    "mtime": "2026-07-20T07:22:24.099Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day16/readme.md",
+    "size": 2699,
+    "mtime": "2026-07-20T07:22:24.099Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day16/task.md",
+    "size": 1569,
+    "mtime": "2026-07-20T07:22:24.099Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day17/readme.md",
+    "size": 1856,
+    "mtime": "2026-07-20T07:22:24.099Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day17/task.md",
+    "size": 1361,
+    "mtime": "2026-07-20T07:22:24.099Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day18/readme.md",
+    "size": 2175,
+    "mtime": "2026-07-20T07:22:24.100Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day18/task.md",
+    "size": 1830,
+    "mtime": "2026-07-20T07:22:24.100Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day19/readme.md",
+    "size": 1439,
+    "mtime": "2026-07-20T07:22:24.100Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day19/task.md",
+    "size": 1439,
+    "mtime": "2026-07-20T07:22:24.100Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day20/readme.md",
+    "size": 212,
+    "mtime": "2026-07-20T07:22:24.100Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day20/task.md",
+    "size": 1103,
+    "mtime": "2026-07-20T07:22:24.100Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day21/readme.md",
+    "size": 1295,
+    "mtime": "2026-07-20T07:22:24.101Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day21/task.md",
+    "size": 1502,
+    "mtime": "2026-07-20T07:22:24.101Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day22/readme.md",
+    "size": 2467,
+    "mtime": "2026-07-20T07:22:24.101Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day22/task.md",
+    "size": 1050,
+    "mtime": "2026-07-20T07:22:24.101Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day23/readme.md",
+    "size": 1743,
+    "mtime": "2026-07-20T07:22:24.101Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day23/task.md",
+    "size": 1926,
+    "mtime": "2026-07-20T07:22:24.101Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day24/readme.md",
+    "size": 2096,
+    "mtime": "2026-07-20T07:22:24.101Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day24/task.md",
+    "size": 1050,
+    "mtime": "2026-07-20T07:22:24.101Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day25/readme.md",
+    "size": 986,
+    "mtime": "2026-07-20T07:22:24.102Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day25/task.md",
+    "size": 1074,
+    "mtime": "2026-07-20T07:22:24.102Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day26/readme.md",
+    "size": 2942,
+    "mtime": "2026-07-20T07:22:24.102Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day26/task.md",
+    "size": 1703,
+    "mtime": "2026-07-20T07:22:24.102Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day27/readme.md",
+    "size": 7452,
+    "mtime": "2026-07-20T07:22:24.102Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day27/task.md",
+    "size": 1254,
+    "mtime": "2026-07-20T07:22:24.102Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day28/readme.md",
+    "size": 431,
+    "mtime": "2026-07-20T07:22:24.103Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day28/task.md",
+    "size": 1325,
+    "mtime": "2026-07-20T07:22:24.103Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day29/readme.md",
+    "size": 1638,
+    "mtime": "2026-07-20T07:22:24.103Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day29/task.md",
+    "size": 1695,
+    "mtime": "2026-07-20T07:22:24.103Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day30/readme.md",
+    "size": 232,
+    "mtime": "2026-07-20T07:22:24.103Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day30/task.md",
+    "size": 1166,
+    "mtime": "2026-07-20T07:22:24.103Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day31/readme.md",
+    "size": 234,
+    "mtime": "2026-07-20T07:22:24.103Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day31/task.md",
+    "size": 1288,
+    "mtime": "2026-07-20T07:22:24.103Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day32/readme.md",
+    "size": 382,
+    "mtime": "2026-07-20T07:22:24.104Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day32/task.md",
+    "size": 1338,
+    "mtime": "2026-07-20T07:22:24.104Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day33/readme.md",
+    "size": 640,
+    "mtime": "2026-07-20T07:22:24.105Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day33/task.md",
+    "size": 1530,
+    "mtime": "2026-07-20T07:22:24.105Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day34/readme.md",
+    "size": 2023,
+    "mtime": "2026-07-20T07:22:24.105Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day34/task.md",
+    "size": 1496,
+    "mtime": "2026-07-20T07:22:24.105Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day35/readme.md",
+    "size": 251,
+    "mtime": "2026-07-20T07:22:24.105Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day35/task.md",
+    "size": 1909,
+    "mtime": "2026-07-20T07:22:24.106Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day36/readme.md",
+    "size": 1,
+    "mtime": "2026-07-20T07:22:24.106Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day36/task.md",
+    "size": 1336,
+    "mtime": "2026-07-20T07:22:24.106Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day37/readme.md",
+    "size": 50,
+    "mtime": "2026-07-20T07:22:24.106Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day37/task.md",
+    "size": 1751,
+    "mtime": "2026-07-20T07:22:24.106Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day38/readme.md",
+    "size": 423,
+    "mtime": "2026-07-20T07:22:24.106Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day38/task.md",
+    "size": 1332,
+    "mtime": "2026-07-20T07:22:24.106Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day39/readme.md",
+    "size": 422,
+    "mtime": "2026-07-20T07:22:24.107Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day39/task.md",
+    "size": 1726,
+    "mtime": "2026-07-20T07:22:24.107Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day40/readme.md",
+    "size": 411,
+    "mtime": "2026-07-20T07:22:24.107Z"
+  },
+  {
+    "name": "task.md",
+    "path": "CKA/Resources/Day40/task.md",
+    "size": 1508,
+    "mtime": "2026-07-20T07:22:24.107Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day41/readme.md",
+    "size": 6431,
+    "mtime": "2026-07-20T07:22:24.107Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Day42/readme.md",
+    "size": 2524,
+    "mtime": "2026-07-20T07:22:24.107Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Helm/readme.md",
+    "size": 2120,
+    "mtime": "2026-07-20T07:22:24.108Z"
+  },
+  {
+    "name": "readme.md",
+    "path": "CKA/Resources/Kustomize/readme.md",
+    "size": 3486,
+    "mtime": "2026-07-20T07:22:24.108Z"
+  },
+  {
+    "name": "Cloud-Networking-for-DevOps.md",
+    "path": "Cloud-Networking-for-DevOps.md",
+    "size": 61826,
+    "mtime": "2026-07-20T07:22:24.108Z"
+  },
+  {
+    "name": "EFK.md",
+    "path": "EFK.md",
+    "size": 1,
+    "mtime": "2026-07-20T07:22:24.108Z"
+  },
+  {
+    "name": "GitOps.md",
+    "path": "GitOps.md",
+    "size": 4705,
+    "mtime": "2026-07-20T07:22:24.108Z"
+  },
+  {
+    "name": "creating-helm-chart.md",
+    "path": "Kubernetes/Helm/creating-helm-chart.md",
+    "size": 77,
+    "mtime": "2026-07-20T07:22:24.108Z"
+  },
+  {
+    "name": "helm-eg.md",
+    "path": "Kubernetes/Helm/helm-eg.md",
+    "size": 3139,
+    "mtime": "2026-07-20T07:22:24.109Z"
+  },
+  {
+    "name": "helm.md",
+    "path": "Kubernetes/Helm/helm.md",
+    "size": 6297,
+    "mtime": "2026-07-20T07:22:24.109Z"
+  },
+  {
+    "name": "K-pods.md",
+    "path": "Kubernetes/K-pods.md",
+    "size": 6493,
+    "mtime": "2026-07-20T07:22:24.109Z"
+  },
+  {
+    "name": "Networking.md",
+    "path": "Kubernetes/Networking.md",
+    "size": 36336,
+    "mtime": "2026-07-20T07:22:24.109Z"
+  },
+  {
+    "name": "ingress-eg.md",
+    "path": "Kubernetes/examples/ingress-eg.md",
+    "size": 3486,
+    "mtime": "2026-07-20T07:22:24.109Z"
+  },
+  {
+    "name": "good-practice-networking.md",
+    "path": "Kubernetes/good-practice-networking.md",
+    "size": 5328,
+    "mtime": "2026-07-20T07:22:24.109Z"
+  },
+  {
+    "name": "helmVkustomize.md",
+    "path": "Kubernetes/helmVkustomize.md",
+    "size": 5661,
+    "mtime": "2026-07-20T07:22:24.109Z"
+  },
+  {
+    "name": "k8-doubts.md",
+    "path": "Kubernetes/k8-doubts.md",
+    "size": 31285,
+    "mtime": "2026-07-20T07:22:24.110Z"
+  },
+  {
+    "name": "kubernetes.md",
+    "path": "Kubernetes/kubernetes.md",
+    "size": 38267,
+    "mtime": "2026-07-20T07:22:24.110Z"
+  },
+  {
+    "name": "cicd-pipeline.md",
+    "path": "Project/cicd-pipeline.md",
+    "size": 211,
+    "mtime": "2026-07-20T07:22:24.110Z"
+  },
+  {
+    "name": "README.md",
+    "path": "README.md",
+    "size": 2441,
+    "mtime": "2026-07-20T07:35:41.811Z"
+  },
+  {
+    "name": "cloud-formation.md",
+    "path": "Terraform and CF/cloud-formation.md",
+    "size": 17195,
+    "mtime": "2026-07-20T07:22:24.110Z"
+  },
+  {
+    "name": "README.md",
+    "path": "Terraform and CF/course-files/01-cloud-and-iac/README.md",
+    "size": 100,
+    "mtime": "2026-07-20T07:22:24.111Z"
+  },
+  {
+    "name": "README.md",
+    "path": "Terraform and CF/course-files/02-overview/README.md",
+    "size": 695,
+    "mtime": "2026-07-20T07:22:24.111Z"
+  },
+  {
+    "name": "README.md",
+    "path": "Terraform and CF/course-files/03-basics/README.md",
+    "size": 1245,
+    "mtime": "2026-07-20T07:22:24.111Z"
+  },
+  {
+    "name": "README.md",
+    "path": "Terraform and CF/course-files/03-basics/web-app/README.md",
+    "size": 473,
+    "mtime": "2026-07-20T07:22:24.112Z"
+  },
+  {
+    "name": "README.md",
+    "path": "Terraform and CF/course-files/04-variables-and-outputs/examples/README.md",
+    "size": 1440,
+    "mtime": "2026-07-20T07:22:24.113Z"
+  },
+  {
+    "name": "README.md",
+    "path": "Terraform and CF/course-files/05-language-features/README.md",
+    "size": 3457,
+    "mtime": "2026-07-20T07:22:24.114Z"
+  },
+  {
+    "name": "README.md",
+    "path": "Terraform and CF/course-files/06-organization-and-modules/README.md",
+    "size": 75,
+    "mtime": "2026-07-20T07:22:24.114Z"
+  },
+  {
+    "name": "README.md",
+    "path": "Terraform and CF/course-files/06-organization-and-modules/consul/README.md",
+    "size": 93,
+    "mtime": "2026-07-20T07:22:24.114Z"
+  },
+  {
+    "name": "README.md",
+    "path": "Terraform and CF/course-files/07-managing-multiple-environments/file-structure/README.md",
+    "size": 258,
+    "mtime": "2026-07-20T07:22:24.116Z"
+  },
+  {
+    "name": "README.md",
+    "path": "Terraform and CF/course-files/07-managing-multiple-environments/workspaces/README.md",
+    "size": 148,
+    "mtime": "2026-07-20T07:22:24.116Z"
+  },
+  {
+    "name": "README.md",
+    "path": "Terraform and CF/course-files/08-testing/deployed/README.md",
+    "size": 59,
+    "mtime": "2026-07-20T07:22:24.117Z"
+  },
+  {
+    "name": "README.md",
+    "path": "Terraform and CF/course-files/08-testing/examples/README.md",
+    "size": 49,
+    "mtime": "2026-07-20T07:22:24.117Z"
+  },
+  {
+    "name": "README.md",
+    "path": "Terraform and CF/course-files/08-testing/modules/README.md",
+    "size": 41,
+    "mtime": "2026-07-20T07:22:24.118Z"
+  },
+  {
+    "name": "README.md",
+    "path": "Terraform and CF/course-files/08-testing/modules/hello-world/README.md",
+    "size": 107,
+    "mtime": "2026-07-20T07:22:24.118Z"
+  },
+  {
+    "name": "README.md",
+    "path": "Terraform and CF/course-files/08-testing/tests/README.md",
+    "size": 24,
+    "mtime": "2026-07-20T07:22:24.118Z"
+  },
+  {
+    "name": "README.md",
+    "path": "Terraform and CF/course-files/08-testing/tests/static/README.md",
+    "size": 1333,
+    "mtime": "2026-07-20T07:22:24.119Z"
+  },
+  {
+    "name": "README.md",
+    "path": "Terraform and CF/course-files/08-testing/tests/terratest/README.md",
+    "size": 117,
+    "mtime": "2026-07-20T07:22:24.119Z"
+  },
+  {
+    "name": "README.md",
+    "path": "Terraform and CF/course-files/09-developer-workflows/README.md",
+    "size": 227,
+    "mtime": "2026-07-20T07:22:24.119Z"
+  },
+  {
+    "name": "README.md",
+    "path": "Terraform and CF/course-files/README.md",
+    "size": 1780,
+    "mtime": "2026-07-20T07:22:24.119Z"
+  },
+  {
+    "name": "learnlog.md",
+    "path": "Terraform and CF/learnlog.md",
+    "size": 14815,
+    "mtime": "2026-07-20T07:22:24.120Z"
+  },
+  {
+    "name": "sample-project.md",
+    "path": "Terraform and CF/sample-project.md",
+    "size": 6000,
+    "mtime": "2026-07-20T07:22:24.120Z"
+  },
+  {
+    "name": "terraform.md",
+    "path": "Terraform and CF/terraform.md",
+    "size": 5927,
+    "mtime": "2026-07-20T07:22:24.120Z"
+  },
+  {
+    "name": "ansible.md",
+    "path": "ansible.md",
+    "size": 241,
+    "mtime": "2026-07-20T07:22:24.120Z"
+  },
+  {
+    "name": "argo-cd-integration-helm.md",
+    "path": "argo-cd-integration-helm.md",
+    "size": 7243,
+    "mtime": "2026-07-20T07:22:24.120Z"
+  },
+  {
+    "name": "aws.md",
+    "path": "aws.md",
+    "size": 5238,
+    "mtime": "2026-07-20T07:22:24.120Z"
+  },
+  {
+    "name": "commands.md",
+    "path": "docker/commands.md",
+    "size": 4014,
+    "mtime": "2026-07-20T07:22:24.120Z"
+  },
+  {
+    "name": "docker-more.md",
+    "path": "docker/docker-more.md",
+    "size": 7416,
+    "mtime": "2026-07-20T07:22:24.121Z"
+  },
+  {
+    "name": "docker.md",
+    "path": "docker/docker.md",
+    "size": 0,
+    "mtime": "2026-07-20T07:22:24.121Z"
+  },
+  {
+    "name": "imp_concepts.md",
+    "path": "imp_concepts.md",
+    "size": 4180,
+    "mtime": "2026-07-20T07:22:24.121Z"
+  },
+  {
+    "name": "istio.md",
+    "path": "istio.md",
+    "size": 17800,
+    "mtime": "2026-07-20T07:22:24.121Z"
+  },
+  {
+    "name": "jenkins.md",
+    "path": "jenkins.md",
+    "size": 19038,
+    "mtime": "2026-07-20T07:22:24.121Z"
+  },
+  {
+    "name": "knative.md",
+    "path": "knative.md",
+    "size": 5607,
+    "mtime": "2026-07-20T07:22:24.121Z"
+  },
+  {
+    "name": "bash-scripting.md",
+    "path": "scripting/bash-scripting.md",
+    "size": 0,
+    "mtime": "2026-07-20T07:22:24.122Z"
+  },
+  {
+    "name": "linux-cmds.md",
+    "path": "scripting/linux-cmds.md",
+    "size": 5242,
+    "mtime": "2026-07-20T07:22:24.122Z"
+  },
+  {
+    "name": "linux-permissions.md",
+    "path": "scripting/linux-permissions.md",
+    "size": 6977,
+    "mtime": "2026-07-20T07:22:24.122Z"
+  },
+  {
+    "name": "shell-scripting-devops.md",
+    "path": "scripting/shell-scripting-devops.md",
+    "size": 29,
+    "mtime": "2026-07-20T07:22:24.122Z"
+  }
+]

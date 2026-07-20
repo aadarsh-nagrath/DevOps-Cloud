@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevOps & Cloud Notes Hub</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Prismjs Theme -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <i class="fa-solid fa-cloud-sun"></i>
+          <span>DevOps Cloud Hub</span>
+        </div>
+        <p class="subtitle">Personal Learning Dashboard</p>
+      </div>
+
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="note-search" placeholder="Search notes..." autocomplete="off">
+        <button id="clear-search" class="clear-btn" style="display: none;"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <nav class="notes-tree" id="notes-tree">
+        <!-- Tree content injected by JS -->
+        <div class="loader-container">
+          <div class="loader"></div>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <header class="content-header">
+        <div class="header-left">
+          <button id="toggle-sidebar" class="icon-btn" title="Toggle Sidebar">
+            <i class="fa-solid fa-bars-staggered"></i>
+          </button>
+          <div class="breadcrumbs" id="breadcrumbs">
+            <span>Select a note to start reading</span>
+          </div>
+        </div>
+        <div class="header-right" style="display: flex; gap: 12px;">
+          <a href="https://github.com/aadarsh-nagrath/DevOps-Cloud" target="_blank" class="icon-btn" title="Contribute on GitHub">
+            <i class="fa-brands fa-github"></i>
+          </a>
+          <button id="theme-toggle" class="icon-btn" title="Toggle Theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- Viewer Frame -->
+      <section class="viewer-body">
+        <div class="welcome-screen" id="welcome-screen">
+          <div class="welcome-card">
+            <div class="pulse-icon">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <h1>Welcome to your DevOps Hub</h1>
+            <p>Select any markdown note from the sidebar to view detailed reference guides, scripts, and configurations.</p>
+            <div class="stats-box">
+              <div class="stat-item">
+                <span class="stat-num" id="total-notes-count">0</span>
+                <span class="stat-lbl">Notes Available</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="markdown-container" id="markdown-container" style="display: none;">
+          <article id="note-content" class="markdown-body">
+            <!-- Rendered note content -->
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- CDN scripts -->
+  <!-- Marked.js (Markdown parser) -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- Prism.js (Syntax highlighters) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <!-- Prism Language components for DevOps/Cloud tools -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-docker.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-hcl.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ini.min.js"></script>
+  
+  <script src="app.js"></script>
+</body>
+</html>
