@@ -1,11 +1,5 @@
 [
   {
-    "name": "Argo-cd.md",
-    "path": "Argo-cd.md",
-    "size": 16175,
-    "mtime": "2026-07-20T07:22:24.093Z"
-  },
-  {
     "name": "#40daysofkubernetes.md",
     "path": "CKA/#40daysofkubernetes.md",
     "size": 2622,
@@ -522,16 +516,166 @@
     "mtime": "2026-07-20T07:22:24.108Z"
   },
   {
+    "name": "aws.md",
+    "path": "Cloud/AWS/aws.md",
+    "size": 5238,
+    "mtime": "2026-07-20T07:22:24.120Z"
+  },
+  {
+    "name": "azure.md",
+    "path": "Cloud/AZURE/azure.md",
+    "size": 8653,
+    "mtime": "2026-07-20T08:00:48.800Z"
+  },
+  {
     "name": "Cloud-Networking-for-DevOps.md",
-    "path": "Cloud-Networking-for-DevOps.md",
+    "path": "Cloud/Cloud-Networking-for-DevOps.md",
     "size": 61826,
     "mtime": "2026-07-20T07:22:24.108Z"
   },
   {
-    "name": "EFK.md",
-    "path": "EFK.md",
-    "size": 1,
-    "mtime": "2026-07-20T07:22:24.108Z"
+    "name": "gcp.md",
+    "path": "Cloud/GCP/gcp.md",
+    "size": 10530,
+    "mtime": "2026-07-20T08:00:49.187Z"
+  },
+  {
+    "name": "advanced-and-production-patterns.md",
+    "path": "Configuration Management/ansible/advanced-and-production-patterns.md",
+    "size": 12186,
+    "mtime": "2026-07-21T11:27:42.303Z"
+  },
+  {
+    "name": "ansible.md",
+    "path": "Configuration Management/ansible/ansible.md",
+    "size": 10469,
+    "mtime": "2026-07-21T11:23:06.379Z"
+  },
+  {
+    "name": "inventory-and-dynamic-inventory.md",
+    "path": "Configuration Management/ansible/inventory-and-dynamic-inventory.md",
+    "size": 6413,
+    "mtime": "2026-07-21T11:25:44.045Z"
+  },
+  {
+    "name": "playbooks-and-modules.md",
+    "path": "Configuration Management/ansible/playbooks-and-modules.md",
+    "size": 13912,
+    "mtime": "2026-07-21T11:24:00.124Z"
+  },
+  {
+    "name": "roles-and-collections.md",
+    "path": "Configuration Management/ansible/roles-and-collections.md",
+    "size": 8862,
+    "mtime": "2026-07-21T11:25:18.685Z"
+  },
+  {
+    "name": "testing-and-ci.md",
+    "path": "Configuration Management/ansible/testing-and-ci.md",
+    "size": 8367,
+    "mtime": "2026-07-21T11:26:53.031Z"
+  },
+  {
+    "name": "variables-and-templating.md",
+    "path": "Configuration Management/ansible/variables-and-templating.md",
+    "size": 10192,
+    "mtime": "2026-07-21T11:24:47.579Z"
+  },
+  {
+    "name": "vault-and-security.md",
+    "path": "Configuration Management/ansible/vault-and-security.md",
+    "size": 9214,
+    "mtime": "2026-07-21T11:26:21.369Z"
+  },
+  {
+    "name": "advanced-and-production-patterns.md",
+    "path": "Configuration Management/chef/advanced-and-production-patterns.md",
+    "size": 14151,
+    "mtime": "2026-07-21T11:26:57.737Z"
+  },
+  {
+    "name": "attributes-and-templates.md",
+    "path": "Configuration Management/chef/attributes-and-templates.md",
+    "size": 9509,
+    "mtime": "2026-07-21T11:24:40.648Z"
+  },
+  {
+    "name": "chef.md",
+    "path": "Configuration Management/chef/chef.md",
+    "size": 10017,
+    "mtime": "2026-07-21T11:23:17.731Z"
+  },
+  {
+    "name": "cookbooks-and-recipes.md",
+    "path": "Configuration Management/chef/cookbooks-and-recipes.md",
+    "size": 10908,
+    "mtime": "2026-07-21T11:24:00.793Z"
+  },
+  {
+    "name": "roles-environments-and-orgs.md",
+    "path": "Configuration Management/chef/roles-environments-and-orgs.md",
+    "size": 9276,
+    "mtime": "2026-07-21T11:25:18.580Z"
+  },
+  {
+    "name": "testing-and-dev-workflow.md",
+    "path": "Configuration Management/chef/testing-and-dev-workflow.md",
+    "size": 8437,
+    "mtime": "2026-07-21T11:25:55.323Z"
+  },
+  {
+    "name": "advanced-and-production-patterns.md",
+    "path": "Configuration Management/puppet/advanced-and-production-patterns.md",
+    "size": 13162,
+    "mtime": "2026-07-21T11:28:38.243Z"
+  },
+  {
+    "name": "classes-modules-and-templates.md",
+    "path": "Configuration Management/puppet/classes-modules-and-templates.md",
+    "size": 11831,
+    "mtime": "2026-07-21T11:25:24.300Z"
+  },
+  {
+    "name": "hiera-and-data.md",
+    "path": "Configuration Management/puppet/hiera-and-data.md",
+    "size": 10199,
+    "mtime": "2026-07-21T11:26:10.078Z"
+  },
+  {
+    "name": "manifests-and-resources.md",
+    "path": "Configuration Management/puppet/manifests-and-resources.md",
+    "size": 11672,
+    "mtime": "2026-07-21T11:24:33.309Z"
+  },
+  {
+    "name": "nodes-environments-and-roles-profiles.md",
+    "path": "Configuration Management/puppet/nodes-environments-and-roles-profiles.md",
+    "size": 11063,
+    "mtime": "2026-07-21T11:26:57.407Z"
+  },
+  {
+    "name": "puppet.md",
+    "path": "Configuration Management/puppet/puppet.md",
+    "size": 9897,
+    "mtime": "2026-07-21T11:23:43.498Z"
+  },
+  {
+    "name": "testing-and-ci.md",
+    "path": "Configuration Management/puppet/testing-and-ci.md",
+    "size": 8458,
+    "mtime": "2026-07-21T11:27:35.388Z"
+  },
+  {
+    "name": "Argo-cd.md",
+    "path": "Continuous Delivery/ArgoCD/Argo-cd.md",
+    "size": 16175,
+    "mtime": "2026-07-20T07:22:24.093Z"
+  },
+  {
+    "name": "jenkins.md",
+    "path": "Continuous Integration/Jenkins/jenkins.md",
+    "size": 19038,
+    "mtime": "2026-07-20T07:22:24.121Z"
   },
   {
     "name": "GitOps.md",
@@ -542,8 +686,14 @@
   {
     "name": "Index.md",
     "path": "Index.md",
-    "size": 4396,
-    "mtime": "2026-07-20T08:01:16.716Z"
+    "size": 5936,
+    "mtime": "2026-07-21T11:35:59.463Z"
+  },
+  {
+    "name": "knative.md",
+    "path": "Knative/knative.md",
+    "size": 5607,
+    "mtime": "2026-07-20T07:22:24.121Z"
   },
   {
     "name": "creating-helm-chart.md",
@@ -604,6 +754,12 @@
     "path": "Kubernetes/kubernetes.md",
     "size": 38267,
     "mtime": "2026-07-20T07:22:24.110Z"
+  },
+  {
+    "name": "ELK.md",
+    "path": "Monitoring and Loggin/ELK.md",
+    "size": 1,
+    "mtime": "2026-07-20T07:22:24.108Z"
   },
   {
     "name": "cicd-pipeline.md",
@@ -756,28 +912,10 @@
     "mtime": "2026-07-20T07:22:24.120Z"
   },
   {
-    "name": "ansible.md",
-    "path": "ansible.md",
-    "size": 241,
-    "mtime": "2026-07-20T07:22:24.120Z"
-  },
-  {
     "name": "argo-cd-integration-helm.md",
     "path": "argo-cd-integration-helm.md",
     "size": 7243,
     "mtime": "2026-07-20T07:22:24.120Z"
-  },
-  {
-    "name": "aws.md",
-    "path": "aws.md",
-    "size": 5238,
-    "mtime": "2026-07-20T07:22:24.120Z"
-  },
-  {
-    "name": "azure.md",
-    "path": "azure.md",
-    "size": 8653,
-    "mtime": "2026-07-20T08:00:48.800Z"
   },
   {
     "name": "commands.md",
@@ -786,28 +924,70 @@
     "mtime": "2026-07-20T07:22:24.120Z"
   },
   {
+    "name": "docker-compose.md",
+    "path": "docker/docker-compose.md",
+    "size": 14402,
+    "mtime": "2026-07-21T11:33:27.514Z"
+  },
+  {
     "name": "docker-more.md",
     "path": "docker/docker-more.md",
     "size": 7416,
     "mtime": "2026-07-20T07:22:24.121Z"
   },
   {
-    "name": "docker.md",
-    "path": "docker/docker.md",
-    "size": 0,
-    "mtime": "2026-07-20T07:22:24.121Z"
+    "name": "docker-networking.md",
+    "path": "docker/docker-networking.md",
+    "size": 8246,
+    "mtime": "2026-07-21T11:34:26.800Z"
   },
   {
-    "name": "gcp.md",
-    "path": "gcp.md",
-    "size": 10530,
-    "mtime": "2026-07-20T08:00:49.187Z"
+    "name": "docker-production-and-orchestration.md",
+    "path": "docker/docker-production-and-orchestration.md",
+    "size": 15489,
+    "mtime": "2026-07-21T11:35:17.594Z"
+  },
+  {
+    "name": "docker-registries-and-distribution.md",
+    "path": "docker/docker-registries-and-distribution.md",
+    "size": 12282,
+    "mtime": "2026-07-21T11:34:09.737Z"
+  },
+  {
+    "name": "docker-security.md",
+    "path": "docker/docker-security.md",
+    "size": 17660,
+    "mtime": "2026-07-21T11:33:15.640Z"
+  },
+  {
+    "name": "docker-storage-and-volumes.md",
+    "path": "docker/docker-storage-and-volumes.md",
+    "size": 7797,
+    "mtime": "2026-07-21T11:34:59.981Z"
+  },
+  {
+    "name": "docker-swarm.md",
+    "path": "docker/docker-swarm.md",
+    "size": 14778,
+    "mtime": "2026-07-21T11:34:28.258Z"
+  },
+  {
+    "name": "docker.md",
+    "path": "docker/docker.md",
+    "size": 11895,
+    "mtime": "2026-07-21T11:32:43.952Z"
+  },
+  {
+    "name": "dockerfile-deep-dive.md",
+    "path": "docker/dockerfile-deep-dive.md",
+    "size": 15608,
+    "mtime": "2026-07-21T11:33:52.450Z"
   },
   {
     "name": "imp_concepts.md",
     "path": "imp_concepts.md",
     "size": 4180,
-    "mtime": "2026-07-20T07:22:24.121Z"
+    "mtime": "2026-07-21T11:22:40.755Z"
   },
   {
     "name": "istio.md",
@@ -816,22 +996,10 @@
     "mtime": "2026-07-20T07:22:24.121Z"
   },
   {
-    "name": "jenkins.md",
-    "path": "jenkins.md",
-    "size": 19038,
-    "mtime": "2026-07-20T07:22:24.121Z"
-  },
-  {
-    "name": "knative.md",
-    "path": "knative.md",
-    "size": 5607,
-    "mtime": "2026-07-20T07:22:24.121Z"
-  },
-  {
     "name": "bash-scripting.md",
     "path": "scripting/bash-scripting.md",
-    "size": 0,
-    "mtime": "2026-07-20T07:22:24.122Z"
+    "size": 15414,
+    "mtime": "2026-07-21T11:16:59.107Z"
   },
   {
     "name": "linux-cmds.md",
@@ -848,7 +1016,7 @@
   {
     "name": "shell-scripting-devops.md",
     "path": "scripting/shell-scripting-devops.md",
-    "size": 29,
-    "mtime": "2026-07-20T07:22:24.122Z"
+    "size": 9926,
+    "mtime": "2026-07-20T09:42:05.621Z"
   }
 ]

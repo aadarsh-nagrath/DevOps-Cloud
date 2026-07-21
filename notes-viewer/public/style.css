@@ -593,15 +593,26 @@ body {
 .icon-k8s, .folder-k8s { color: #326ce5 !important; }
 .icon-docker, .folder-docker { color: #0db7ed !important; }
 .icon-terraform, .folder-terraform { color: #844fba !important; }
-.icon-aws { color: #ff9900 !important; }
-.icon-azure { color: #0089d6 !important; }
-.icon-gcp { color: #4285f4 !important; }
-.icon-bash, .folder-scripting { color: #10b981 !important; }
-.icon-jenkins { color: #d24939 !important; }
-.icon-ansible { color: #ee0000 !important; }
-.icon-git { color: #f05032 !important; }
+.icon-aws, .folder-aws { color: #ff9900 !important; }
+.icon-azure, .folder-azure { color: #0089d6 !important; }
+.icon-gcp, .folder-gcp { color: #4285f4 !important; }
+.icon-bash, .folder-bash, .folder-scripting { color: #10b981 !important; }
+.icon-jenkins, .folder-jenkins { color: #d24939 !important; }
+.icon-ansible, .folder-ansible { color: #ee0000 !important; }
+.icon-chef, .folder-chef { color: #f39c12 !important; }
+.icon-puppet, .folder-puppet { color: #ffae1a !important; }
+.icon-git, .folder-git { color: #f05032 !important; }
+.icon-argo, .folder-argo { color: #ef7b4d !important; }
+.icon-helm, .folder-helm { color: #0f1689 !important; }
+.icon-knative, .folder-knative { color: #7638e0 !important; }
+.icon-istio, .folder-istio { color: #466bb0 !important; }
+.icon-network, .folder-network { color: #14b8a6 !important; }
+.icon-deploy, .folder-deploy { color: #ec4899 !important; }
+.icon-monitoring, .folder-monitoring { color: #e6522c !important; }
+.icon-security, .folder-security { color: #dc2626 !important; }
+.icon-yaml { color: #cb171e !important; }
 .icon-index { color: #f59e0b !important; }
-.folder-project { color: #ec4899 !important; }
+.icon-project, .folder-project { color: #ec4899 !important; }
 
 /* Icon zoom transitions */
 .tree-file i, .folder-header i {

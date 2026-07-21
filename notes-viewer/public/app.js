@@ -202,55 +202,110 @@ function renderTree(files, autoExpand = false) {
   notesTreeEl.appendChild(fragment);
 }
 
+// Ordered list of [matcher, iconClass, colorClass] rules, most-specific first.
+// Matched against both the filename and the full lowercased path so a rule
+// like "ansible" catches Configuration Management/ansible/*.md regardless
+// of which repo folder it lives under.
+const ICON_RULES = [
+  // --- Configuration Management ---
+  [/ansible/, 'fa-solid fa-gears', 'icon-ansible'],
+  [/chef/, 'fa-solid fa-utensils', 'icon-chef'],
+  [/puppet/, 'fa-solid fa-hand-sparkles', 'icon-puppet'],
+
+  // --- Containers & Orchestration ---
+  [/docker/, 'fa-brands fa-docker', 'icon-docker'],
+  [/swarm/, 'fa-solid fa-network-wired', 'icon-docker'],
+  [/kubernetes|k8s|\bk8\b|kustomize/, 'fa-solid fa-dharmachakra', 'icon-k8s'],
+  [/helm/, 'fa-solid fa-ship', 'icon-helm'],
+  [/\bcka\b/, 'fa-solid fa-graduation-cap', 'icon-k8s'],
+  [/knative/, 'fa-solid fa-bolt-lightning', 'icon-knative'],
+  [/istio|service.?mesh/, 'fa-solid fa-diagram-project', 'icon-istio'],
+
+  // --- IaC ---
+  [/terraform/, 'fa-solid fa-cubes', 'icon-terraform'],
+  [/cloud.?formation|\bcf\b/, 'fa-solid fa-cubes', 'icon-terraform'],
+
+  // --- Cloud Providers ---
+  [/azure/, 'fa-brands fa-microsoft', 'icon-azure'],
+  [/\bgcp\b|google.?cloud/, 'fa-brands fa-google', 'icon-gcp'],
+  [/\baws\b/, 'fa-brands fa-aws', 'icon-aws'],
+  [/networking/, 'fa-solid fa-network-wired', 'icon-network'],
+  [/cloud/, 'fa-solid fa-cloud', 'icon-aws'],
+
+  // --- CI/CD ---
+  [/jenkins/, 'fa-brands fa-jenkins', 'icon-jenkins'],
+  [/github.?actions/, 'fa-brands fa-github', 'icon-git'],
+  [/circleci/, 'fa-solid fa-circle-notch', 'icon-jenkins'],
+  [/argo/, 'fa-solid fa-water', 'icon-argo'],
+  [/gitops/, 'fa-solid fa-code-branch', 'icon-git'],
+  [/git/, 'fa-solid fa-square-git', 'icon-git'],
+  [/cicd|pipeline|continuous.?(integration|delivery|deployment)/, 'fa-solid fa-circle-nodes', 'icon-jenkins'],
+
+  // --- Deployment strategies ---
+  [/blue.?green/, 'fa-solid fa-arrows-left-right', 'icon-deploy'],
+  [/canary/, 'fa-solid fa-dove', 'icon-deploy'],
+  [/deployment/, 'fa-solid fa-rocket', 'icon-deploy'],
+  [/load.?balanc/, 'fa-solid fa-scale-balanced', 'icon-deploy'],
+
+  // --- Monitoring & Logging ---
+  [/prometheous|prometheus/, 'fa-solid fa-fire', 'icon-monitoring'],
+  [/grafana/, 'fa-solid fa-chart-line', 'icon-monitoring'],
+  [/kibana/, 'fa-solid fa-magnifying-glass-chart', 'icon-monitoring'],
+  [/elasticsearch|\belk\b/, 'fa-solid fa-magnifying-glass', 'icon-monitoring'],
+  [/fluentid|fluentd/, 'fa-solid fa-water', 'icon-monitoring'],
+  [/datadog/, 'fa-solid fa-paw', 'icon-monitoring'],
+  [/\befk\b/, 'fa-solid fa-layer-group', 'icon-monitoring'],
+  [/monitoring|loggin/, 'fa-solid fa-chart-line', 'icon-monitoring'],
+
+  // --- Security / Resilience / DR ---
+  [/vault|secrets?/, 'fa-solid fa-lock', 'icon-security'],
+  [/security/, 'fa-solid fa-shield-halved', 'icon-security'],
+  [/chaos/, 'fa-solid fa-explosion', 'icon-security'],
+  [/backup|disaster/, 'fa-solid fa-database', 'icon-security'],
+
+  // --- Scripting / Linux ---
+  [/permissions/, 'fa-solid fa-user-lock', 'icon-bash'],
+  [/scripting|bash|linux.?cmds|\.sh$/, 'fa-solid fa-terminal', 'icon-bash'],
+
+  // --- Misc ---
+  [/project/, 'fa-solid fa-diagram-project', 'icon-project'],
+  [/readme/, 'fa-solid fa-book', 'icon-index'],
+];
+
 // Helper to get cooler, specific file icons
 function getFileIconClass(fileName, filePath) {
   const name = fileName.toLowerCase();
   const path = filePath.toLowerCase();
-  
+
   if (name === 'index.md') return 'fa-solid fa-map icon-index';
-  
-  if (path.includes('kubernetes') || path.includes('k8') || path.includes('cka')) {
-    return 'fa-solid fa-dharmachakra icon-k8s';
+  if (name === 'readme.md') return 'fa-solid fa-book icon-index';
+
+  for (const [matcher, icon, color] of ICON_RULES) {
+    if (matcher.test(path) || matcher.test(name)) {
+      return `${icon} ${color}`;
+    }
   }
-  if (path.includes('docker')) {
-    return 'fa-brands fa-docker icon-docker';
-  }
-  if (path.includes('terraform') || path.includes('cf')) {
-    return 'fa-solid fa-cubes icon-terraform';
-  }
-  if (path.includes('azure')) {
-    return 'fa-brands fa-microsoft icon-azure';
-  }
-  if (path.includes('gcp') || path.includes('google')) {
-    return 'fa-brands fa-google icon-gcp';
-  }
-  if (path.includes('aws') || path.includes('cloud')) {
-    return 'fa-solid fa-cloud icon-aws';
-  }
-  if (path.includes('scripting') || name.endsWith('.sh') || path.includes('bash')) {
-    return 'fa-solid fa-terminal icon-bash';
-  }
-  if (path.includes('jenkins') || path.includes('cicd') || path.includes('pipeline')) {
-    return 'fa-solid fa-circle-nodes icon-jenkins';
-  }
-  if (path.includes('ansible')) {
-    return 'fa-solid fa-gears icon-ansible';
-  }
-  if (path.includes('git') || path.includes('argo')) {
-    return 'fa-solid fa-square-git icon-git';
-  }
-  
-  return 'fa-regular fa-file-code icon-default';
+
+  if (name.endsWith('.yml') || name.endsWith('.yaml')) return 'fa-solid fa-file-code icon-yaml';
+  if (name.endsWith('.json')) return 'fa-solid fa-file-code icon-yaml';
+
+  return 'fa-regular fa-file-lines icon-default';
 }
 
-// Helper to get folder icons based on directory name
-function getFolderIconClass(folderName) {
+// Helper to get folder icons based on directory name/path
+function getFolderIconClass(folderName, folderPath) {
   const name = folderName.toLowerCase();
-  if (name.includes('kubernetes') || name.includes('cka')) return 'fa-solid fa-dharmachakra folder-k8s';
-  if (name.includes('docker')) return 'fa-brands fa-docker folder-docker';
-  if (name.includes('terraform') || name.includes('cf') || name.includes('cloud')) return 'fa-solid fa-cubes folder-terraform';
-  if (name.includes('scripting')) return 'fa-solid fa-terminal folder-scripting';
-  if (name.includes('project')) return 'fa-solid fa-diagram-project folder-project';
+  const path = (folderPath || folderName).toLowerCase();
+
+  for (const [matcher, icon, color] of ICON_RULES) {
+    if (matcher.test(path) || matcher.test(name)) {
+      // Reuse the file icon's color rule but as a folder- class, so open/closed
+      // folder tinting matches the color of the files it contains.
+      const folderColor = color.replace(/^icon-/, 'folder-');
+      return `fa-solid fa-folder-closed ${folderColor}`;
+    }
+  }
+
   return 'fa-solid fa-folder-closed'; // Default folder closed
 }
 
@@ -293,7 +348,7 @@ function createTreeNodes(obj, container, autoExpand, parentPath = '') {
 
       const folderHeader = document.createElement('div');
       folderHeader.className = `folder-header ${!autoExpand ? 'collapsed' : ''}`;
-      const folderIcon = getFolderIconClass(key);
+      const folderIcon = getFolderIconClass(key, currentFolderQueryPath);
       folderHeader.innerHTML = `
         <i class="${folderIcon} folder-icon"></i>
         <span>${key}</span>
@@ -312,11 +367,10 @@ function createTreeNodes(obj, container, autoExpand, parentPath = '') {
         const isCollapsed = folderHeader.classList.toggle('collapsed');
         folderContent.style.display = isCollapsed ? 'none' : 'block';
         
-        // Toggle folder icon state if it's the default closed/open folder icon
+        // Toggle open/closed folder glyph while preserving its color class
         const fIcon = folderHeader.querySelector('.folder-icon');
-        if (fIcon.classList.contains('fa-folder-closed') || fIcon.classList.contains('fa-folder-open')) {
-          fIcon.className = `fa-solid ${isCollapsed ? 'fa-folder-closed' : 'fa-folder-open'} folder-icon`;
-        }
+        fIcon.classList.remove('fa-folder-closed', 'fa-folder-open');
+        fIcon.classList.add(isCollapsed ? 'fa-folder-closed' : 'fa-folder-open');
       });
 
       // Recurse children

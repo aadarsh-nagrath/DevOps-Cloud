@@ -45,9 +45,17 @@ Welcome to the centralized index of all notes in this repository. Click any link
 
 | Note | Description |
 |---|---|
-| [Docker Fundamentals](docker/docker.md) | Images, containers, Dockerfile, volumes, networks |
+| [Docker Fundamentals](docker/docker.md) | Overview & index — containers vs VMs, architecture, install, glossary |
 | [Docker Commands](docker/commands.md) | Essential Docker CLI cheat sheet |
-| [Docker Advanced](docker/docker-more.md) | Multi-stage builds, Docker Compose, optimization |
+| [Docker Advanced](docker/docker-more.md) | Volume drivers, multi-stage builds, `Dockerfile.lock` |
+| [Dockerfile Deep Dive](docker/dockerfile-deep-dive.md) | Every instruction, build context, layer caching, BuildKit, buildx |
+| [Docker Networking](docker/docker-networking.md) | Bridge/host/overlay/macvlan drivers, DNS, port publishing, troubleshooting |
+| [Docker Storage & Volumes](docker/docker-storage-and-volumes.md) | Volumes vs bind mounts vs tmpfs, backup/restore, stateful patterns |
+| [Docker Compose](docker/docker-compose.md) | Multi-container apps, full YAML reference, profiles, override files |
+| [Docker Swarm](docker/docker-swarm.md) | Swarm mode, services, stacks, routing mesh, secrets |
+| [Docker Security](docker/docker-security.md) | Non-root, capabilities, seccomp/AppArmor, image scanning, secrets |
+| [Docker Registries & Distribution](docker/docker-registries-and-distribution.md) | Docker Hub vs private registries, tagging, auth, multi-arch manifests |
+| [Docker Production & Orchestration](docker/docker-production-and-orchestration.md) | Health checks, logging, restart policies, orchestrator comparison, CI/CD |
 
 ---
 
@@ -94,11 +102,20 @@ Welcome to the centralized index of all notes in this repository. Click any link
 
 ---
 
+## ⚙️ Configuration Management
+
+| Note | Description |
+|---|---|
+| [Chef](Configuration%20Management/chef/chef.md) | Client-server & masterless architecture, cookbooks, recipes, roles, environments, testing |
+| [Ansible](Configuration%20Management/ansible/ansible.md) | Agentless architecture, playbooks, roles, collections, vault, dynamic inventory, testing & CI |
+| [Puppet](Configuration%20Management/puppet/puppet.md) | Agent/master architecture, manifests, classes/modules, Hiera, roles & profiles, PuppetDB, testing & CI |
+
+---
+
 ## 🔧 Tools & Miscellaneous
 
 | Note | Description |
 |---|---|
-| [Ansible](ansible.md) | Configuration management, playbooks, roles |
 | [Important Concepts](imp_concepts.md) | Cross-cutting DevOps concepts and principles |
 | [EFK Stack](EFK.md) | Elasticsearch, Fluentd, Kibana for log aggregation |
 
