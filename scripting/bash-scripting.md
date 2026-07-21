@@ -391,7 +391,165 @@ env="$1"
 
 ---
 
-## 12. Style & Best Practices
+## 12. `grep` — Pattern Searching
+
+```bash
+grep "pattern" file                 # basic search
+grep -i "pattern" file              # case-insensitive
+grep -v "pattern" file              # invert match (lines NOT matching)
+grep -r "pattern" dir/              # recursive search through a directory
+grep -n "pattern" file              # show line numbers
+grep -c "pattern" file              # count matching lines
+grep -l "pattern" *.log             # list only filenames that match
+grep -w "word" file                 # match whole word only
+grep -A3 -B1 "ERROR" file           # 3 lines After, 1 line Before match
+grep -E "err(or)?s?" file           # extended regex (equivalent to egrep)
+grep -o "[0-9]\+" file              # print only the matched portion
+grep --include="*.js" -r "TODO" .   # restrict recursive search by file type
+grep -F "literal.string" file       # fixed string, no regex interpretation
+```
+
+### Practical examples
+```bash
+# Find all IP addresses in a log file
+grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' access.log
+
+# Find lines with ERROR but not DEBUG-ERROR
+grep "ERROR" app.log | grep -v "DEBUG-ERROR"
+
+# Search multiple patterns
+grep -E "error|fail|exception" app.log
+
+# Search across all yaml files in a k8s manifests repo
+grep -rn "image:" --include="*.yaml" ./manifests
+```
+
+---
+
+## 13. `sed` — Stream Editing
+
+```bash
+sed 's/old/new/' file           # replace first match per line
+sed 's/old/new/g' file          # replace all matches per line (global)
+sed -i 's/old/new/g' file       # edit file in place
+sed -i.bak 's/old/new/g' file   # edit in place, keep a .bak backup
+sed -n '5,10p' file             # print only lines 5-10
+sed '3d' file                   # delete line 3
+sed '/pattern/d' file           # delete lines matching pattern
+sed -n '/start/,/end/p' file    # print block between two patterns
+sed 's/^/PREFIX: /' file        # prepend text to every line
+sed 's/$/,/' file               # append text to end of every line
+sed '/^$/d' file                # delete blank lines
+```
+
+### Practical examples
+```bash
+# Replace an environment value in a config file
+sed -i 's/ENV=development/ENV=production/' .env
+
+# Comment out a line matching a pattern
+sed -i '/^DEBUG=/s/^/#/' config.conf
+
+# Update a version string across multiple files
+sed -i "s/version: .*/version: 2.1.0/" *.yaml
+
+# Extract just the value of a key from a simple key=value file
+sed -n 's/^API_KEY=//p' .env
+
+# Remove trailing whitespace from every line
+sed -i 's/[ \t]*$//' file.txt
+```
+> On macOS (BSD `sed`), `-i` requires an explicit argument even if empty: `sed -i '' 's/old/new/' file`. GNU `sed` (Linux) allows `-i` with no argument for no backup.
+
+---
+
+## 14. `awk` — Field/Column Processing
+
+```bash
+awk '{print $1}' file            # print first column (whitespace-delimited)
+awk '{print $1, $3}' file        # print 1st and 3rd columns
+awk -F: '{print $1}' /etc/passwd # use ':' as field separator
+awk '{print NF}' file            # print number of fields per line
+awk '{print NR, $0}' file        # print line number + full line
+awk '/pattern/ {print}' file     # print lines matching pattern (like grep)
+awk '$3 > 100 {print $1}' file   # conditional filter on a column's value
+awk '{sum += $2} END {print sum}' file    # sum a column
+awk 'BEGIN {print "start"} {print} END {print "done"}' file
+```
+
+### Practical examples
+```bash
+# Print process using the most memory (from `ps aux`)
+ps aux | awk '{print $4, $11}' | sort -rn | head -5
+
+# Sum the size column from `du`
+du -sh */ | awk '{print $1}'
+
+# Extract usernames from /etc/passwd
+awk -F: '{print $1}' /etc/passwd
+
+# Count occurrences of each HTTP status code in an access log
+awk '{print $9}' access.log | sort | uniq -c | sort -rn
+
+# Print lines where column 5 (disk usage %) exceeds 80
+df -h | awk '$5+0 > 80 {print $6, $5}'
+
+# Reformat CSV: swap column 1 and 2
+awk -F, '{print $2","$1}' data.csv
+```
+
+### `awk` vs `sed` vs `grep` — when to use which
+| Tool | Best for |
+|---|---|
+| `grep` | Finding/filtering lines that match a pattern |
+| `sed` | Substituting or deleting text within lines, simple line-based transforms |
+| `awk` | Column/field-based processing, calculations, structured text (logs, CSV, `ps`/`df` output) |
+
+They compose well in pipelines: `grep` to narrow down lines, `awk` to extract/compute fields, `sed` to reformat the final output.
+
+---
+
+## 15. Other Essential Text-Processing Commands
+
+```bash
+cut -d: -f1 /etc/passwd          # extract field 1, ':' delimited (simpler alternative to awk for single fields)
+sort file                        # sort lines alphabetically
+sort -n file                     # numeric sort
+sort -r file                     # reverse sort
+sort -k2 file                    # sort by 2nd column
+sort -u file                     # sort and remove duplicates
+uniq file                        # remove adjacent duplicate lines (input must be sorted first)
+uniq -c file                     # count occurrences of each line
+wc -l file                       # count lines
+wc -w file                       # count words
+tr 'a-z' 'A-Z' < file            # translate/transform characters (lowercase -> uppercase)
+tr -d '\n' < file                # delete characters (e.g. strip newlines)
+tee file                         # write stdout to a file AND pass it through the pipe
+xargs                            # build/execute commands from stdin input
+column -t file                   # align columns into a readable table
+diff file1 file2                 # show differences between two files
+comm file1 file2                 # compare two sorted files line by line
+paste file1 file2                # merge lines of files side by side
+```
+
+### Practical examples
+```bash
+# Get unique visitor IPs sorted by frequency
+awk '{print $1}' access.log | sort | uniq -c | sort -rn
+
+# Delete all *.tmp files found under a directory
+find . -name "*.tmp" | xargs rm -f
+
+# Pretty-print a tab/space separated file as a table
+cat data.txt | column -t
+
+# Count unique error types in a log
+grep "ERROR" app.log | cut -d: -f3 | sort | uniq -c | sort -rn
+```
+
+---
+
+## 16. Style & Best Practices
 
 - Always quote variables: `"$var"`, not `$var`.
 - Use `[[ ]]` over `[ ]` in bash-specific scripts.
