@@ -82,6 +82,22 @@ Welcome to the centralized index of all notes in this repository. Click any link
 
 ---
 
+## 🚢 Deployment Strategies
+
+| Note | Description |
+|---|---|
+| [Deployment Strategies Overview](Deployment/deployment-strategies.md) | Index & comparison of all strategies, health checks, rollback, DB migrations |
+| [Recreate Deployment](Deployment/recreate-deployment.md) | Simplest strategy — full stop/start, accepted downtime |
+| [Rolling Deployment](Deployment/rolling-deployment.md) | Gradual instance replacement, maxSurge/maxUnavailable tuning |
+| [Blue-Green Deployment](Deployment/Blue-Green%20Deployment/blue-green-deployment.md) | Two full environments, instant cutover & rollback |
+| [Canary Deployment](Deployment/Canary%20Deployment/canary-deployment.md) | Gradual traffic shifting with automated metric-based promotion |
+| [A/B Testing](Deployment/ab-testing-deployment.md) | Product/business experimentation vs technical canary release |
+| [Shadow Deployment](Deployment/shadow-deployment.md) | Mirror real traffic to a new version with zero user-facing risk |
+| [Feature Flags & Progressive Delivery](Deployment/feature-flags-and-progressive-delivery.md) | Decoupling deploy from release, ring-based rollout, flag hygiene |
+| [Deployment Anti-Patterns & Checklist](Deployment/deployment-anti-patterns-and-checklist.md) | Common mistakes, strategy decision guide, pre-deploy checklist |
+
+---
+
 ## 🌐 Service Mesh & Networking
 
 | Note | Description |
