@@ -107,6 +107,23 @@ Welcome to the centralized index of all notes in this repository. Click any link
 
 ---
 
+## ⚖️ Load Balancing
+
+| Note | Description |
+|---|---|
+| [Load Balancing Overview](Load%20Balancing/load-balancing-overview.md) | Core concepts, glossary, where LBs sit in a real architecture |
+| [Load Balancing Algorithms](Load%20Balancing/load-balancing-algorithms.md) | Round robin, least connections, IP hash, consistent hashing, latency-based |
+| [L4 vs L7 Load Balancing](Load%20Balancing/l4-vs-l7-load-balancing.md) | Transport vs application layer — what each can and can't do |
+| [Software Load Balancers](Load%20Balancing/software-load-balancers.md) | NGINX, HAProxy, Envoy — config examples and when to pick which |
+| [Cloud Load Balancers](Load%20Balancing/cloud-load-balancers.md) | AWS (ALB/NLB/GLB), Azure (LB/App Gateway/Front Door), GCP compared |
+| [Kubernetes Load Balancing](Load%20Balancing/kubernetes-load-balancing.md) | Service types, kube-proxy, Ingress, service mesh load balancing |
+| [Health Checks & Failover](Load%20Balancing/health-checks-and-failover.md) | Active vs passive checks, tuning trade-offs, thundering herd, split-brain |
+| [Sticky Sessions & Session Affinity](Load%20Balancing/sticky-sessions-and-session-affinity.md) | Cookie/IP-based affinity, when to externalize state instead |
+| [DNS & Global Load Balancing](Load%20Balancing/dns-and-global-load-balancing.md) | DNS round robin, GeoDNS, anycast, multi-region GSLB |
+| [Load Balancing Production Simulation](Load%20Balancing/load-balancing-production-simulation.md) | Hands-on HAProxy walkthrough — backend failure, draining, flapping, canary weights |
+
+---
+
 ## 📜 Scripting & Linux
 
 | Note | Description |
