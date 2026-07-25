@@ -70,11 +70,31 @@ Welcome to the centralized index of all notes in this repository. Click any link
 
 ---
 
-## 🚀 CI/CD & GitOps
+## 🚀 Continuous Integration
 
 | Note | Description |
 |---|---|
-| [Jenkins](jenkins.md) | Pipelines, Jenkinsfile, agents, plugins, Blue Ocean |
+| [CI Fundamentals](Continuous%20Integration/ci-fundamentals.md) | Concepts common to every CI tool — pipelines, triggers, matrices, caching, secrets, artifacts |
+| [Jenkins](Continuous%20Integration/Jenkins/jenkins.md) | Pipelines, Jenkinsfile, agents, plugins, Blue Ocean |
+| [GitHub Actions Overview](Continuous%20Integration/GithubActions/github-actions.md) | Workflows, jobs, actions, runners — core concepts & a first example |
+| [GitHub Actions: Syntax & Triggers](Continuous%20Integration/GithubActions/workflow-syntax-and-triggers.md) | Full `on:`/`jobs:`/`if:` reference, contexts, `pull_request_target` security |
+| [GitHub Actions: Actions & Marketplace](Continuous%20Integration/GithubActions/actions-and-marketplace.md) | Action types, SHA-pinning security, writing composite/custom actions |
+| [GitHub Actions: Matrix & Caching](Continuous%20Integration/GithubActions/matrix-builds-and-caching.md) | `strategy.matrix`, `actions/cache`, artifact upload/download between jobs |
+| [GitHub Actions: Secrets & Security](Continuous%20Integration/GithubActions/secrets-and-security.md) | Secret scoping, `GITHUB_TOKEN` permissions, OIDC cloud auth, environment gates |
+| [GitHub Actions: Reusable Workflows & CI/CD](Continuous%20Integration/GithubActions/reusable-workflows-and-cicd-patterns.md) | `workflow_call`, full lint→test→build→deploy pipeline, self-hosted runners |
+| [CircleCI Overview](Continuous%20Integration/CircleCI/circleci.md) | Cloud vs self-hosted, concept mapping vs Jenkins/GitHub Actions, first example |
+| [CircleCI: Config & Pipelines](Continuous%20Integration/CircleCI/config-syntax-and-pipelines.md) | `config.yml` syntax, built-in steps, workflows, triggers, pipeline parameters |
+| [CircleCI: Executors & Environments](Continuous%20Integration/CircleCI/executors-and-environments.md) | docker/machine/macos/windows executors, resource classes, Docker-in-Docker |
+| [CircleCI: Orbs & Reusability](Continuous%20Integration/CircleCI/orbs-and-reusability.md) | Using/writing orbs, version pinning, reusable commands, YAML anchors |
+| [CircleCI: Caching, Parallelism & Workflows](Continuous%20Integration/CircleCI/caching-parallelism-and-workflows.md) | Cache key templating, test splitting, fan-out/fan-in, manual approval jobs |
+| [CircleCI: Contexts, Security & CI/CD](Continuous%20Integration/CircleCI/contexts-security-and-cicd-patterns.md) | Contexts vs env vars, full annotated pipeline, self-hosted runners |
+
+---
+
+## 🔁 CD & GitOps
+
+| Note | Description |
+|---|---|
 | [GitOps](GitOps.md) | GitOps principles, Flux, ArgoCD-based workflows |
 | [ArgoCD](Argo-cd.md) | ArgoCD setup, apps, sync policies, RBAC |
 | [ArgoCD + Helm Integration](argo-cd-integration-helm.md) | Deploy Helm charts via ArgoCD |
@@ -98,11 +118,28 @@ Welcome to the centralized index of all notes in this repository. Click any link
 
 ---
 
-## 🌐 Service Mesh & Networking
+## 🕸️ Service Mesh
 
 | Note | Description |
 |---|---|
-| [Istio](istio.md) | Service mesh, traffic management, mTLS, Envoy |
+| [Service Mesh Overview](Service%20Mesh/service-mesh-overview.md) | Why meshes exist, sidecar pattern intro, when it's (not) worth adopting |
+| [Architecture & Sidecar Pattern](Service%20Mesh/service-mesh-architecture-and-sidecar-pattern.md) | Sidecar injection, iptables traffic interception, control vs data plane |
+| [Traffic Management](Service%20Mesh/traffic-management.md) | VirtualService/DestinationRule, traffic splitting, retries, timeouts, fault injection |
+| [Security & mTLS](Service%20Mesh/security-and-mtls.md) | Mutual TLS, certificate rotation, AuthorizationPolicy, zero-trust networking |
+| [Observability in a Service Mesh](Service%20Mesh/observability-in-service-mesh.md) | Automatic metrics, distributed tracing, Kiali service graphs |
+| [Resilience Patterns](Service%20Mesh/resilience-patterns.md) | Circuit breaking, outlier detection, stopping cascading failures |
+| [Kubernetes Ingress Deep Dive](Service%20Mesh/kubernetes-ingress-deep-dive.md) | Full Ingress spec, IngressClass, TLS/cert-manager, controllers, Gateway API |
+| [Istio Gateway & Ingress](Service%20Mesh/istio-gateway-and-ingress.md) | North-south vs east-west, Istio Gateway vs Kubernetes Ingress, ingress gateway internals |
+| [Istio vs Linkerd vs Consul](Service%20Mesh/istio-vs-linkerd-vs-consul.md) | Comparing the three major mesh implementations |
+| [Service Mesh Production Simulation](Service%20Mesh/service-mesh-production-simulation.md) | Hands-on Istio walkthrough — mTLS, canary split, retries, fault injection, Kiali |
+| [Istio (Install Walkthrough)](Service%20Mesh/istio.md) | Practical Minikube setup, istioctl install, proxy injection, addon stack |
+
+---
+
+## 🌐 Serverless & Networking
+
+| Note | Description |
+|---|---|
 | [Knative](knative.md) | Serverless on Kubernetes, Knative Serving & Eventing |
 
 ---
