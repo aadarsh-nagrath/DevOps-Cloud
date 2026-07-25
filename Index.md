@@ -8,10 +8,10 @@ Welcome to the centralized index of all notes in this repository. Click any link
 
 | Note | Description |
 |---|---|
-| [AWS](aws.md) | EC2, S3, EKS, Lambda, IAM, CodePipeline and core AWS services |
-| [Azure](azure.md) | AKS, Azure Pipelines, Entra ID, Azure Monitor, Bicep IaC |
-| [GCP](gcp.md) | GKE, Cloud Run, Cloud Build, Cloud Deploy, BigQuery, IAM |
-| [Cloud Networking](Cloud-Networking-for-DevOps.md) | VPC, Subnets, Load Balancers, DNS, CDN, hybrid connectivity |
+| [AWS](Cloud/AWS/aws.md) | EC2, S3, EKS, Lambda, IAM, CodePipeline and core AWS services |
+| [Azure](Cloud/AZURE/azure.md) | AKS, Azure Pipelines, Entra ID, Azure Monitor, Bicep IaC |
+| [GCP](Cloud/GCP/gcp.md) | GKE, Cloud Run, Cloud Build, Cloud Deploy, BigQuery, IAM |
+| [Cloud Networking](Cloud/Cloud-Networking-for-DevOps.md) | VPC, Subnets, Load Balancers, DNS, CDN, hybrid connectivity |
 
 ---
 
@@ -96,7 +96,7 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | Note | Description |
 |---|---|
 | [GitOps](GitOps.md) | GitOps principles, Flux, ArgoCD-based workflows |
-| [ArgoCD](Argo-cd.md) | ArgoCD setup, apps, sync policies, RBAC |
+| [ArgoCD](Continuous%20Delivery/ArgoCD/Argo-cd.md) | ArgoCD setup, apps, sync policies, RBAC |
 | [ArgoCD + Helm Integration](argo-cd-integration-helm.md) | Deploy Helm charts via ArgoCD |
 | [CI/CD Pipeline Project](Project/cicd-pipeline.md) | Real-world pipeline implementation |
 
@@ -140,7 +140,7 @@ Welcome to the centralized index of all notes in this repository. Click any link
 
 | Note | Description |
 |---|---|
-| [Knative](knative.md) | Serverless on Kubernetes, Knative Serving & Eventing |
+| [Knative](Knative/knative.md) | Serverless on Kubernetes, Knative Serving & Eventing |
 
 ---
 
@@ -182,12 +182,100 @@ Welcome to the centralized index of all notes in this repository. Click any link
 
 ---
 
+## 📊 Monitoring & Logging
+
+| Note | Description |
+|---|---|
+| [Monitoring & Logging Master Notes](Monitoring%20and%20Loggin/index.md) | Concepts tying it all together, beginner → advanced, folder map |
+| [Prometheus](Monitoring%20and%20Loggin/prometheous/prometheus.md) | Metrics collection, PromQL, alerting |
+| [Grafana](Monitoring%20and%20Loggin/grafana/grafana.md) | Visualization, dashboards, alerting |
+| [Elasticsearch](Monitoring%20and%20Loggin/elasticsearch/elasticsearch.md) | Search & analytics engine — storage layer of ELK |
+| [ELK / Logstash](Monitoring%20and%20Loggin/elk/logstash.md) | ELK stack overview, ingest/transform pipeline |
+| [Kibana](Monitoring%20and%20Loggin/kibana/kibana.md) | Visualization layer for Elasticsearch |
+| [Fluentd](Monitoring%20and%20Loggin/fluentid/fluentd.md) | Unified logging layer / log forwarder |
+| [Datadog](Monitoring%20and%20Loggin/datadog/datadog.md) | Commercial all-in-one observability SaaS |
+
+---
+
+## 🔒 Security in DevOps
+
+| Note | Description |
+|---|---|
+| [DevSecOps Overview](Security%20in%20DevOps/devsecops-overview.md) | Shift-left model, cloud shared responsibility, least privilege/defense in depth/zero trust, glossary |
+| [SAST, DAST & Code Scanning](Security%20in%20DevOps/sast-dast-and-code-scanning.md) | Static/dynamic/dependency scanning, pipeline placement, secret scanning |
+| [Container & Image Security](Security%20in%20DevOps/container-and-image-security.md) | Vulnerability scanning, base image trade-offs, SBOM, signing, admission control |
+| [IAM & Least Privilege](Security%20in%20DevOps/iam-and-least-privilege.md) | Cross-cloud IAM, Kubernetes RBAC, workload identity (IRSA/Workload Identity), JIT access |
+| [Secrets Management](Security%20in%20DevOps/secrets-management.md) | Vault dynamic secrets, Kubernetes Secret limitations, external-secrets patterns |
+| [Supply Chain Security](Security%20in%20DevOps/supply-chain-security.md) | Compromised dependency/CI scenarios, SLSA framework, provenance & attestation |
+| [Security in CI/CD Pipelines](Security%20in%20DevOps/security-in-cicd-pipelines.md) | Full annotated secure pipeline, fail-vs-warn gating strategy, compliance-as-code |
+
+---
+
+## 💥 Chaos Engineering
+
+| Note | Description |
+|---|---|
+| [Chaos Engineering Overview](Chaos%20Engineering/chaos-engineering-overview.md) | Origin story, core philosophy, Principles of Chaos Engineering, glossary |
+| [Designing Chaos Experiments](Chaos%20Engineering/designing-chaos-experiments.md) | Hypothesis-driven structure, blast radius progression, fault categories |
+| [Chaos Engineering Tools](Chaos%20Engineering/chaos-engineering-tools.md) | Chaos Monkey, Chaos Mesh, LitmusChaos, Gremlin, AWS FIS compared |
+| [Game Days & Organizational Practice](Chaos%20Engineering/game-days-and-organizational-practice.md) | Running a Game Day, roles, building organizational buy-in |
+| [Chaos Engineering Production Simulation](Chaos%20Engineering/chaos-engineering-in-production-simulation.md) | Hands-on Chaos Mesh walkthrough — pod kill, latency injection, good vs bad experiment design |
+
+---
+
+## 💾 Backup & Disaster Recovery
+
+| Note | Description |
+|---|---|
+| [Backup & DR Overview](Backup%20and%20Disaster%20Recovery/backup-and-dr-overview.md) | Backup vs DR, RTO/RPO, glossary |
+| [Backup Strategies & Types](Backup%20and%20Disaster%20Recovery/backup-strategies-and-types.md) | Full/incremental/differential, 3-2-1 rule, immutable backups, restore testing |
+| [Database Backup & Restore](Backup%20and%20Disaster%20Recovery/database-backup-and-restore.md) | Logical vs physical backups, point-in-time recovery, replication vs backup |
+| [Disaster Recovery Strategies](Backup%20and%20Disaster%20Recovery/disaster-recovery-strategies.md) | Backup&Restore/Pilot Light/Warm Standby/Multi-Site tiers, cost/RTO mapping |
+| [DR Planning, Testing & Runbooks](Backup%20and%20Disaster%20Recovery/dr-planning-testing-and-runbooks.md) | DR plan documents, drill types, worked failover runbook, anti-patterns |
+
+---
+
+## 💰 FinOps & Cost Optimization
+
+| Note | Description |
+|---|---|
+| [FinOps Overview](FinOps%20and%20Cost%20Optimization/finops-overview.md) | Inform/Optimize/Operate framework, OpEx cost dynamics, glossary |
+| [Cost Visibility & Allocation](FinOps%20and%20Cost%20Optimization/cost-visibility-and-allocation.md) | Tagging, showback vs chargeback, native cloud cost tools, Kubecost |
+| [Compute Cost Optimization](FinOps%20and%20Cost%20Optimization/compute-cost-optimization.md) | Right-sizing, Reserved/Savings Plans, spot instances, Kubernetes cost mechanics |
+| [Storage & Data Transfer Costs](FinOps%20and%20Cost%20Optimization/storage-and-data-transfer-costs.md) | Storage tiering, egress/cross-AZ costs, snapshot sprawl, CDN caching |
+| [FinOps Culture & Governance](FinOps%20and%20Cost%20Optimization/finops-culture-and-governance.md) | Cost-in-CI review, guardrails, ownership model, cost anti-patterns |
+
+---
+
+## 📋 IaC Testing & Policy as Code
+
+| Note | Description |
+|---|---|
+| [IaC Testing Overview](IaC%20Testing%20and%20Policy%20as%20Code/iac-testing-overview.md) | Why IaC needs testing, the testing pyramid applied to infrastructure |
+| [Linting & Static Analysis](IaC%20Testing%20and%20Policy%20as%20Code/linting-and-static-analysis.md) | terraform fmt/validate, TFLint, Checkov, tfsec with worked examples |
+| [Policy as Code with OPA & Conftest](IaC%20Testing%20and%20Policy%20as%20Code/policy-as-code-with-opa-and-conftest.md) | Rego from first principles, Conftest, OPA Gatekeeper vs Kyverno |
+| [Terraform Testing Frameworks](IaC%20Testing%20and%20Policy%20as%20Code/terraform-testing-frameworks.md) | Plan review, Terratest, native `terraform test`, module testing |
+| [Drift Detection & Continuous Validation](IaC%20Testing%20and%20Policy%20as%20Code/drift-detection-and-continuous-validation.md) | What drift is, detection pipelines, prevention, full combined pipeline |
+
+---
+
+## 🚨 Incident Response & On-Call
+
+| Note | Description |
+|---|---|
+| [Incident Response Overview](Incident%20Response%20and%20On-Call/incident-response-overview.md) | Severity levels, incident lifecycle, glossary (MTTA/MTTD/MTTR) |
+| [Detection & Alerting](Incident%20Response%20and%20On-Call/detection-and-alerting.md) | Good vs bad alerts, alert fatigue, SLIs/SLOs/error budgets, escalation |
+| [Incident Command & Response](Incident%20Response%20and%20On-Call/incident-command-and-response.md) | IC role, incident roles, worked SEV1 timeline, mitigate-first mindset |
+| [Postmortems & Blameless Culture](Incident%20Response%20and%20On-Call/postmortems-and-blameless-culture.md) | Blameless philosophy, postmortem template, the follow-up-item trap |
+| [On-Call Practices & Sustainability](Incident%20Response%20and%20On-Call/on-call-practices-and-sustainability.md) | Rotation design, fairness/burnout, runbooks, reducing on-call burden |
+
+---
+
 ## 🔧 Tools & Miscellaneous
 
 | Note | Description |
 |---|---|
 | [Important Concepts](imp_concepts.md) | Cross-cutting DevOps concepts and principles |
-| [EFK Stack](EFK.md) | Elasticsearch, Fluentd, Kibana for log aggregation |
 
 ---
 
