@@ -4,6 +4,20 @@ Welcome to the centralized index of all notes in this repository. Click any link
 
 ---
 
+## 🔐 Networking & Security Fundamentals
+
+| Note | Description |
+|---|---|
+| [Networking & Security Fundamentals — Index](Networking%20and%20Security%20Fundamentals/index.md) | How DNS/firewalls/TLS/VPNs/hardening tie together, zero trust, beginner → advanced |
+| [Networking Fundamentals](Networking%20and%20Security%20Fundamentals/networking-fundamentals.md) | OSI/TCP-IP model, TCP vs UDP, well-known ports table, subnetting, NAT, BGP, overlay networking |
+| [DNS Deep Dive](Networking%20and%20Security%20Fundamentals/dns-deep-dive.md) | Record types, resolution flow, split-horizon DNS, DNSSEC, CoreDNS, troubleshooting |
+| [TLS & Certificates](Networking%20and%20Security%20Fundamentals/tls-and-certificates.md) | Handshake (1.2 vs 1.3), PKI/cert chains, cipher suites, mTLS, ACME/Let's Encrypt, cert-manager |
+| [Firewalls](Networking%20and%20Security%20Fundamentals/firewalls.md) | iptables/nftables, Security Groups vs NACLs, WAF, NetworkPolicy, eBPF/Cilium, egress filtering |
+| [VPNs](Networking%20and%20Security%20Fundamentals/vpns.md) | IPsec, OpenVPN, WireGuard, site-to-site vs remote access, split tunneling, ZTNA (Tailscale/BeyondCorp) |
+| [Hardening Practices](Networking%20and%20Security%20Fundamentals/hardening-practices.md) | CIS Benchmarks, SSH hardening, sysctl, SELinux/AppArmor, immutable infra, hardening checklist |
+
+---
+
 ## ☁️ Cloud Platforms
 
 | Note | Description |
@@ -65,6 +79,7 @@ Welcome to the centralized index of all notes in this repository. Click any link
 |---|---|
 | [Terraform](Terraform%20and%20CF/terraform.md) | State, providers, resources, modules, workspaces |
 | [CloudFormation](Terraform%20and%20CF/cloud-formation.md) | AWS native IaC, stacks, templates, change sets |
+| [Pulumi](Terraform%20and%20CF/pulumi.md) | IaC in real languages (TS/Python/Go), beginner → advanced, vs Terraform, CrossGuard policy, Automation API |
 | [Terraform Sample Project](Terraform%20and%20CF/sample-project.md) | End-to-end Terraform project walkthrough |
 | [Terraform Learn Log](Terraform%20and%20CF/learnlog.md) | Personal notes and learning progress |
 
@@ -189,6 +204,7 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | [Monitoring & Logging Master Notes](Monitoring%20and%20Loggin/index.md) | Concepts tying it all together, beginner → advanced, folder map |
 | [Prometheus](Monitoring%20and%20Loggin/prometheous/prometheus.md) | Metrics collection, PromQL, alerting |
 | [Grafana](Monitoring%20and%20Loggin/grafana/grafana.md) | Visualization, dashboards, alerting |
+| [Loki](Monitoring%20and%20Loggin/loki/loki.md) | Label-indexed log aggregation, LogQL, PLG/LGTM stack, beginner → advanced |
 | [Elasticsearch](Monitoring%20and%20Loggin/elasticsearch/elasticsearch.md) | Search & analytics engine — storage layer of ELK |
 | [ELK / Logstash](Monitoring%20and%20Loggin/elk/logstash.md) | ELK stack overview, ingest/transform pipeline |
 | [Kibana](Monitoring%20and%20Loggin/kibana/kibana.md) | Visualization layer for Elasticsearch |

@@ -5,6 +5,7 @@ Complete notes on the Monitoring & Logging pillar of DevOps/SRE. Structured begi
 ## Folder Map
 - [prometheous/prometheus.md](prometheous/prometheus.md) — metrics collection, PromQL, alerting
 - [grafana/grafana.md](grafana/grafana.md) — visualization, dashboards, alerting
+- [loki/loki.md](loki/loki.md) — label-indexed log aggregation, LogQL, PLG/LGTM stack, beginner → advanced
 - [elasticsearch/elasticsearch.md](elasticsearch/elasticsearch.md) — search & analytics engine (storage layer of ELK)
 - [elk/logstash.md](elk/logstash.md) — ELK stack overview + Logstash (ingest/transform)
 - [kibana/kibana.md](kibana/kibana.md) — visualization layer for Elasticsearch
@@ -149,7 +150,7 @@ App exposes /metrics (Prometheus client lib)
 | Time-series metrics + alerting (self-hosted, K8s-native) | Prometheus + Alertmanager |
 | Dashboards across any data source | Grafana |
 | Full-text log search at scale | Elasticsearch + Kibana (ELK) |
-| Cheap log aggregation, label-based | Grafana Loki |
+| Cheap log aggregation, label-based | [Grafana Loki](loki/loki.md) |
 | Log/metric shipping & routing from many sources | Fluentd / Fluent Bit / Logstash |
 | All-in-one commercial SaaS (metrics+logs+traces+APM) | Datadog |
 | Distributed tracing | Jaeger / Tempo / Zipkin + OpenTelemetry |
