@@ -4,6 +4,33 @@ Welcome to the centralized index of all notes in this repository. Click any link
 
 ---
 
+## 🎯 Interview Questions & Answers
+
+| Note | Description |
+|---|---|
+| [Interview Questions — Hub](Interview%20Questions/README.md) | Junior → Mid → Senior interview Q&A across the whole DevOps/Cloud/SRE stack |
+| [Linux & Shell Scripting Q&A](Interview%20Questions/01-linux-and-scripting-qna.md) | Filesystem, processes, systemd, namespaces/cgroups, Bash scripting, troubleshooting |
+| [Git & Version Control Q&A](Interview%20Questions/02-git-version-control-qna.md) | Git internals, branching strategies, rebase vs merge, recovery, supply-chain signing |
+| [Docker Q&A](Interview%20Questions/03-docker-qna.md) | Images/layers, Dockerfile, networking, volumes, multi-stage builds, security |
+| [Kubernetes Q&A](Interview%20Questions/04-kubernetes-qna.md) | Architecture, workloads, networking, RBAC, storage, autoscaling, CKA-style scenarios |
+| [CI/CD Q&A](Interview%20Questions/05-cicd-jenkins-github-actions-qna.md) | Pipeline concepts, Jenkins, GitHub Actions, GitLab CI, pipeline security, DORA metrics |
+| [Terraform & IaC Q&A](Interview%20Questions/06-terraform-and-iac-qna.md) | State & locking, modules, drift, policy as code, multi-environment structure |
+| [AWS Cloud Q&A](Interview%20Questions/07-aws-cloud-qna.md) | EC2, S3, IAM, VPC, RDS, Lambda, EKS, Well-Architected, multi-account, DR strategy |
+| [Networking & Security Fundamentals Q&A](Interview%20Questions/08-networking-and-security-fundamentals-qna.md) | OSI/TCP-IP, DNS, TLS/mTLS, load balancing, firewalls/WAF, zero trust, DDoS |
+| [Ansible & Config Management Q&A](Interview%20Questions/09-ansible-and-config-management-qna.md) | Playbooks, roles, idempotency, Vault, testing with Molecule, scaling to large fleets |
+| [Azure & GCP Q&A](Interview%20Questions/10-azure-and-gcp-qna.md) | Resource Groups/Entra ID, AKS/GKE, Azure Policy vs GCP Org Policy, multi-cloud tradeoffs |
+| [Monitoring & Observability Q&A](Interview%20Questions/11-monitoring-logging-observability-qna.md) | Metrics/logs/traces, PromQL, cardinality, SLIs/SLOs/error budgets, alerting design |
+| [Security & DevSecOps Q&A](Interview%20Questions/12-security-devsecops-qna.md) | SAST/DAST/SCA, secrets management, supply chain security, incident response |
+| [SRE, Incident Response & Service Mesh Q&A](Interview%20Questions/13-sre-incident-loadbalancing-servicemesh-qna.md) | Toil, incident command, circuit breakers, chaos engineering, service mesh, multi-region DR |
+| [Deployment Strategies, System Design & Behavioral Q&A](Interview%20Questions/14-deployment-systemdesign-behavioral-qna.md) | Rolling/blue-green/canary/shadow deployments, system-design scenarios, STAR-method behavioral prep |
+| [Python for DevOps Q&A](Interview%20Questions/15-python-for-devops-qna.md) | subprocess, boto3/AWS SDK, JSON/YAML parsing, testing/mocking, CLI tool design |
+| [Agile, Scrum & DevOps Culture Q&A](Interview%20Questions/16-agile-scrum-devops-culture-qna.md) | Scrum/Kanban, CALMS, the Three Ways, Conway's Law, driving cultural change |
+| [Messaging, Caching & Distributed Systems Q&A](Interview%20Questions/17-messaging-caching-distributed-systems-qna.md) | Kafka/RabbitMQ/SQS, Redis/CDN caching, CAP theorem, replication/sharding, microservices vs monolith |
+| [Practical Scripting Challenges Q&A](Interview%20Questions/18-practical-scripting-challenges-qna.md) | Real live-coding-style tasks with working code (top processes, disk alerts, cert expiry, failover scripts) |
+| [Company-Specific Patterns & Behavioral-Plus Q&A](Interview%20Questions/19-company-specific-and-behavioral-plus-qna.md) | Amazon Leadership Principles, Google/SRE-style loops, resume walkthroughs, rapid-fire round-up |
+
+---
+
 ## 🔐 Networking & Security Fundamentals
 
 | Note | Description |
@@ -270,6 +297,7 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | [IaC Testing Overview](IaC%20Testing%20and%20Policy%20as%20Code/iac-testing-overview.md) | Why IaC needs testing, the testing pyramid applied to infrastructure |
 | [Linting & Static Analysis](IaC%20Testing%20and%20Policy%20as%20Code/linting-and-static-analysis.md) | terraform fmt/validate, TFLint, Checkov, tfsec with worked examples |
 | [Policy as Code with OPA & Conftest](IaC%20Testing%20and%20Policy%20as%20Code/policy-as-code-with-opa-and-conftest.md) | Rego from first principles, Conftest, OPA Gatekeeper vs Kyverno |
+| [Kyverno In Depth](IaC%20Testing%20and%20Policy%20as%20Code/kyverno.md) | Architecture, validate/mutate/generate/verifyImages, context/variables, background scanning, policy reports, exceptions, CLI testing, HA & security |
 | [Terraform Testing Frameworks](IaC%20Testing%20and%20Policy%20as%20Code/terraform-testing-frameworks.md) | Plan review, Terratest, native `terraform test`, module testing |
 | [Drift Detection & Continuous Validation](IaC%20Testing%20and%20Policy%20as%20Code/drift-detection-and-continuous-validation.md) | What drift is, detection pipelines, prevention, full combined pipeline |
 

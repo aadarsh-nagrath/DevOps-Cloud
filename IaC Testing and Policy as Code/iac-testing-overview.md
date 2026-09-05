@@ -71,6 +71,7 @@ The pyramid shape matters: run many cheap static/policy checks on every single c
 |---|---|
 | [`linting-and-static-analysis.md`](linting-and-static-analysis.md) | `terraform fmt`/`validate`, TFLint, Checkov, tfsec, worked insecure-code example, pipeline placement |
 | [`policy-as-code-with-opa-and-conftest.md`](policy-as-code-with-opa-and-conftest.md) | OPA, Rego from first principles, Conftest, OPA Gatekeeper, Kyverno, shift-left argument |
+| [`kyverno.md`](kyverno.md) | Kyverno in full depth: architecture, validate/mutate/generate/verifyImages, variables/context, background scanning, policy reports, exceptions, CLI/testing, HA & security, worked examples |
 | [`terraform-testing-frameworks.md`](terraform-testing-frameworks.md) | `terraform plan` review, Terratest, native `terraform test`, module testing strategy |
 | [`drift-detection-and-continuous-validation.md`](drift-detection-and-continuous-validation.md) | What drift is, detecting and preventing it, full combined pipeline example |
 

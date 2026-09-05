@@ -20,6 +20,7 @@ The notes are categorized and structured as follows:
 *   **📜 Scripting & Linux**: Bash scripting protocols, Linux command indexes, permissions references under [`scripting/`](./scripting).
 *   **🛠️ Terraform, CloudFormation & Pulumi**: Infrastructure-as-code patterns, workspaces, environments, and testing models in the [`Terraform and CF/`](./Terraform%20and%20CF) directory — including [Pulumi](./Terraform%20and%20CF/pulumi.md) notes covering IaC in general-purpose languages.
 *   **🚀 GitOps & CI/CD**: ArgoCD, Jenkins integration pipelines, GitOps best practices, and Knative serverless patterns.
+*   **🎯 Interview Questions**: 550+ Junior → Mid → Senior Q&A across the whole stack (Linux, Git, Docker, Kubernetes, CI/CD, Terraform, AWS/Azure/GCP, Networking, Ansible, Python, Agile/Culture, Monitoring, Security, SRE, Messaging/Caching, Deployment Strategies, System Design, Behavioral, practical scripting challenges, and real company-specific interview patterns) in the [`Interview Questions/`](./Interview%20Questions) directory.
 
 ---
 

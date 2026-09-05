@@ -230,6 +230,8 @@ admission webhook "validation.gatekeeper.sh" denied the request:
 
 **Kyverno** solves the same problem as Gatekeeper (admission control inside Kubernetes) but with YAML-native policies instead of Rego — no new language to learn, since policies are written using patterns that look like the Kubernetes resources they validate.
 
+> This section is a brief comparison-level introduction. For a full, standalone deep dive — architecture, every rule type (`validate`/`mutate`/`generate`/`verifyImages`), variables/context, background scanning, policy reports, exceptions, the CLI/testing workflow, HA/security, and a large worked-example library — see [`kyverno.md`](kyverno.md).
+
 The equivalent "require resource limits" policy in Kyverno:
 
 ```yaml
