@@ -1,1022 +1,1940 @@
 [
   {
+    "name": "backup-and-dr-overview.md",
+    "path": "Backup and Disaster Recovery/backup-and-dr-overview.md",
+    "size": 9772,
+    "mtime": "2026-08-18T09:49:14.266Z"
+  },
+  {
+    "name": "backup-strategies-and-types.md",
+    "path": "Backup and Disaster Recovery/backup-strategies-and-types.md",
+    "size": 14023,
+    "mtime": "2026-08-18T09:49:14.267Z"
+  },
+  {
+    "name": "database-backup-and-restore.md",
+    "path": "Backup and Disaster Recovery/database-backup-and-restore.md",
+    "size": 14057,
+    "mtime": "2026-08-18T09:49:14.267Z"
+  },
+  {
+    "name": "disaster-recovery-strategies.md",
+    "path": "Backup and Disaster Recovery/disaster-recovery-strategies.md",
+    "size": 10229,
+    "mtime": "2026-08-18T09:49:14.267Z"
+  },
+  {
+    "name": "dr-planning-testing-and-runbooks.md",
+    "path": "Backup and Disaster Recovery/dr-planning-testing-and-runbooks.md",
+    "size": 13672,
+    "mtime": "2026-08-18T09:49:14.267Z"
+  },
+  {
     "name": "#40daysofkubernetes.md",
     "path": "CKA/#40daysofkubernetes.md",
     "size": 2622,
-    "mtime": "2026-07-20T07:22:24.093Z"
+    "mtime": "2026-08-18T09:49:14.268Z"
   },
   {
     "name": "README.md",
     "path": "CKA/README.md",
     "size": 14370,
-    "mtime": "2026-07-20T07:22:24.094Z"
+    "mtime": "2026-08-18T09:49:14.268Z"
   },
   {
     "name": "README.md",
     "path": "CKA/Resources/Day01/README.md",
     "size": 1487,
-    "mtime": "2026-07-20T07:22:24.094Z"
+    "mtime": "2026-08-18T09:49:14.268Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day01/task.md",
     "size": 1185,
-    "mtime": "2026-07-20T07:22:24.094Z"
+    "mtime": "2026-08-18T09:49:14.268Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day02/readme.md",
     "size": 2082,
-    "mtime": "2026-07-20T07:22:24.094Z"
+    "mtime": "2026-08-18T09:49:14.268Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day02/task.md",
     "size": 1236,
-    "mtime": "2026-07-20T07:22:24.094Z"
+    "mtime": "2026-08-18T09:49:14.268Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day03/readme.md",
     "size": 2509,
-    "mtime": "2026-07-20T07:22:24.095Z"
+    "mtime": "2026-08-18T09:49:14.268Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day03/task.md",
     "size": 1405,
-    "mtime": "2026-07-20T07:22:24.095Z"
+    "mtime": "2026-08-18T09:49:14.268Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day04/readme.md",
     "size": 34,
-    "mtime": "2026-07-20T07:22:24.095Z"
+    "mtime": "2026-08-18T09:49:14.269Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day04/task.md",
     "size": 1125,
-    "mtime": "2026-07-20T07:22:24.095Z"
+    "mtime": "2026-08-18T09:49:14.269Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day05/readme.md",
     "size": 1662,
-    "mtime": "2026-07-20T07:22:24.095Z"
+    "mtime": "2026-08-18T09:49:14.269Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day05/task.md",
     "size": 1424,
-    "mtime": "2026-07-20T07:22:24.095Z"
+    "mtime": "2026-08-18T09:49:14.269Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day06/readme.md",
     "size": 604,
-    "mtime": "2026-07-20T07:22:24.096Z"
+    "mtime": "2026-08-18T09:49:14.269Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day06/task.md",
     "size": 1909,
-    "mtime": "2026-07-20T07:22:24.096Z"
+    "mtime": "2026-08-18T09:49:14.269Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day07/readme.md",
     "size": 598,
-    "mtime": "2026-07-20T07:22:24.096Z"
+    "mtime": "2026-08-18T09:49:14.269Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day07/task.md",
     "size": 1545,
-    "mtime": "2026-07-20T07:22:24.096Z"
+    "mtime": "2026-08-18T09:49:14.269Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day08/readme.md",
     "size": 658,
-    "mtime": "2026-07-20T07:22:24.096Z"
+    "mtime": "2026-08-18T09:49:14.270Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day08/task.md",
     "size": 2929,
-    "mtime": "2026-07-20T07:22:24.096Z"
+    "mtime": "2026-08-18T09:49:14.270Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day09/readme.md",
     "size": 2821,
-    "mtime": "2026-07-20T07:22:24.096Z"
+    "mtime": "2026-08-18T09:49:14.270Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day09/task.md",
     "size": 2135,
-    "mtime": "2026-07-20T07:22:24.097Z"
+    "mtime": "2026-08-18T09:49:14.270Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day10/readme.md",
     "size": 674,
-    "mtime": "2026-07-20T07:22:24.097Z"
+    "mtime": "2026-08-18T09:49:14.270Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day10/task.md",
     "size": 2342,
-    "mtime": "2026-07-20T07:22:24.097Z"
+    "mtime": "2026-08-18T09:49:14.270Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day11/readme.md",
     "size": 1571,
-    "mtime": "2026-07-20T07:22:24.097Z"
+    "mtime": "2026-08-18T09:49:14.270Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day11/task.md",
     "size": 1348,
-    "mtime": "2026-07-20T07:22:24.097Z"
+    "mtime": "2026-08-18T09:49:14.270Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day12/readme.md",
     "size": 1399,
-    "mtime": "2026-07-20T07:22:24.097Z"
+    "mtime": "2026-08-18T09:49:14.271Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day12/task.md",
     "size": 1461,
-    "mtime": "2026-07-20T07:22:24.098Z"
+    "mtime": "2026-08-18T09:49:14.271Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day13/readme.md",
     "size": 3500,
-    "mtime": "2026-07-20T07:22:24.098Z"
+    "mtime": "2026-08-18T09:49:14.271Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day13/task.md",
     "size": 1730,
-    "mtime": "2026-07-20T07:22:24.098Z"
+    "mtime": "2026-08-18T09:49:14.271Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day14/readme.md",
     "size": 2443,
-    "mtime": "2026-07-20T07:22:24.098Z"
+    "mtime": "2026-08-18T09:49:14.271Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day14/task.md",
     "size": 1826,
-    "mtime": "2026-07-20T07:22:24.098Z"
+    "mtime": "2026-08-18T09:49:14.271Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day15/readme.md",
     "size": 2280,
-    "mtime": "2026-07-20T07:22:24.098Z"
+    "mtime": "2026-08-18T09:49:14.271Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day15/task.md",
     "size": 1876,
-    "mtime": "2026-07-20T07:22:24.099Z"
+    "mtime": "2026-08-18T09:49:14.271Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day16/readme.md",
     "size": 2699,
-    "mtime": "2026-07-20T07:22:24.099Z"
+    "mtime": "2026-08-18T09:49:14.272Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day16/task.md",
     "size": 1569,
-    "mtime": "2026-07-20T07:22:24.099Z"
+    "mtime": "2026-08-18T09:49:14.272Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day17/readme.md",
     "size": 1856,
-    "mtime": "2026-07-20T07:22:24.099Z"
+    "mtime": "2026-08-18T09:49:14.272Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day17/task.md",
     "size": 1361,
-    "mtime": "2026-07-20T07:22:24.099Z"
+    "mtime": "2026-08-18T09:49:14.272Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day18/readme.md",
     "size": 2175,
-    "mtime": "2026-07-20T07:22:24.100Z"
+    "mtime": "2026-08-18T09:49:14.272Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day18/task.md",
     "size": 1830,
-    "mtime": "2026-07-20T07:22:24.100Z"
+    "mtime": "2026-08-18T09:49:14.272Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day19/readme.md",
     "size": 1439,
-    "mtime": "2026-07-20T07:22:24.100Z"
+    "mtime": "2026-08-18T09:49:14.272Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day19/task.md",
     "size": 1439,
-    "mtime": "2026-07-20T07:22:24.100Z"
+    "mtime": "2026-08-18T09:49:14.273Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day20/readme.md",
     "size": 212,
-    "mtime": "2026-07-20T07:22:24.100Z"
+    "mtime": "2026-08-18T09:49:14.273Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day20/task.md",
     "size": 1103,
-    "mtime": "2026-07-20T07:22:24.100Z"
+    "mtime": "2026-08-18T09:49:14.273Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day21/readme.md",
     "size": 1295,
-    "mtime": "2026-07-20T07:22:24.101Z"
+    "mtime": "2026-08-18T09:49:14.273Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day21/task.md",
     "size": 1502,
-    "mtime": "2026-07-20T07:22:24.101Z"
+    "mtime": "2026-08-18T09:49:14.273Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day22/readme.md",
     "size": 2467,
-    "mtime": "2026-07-20T07:22:24.101Z"
+    "mtime": "2026-08-18T09:49:14.273Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day22/task.md",
     "size": 1050,
-    "mtime": "2026-07-20T07:22:24.101Z"
+    "mtime": "2026-08-18T09:49:14.273Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day23/readme.md",
     "size": 1743,
-    "mtime": "2026-07-20T07:22:24.101Z"
+    "mtime": "2026-08-18T09:49:14.273Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day23/task.md",
     "size": 1926,
-    "mtime": "2026-07-20T07:22:24.101Z"
+    "mtime": "2026-08-18T09:49:14.273Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day24/readme.md",
     "size": 2096,
-    "mtime": "2026-07-20T07:22:24.101Z"
+    "mtime": "2026-08-18T09:49:14.274Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day24/task.md",
     "size": 1050,
-    "mtime": "2026-07-20T07:22:24.101Z"
+    "mtime": "2026-08-18T09:49:14.274Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day25/readme.md",
     "size": 986,
-    "mtime": "2026-07-20T07:22:24.102Z"
+    "mtime": "2026-08-18T09:49:14.274Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day25/task.md",
     "size": 1074,
-    "mtime": "2026-07-20T07:22:24.102Z"
+    "mtime": "2026-08-18T09:49:14.274Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day26/readme.md",
     "size": 2942,
-    "mtime": "2026-07-20T07:22:24.102Z"
+    "mtime": "2026-08-18T09:49:14.274Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day26/task.md",
     "size": 1703,
-    "mtime": "2026-07-20T07:22:24.102Z"
+    "mtime": "2026-08-18T09:49:14.274Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day27/readme.md",
     "size": 7452,
-    "mtime": "2026-07-20T07:22:24.102Z"
+    "mtime": "2026-08-18T09:49:14.274Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day27/task.md",
     "size": 1254,
-    "mtime": "2026-07-20T07:22:24.102Z"
+    "mtime": "2026-08-18T09:49:14.275Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day28/readme.md",
     "size": 431,
-    "mtime": "2026-07-20T07:22:24.103Z"
+    "mtime": "2026-08-18T09:49:14.275Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day28/task.md",
     "size": 1325,
-    "mtime": "2026-07-20T07:22:24.103Z"
+    "mtime": "2026-08-18T09:49:14.275Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day29/readme.md",
     "size": 1638,
-    "mtime": "2026-07-20T07:22:24.103Z"
+    "mtime": "2026-08-18T09:49:14.275Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day29/task.md",
     "size": 1695,
-    "mtime": "2026-07-20T07:22:24.103Z"
+    "mtime": "2026-08-18T09:49:14.275Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day30/readme.md",
     "size": 232,
-    "mtime": "2026-07-20T07:22:24.103Z"
+    "mtime": "2026-08-18T09:49:14.276Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day30/task.md",
     "size": 1166,
-    "mtime": "2026-07-20T07:22:24.103Z"
+    "mtime": "2026-08-18T09:49:14.276Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day31/readme.md",
     "size": 234,
-    "mtime": "2026-07-20T07:22:24.103Z"
+    "mtime": "2026-08-18T09:49:14.276Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day31/task.md",
     "size": 1288,
-    "mtime": "2026-07-20T07:22:24.103Z"
+    "mtime": "2026-08-18T09:49:14.276Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day32/readme.md",
     "size": 382,
-    "mtime": "2026-07-20T07:22:24.104Z"
+    "mtime": "2026-08-18T09:49:14.276Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day32/task.md",
     "size": 1338,
-    "mtime": "2026-07-20T07:22:24.104Z"
+    "mtime": "2026-08-18T09:49:14.276Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day33/readme.md",
     "size": 640,
-    "mtime": "2026-07-20T07:22:24.105Z"
+    "mtime": "2026-08-18T09:49:14.277Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day33/task.md",
     "size": 1530,
-    "mtime": "2026-07-20T07:22:24.105Z"
+    "mtime": "2026-08-18T09:49:14.277Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day34/readme.md",
     "size": 2023,
-    "mtime": "2026-07-20T07:22:24.105Z"
+    "mtime": "2026-08-18T09:49:14.277Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day34/task.md",
     "size": 1496,
-    "mtime": "2026-07-20T07:22:24.105Z"
+    "mtime": "2026-08-18T09:49:14.277Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day35/readme.md",
     "size": 251,
-    "mtime": "2026-07-20T07:22:24.105Z"
+    "mtime": "2026-08-18T09:49:14.277Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day35/task.md",
     "size": 1909,
-    "mtime": "2026-07-20T07:22:24.106Z"
+    "mtime": "2026-08-18T09:49:14.277Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day36/readme.md",
     "size": 1,
-    "mtime": "2026-07-20T07:22:24.106Z"
+    "mtime": "2026-08-18T09:49:14.278Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day36/task.md",
     "size": 1336,
-    "mtime": "2026-07-20T07:22:24.106Z"
+    "mtime": "2026-08-18T09:49:14.278Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day37/readme.md",
     "size": 50,
-    "mtime": "2026-07-20T07:22:24.106Z"
+    "mtime": "2026-08-18T09:49:14.278Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day37/task.md",
     "size": 1751,
-    "mtime": "2026-07-20T07:22:24.106Z"
+    "mtime": "2026-08-18T09:49:14.278Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day38/readme.md",
     "size": 423,
-    "mtime": "2026-07-20T07:22:24.106Z"
+    "mtime": "2026-08-18T09:49:14.278Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day38/task.md",
     "size": 1332,
-    "mtime": "2026-07-20T07:22:24.106Z"
+    "mtime": "2026-08-18T09:49:14.279Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day39/readme.md",
     "size": 422,
-    "mtime": "2026-07-20T07:22:24.107Z"
+    "mtime": "2026-08-18T09:49:14.279Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day39/task.md",
     "size": 1726,
-    "mtime": "2026-07-20T07:22:24.107Z"
+    "mtime": "2026-08-18T09:49:14.279Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day40/readme.md",
     "size": 411,
-    "mtime": "2026-07-20T07:22:24.107Z"
+    "mtime": "2026-08-18T09:49:14.279Z"
   },
   {
     "name": "task.md",
     "path": "CKA/Resources/Day40/task.md",
     "size": 1508,
-    "mtime": "2026-07-20T07:22:24.107Z"
+    "mtime": "2026-08-18T09:49:14.279Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day41/readme.md",
     "size": 6431,
-    "mtime": "2026-07-20T07:22:24.107Z"
+    "mtime": "2026-08-18T09:49:14.280Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day42/readme.md",
     "size": 2524,
-    "mtime": "2026-07-20T07:22:24.107Z"
+    "mtime": "2026-08-18T09:49:14.280Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Helm/readme.md",
     "size": 2120,
-    "mtime": "2026-07-20T07:22:24.108Z"
+    "mtime": "2026-08-18T09:49:14.280Z"
   },
   {
     "name": "readme.md",
     "path": "CKA/Resources/Kustomize/readme.md",
     "size": 3486,
-    "mtime": "2026-07-20T07:22:24.108Z"
+    "mtime": "2026-08-18T09:49:14.280Z"
+  },
+  {
+    "name": "Readme.md",
+    "path": "CNCF/Readme.md",
+    "size": 4836,
+    "mtime": "2026-09-28T10:46:38.099Z"
+  },
+  {
+    "name": "argo-workflows.md",
+    "path": "CNCF/argo-workflows/argo-workflows.md",
+    "size": 15231,
+    "mtime": "2026-09-28T10:44:07.364Z"
+  },
+  {
+    "name": "local-setup.md",
+    "path": "CNCF/argo-workflows/tutorial/local-setup.md",
+    "size": 7274,
+    "mtime": "2026-09-28T10:44:33.487Z"
+  },
+  {
+    "name": "backstage.md",
+    "path": "CNCF/backstage/backstage.md",
+    "size": 13069,
+    "mtime": "2026-09-28T10:42:36.965Z"
+  },
+  {
+    "name": "local-setup.md",
+    "path": "CNCF/backstage/tutorial/local-setup.md",
+    "size": 6018,
+    "mtime": "2026-09-28T10:43:55.885Z"
+  },
+  {
+    "name": "cilium.md",
+    "path": "CNCF/cilium/cilium.md",
+    "size": 15199,
+    "mtime": "2026-09-28T10:42:43.442Z"
+  },
+  {
+    "name": "local-setup.md",
+    "path": "CNCF/cilium/tutorial/local-setup.md",
+    "size": 6649,
+    "mtime": "2026-09-28T10:43:12.582Z"
+  },
+  {
+    "name": "containerd.md",
+    "path": "CNCF/containerd/containerd.md",
+    "size": 13681,
+    "mtime": "2026-09-28T10:43:54.855Z"
+  },
+  {
+    "name": "local-setup.md",
+    "path": "CNCF/containerd/tutorial/local-setup.md",
+    "size": 6622,
+    "mtime": "2026-09-28T10:44:31.040Z"
+  },
+  {
+    "name": "coredns.md",
+    "path": "CNCF/coredns/coredns.md",
+    "size": 13472,
+    "mtime": "2026-09-28T10:42:16.858Z"
+  },
+  {
+    "name": "local-setup.md",
+    "path": "CNCF/coredns/tutorial/local-setup.md",
+    "size": 5323,
+    "mtime": "2026-09-28T10:42:40.883Z"
+  },
+  {
+    "name": "crossplane.md",
+    "path": "CNCF/crossplane/crossplane.md",
+    "size": 15351,
+    "mtime": "2026-09-28T10:42:35.930Z"
+  },
+  {
+    "name": "local-setup.md",
+    "path": "CNCF/crossplane/tutorial/local-setup.md",
+    "size": 8580,
+    "mtime": "2026-09-28T10:43:54.835Z"
+  },
+  {
+    "name": "envoy.md",
+    "path": "CNCF/envoy/envoy.md",
+    "size": 15515,
+    "mtime": "2026-09-28T10:42:30.560Z"
+  },
+  {
+    "name": "local-setup.md",
+    "path": "CNCF/envoy/tutorial/local-setup.md",
+    "size": 7138,
+    "mtime": "2026-09-28T10:42:58.011Z"
+  },
+  {
+    "name": "etcd.md",
+    "path": "CNCF/etcd/etcd.md",
+    "size": 15070,
+    "mtime": "2026-09-28T10:41:08.699Z"
+  },
+  {
+    "name": "local-setup.md",
+    "path": "CNCF/etcd/tutorial/local-setup.md",
+    "size": 7667,
+    "mtime": "2026-09-28T10:41:40.737Z"
+  },
+  {
+    "name": "falco.md",
+    "path": "CNCF/falco/falco.md",
+    "size": 14031,
+    "mtime": "2026-09-28T10:44:10.566Z"
+  },
+  {
+    "name": "local-setup.md",
+    "path": "CNCF/falco/tutorial/local-setup.md",
+    "size": 6092,
+    "mtime": "2026-09-28T10:44:40.660Z"
+  },
+  {
+    "name": "flux.md",
+    "path": "CNCF/flux/flux.md",
+    "size": 14447,
+    "mtime": "2026-09-28T10:42:17.760Z"
+  },
+  {
+    "name": "local-setup.md",
+    "path": "CNCF/flux/tutorial/local-setup.md",
+    "size": 6501,
+    "mtime": "2026-09-28T10:43:11.374Z"
+  },
+  {
+    "name": "harbor.md",
+    "path": "CNCF/harbor/harbor.md",
+    "size": 14542,
+    "mtime": "2026-09-28T10:40:53.890Z"
+  },
+  {
+    "name": "local-setup.md",
+    "path": "CNCF/harbor/tutorial/local-setup.md",
+    "size": 5417,
+    "mtime": "2026-09-28T10:41:19.970Z"
+  },
+  {
+    "name": "jaeger.md",
+    "path": "CNCF/jaeger/jaeger.md",
+    "size": 24302,
+    "mtime": "2026-09-28T11:34:20.837Z"
+  },
+  {
+    "name": "local-setup.md",
+    "path": "CNCF/jaeger/tutorial/local-setup.md",
+    "size": 9058,
+    "mtime": "2026-09-28T11:34:50.582Z"
+  },
+  {
+    "name": "keda.md",
+    "path": "CNCF/keda/keda.md",
+    "size": 14407,
+    "mtime": "2026-09-28T10:42:34.883Z"
+  },
+  {
+    "name": "local-setup.md",
+    "path": "CNCF/keda/tutorial/local-setup.md",
+    "size": 6869,
+    "mtime": "2026-09-28T10:43:53.798Z"
+  },
+  {
+    "name": "longhorn.md",
+    "path": "CNCF/longhorn/longhorn.md",
+    "size": 14645,
+    "mtime": "2026-09-28T10:44:17.747Z"
+  },
+  {
+    "name": "local-setup.md",
+    "path": "CNCF/longhorn/tutorial/local-setup.md",
+    "size": 8796,
+    "mtime": "2026-09-28T10:44:55.162Z"
+  },
+  {
+    "name": "nats.md",
+    "path": "CNCF/nats/nats.md",
+    "size": 13172,
+    "mtime": "2026-09-28T10:43:33.599Z"
+  },
+  {
+    "name": "local-setup.md",
+    "path": "CNCF/nats/tutorial/local-setup.md",
+    "size": 6046,
+    "mtime": "2026-09-28T10:43:59.549Z"
+  },
+  {
+    "name": "opentelemetry.md",
+    "path": "CNCF/open-telemetry/opentelemetry.md",
+    "size": 36202,
+    "mtime": "2026-09-28T11:32:52.825Z"
+  },
+  {
+    "name": "local-setup.md",
+    "path": "CNCF/open-telemetry/tutorial/local-setup.md",
+    "size": 10241,
+    "mtime": "2026-09-28T11:35:20.281Z"
+  },
+  {
+    "name": "rook.md",
+    "path": "CNCF/rook/rook.md",
+    "size": 14028,
+    "mtime": "2026-09-28T10:42:44.025Z"
+  },
+  {
+    "name": "local-setup.md",
+    "path": "CNCF/rook/tutorial/local-setup.md",
+    "size": 8136,
+    "mtime": "2026-09-28T10:43:19.714Z"
+  },
+  {
+    "name": "spire.md",
+    "path": "CNCF/spire/spire.md",
+    "size": 17746,
+    "mtime": "2026-09-28T10:41:10.972Z"
+  },
+  {
+    "name": "local-setup.md",
+    "path": "CNCF/spire/tutorial/local-setup.md",
+    "size": 7576,
+    "mtime": "2026-09-28T10:41:43.249Z"
+  },
+  {
+    "name": "local-setup.md",
+    "path": "CNCF/vitess/tutorial/local-setup.md",
+    "size": 5595,
+    "mtime": "2026-09-28T10:41:22.793Z"
+  },
+  {
+    "name": "vitess.md",
+    "path": "CNCF/vitess/vitess.md",
+    "size": 14204,
+    "mtime": "2026-09-28T10:40:57.021Z"
+  },
+  {
+    "name": "chaos-engineering-in-production-simulation.md",
+    "path": "Chaos Engineering/chaos-engineering-in-production-simulation.md",
+    "size": 11297,
+    "mtime": "2026-08-18T09:49:14.280Z"
+  },
+  {
+    "name": "chaos-engineering-overview.md",
+    "path": "Chaos Engineering/chaos-engineering-overview.md",
+    "size": 11167,
+    "mtime": "2026-08-18T09:49:14.281Z"
+  },
+  {
+    "name": "chaos-engineering-tools.md",
+    "path": "Chaos Engineering/chaos-engineering-tools.md",
+    "size": 11798,
+    "mtime": "2026-08-18T09:49:14.281Z"
+  },
+  {
+    "name": "designing-chaos-experiments.md",
+    "path": "Chaos Engineering/designing-chaos-experiments.md",
+    "size": 10060,
+    "mtime": "2026-08-18T09:49:14.281Z"
+  },
+  {
+    "name": "game-days-and-organizational-practice.md",
+    "path": "Chaos Engineering/game-days-and-organizational-practice.md",
+    "size": 9583,
+    "mtime": "2026-08-18T09:49:14.281Z"
   },
   {
     "name": "aws.md",
     "path": "Cloud/AWS/aws.md",
     "size": 5238,
-    "mtime": "2026-07-20T07:22:24.120Z"
+    "mtime": "2026-08-18T09:49:14.282Z"
   },
   {
     "name": "azure.md",
     "path": "Cloud/AZURE/azure.md",
     "size": 8653,
-    "mtime": "2026-07-20T08:00:48.800Z"
+    "mtime": "2026-08-18T09:49:14.282Z"
   },
   {
     "name": "Cloud-Networking-for-DevOps.md",
     "path": "Cloud/Cloud-Networking-for-DevOps.md",
     "size": 61826,
-    "mtime": "2026-07-20T07:22:24.108Z"
+    "mtime": "2026-08-18T09:49:14.282Z"
   },
   {
     "name": "gcp.md",
     "path": "Cloud/GCP/gcp.md",
     "size": 10530,
-    "mtime": "2026-07-20T08:00:49.187Z"
+    "mtime": "2026-08-18T09:49:14.283Z"
   },
   {
     "name": "advanced-and-production-patterns.md",
     "path": "Configuration Management/ansible/advanced-and-production-patterns.md",
     "size": 12186,
-    "mtime": "2026-07-21T11:27:42.303Z"
+    "mtime": "2026-08-18T09:49:14.283Z"
   },
   {
     "name": "ansible.md",
     "path": "Configuration Management/ansible/ansible.md",
     "size": 10469,
-    "mtime": "2026-07-21T11:23:06.379Z"
+    "mtime": "2026-08-18T09:49:14.283Z"
   },
   {
     "name": "inventory-and-dynamic-inventory.md",
     "path": "Configuration Management/ansible/inventory-and-dynamic-inventory.md",
     "size": 6413,
-    "mtime": "2026-07-21T11:25:44.045Z"
+    "mtime": "2026-08-18T09:49:14.283Z"
   },
   {
     "name": "playbooks-and-modules.md",
     "path": "Configuration Management/ansible/playbooks-and-modules.md",
     "size": 13912,
-    "mtime": "2026-07-21T11:24:00.124Z"
+    "mtime": "2026-08-18T09:49:14.283Z"
   },
   {
     "name": "roles-and-collections.md",
     "path": "Configuration Management/ansible/roles-and-collections.md",
     "size": 8862,
-    "mtime": "2026-07-21T11:25:18.685Z"
+    "mtime": "2026-08-18T09:49:14.284Z"
   },
   {
     "name": "testing-and-ci.md",
     "path": "Configuration Management/ansible/testing-and-ci.md",
     "size": 8367,
-    "mtime": "2026-07-21T11:26:53.031Z"
+    "mtime": "2026-08-18T09:49:14.284Z"
   },
   {
     "name": "variables-and-templating.md",
     "path": "Configuration Management/ansible/variables-and-templating.md",
     "size": 10192,
-    "mtime": "2026-07-21T11:24:47.579Z"
+    "mtime": "2026-08-18T09:49:14.284Z"
   },
   {
     "name": "vault-and-security.md",
     "path": "Configuration Management/ansible/vault-and-security.md",
     "size": 9214,
-    "mtime": "2026-07-21T11:26:21.369Z"
+    "mtime": "2026-08-18T09:49:14.284Z"
   },
   {
     "name": "advanced-and-production-patterns.md",
     "path": "Configuration Management/chef/advanced-and-production-patterns.md",
     "size": 14151,
-    "mtime": "2026-07-21T11:26:57.737Z"
+    "mtime": "2026-08-18T09:49:14.285Z"
   },
   {
     "name": "attributes-and-templates.md",
     "path": "Configuration Management/chef/attributes-and-templates.md",
     "size": 9509,
-    "mtime": "2026-07-21T11:24:40.648Z"
+    "mtime": "2026-08-18T09:49:14.285Z"
   },
   {
     "name": "chef.md",
     "path": "Configuration Management/chef/chef.md",
     "size": 10017,
-    "mtime": "2026-07-21T11:23:17.731Z"
+    "mtime": "2026-08-18T09:49:14.285Z"
   },
   {
     "name": "cookbooks-and-recipes.md",
     "path": "Configuration Management/chef/cookbooks-and-recipes.md",
     "size": 10908,
-    "mtime": "2026-07-21T11:24:00.793Z"
+    "mtime": "2026-08-18T09:49:14.285Z"
   },
   {
     "name": "roles-environments-and-orgs.md",
     "path": "Configuration Management/chef/roles-environments-and-orgs.md",
     "size": 9276,
-    "mtime": "2026-07-21T11:25:18.580Z"
+    "mtime": "2026-08-18T09:49:14.286Z"
   },
   {
     "name": "testing-and-dev-workflow.md",
     "path": "Configuration Management/chef/testing-and-dev-workflow.md",
     "size": 8437,
-    "mtime": "2026-07-21T11:25:55.323Z"
+    "mtime": "2026-08-18T09:49:14.286Z"
   },
   {
     "name": "advanced-and-production-patterns.md",
     "path": "Configuration Management/puppet/advanced-and-production-patterns.md",
     "size": 13162,
-    "mtime": "2026-07-21T11:28:38.243Z"
+    "mtime": "2026-08-18T09:49:14.286Z"
   },
   {
     "name": "classes-modules-and-templates.md",
     "path": "Configuration Management/puppet/classes-modules-and-templates.md",
     "size": 11831,
-    "mtime": "2026-07-21T11:25:24.300Z"
+    "mtime": "2026-08-18T09:49:14.286Z"
   },
   {
     "name": "hiera-and-data.md",
     "path": "Configuration Management/puppet/hiera-and-data.md",
     "size": 10199,
-    "mtime": "2026-07-21T11:26:10.078Z"
+    "mtime": "2026-08-18T09:49:14.287Z"
   },
   {
     "name": "manifests-and-resources.md",
     "path": "Configuration Management/puppet/manifests-and-resources.md",
     "size": 11672,
-    "mtime": "2026-07-21T11:24:33.309Z"
+    "mtime": "2026-08-18T09:49:14.287Z"
   },
   {
     "name": "nodes-environments-and-roles-profiles.md",
     "path": "Configuration Management/puppet/nodes-environments-and-roles-profiles.md",
     "size": 11063,
-    "mtime": "2026-07-21T11:26:57.407Z"
+    "mtime": "2026-08-18T09:49:14.287Z"
   },
   {
     "name": "puppet.md",
     "path": "Configuration Management/puppet/puppet.md",
     "size": 9897,
-    "mtime": "2026-07-21T11:23:43.498Z"
+    "mtime": "2026-08-18T09:49:14.287Z"
   },
   {
     "name": "testing-and-ci.md",
     "path": "Configuration Management/puppet/testing-and-ci.md",
     "size": 8458,
-    "mtime": "2026-07-21T11:27:35.388Z"
+    "mtime": "2026-08-18T09:49:14.287Z"
   },
   {
     "name": "Argo-cd.md",
     "path": "Continuous Delivery/ArgoCD/Argo-cd.md",
     "size": 16175,
-    "mtime": "2026-07-20T07:22:24.093Z"
+    "mtime": "2026-08-18T09:49:14.288Z"
+  },
+  {
+    "name": "local-setup.md",
+    "path": "Continuous Delivery/ArgoCD/tutorial/local-setup.md",
+    "size": 7937,
+    "mtime": "2026-09-28T10:44:34.602Z"
+  },
+  {
+    "name": "caching-parallelism-and-workflows.md",
+    "path": "Continuous Integration/CircleCI/caching-parallelism-and-workflows.md",
+    "size": 9452,
+    "mtime": "2026-08-18T09:49:14.288Z"
+  },
+  {
+    "name": "circleci.md",
+    "path": "Continuous Integration/CircleCI/circleci.md",
+    "size": 9620,
+    "mtime": "2026-08-18T09:49:14.288Z"
+  },
+  {
+    "name": "config-syntax-and-pipelines.md",
+    "path": "Continuous Integration/CircleCI/config-syntax-and-pipelines.md",
+    "size": 9697,
+    "mtime": "2026-08-18T09:49:14.288Z"
+  },
+  {
+    "name": "contexts-security-and-cicd-patterns.md",
+    "path": "Continuous Integration/CircleCI/contexts-security-and-cicd-patterns.md",
+    "size": 11138,
+    "mtime": "2026-08-18T09:49:14.289Z"
+  },
+  {
+    "name": "executors-and-environments.md",
+    "path": "Continuous Integration/CircleCI/executors-and-environments.md",
+    "size": 8609,
+    "mtime": "2026-08-18T09:49:14.289Z"
+  },
+  {
+    "name": "orbs-and-reusability.md",
+    "path": "Continuous Integration/CircleCI/orbs-and-reusability.md",
+    "size": 8616,
+    "mtime": "2026-08-18T09:49:14.289Z"
+  },
+  {
+    "name": "actions-and-marketplace.md",
+    "path": "Continuous Integration/GithubActions/actions-and-marketplace.md",
+    "size": 9433,
+    "mtime": "2026-08-18T09:49:14.289Z"
+  },
+  {
+    "name": "github-actions.md",
+    "path": "Continuous Integration/GithubActions/github-actions.md",
+    "size": 7883,
+    "mtime": "2026-08-18T09:49:14.290Z"
+  },
+  {
+    "name": "matrix-builds-and-caching.md",
+    "path": "Continuous Integration/GithubActions/matrix-builds-and-caching.md",
+    "size": 9328,
+    "mtime": "2026-08-18T09:49:14.290Z"
+  },
+  {
+    "name": "reusable-workflows-and-cicd-patterns.md",
+    "path": "Continuous Integration/GithubActions/reusable-workflows-and-cicd-patterns.md",
+    "size": 13099,
+    "mtime": "2026-08-18T09:49:14.290Z"
+  },
+  {
+    "name": "secrets-and-security.md",
+    "path": "Continuous Integration/GithubActions/secrets-and-security.md",
+    "size": 12447,
+    "mtime": "2026-08-18T09:49:14.290Z"
+  },
+  {
+    "name": "workflow-syntax-and-triggers.md",
+    "path": "Continuous Integration/GithubActions/workflow-syntax-and-triggers.md",
+    "size": 14642,
+    "mtime": "2026-08-18T09:49:14.290Z"
   },
   {
     "name": "jenkins.md",
     "path": "Continuous Integration/Jenkins/jenkins.md",
     "size": 19038,
-    "mtime": "2026-07-20T07:22:24.121Z"
+    "mtime": "2026-08-18T09:49:14.291Z"
+  },
+  {
+    "name": "ci-fundamentals.md",
+    "path": "Continuous Integration/ci-fundamentals.md",
+    "size": 11103,
+    "mtime": "2026-08-18T09:49:14.291Z"
+  },
+  {
+    "name": "blue-green-deployment.md",
+    "path": "Deployment/Blue-Green Deployment/blue-green-deployment.md",
+    "size": 8131,
+    "mtime": "2026-08-18T09:49:14.291Z"
+  },
+  {
+    "name": "canary-deployment.md",
+    "path": "Deployment/Canary Deployment/canary-deployment.md",
+    "size": 8489,
+    "mtime": "2026-08-18T09:49:14.291Z"
+  },
+  {
+    "name": "ab-testing-deployment.md",
+    "path": "Deployment/ab-testing-deployment.md",
+    "size": 5818,
+    "mtime": "2026-08-18T09:49:14.292Z"
+  },
+  {
+    "name": "deployment-anti-patterns-and-checklist.md",
+    "path": "Deployment/deployment-anti-patterns-and-checklist.md",
+    "size": 6628,
+    "mtime": "2026-08-18T09:49:14.292Z"
+  },
+  {
+    "name": "deployment-strategies.md",
+    "path": "Deployment/deployment-strategies.md",
+    "size": 6834,
+    "mtime": "2026-08-18T09:49:14.292Z"
+  },
+  {
+    "name": "feature-flags-and-progressive-delivery.md",
+    "path": "Deployment/feature-flags-and-progressive-delivery.md",
+    "size": 7542,
+    "mtime": "2026-08-18T09:49:14.292Z"
+  },
+  {
+    "name": "recreate-deployment.md",
+    "path": "Deployment/recreate-deployment.md",
+    "size": 4255,
+    "mtime": "2026-08-18T09:49:14.292Z"
+  },
+  {
+    "name": "rolling-deployment.md",
+    "path": "Deployment/rolling-deployment.md",
+    "size": 6275,
+    "mtime": "2026-08-18T09:49:14.292Z"
+  },
+  {
+    "name": "shadow-deployment.md",
+    "path": "Deployment/shadow-deployment.md",
+    "size": 7511,
+    "mtime": "2026-08-18T09:49:14.293Z"
+  },
+  {
+    "name": "compute-cost-optimization.md",
+    "path": "FinOps and Cost Optimization/compute-cost-optimization.md",
+    "size": 11482,
+    "mtime": "2026-08-18T09:49:14.293Z"
+  },
+  {
+    "name": "cost-visibility-and-allocation.md",
+    "path": "FinOps and Cost Optimization/cost-visibility-and-allocation.md",
+    "size": 10731,
+    "mtime": "2026-08-18T09:49:14.293Z"
+  },
+  {
+    "name": "finops-culture-and-governance.md",
+    "path": "FinOps and Cost Optimization/finops-culture-and-governance.md",
+    "size": 9987,
+    "mtime": "2026-08-18T09:49:14.293Z"
+  },
+  {
+    "name": "finops-overview.md",
+    "path": "FinOps and Cost Optimization/finops-overview.md",
+    "size": 9939,
+    "mtime": "2026-08-18T09:49:14.294Z"
+  },
+  {
+    "name": "storage-and-data-transfer-costs.md",
+    "path": "FinOps and Cost Optimization/storage-and-data-transfer-costs.md",
+    "size": 9603,
+    "mtime": "2026-08-18T09:49:14.294Z"
   },
   {
     "name": "GitOps.md",
     "path": "GitOps.md",
     "size": 4705,
-    "mtime": "2026-07-20T07:22:24.108Z"
+    "mtime": "2026-08-18T09:49:14.294Z"
+  },
+  {
+    "name": "drift-detection-and-continuous-validation.md",
+    "path": "IaC Testing and Policy as Code/drift-detection-and-continuous-validation.md",
+    "size": 8995,
+    "mtime": "2026-08-18T09:49:14.294Z"
+  },
+  {
+    "name": "iac-testing-overview.md",
+    "path": "IaC Testing and Policy as Code/iac-testing-overview.md",
+    "size": 7228,
+    "mtime": "2026-09-05T08:26:29.098Z"
+  },
+  {
+    "name": "kyverno.md",
+    "path": "IaC Testing and Policy as Code/kyverno.md",
+    "size": 50825,
+    "mtime": "2026-09-05T08:25:08.750Z"
+  },
+  {
+    "name": "linting-and-static-analysis.md",
+    "path": "IaC Testing and Policy as Code/linting-and-static-analysis.md",
+    "size": 6355,
+    "mtime": "2026-08-18T09:49:14.295Z"
+  },
+  {
+    "name": "policy-as-code-with-opa-and-conftest.md",
+    "path": "IaC Testing and Policy as Code/policy-as-code-with-opa-and-conftest.md",
+    "size": 13876,
+    "mtime": "2026-09-05T08:26:06.219Z"
+  },
+  {
+    "name": "terraform-testing-frameworks.md",
+    "path": "IaC Testing and Policy as Code/terraform-testing-frameworks.md",
+    "size": 9769,
+    "mtime": "2026-08-18T09:49:14.295Z"
+  },
+  {
+    "name": "detection-and-alerting.md",
+    "path": "Incident Response and On-Call/detection-and-alerting.md",
+    "size": 10345,
+    "mtime": "2026-08-18T09:49:14.296Z"
+  },
+  {
+    "name": "incident-command-and-response.md",
+    "path": "Incident Response and On-Call/incident-command-and-response.md",
+    "size": 9881,
+    "mtime": "2026-08-18T09:49:14.296Z"
+  },
+  {
+    "name": "incident-response-overview.md",
+    "path": "Incident Response and On-Call/incident-response-overview.md",
+    "size": 9662,
+    "mtime": "2026-08-18T09:49:14.296Z"
+  },
+  {
+    "name": "on-call-practices-and-sustainability.md",
+    "path": "Incident Response and On-Call/on-call-practices-and-sustainability.md",
+    "size": 9053,
+    "mtime": "2026-08-18T09:49:14.296Z"
+  },
+  {
+    "name": "postmortems-and-blameless-culture.md",
+    "path": "Incident Response and On-Call/postmortems-and-blameless-culture.md",
+    "size": 11489,
+    "mtime": "2026-08-18T09:49:14.296Z"
   },
   {
     "name": "Index.md",
     "path": "Index.md",
-    "size": 5936,
-    "mtime": "2026-07-21T11:35:59.463Z"
+    "size": 25301,
+    "mtime": "2026-09-05T09:03:49.883Z"
+  },
+  {
+    "name": "01-linux-and-scripting-qna.md",
+    "path": "Interview Questions/01-linux-and-scripting-qna.md",
+    "size": 46008,
+    "mtime": "2026-09-05T08:48:53.948Z"
+  },
+  {
+    "name": "02-git-version-control-qna.md",
+    "path": "Interview Questions/02-git-version-control-qna.md",
+    "size": 29655,
+    "mtime": "2026-09-05T08:48:53.953Z"
+  },
+  {
+    "name": "03-docker-qna.md",
+    "path": "Interview Questions/03-docker-qna.md",
+    "size": 25333,
+    "mtime": "2026-09-05T08:48:53.958Z"
+  },
+  {
+    "name": "04-kubernetes-qna.md",
+    "path": "Interview Questions/04-kubernetes-qna.md",
+    "size": 34584,
+    "mtime": "2026-09-05T08:48:53.962Z"
+  },
+  {
+    "name": "05-cicd-jenkins-github-actions-qna.md",
+    "path": "Interview Questions/05-cicd-jenkins-github-actions-qna.md",
+    "size": 24072,
+    "mtime": "2026-09-05T08:48:53.965Z"
+  },
+  {
+    "name": "06-terraform-and-iac-qna.md",
+    "path": "Interview Questions/06-terraform-and-iac-qna.md",
+    "size": 22393,
+    "mtime": "2026-09-05T08:48:53.969Z"
+  },
+  {
+    "name": "07-aws-cloud-qna.md",
+    "path": "Interview Questions/07-aws-cloud-qna.md",
+    "size": 23545,
+    "mtime": "2026-09-05T08:48:53.974Z"
+  },
+  {
+    "name": "08-networking-and-security-fundamentals-qna.md",
+    "path": "Interview Questions/08-networking-and-security-fundamentals-qna.md",
+    "size": 21508,
+    "mtime": "2026-09-05T08:48:53.979Z"
+  },
+  {
+    "name": "09-ansible-and-config-management-qna.md",
+    "path": "Interview Questions/09-ansible-and-config-management-qna.md",
+    "size": 17866,
+    "mtime": "2026-09-05T08:48:53.984Z"
+  },
+  {
+    "name": "10-azure-and-gcp-qna.md",
+    "path": "Interview Questions/10-azure-and-gcp-qna.md",
+    "size": 18199,
+    "mtime": "2026-09-05T08:48:53.989Z"
+  },
+  {
+    "name": "11-monitoring-logging-observability-qna.md",
+    "path": "Interview Questions/11-monitoring-logging-observability-qna.md",
+    "size": 20931,
+    "mtime": "2026-09-05T08:48:53.993Z"
+  },
+  {
+    "name": "12-security-devsecops-qna.md",
+    "path": "Interview Questions/12-security-devsecops-qna.md",
+    "size": 21700,
+    "mtime": "2026-09-05T08:48:53.997Z"
+  },
+  {
+    "name": "13-sre-incident-loadbalancing-servicemesh-qna.md",
+    "path": "Interview Questions/13-sre-incident-loadbalancing-servicemesh-qna.md",
+    "size": 22799,
+    "mtime": "2026-09-05T08:48:54.001Z"
+  },
+  {
+    "name": "14-deployment-systemdesign-behavioral-qna.md",
+    "path": "Interview Questions/14-deployment-systemdesign-behavioral-qna.md",
+    "size": 23639,
+    "mtime": "2026-09-05T08:48:54.005Z"
+  },
+  {
+    "name": "15-python-for-devops-qna.md",
+    "path": "Interview Questions/15-python-for-devops-qna.md",
+    "size": 17388,
+    "mtime": "2026-09-05T09:03:37.234Z"
+  },
+  {
+    "name": "16-agile-scrum-devops-culture-qna.md",
+    "path": "Interview Questions/16-agile-scrum-devops-culture-qna.md",
+    "size": 18389,
+    "mtime": "2026-09-05T09:03:38.060Z"
+  },
+  {
+    "name": "17-messaging-caching-distributed-systems-qna.md",
+    "path": "Interview Questions/17-messaging-caching-distributed-systems-qna.md",
+    "size": 22245,
+    "mtime": "2026-09-05T09:03:39.398Z"
+  },
+  {
+    "name": "18-practical-scripting-challenges-qna.md",
+    "path": "Interview Questions/18-practical-scripting-challenges-qna.md",
+    "size": 17688,
+    "mtime": "2026-09-05T09:03:40.115Z"
+  },
+  {
+    "name": "19-company-specific-and-behavioral-plus-qna.md",
+    "path": "Interview Questions/19-company-specific-and-behavioral-plus-qna.md",
+    "size": 19266,
+    "mtime": "2026-09-05T09:03:40.883Z"
+  },
+  {
+    "name": "README.md",
+    "path": "Interview Questions/README.md",
+    "size": 7742,
+    "mtime": "2026-09-05T09:03:36.502Z"
   },
   {
     "name": "knative.md",
     "path": "Knative/knative.md",
     "size": 5607,
-    "mtime": "2026-07-20T07:22:24.121Z"
+    "mtime": "2026-08-18T09:49:14.297Z"
   },
   {
     "name": "creating-helm-chart.md",
     "path": "Kubernetes/Helm/creating-helm-chart.md",
     "size": 77,
-    "mtime": "2026-07-20T07:22:24.108Z"
+    "mtime": "2026-08-18T09:49:14.297Z"
   },
   {
     "name": "helm-eg.md",
     "path": "Kubernetes/Helm/helm-eg.md",
     "size": 3139,
-    "mtime": "2026-07-20T07:22:24.109Z"
+    "mtime": "2026-08-18T09:49:14.297Z"
   },
   {
     "name": "helm.md",
     "path": "Kubernetes/Helm/helm.md",
     "size": 6297,
-    "mtime": "2026-07-20T07:22:24.109Z"
+    "mtime": "2026-08-18T09:49:14.297Z"
   },
   {
     "name": "K-pods.md",
     "path": "Kubernetes/K-pods.md",
-    "size": 6493,
-    "mtime": "2026-07-20T07:22:24.109Z"
+    "size": 16405,
+    "mtime": "2026-08-18T09:49:14.297Z"
   },
   {
     "name": "Networking.md",
     "path": "Kubernetes/Networking.md",
     "size": 36336,
-    "mtime": "2026-07-20T07:22:24.109Z"
+    "mtime": "2026-08-18T09:49:14.297Z"
   },
   {
     "name": "ingress-eg.md",
     "path": "Kubernetes/examples/ingress-eg.md",
     "size": 3486,
-    "mtime": "2026-07-20T07:22:24.109Z"
+    "mtime": "2026-08-18T09:49:14.298Z"
   },
   {
     "name": "good-practice-networking.md",
     "path": "Kubernetes/good-practice-networking.md",
     "size": 5328,
-    "mtime": "2026-07-20T07:22:24.109Z"
+    "mtime": "2026-08-18T09:49:14.298Z"
   },
   {
     "name": "helmVkustomize.md",
     "path": "Kubernetes/helmVkustomize.md",
     "size": 5661,
-    "mtime": "2026-07-20T07:22:24.109Z"
+    "mtime": "2026-08-18T09:49:14.298Z"
   },
   {
     "name": "k8-doubts.md",
     "path": "Kubernetes/k8-doubts.md",
     "size": 31285,
-    "mtime": "2026-07-20T07:22:24.110Z"
+    "mtime": "2026-08-18T09:49:14.298Z"
+  },
+  {
+    "name": "k8s-learning-path.md",
+    "path": "Kubernetes/k8s-learning-path.md",
+    "size": 49010,
+    "mtime": "2026-08-18T09:49:14.298Z"
   },
   {
     "name": "kubernetes.md",
     "path": "Kubernetes/kubernetes.md",
     "size": 38267,
-    "mtime": "2026-07-20T07:22:24.110Z"
+    "mtime": "2026-08-18T09:49:14.298Z"
+  },
+  {
+    "name": "cloud-load-balancers.md",
+    "path": "Load Balancing/cloud-load-balancers.md",
+    "size": 8697,
+    "mtime": "2026-08-18T09:49:14.299Z"
+  },
+  {
+    "name": "dns-and-global-load-balancing.md",
+    "path": "Load Balancing/dns-and-global-load-balancing.md",
+    "size": 9209,
+    "mtime": "2026-08-18T09:49:14.299Z"
+  },
+  {
+    "name": "health-checks-and-failover.md",
+    "path": "Load Balancing/health-checks-and-failover.md",
+    "size": 10033,
+    "mtime": "2026-08-18T09:49:14.299Z"
+  },
+  {
+    "name": "kubernetes-load-balancing.md",
+    "path": "Load Balancing/kubernetes-load-balancing.md",
+    "size": 11079,
+    "mtime": "2026-08-18T09:49:14.299Z"
+  },
+  {
+    "name": "l4-vs-l7-load-balancing.md",
+    "path": "Load Balancing/l4-vs-l7-load-balancing.md",
+    "size": 7730,
+    "mtime": "2026-08-18T09:49:14.300Z"
+  },
+  {
+    "name": "load-balancing-algorithms.md",
+    "path": "Load Balancing/load-balancing-algorithms.md",
+    "size": 7887,
+    "mtime": "2026-08-18T09:49:14.300Z"
+  },
+  {
+    "name": "load-balancing-overview.md",
+    "path": "Load Balancing/load-balancing-overview.md",
+    "size": 6267,
+    "mtime": "2026-08-18T09:49:14.300Z"
+  },
+  {
+    "name": "load-balancing-production-simulation.md",
+    "path": "Load Balancing/load-balancing-production-simulation.md",
+    "size": 9697,
+    "mtime": "2026-08-18T09:49:14.300Z"
+  },
+  {
+    "name": "software-load-balancers.md",
+    "path": "Load Balancing/software-load-balancers.md",
+    "size": 10081,
+    "mtime": "2026-08-18T09:49:14.300Z"
+  },
+  {
+    "name": "sticky-sessions-and-session-affinity.md",
+    "path": "Load Balancing/sticky-sessions-and-session-affinity.md",
+    "size": 7749,
+    "mtime": "2026-08-18T09:49:14.301Z"
   },
   {
     "name": "ELK.md",
     "path": "Monitoring and Loggin/ELK.md",
-    "size": 1,
-    "mtime": "2026-07-20T07:22:24.108Z"
+    "size": 139,
+    "mtime": "2026-08-18T09:49:14.301Z"
+  },
+  {
+    "name": "datadog.md",
+    "path": "Monitoring and Loggin/datadog/datadog.md",
+    "size": 8387,
+    "mtime": "2026-08-18T09:49:14.301Z"
+  },
+  {
+    "name": "elasticsearch.md",
+    "path": "Monitoring and Loggin/elasticsearch/elasticsearch.md",
+    "size": 7302,
+    "mtime": "2026-08-18T09:49:14.301Z"
+  },
+  {
+    "name": "logstash.md",
+    "path": "Monitoring and Loggin/elk/logstash.md",
+    "size": 6638,
+    "mtime": "2026-08-18T09:49:14.302Z"
+  },
+  {
+    "name": "fluentd.md",
+    "path": "Monitoring and Loggin/fluentid/fluentd.md",
+    "size": 6647,
+    "mtime": "2026-08-18T09:49:14.302Z"
+  },
+  {
+    "name": "grafana.md",
+    "path": "Monitoring and Loggin/grafana/grafana.md",
+    "size": 6040,
+    "mtime": "2026-08-18T09:49:14.302Z"
+  },
+  {
+    "name": "index.md",
+    "path": "Monitoring and Loggin/index.md",
+    "size": 9546,
+    "mtime": "2026-08-18T10:02:46.625Z"
+  },
+  {
+    "name": "kibana.md",
+    "path": "Monitoring and Loggin/kibana/kibana.md",
+    "size": 5369,
+    "mtime": "2026-08-18T09:49:14.302Z"
+  },
+  {
+    "name": "loki.md",
+    "path": "Monitoring and Loggin/loki/loki.md",
+    "size": 14321,
+    "mtime": "2026-08-18T10:02:37.519Z"
+  },
+  {
+    "name": "prometheus.md",
+    "path": "Monitoring and Loggin/prometheous/prometheus.md",
+    "size": 8975,
+    "mtime": "2026-08-18T09:49:14.303Z"
+  },
+  {
+    "name": "dns-deep-dive.md",
+    "path": "Networking and Security Fundamentals/dns-deep-dive.md",
+    "size": 12176,
+    "mtime": "2026-08-18T10:08:20.304Z"
+  },
+  {
+    "name": "firewalls.md",
+    "path": "Networking and Security Fundamentals/firewalls.md",
+    "size": 12251,
+    "mtime": "2026-08-18T10:10:04.852Z"
+  },
+  {
+    "name": "hardening-practices.md",
+    "path": "Networking and Security Fundamentals/hardening-practices.md",
+    "size": 13222,
+    "mtime": "2026-08-18T10:11:48.550Z"
+  },
+  {
+    "name": "index.md",
+    "path": "Networking and Security Fundamentals/index.md",
+    "size": 7409,
+    "mtime": "2026-08-18T10:06:40.172Z"
+  },
+  {
+    "name": "networking-fundamentals.md",
+    "path": "Networking and Security Fundamentals/networking-fundamentals.md",
+    "size": 10965,
+    "mtime": "2026-08-18T10:07:29.923Z"
+  },
+  {
+    "name": "tls-and-certificates.md",
+    "path": "Networking and Security Fundamentals/tls-and-certificates.md",
+    "size": 12608,
+    "mtime": "2026-08-18T10:09:13.153Z"
+  },
+  {
+    "name": "vpns.md",
+    "path": "Networking and Security Fundamentals/vpns.md",
+    "size": 11929,
+    "mtime": "2026-08-18T10:10:55.204Z"
   },
   {
     "name": "cicd-pipeline.md",
     "path": "Project/cicd-pipeline.md",
     "size": 211,
-    "mtime": "2026-07-20T07:22:24.110Z"
+    "mtime": "2026-08-18T09:49:14.303Z"
   },
   {
     "name": "README.md",
     "path": "README.md",
-    "size": 2441,
-    "mtime": "2026-07-20T07:35:41.811Z"
+    "size": 3264,
+    "mtime": "2026-09-05T09:03:56.460Z"
+  },
+  {
+    "name": "container-and-image-security.md",
+    "path": "Security in DevOps/container-and-image-security.md",
+    "size": 12590,
+    "mtime": "2026-08-18T09:49:14.303Z"
+  },
+  {
+    "name": "devsecops-overview.md",
+    "path": "Security in DevOps/devsecops-overview.md",
+    "size": 11415,
+    "mtime": "2026-08-18T09:49:14.303Z"
+  },
+  {
+    "name": "iam-and-least-privilege.md",
+    "path": "Security in DevOps/iam-and-least-privilege.md",
+    "size": 11881,
+    "mtime": "2026-08-18T09:49:14.303Z"
+  },
+  {
+    "name": "sast-dast-and-code-scanning.md",
+    "path": "Security in DevOps/sast-dast-and-code-scanning.md",
+    "size": 12416,
+    "mtime": "2026-08-18T09:49:14.303Z"
+  },
+  {
+    "name": "secrets-management.md",
+    "path": "Security in DevOps/secrets-management.md",
+    "size": 10532,
+    "mtime": "2026-08-18T09:49:14.304Z"
+  },
+  {
+    "name": "security-in-cicd-pipelines.md",
+    "path": "Security in DevOps/security-in-cicd-pipelines.md",
+    "size": 10815,
+    "mtime": "2026-08-18T09:49:14.304Z"
+  },
+  {
+    "name": "supply-chain-security.md",
+    "path": "Security in DevOps/supply-chain-security.md",
+    "size": 10262,
+    "mtime": "2026-08-18T09:49:14.304Z"
+  },
+  {
+    "name": "istio-gateway-and-ingress.md",
+    "path": "Service Mesh/istio-gateway-and-ingress.md",
+    "size": 9795,
+    "mtime": "2026-08-18T09:49:14.304Z"
+  },
+  {
+    "name": "istio-vs-linkerd-vs-consul.md",
+    "path": "Service Mesh/istio-vs-linkerd-vs-consul.md",
+    "size": 8743,
+    "mtime": "2026-08-18T09:49:14.304Z"
+  },
+  {
+    "name": "istio.md",
+    "path": "Service Mesh/istio.md",
+    "size": 17800,
+    "mtime": "2026-08-18T09:49:14.304Z"
+  },
+  {
+    "name": "kubernetes-ingress-deep-dive.md",
+    "path": "Service Mesh/kubernetes-ingress-deep-dive.md",
+    "size": 14004,
+    "mtime": "2026-08-18T09:49:14.305Z"
+  },
+  {
+    "name": "observability-in-service-mesh.md",
+    "path": "Service Mesh/observability-in-service-mesh.md",
+    "size": 8929,
+    "mtime": "2026-08-18T09:49:14.305Z"
+  },
+  {
+    "name": "resilience-patterns.md",
+    "path": "Service Mesh/resilience-patterns.md",
+    "size": 9714,
+    "mtime": "2026-08-18T09:49:14.305Z"
+  },
+  {
+    "name": "security-and-mtls.md",
+    "path": "Service Mesh/security-and-mtls.md",
+    "size": 10498,
+    "mtime": "2026-08-18T09:49:14.305Z"
+  },
+  {
+    "name": "service-mesh-architecture-and-sidecar-pattern.md",
+    "path": "Service Mesh/service-mesh-architecture-and-sidecar-pattern.md",
+    "size": 9920,
+    "mtime": "2026-08-18T09:49:14.305Z"
+  },
+  {
+    "name": "service-mesh-overview.md",
+    "path": "Service Mesh/service-mesh-overview.md",
+    "size": 10568,
+    "mtime": "2026-08-18T09:49:14.305Z"
+  },
+  {
+    "name": "service-mesh-production-simulation.md",
+    "path": "Service Mesh/service-mesh-production-simulation.md",
+    "size": 11112,
+    "mtime": "2026-08-18T09:49:14.306Z"
+  },
+  {
+    "name": "traffic-management.md",
+    "path": "Service Mesh/traffic-management.md",
+    "size": 11867,
+    "mtime": "2026-08-18T09:49:14.306Z"
   },
   {
     "name": "cloud-formation.md",
     "path": "Terraform and CF/cloud-formation.md",
     "size": 17195,
-    "mtime": "2026-07-20T07:22:24.110Z"
+    "mtime": "2026-08-18T09:49:14.306Z"
   },
   {
     "name": "README.md",
     "path": "Terraform and CF/course-files/01-cloud-and-iac/README.md",
     "size": 100,
-    "mtime": "2026-07-20T07:22:24.111Z"
+    "mtime": "2026-08-18T09:49:14.306Z"
   },
   {
     "name": "README.md",
     "path": "Terraform and CF/course-files/02-overview/README.md",
     "size": 695,
-    "mtime": "2026-07-20T07:22:24.111Z"
+    "mtime": "2026-08-18T09:49:14.306Z"
   },
   {
     "name": "README.md",
     "path": "Terraform and CF/course-files/03-basics/README.md",
     "size": 1245,
-    "mtime": "2026-07-20T07:22:24.111Z"
+    "mtime": "2026-08-18T09:49:14.307Z"
   },
   {
     "name": "README.md",
     "path": "Terraform and CF/course-files/03-basics/web-app/README.md",
     "size": 473,
-    "mtime": "2026-07-20T07:22:24.112Z"
+    "mtime": "2026-08-18T09:49:14.307Z"
   },
   {
     "name": "README.md",
     "path": "Terraform and CF/course-files/04-variables-and-outputs/examples/README.md",
     "size": 1440,
-    "mtime": "2026-07-20T07:22:24.113Z"
+    "mtime": "2026-08-18T09:49:14.308Z"
   },
   {
     "name": "README.md",
     "path": "Terraform and CF/course-files/05-language-features/README.md",
     "size": 3457,
-    "mtime": "2026-07-20T07:22:24.114Z"
+    "mtime": "2026-08-18T09:49:14.309Z"
   },
   {
     "name": "README.md",
     "path": "Terraform and CF/course-files/06-organization-and-modules/README.md",
     "size": 75,
-    "mtime": "2026-07-20T07:22:24.114Z"
+    "mtime": "2026-08-18T09:49:14.309Z"
   },
   {
     "name": "README.md",
     "path": "Terraform and CF/course-files/06-organization-and-modules/consul/README.md",
     "size": 93,
-    "mtime": "2026-07-20T07:22:24.114Z"
+    "mtime": "2026-08-18T09:49:14.309Z"
   },
   {
     "name": "README.md",
     "path": "Terraform and CF/course-files/07-managing-multiple-environments/file-structure/README.md",
     "size": 258,
-    "mtime": "2026-07-20T07:22:24.116Z"
+    "mtime": "2026-08-18T09:49:14.310Z"
   },
   {
     "name": "README.md",
     "path": "Terraform and CF/course-files/07-managing-multiple-environments/workspaces/README.md",
     "size": 148,
-    "mtime": "2026-07-20T07:22:24.116Z"
+    "mtime": "2026-08-18T09:49:14.310Z"
   },
   {
     "name": "README.md",
     "path": "Terraform and CF/course-files/08-testing/deployed/README.md",
     "size": 59,
-    "mtime": "2026-07-20T07:22:24.117Z"
+    "mtime": "2026-08-18T09:49:14.311Z"
   },
   {
     "name": "README.md",
     "path": "Terraform and CF/course-files/08-testing/examples/README.md",
     "size": 49,
-    "mtime": "2026-07-20T07:22:24.117Z"
+    "mtime": "2026-08-18T09:49:14.311Z"
   },
   {
     "name": "README.md",
     "path": "Terraform and CF/course-files/08-testing/modules/README.md",
     "size": 41,
-    "mtime": "2026-07-20T07:22:24.118Z"
+    "mtime": "2026-08-18T09:49:14.311Z"
   },
   {
     "name": "README.md",
     "path": "Terraform and CF/course-files/08-testing/modules/hello-world/README.md",
     "size": 107,
-    "mtime": "2026-07-20T07:22:24.118Z"
+    "mtime": "2026-08-18T09:49:14.311Z"
   },
   {
     "name": "README.md",
     "path": "Terraform and CF/course-files/08-testing/tests/README.md",
     "size": 24,
-    "mtime": "2026-07-20T07:22:24.118Z"
+    "mtime": "2026-08-18T09:49:14.311Z"
   },
   {
     "name": "README.md",
     "path": "Terraform and CF/course-files/08-testing/tests/static/README.md",
     "size": 1333,
-    "mtime": "2026-07-20T07:22:24.119Z"
+    "mtime": "2026-08-18T09:49:14.312Z"
   },
   {
     "name": "README.md",
     "path": "Terraform and CF/course-files/08-testing/tests/terratest/README.md",
     "size": 117,
-    "mtime": "2026-07-20T07:22:24.119Z"
+    "mtime": "2026-08-18T09:49:14.312Z"
   },
   {
     "name": "README.md",
     "path": "Terraform and CF/course-files/09-developer-workflows/README.md",
     "size": 227,
-    "mtime": "2026-07-20T07:22:24.119Z"
+    "mtime": "2026-08-18T09:49:14.312Z"
   },
   {
     "name": "README.md",
     "path": "Terraform and CF/course-files/README.md",
     "size": 1780,
-    "mtime": "2026-07-20T07:22:24.119Z"
+    "mtime": "2026-08-18T09:49:14.312Z"
   },
   {
     "name": "learnlog.md",
     "path": "Terraform and CF/learnlog.md",
     "size": 14815,
-    "mtime": "2026-07-20T07:22:24.120Z"
+    "mtime": "2026-08-18T09:49:14.312Z"
+  },
+  {
+    "name": "pulumi.md",
+    "path": "Terraform and CF/pulumi.md",
+    "size": 15714,
+    "mtime": "2026-08-18T09:51:51.155Z"
   },
   {
     "name": "sample-project.md",
     "path": "Terraform and CF/sample-project.md",
     "size": 6000,
-    "mtime": "2026-07-20T07:22:24.120Z"
+    "mtime": "2026-08-18T09:49:14.313Z"
   },
   {
     "name": "terraform.md",
     "path": "Terraform and CF/terraform.md",
     "size": 5927,
-    "mtime": "2026-07-20T07:22:24.120Z"
+    "mtime": "2026-08-18T09:49:14.313Z"
   },
   {
     "name": "argo-cd-integration-helm.md",
     "path": "argo-cd-integration-helm.md",
     "size": 7243,
-    "mtime": "2026-07-20T07:22:24.120Z"
+    "mtime": "2026-08-18T09:49:14.313Z"
   },
   {
     "name": "commands.md",
     "path": "docker/commands.md",
     "size": 4014,
-    "mtime": "2026-07-20T07:22:24.120Z"
+    "mtime": "2026-08-18T09:49:14.313Z"
   },
   {
     "name": "docker-compose.md",
     "path": "docker/docker-compose.md",
     "size": 14402,
-    "mtime": "2026-07-21T11:33:27.514Z"
+    "mtime": "2026-08-18T09:49:14.313Z"
   },
   {
     "name": "docker-more.md",
     "path": "docker/docker-more.md",
     "size": 7416,
-    "mtime": "2026-07-20T07:22:24.121Z"
+    "mtime": "2026-08-18T09:49:14.314Z"
   },
   {
     "name": "docker-networking.md",
     "path": "docker/docker-networking.md",
     "size": 8246,
-    "mtime": "2026-07-21T11:34:26.800Z"
+    "mtime": "2026-08-18T09:49:14.314Z"
   },
   {
     "name": "docker-production-and-orchestration.md",
     "path": "docker/docker-production-and-orchestration.md",
     "size": 15489,
-    "mtime": "2026-07-21T11:35:17.594Z"
+    "mtime": "2026-08-18T09:49:14.314Z"
   },
   {
     "name": "docker-registries-and-distribution.md",
     "path": "docker/docker-registries-and-distribution.md",
     "size": 12282,
-    "mtime": "2026-07-21T11:34:09.737Z"
+    "mtime": "2026-08-18T09:49:14.314Z"
   },
   {
     "name": "docker-security.md",
     "path": "docker/docker-security.md",
     "size": 17660,
-    "mtime": "2026-07-21T11:33:15.640Z"
+    "mtime": "2026-08-18T09:49:14.314Z"
   },
   {
     "name": "docker-storage-and-volumes.md",
     "path": "docker/docker-storage-and-volumes.md",
     "size": 7797,
-    "mtime": "2026-07-21T11:34:59.981Z"
+    "mtime": "2026-08-18T09:49:14.314Z"
   },
   {
     "name": "docker-swarm.md",
     "path": "docker/docker-swarm.md",
     "size": 14778,
-    "mtime": "2026-07-21T11:34:28.258Z"
+    "mtime": "2026-08-18T09:49:14.314Z"
   },
   {
     "name": "docker.md",
     "path": "docker/docker.md",
     "size": 11895,
-    "mtime": "2026-07-21T11:32:43.952Z"
+    "mtime": "2026-08-18T09:49:14.315Z"
   },
   {
     "name": "dockerfile-deep-dive.md",
     "path": "docker/dockerfile-deep-dive.md",
     "size": 15608,
-    "mtime": "2026-07-21T11:33:52.450Z"
+    "mtime": "2026-08-18T09:49:14.315Z"
   },
   {
     "name": "imp_concepts.md",
     "path": "imp_concepts.md",
     "size": 4180,
-    "mtime": "2026-07-21T11:22:40.755Z"
-  },
-  {
-    "name": "istio.md",
-    "path": "istio.md",
-    "size": 17800,
-    "mtime": "2026-07-20T07:22:24.121Z"
+    "mtime": "2026-08-18T09:49:14.315Z"
   },
   {
     "name": "bash-scripting.md",
     "path": "scripting/bash-scripting.md",
     "size": 15414,
-    "mtime": "2026-07-21T11:16:59.107Z"
+    "mtime": "2026-08-18T09:49:14.409Z"
   },
   {
     "name": "linux-cmds.md",
     "path": "scripting/linux-cmds.md",
     "size": 5242,
-    "mtime": "2026-07-20T07:22:24.122Z"
+    "mtime": "2026-08-18T09:49:14.409Z"
   },
   {
     "name": "linux-permissions.md",
     "path": "scripting/linux-permissions.md",
     "size": 6977,
-    "mtime": "2026-07-20T07:22:24.122Z"
+    "mtime": "2026-08-18T09:49:14.409Z"
   },
   {
     "name": "shell-scripting-devops.md",
     "path": "scripting/shell-scripting-devops.md",
     "size": 9926,
-    "mtime": "2026-07-20T09:42:05.621Z"
+    "mtime": "2026-08-18T09:49:14.410Z"
   }
 ]
