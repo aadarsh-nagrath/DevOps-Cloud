@@ -68,63 +68,91 @@ Each Dockerfile instruction that changes the filesystem (`RUN`, `COPY`, `ADD`) p
 ### 17. What is a multi-stage build, and what problem does it solve?
 A multi-stage `Dockerfile` uses multiple `FROM` statements, each starting a new build stage, where later stages can selectively `COPY --from=<earlier-stage>` specific artifacts from earlier ones. This lets you use a full SDK/toolchain image to *compile* an application in one stage, then copy just the compiled binary/output into a minimal final runtime image (e.g. `scratch`, `distroless`, or `alpine`) — dramatically shrinking the final image size and attack surface by excluding compilers, build tools, and source code that aren't needed at runtime.
 
-### 18. What's the difference between `ENV` and `ARG` in a Dockerfile?
+### 18. For a Maven-based Java application, what actions would you actually perform in a multi-stage Dockerfile?
+First stage: start `FROM` a full Maven+JDK image (e.g. `maven:3.9-eclipse-temurin-17`), `COPY` the `pom.xml` in on its own *before* the source code and run `mvn dependency:go-offline` (or just let the subsequent `mvn package` resolve dependencies) — this isolates the dependency-resolution layer so it's only invalidated/re-run when `pom.xml` actually changes, not on every source edit. Then `COPY` the rest of the source (`src/`) and run `mvn package -DskipTests` (or run tests in a separate CI step before the build, rather than inside the image build) to produce the `.jar`/`.war`. Second stage: start `FROM` a minimal JRE-only base image (e.g. `eclipse-temurin:17-jre-alpine`, not the full JDK, since you don't need a compiler at runtime), `COPY --from=<first-stage-name> /app/target/*.jar app.jar`, set a non-root `USER`, expose the application port, and set `ENTRYPOINT ["java", "-jar", "/app/app.jar"]`. The net effect: the final image contains only a JRE and the built `.jar`, not Maven, the JDK, the `.m2` dependency cache, or any source code.
+
+### 19. Write a multi-stage Dockerfile.
+A concrete example for the Maven application just described:
+```dockerfile
+# ---- Build stage ----
+FROM maven:3.9-eclipse-temurin-17 AS build
+WORKDIR /app
+COPY pom.xml .
+RUN mvn dependency:go-offline -B
+COPY src ./src
+RUN mvn package -DskipTests -B
+
+# ---- Runtime stage ----
+FROM eclipse-temurin:17-jre-alpine
+WORKDIR /app
+RUN addgroup -S app && adduser -S app -G app
+COPY --from=build /app/target/*.jar app.jar
+USER app
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
+```
+The `pom.xml`-before-`src` ordering maximizes layer-cache reuse across builds (dependencies only re-resolve when `pom.xml` changes), and the second `FROM` starts a brand-new, minimal image that only inherits the one `.jar` copied across via `--from=build` — none of Maven, the JDK, or the `.m2` cache from the first stage end up in the final image.
+
+### 20. Explain the logic behind a multi-stage Docker build, step by step.
+Each `FROM` instruction in a Dockerfile starts a fresh, independent build stage with its own filesystem — none of an earlier stage's layers carry forward into a later one automatically, the only thing that crosses the boundary is whatever you explicitly pull across via `COPY --from=<stage>`. The logic: do all the "expensive/large" work (installing a compiler toolchain, resolving and caching dependencies, actually compiling/building) in an early stage based on a large, full-featured image, since that stage's extra size and tooling never need to ship anywhere. Then start a final stage from a deliberately minimal base image, and `COPY --from=<earlier-stage>` *only* the specific compiled output (a binary, a `.jar`, a built frontend's static assets) that's actually needed at runtime — Docker only keeps the layers of the *final* stage in the resulting image (intermediate stages are used for the build and then discarded, not persisted in the final image's layers), so the toolchain and source code used to produce the artifact genuinely never reach the shipped image at all, rather than just being deleted in a later `RUN` line (which, in a single-stage build, would still leave them in an earlier, immutable layer's diff).
+
+### 21. What's the difference between `ENV` and `ARG` in a Dockerfile?
 `ARG` defines a build-time-only variable, available during the build but *not* present in the final running container's environment (unless separately assigned to an `ENV`). `ENV` defines an environment variable that's baked into the image and *is* present at container runtime, overridable at `docker run` time with `-e`. A common pattern is `ARG VERSION` used to parameterize a build, then `ENV APP_VERSION=$VERSION` to also expose it to the running application.
 
-### 19. How do you keep secrets (API keys, credentials) out of a Docker image?
+### 22. How do you keep secrets (API keys, credentials) out of a Docker image?
 Never `COPY` a secrets file into the image or bake it in via `ENV`/`ARG` in a way that lands in a layer or the image's history (`docker history`, or simply `docker inspect`, can reveal `ENV` values, and even a value only used transiently in a `RUN` line remains in that layer's diff unless very carefully handled). Instead: use `docker build --secret` (BuildKit's dedicated secret-mounting mechanism, which never persists the secret into any layer), inject secrets at *runtime* via environment variables or mounted files from a secrets manager (Vault, AWS Secrets Manager, Kubernetes Secrets) rather than at build time, and add sensitive paths to `.dockerignore` so they're never even sent as part of the build context.
 
-### 20. What is `.dockerignore`, and why does it matter for both build speed and security?
+### 23. What is `.dockerignore`, and why does it matter for both build speed and security?
 Analogous to `.gitignore`, it excludes files/directories from the build context sent to the Docker daemon. Excluding things like `.git/`, `node_modules/`, local `.env` files, and build artifacts speeds up builds (smaller context to transfer/hash) and prevents accidentally `COPY`-ing sensitive files into an image via a broad `COPY . .` instruction.
 
-### 21. How does Docker networking work — what are the built-in network drivers, and when do you use each?
+### 24. How does Docker networking work — what are the built-in network drivers, and when do you use each?
 `bridge` (the default) creates an isolated private network on the host; containers on the same bridge network can reach each other by container name via Docker's built-in DNS, and reach the outside world via NAT — the right default for most single-host setups. `host` removes network isolation entirely, sharing the host's network namespace directly (max performance, no port mapping needed, but no isolation and possible port conflicts). `overlay` spans multiple Docker hosts (used by Swarm, and conceptually similar to what CNI plugins provide for Kubernetes) for multi-host container communication. `none` disables networking entirely, for fully isolated workloads.
 
-### 22. How does container-to-container communication work on a user-defined bridge network vs the default bridge?
+### 25. How does container-to-container communication work on a user-defined bridge network vs the default bridge?
 On a **user-defined** bridge network (`docker network create mynet`), Docker provides automatic DNS resolution by container name — `curl http://backend:5000` from a container named `frontend` just works. On the **default** bridge network, this automatic DNS doesn't work — containers can only reach each other by IP address (which changes across restarts), which is precisely why creating a user-defined network (or using Compose, which does this automatically) is standard practice rather than relying on the default bridge.
 
-### 23. What is `docker system prune`, and what does it actually remove?
+### 26. What is `docker system prune`, and what does it actually remove?
 It removes unused Docker data to reclaim disk space: stopped containers, dangling images (untagged, unreferenced layers), unused networks, and (by default) the build cache — but **not** volumes, unless you explicitly add `--volumes` (a safety default, since volumes usually hold real data you don't want to lose accidentally). `docker system df` shows current disk usage broken down by images/containers/volumes/build-cache before you decide what to prune.
 
-### 24. What does `HEALTHCHECK` do in a Dockerfile, and how does it interact with orchestrators?
+### 27. What does `HEALTHCHECK` do in a Dockerfile, and how does it interact with orchestrators?
 `HEALTHCHECK CMD curl -f http://localhost/health || exit 1` tells Docker to periodically run a command inside the container and mark its status as `healthy`/`unhealthy`/`starting` based on the exit code (visible in `docker ps` as `(healthy)`). Orchestrators (Swarm, and Kubernetes via its own separate `livenessProbe`/`readinessProbe` mechanism rather than reading the Dockerfile `HEALTHCHECK` directly) use this signal to decide whether to route traffic to a container or restart/replace it.
 
-### 25. Why should containers generally run as a non-root user, and how do you configure that?
+### 28. Why should containers generally run as a non-root user, and how do you configure that?
 If a container process running as root is compromised (a code execution vulnerability in the app, for example), and the container escapes its isolation or a mounted volume has permissive host permissions, the attacker effectively has root-level capability on whatever they can reach — a needlessly large blast radius most applications don't actually need. Set a non-root user in the Dockerfile (`RUN useradd -m appuser` then `USER appuser`) or at runtime (`docker run --user 1000:1000`), and Kubernetes additionally supports `runAsNonRoot: true` in a pod's `securityContext` to *enforce* this as policy, refusing to start a pod that would otherwise run as root.
 
-### 26. What's the difference between `docker cp`, a bind mount, and a volume, for getting files into/out of a container?
+### 29. What's the difference between `docker cp`, a bind mount, and a volume, for getting files into/out of a container?
 `docker cp` is a one-time, manual copy of files between the host and a container's filesystem (works even on a stopped container) — not a persistent or live-syncing mechanism. A bind mount live-links a host directory into the container for as long as it's running, so changes on either side are immediately visible to the other — ideal for local dev iteration. A volume is Docker-managed persistent storage, decoupled from any specific host path, intended for data that should outlive and be portable across containers.
 
-### 27. How would you reduce a Docker image's size? Name several concrete techniques.
+### 30. How would you reduce a Docker image's size? Name several concrete techniques.
 Use a minimal base image (`alpine`, `distroless`, or `scratch` for statically-linked binaries) instead of a full OS image. Use multi-stage builds so build-time-only tools/dependencies never reach the final image. Combine related `RUN` commands with `&&` and clean up package manager caches in the *same* layer they were created in (cleaning up in a later `RUN` doesn't shrink earlier layers, since layers are additive/immutable). Order Dockerfile instructions to maximize cache reuse (not strictly a size technique, but reduces wasted rebuild time). Avoid copying unnecessary files (`.dockerignore`), and periodically audit with `docker history <image>` or tools like `dive` to see exactly which layer/instruction is contributing the most size.
 
-### 28. What is Docker BuildKit, and what does it improve over the legacy builder?
+### 31. What is Docker BuildKit, and what does it improve over the legacy builder?
 BuildKit (the default builder since Docker 23.0+) parallelizes independent build stages instead of executing sequentially, provides smarter, more granular caching (including cache mounts for package manager caches across builds via `RUN --mount=type=cache`), supports the secure `--secret`/`--ssh` mount mechanisms for secrets that never land in a layer, and enables more efficient cache export/import for CI (e.g. `--cache-from`/`--cache-to` against a registry, letting CI runners share build cache across ephemeral runners).
 
-### 29. What's the difference between `docker inspect`, `docker stats`, and `docker top`?
+### 32. What's the difference between `docker inspect`, `docker stats`, and `docker top`?
 `docker inspect <container>` dumps detailed JSON configuration/state (mounts, network settings, env vars, resource limits) — the "what is this container configured as" view. `docker stats` shows live, continuously updating resource usage (CPU %, memory, network I/O) per container — the "what is this container doing right now, resource-wise" view. `docker top <container>` lists the actual OS processes running inside the container (similar to running `ps` from the host's perspective on that container's namespace).
 
-### 30. How do you limit a container's CPU and memory usage, and what happens when it exceeds the memory limit?
+### 33. How do you limit a container's CPU and memory usage, and what happens when it exceeds the memory limit?
 `docker run --memory=512m --cpus=1.5 myimage` caps memory to 512MB and CPU to 1.5 cores' worth of time. Exceeding the memory limit triggers the kernel's OOM killer *scoped to that container's cgroup* — the container's process gets killed (visible as an `OOMKilled: true` / exit code 137 in `docker inspect`), rather than affecting the host or other containers, which is exactly the isolation cgroups are designed to provide.
 
 ---
 
 ## Senior Level (5+ yrs)
 
-### 31. Explain exactly how container isolation is implemented at the kernel level, and identify a concrete way that isolation can be weaker than expected.
+### 34. Explain exactly how container isolation is implemented at the kernel level, and identify a concrete way that isolation can be weaker than expected.
 Isolation comes from Linux namespaces (PID, net, mount, UTS, IPC, and optionally user namespaces) restricting what a process can *see*, and cgroups bounding what it can *use* — but all containers on a host still share one kernel. A concrete weak point: without a remapped user namespace (`--userns-remap`, off by default in most setups), root inside a container *is* UID 0 on the host — if a container escape occurs (a kernel exploit, an overly permissive mount, or a dangerous capability like `CAP_SYS_ADMIN` left enabled), the attacker has genuine host-root, not just "container root." This is why `--userns-remap`, dropping all capabilities and adding back only what's needed (`--cap-drop=ALL --cap-add=NET_BIND_SERVICE`), read-only root filesystems (`--read-only`), and seccomp/AppArmor profiles are defense-in-depth layers senior engineers should be able to speak to, not just "namespaces provide isolation" as a one-line answer.
 
-### 32. How would you design a base-image strategy across an organization with dozens of microservices, balancing security patching, consistency, and build speed?
+### 35. How would you design a base-image strategy across an organization with dozens of microservices, balancing security patching, consistency, and build speed?
 Maintain a small set of centrally-owned, hardened "golden" base images (per language/runtime), rebuilt on a scheduled cadence and automatically on upstream CVE disclosure, scanned (Trivy/Grype/Snyk) as part of that rebuild pipeline, and published to an internal registry that all service Dockerfiles `FROM` instead of pulling directly from public Docker Hub. This centralizes the patching burden (fix once, every service inherits it on next build) instead of each team managing their own base image drift, while a policy-as-code gate (OPA/Conftest, or registry-level admission control) blocks any image built `FROM` an unapproved or stale base from being deployed — turning "everyone should use the hardened base image" from a wiki convention into an enforced pipeline requirement.
 
-### 33. A container that was fine in staging OOMKills intermittently in production under load. Walk through your investigation.
+### 36. A container that was fine in staging OOMKills intermittently in production under load. Walk through your investigation.
 First confirm it's actually a memory limit issue and not a crash from something else being misreported (`docker inspect --format='{{json .State}}' <container>` or `kubectl describe pod` for the exact `OOMKilled`/exit-code-137 signal). Compare configured memory limits between staging and production (a surprisingly common root cause: different limits, or production simply seeing genuinely higher load/concurrency/cache growth than staging ever exercised). Profile actual memory usage under production-like load in a controlled way (language-specific heap profiler, or `docker stats`/cgroup `memory.stat` trends over time) to distinguish a real leak from expected-but-underestimated working-set size (e.g. connection pool growth, in-memory caching that scales with traffic, or page-cache-inflated RSS as discussed in the Linux section of this repo). If it's a genuine leak, bisect recent releases; if it's underestimated legitimate usage, right-size the limit based on observed data rather than a guessed number, and add memory-usage alerting *before* the OOM threshold so you get warning ahead of the next incident rather than only a post-mortem signal.
 
-### 34. Compare Docker's default `runc`-based containers to gVisor and Kata Containers, and explain when the added complexity of a sandboxed/lightweight-VM runtime is actually justified.
+### 37. Compare Docker's default `runc`-based containers to gVisor and Kata Containers, and explain when the added complexity of a sandboxed/lightweight-VM runtime is actually justified.
 Standard Docker containers use `runc`, which creates namespace/cgroup-isolated processes directly against the host kernel — fast, low overhead, but the isolation boundary is "as strong as the shared kernel's own security," meaning a kernel vulnerability can potentially be exploited across container boundaries. gVisor intercepts a container's syscalls in userspace via a sandbox kernel (`runsc`), trading some performance for a much smaller kernel attack surface exposed to the container. Kata Containers goes further, running each container inside a lightweight, hardware-virtualized micro-VM, giving genuine hypervisor-level isolation at a bigger performance/resource cost. The justification threshold is usually: multi-tenant untrusted workloads (running arbitrary/customer-submitted code, a CI runner executing untrusted PR code, a serverless platform hosting multiple customers on shared nodes) where the isolation upgrade is worth the overhead — versus a single organization's own trusted internal microservices, where standard `runc` isolation plus good image/capability hygiene is normally sufficient and the added latency/complexity isn't justified.
 
-### 35. How would you architect and secure a fully automated container build pipeline end to end (source → registry → deployment), addressing supply-chain risk specifically?
+### 38. How would you architect and secure a fully automated container build pipeline end to end (source → registry → deployment), addressing supply-chain risk specifically?
 Pin all base images by digest (not just tag, since tags are mutable) in source-controlled Dockerfiles; run dependency and container vulnerability scanning (Trivy/Grype/Snyk) as a required, blocking CI gate, not just an informational report; generate an SBOM (Software Bill of Materials, e.g. via Syft) for every built image and store it alongside the artifact; sign built images (Sigstore/cosign, or Docker Content Trust/Notary) and generate build provenance attestation tying the artifact back to the exact source commit, pipeline, and build inputs that produced it (aligned with SLSA); enforce, at the deployment/admission-control layer (Kubernetes admission webhook, e.g. Kyverno or OPA Gatekeeper), that only signed images with a verified provenance attestation from your CI system — never an image pushed manually or from an unapproved pipeline — can be deployed; and restrict registry write access tightly, since a compromised registry credential otherwise undermines every other control in the chain regardless of how well the pipeline itself is secured.
 
-### 36. Explain the tradeoffs of running Docker (or any container runtime) in production directly on bare-metal hosts vs. inside VMs, from a defense-in-depth and multi-tenancy perspective.
+### 39. Explain the tradeoffs of running Docker (or any container runtime) in production directly on bare-metal hosts vs. inside VMs, from a defense-in-depth and multi-tenancy perspective.
 Bare-metal containers give you the best raw performance and resource efficiency (no hypervisor tax, no double-scheduling of CPU/memory between hypervisor and container orchestrator), simpler capacity planning, and is common for organizations running their own fleet at scale. Running containers *inside* VMs (the common cloud pattern — e.g. Kubernetes nodes that are themselves cloud VMs) adds a genuine additional isolation boundary: a kernel-level container escape is contained within that VM's blast radius rather than reaching a shared bare-metal host running many customers' or teams' workloads, at the cost of some performance overhead and an extra layer of infrastructure (VM images, hypervisor patching) to manage. Multi-tenant platforms (cloud providers themselves, or internal platforms hosting many independent teams with varying trust levels) almost always choose the VM-wrapped approach specifically for this defense-in-depth reason, even though it's not "necessary" for isolation among fully trusted, single-organization workloads.

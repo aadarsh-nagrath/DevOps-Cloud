@@ -613,6 +613,10 @@ body {
 .icon-yaml { color: #cb171e !important; }
 .icon-index { color: #f59e0b !important; }
 .icon-project, .folder-project { color: #ec4899 !important; }
+.icon-cncf { color: #5b8def !important; }
+.icon-finops { color: #22c55e !important; }
+.icon-incident { color: #f97316 !important; }
+.icon-interview { color: #a78bfa !important; }
 
 /* Icon zoom transitions */
 .tree-file i, .folder-header i {

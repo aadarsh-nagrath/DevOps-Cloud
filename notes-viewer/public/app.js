@@ -292,18 +292,66 @@ function getFileIconClass(fileName, filePath) {
   return 'fa-regular fa-file-lines icon-default';
 }
 
-// Helper to get folder icons based on directory name/path
+// Folder-only rules, matched against the folder's own name (not its path) so
+// top-level topics and CNCF project folders each get a distinct glyph.
+const FOLDER_RULES = [
+  // --- Top-level topics ---
+  [/^cncf$/, 'fa-solid fa-cubes-stacked', 'icon-cncf'],
+  [/configuration.?management/, 'fa-solid fa-sliders', 'icon-ansible'],
+  [/continuous.?integration/, 'fa-solid fa-code-merge', 'icon-jenkins'],
+  [/continuous.?delivery/, 'fa-solid fa-truck-fast', 'icon-argo'],
+  [/finops|cost/, 'fa-solid fa-sack-dollar', 'icon-finops'],
+  [/policy.?as.?code|iac.?testing/, 'fa-solid fa-clipboard-check', 'icon-terraform'],
+  [/incident|on.?call/, 'fa-solid fa-bell', 'icon-incident'],
+  [/interview/, 'fa-solid fa-user-tie', 'icon-interview'],
+  [/backup|disaster/, 'fa-solid fa-life-ring', 'icon-security'],
+  [/service.?mesh/, 'fa-solid fa-share-nodes', 'icon-istio'],
+  [/^project$/, 'fa-solid fa-diagram-project', 'icon-project'],
+
+  // --- CNCF projects ---
+  [/^backstage$/, 'fa-solid fa-table-columns', 'icon-cncf'],
+  [/^cilium$/, 'fa-solid fa-microchip', 'icon-network'],
+  [/^containerd$/, 'fa-solid fa-box', 'icon-docker'],
+  [/^coredns$/, 'fa-solid fa-globe', 'icon-network'],
+  [/^crossplane$/, 'fa-solid fa-plane', 'icon-terraform'],
+  [/^envoy$/, 'fa-solid fa-tower-broadcast', 'icon-istio'],
+  [/^etcd$/, 'fa-solid fa-database', 'icon-k8s'],
+  [/^falco$/, 'fa-solid fa-crow', 'icon-security'],
+  [/^flux$/, 'fa-solid fa-arrows-rotate', 'icon-k8s'],
+  [/^harbor$/, 'fa-solid fa-anchor', 'icon-k8s'],
+  [/^jaeger$/, 'fa-solid fa-route', 'icon-monitoring'],
+  [/^keda$/, 'fa-solid fa-arrow-up-right-dots', 'icon-k8s'],
+  [/^longhorn$/, 'fa-solid fa-hard-drive', 'icon-finops'],
+  [/^nats$/, 'fa-solid fa-paper-plane', 'icon-network'],
+  [/open.?telemetry/, 'fa-solid fa-satellite-dish', 'icon-monitoring'],
+  [/^rook$/, 'fa-solid fa-chess-rook', 'icon-cncf'],
+  [/^spire$/, 'fa-solid fa-id-badge', 'icon-security'],
+  [/^vitess$/, 'fa-solid fa-table', 'icon-cncf'],
+  [/^loki$/, 'fa-solid fa-scroll', 'icon-monitoring'],
+
+  // --- Generic sub-folders ---
+  [/^day\d+$/, 'fa-solid fa-calendar-day', 'icon-k8s'],
+  [/^tutorial$/, 'fa-solid fa-person-chalkboard', 'icon-index'],
+  [/^examples?$/, 'fa-solid fa-flask-vial', 'icon-index'],
+  [/^resources$/, 'fa-solid fa-box-archive', 'icon-index'],
+  [/^tests?$|terratest/, 'fa-solid fa-vial-circle-check', 'icon-bash'],
+  [/^workflows$|^\.github$/, 'fa-brands fa-github', 'icon-git'],
+  [/^flask$/, 'fa-solid fa-pepper-hot', 'icon-bash'],
+  [/^(production|staging|global)$/, 'fa-solid fa-server', 'icon-terraform'],
+  [/^course-files$/, 'fa-solid fa-graduation-cap', 'icon-terraform'],
+];
+
+// Helper to get folder icons: a topic-specific glyph when the folder's own
+// name is recognised, else inherit the topic of the closest matching ancestor.
 function getFolderIconClass(folderName, folderPath) {
   const name = folderName.toLowerCase();
   const path = (folderPath || folderName).toLowerCase();
 
+  for (const [matcher, icon, color] of [...FOLDER_RULES, ...ICON_RULES]) {
+    if (matcher.test(name)) return `${icon} ${color}`;
+  }
   for (const [matcher, icon, color] of ICON_RULES) {
-    if (matcher.test(path) || matcher.test(name)) {
-      // Reuse the file icon's color rule but as a folder- class, so open/closed
-      // folder tinting matches the color of the files it contains.
-      const folderColor = color.replace(/^icon-/, 'folder-');
-      return `fa-solid fa-folder-closed ${folderColor}`;
-    }
+    if (matcher.test(path)) return `${icon} ${color}`;
   }
 
   return 'fa-solid fa-folder-closed'; // Default folder closed
@@ -367,10 +415,12 @@ function createTreeNodes(obj, container, autoExpand, parentPath = '') {
         const isCollapsed = folderHeader.classList.toggle('collapsed');
         folderContent.style.display = isCollapsed ? 'none' : 'block';
         
-        // Toggle open/closed folder glyph while preserving its color class
+        // Toggle open/closed glyph only for generic folders; topic icons stay put
         const fIcon = folderHeader.querySelector('.folder-icon');
-        fIcon.classList.remove('fa-folder-closed', 'fa-folder-open');
-        fIcon.classList.add(isCollapsed ? 'fa-folder-closed' : 'fa-folder-open');
+        if (fIcon.classList.contains('fa-folder-closed') || fIcon.classList.contains('fa-folder-open')) {
+          fIcon.classList.remove('fa-folder-closed', 'fa-folder-open');
+          fIcon.classList.add(isCollapsed ? 'fa-folder-closed' : 'fa-folder-open');
+        }
       });
 
       // Recurse children
