@@ -69,11 +69,49 @@ This sits alongside the deep-dive reference notes elsewhere in this repo (`Kuber
 | [Practical Scripting Challenges](./18-practical-scripting-challenges-qna.md) | Real live-coding-style tasks (top processes, disk alerts, log monitoring, cert expiry, failover scripts) with working code |
 | [Company-Specific Patterns & Behavioral-Plus](./19-company-specific-and-behavioral-plus-qna.md) | Amazon Leadership Principles, Google/SRE-style loops, interview process breakdowns, resume walkthroughs, rapid-fire round-up |
 
+### Roadmap Gap-Fill (Mid → Senior)
+| File | Topics Covered |
+|---|---|
+| [GitOps, Production K8s, DR, Cost, Observability at Scale, Supply Chain](./20-devops-roadmap-gap-fill-qna.md) | Argo CD vs Flux, GitOps promotion & secrets, ConfigMap/Secret reloads, Argo Rollouts canary analysis, Service debugging, CI build caching, OpenTelemetry, burn-rate alerting, rightsizing, production K8s checklist, SLSA/cosign, K8s DR (Velero), FinOps, Thanos/Mimir, org-wide secrets management |
+
 ---
 
 ## 📊 At a glance
 
-**19 topic files, 550+ individual Q&A**, each with a full-paragraph, interview-ready answer (not a one-liner) — spanning Linux, Git, Docker, Kubernetes, CI/CD, Terraform/IaC, AWS, Azure, GCP, Networking & Security, Ansible, Python, Agile/Culture, Monitoring/Observability, DevSecOps, SRE/Incident Response/Service Mesh, Messaging/Caching/Distributed Systems, Deployment Strategies, System Design, Behavioral interviewing, practical scripting challenges, and real company-specific interview patterns (Amazon LPs, Google/SRE-style loops).
+**20 topic files, 595+ individual Q&A**, each with a full-paragraph, interview-ready answer (not a one-liner) — spanning Linux, Git, Docker, Kubernetes, CI/CD, Terraform/IaC, AWS, Azure, GCP, Networking & Security, Ansible, Python, Agile/Culture, Monitoring/Observability, DevSecOps, SRE/Incident Response/Service Mesh, Messaging/Caching/Distributed Systems, Deployment Strategies, System Design, Behavioral interviewing, practical scripting challenges, and real company-specific interview patterns (Amazon LPs, Google/SRE-style loops).
+
+---
+
+## 🗺️ Roadmap coverage map
+
+Where each item of the common Junior → Mid → Senior DevOps roadmap is covered:
+
+| Level | Roadmap topic | Where to study |
+|---|---|---|
+| Junior | CI/CD concepts | [05](./05-cicd-jenkins-github-actions-qna.md) Q1–Q15 |
+| Junior | Containers vs Virtual Machines | [03](./03-docker-qna.md) Q2, Q39 |
+| Junior | Kubernetes basics | [04](./04-kubernetes-qna.md) Q1–Q20 |
+| Junior | Infrastructure as Code (Terraform) | [06](./06-terraform-and-iac-qna.md) |
+| Junior | Load Balancers | [08](./08-networking-and-security-fundamentals-qna.md), [13](./13-sre-incident-loadbalancing-servicemesh-qna.md) Q5–Q6, Q16 |
+| Junior | Scaling concepts | [20](./20-devops-roadmap-gap-fill-qna.md) Q1, [04](./04-kubernetes-qna.md) Q27, Q30, [07](./07-aws-cloud-qna.md) Q20 |
+| Junior | Monitoring and Logging | [11](./11-monitoring-logging-observability-qna.md) Q1–Q10, [20](./20-devops-roadmap-gap-fill-qna.md) Q6 |
+| Junior | ConfigMaps and Secrets | [04](./04-kubernetes-qna.md) Q9, [20](./20-devops-roadmap-gap-fill-qna.md) Q3 |
+| Mid | Designing CI/CD pipelines | [05](./05-cicd-jenkins-github-actions-qna.md), [14](./14-deployment-systemdesign-behavioral-qna.md) Q14–Q15 |
+| Mid | Kubernetes troubleshooting | [04](./04-kubernetes-qna.md) Q36–Q38, Q40, Q49, [20](./20-devops-roadmap-gap-fill-qna.md) Q12, Q14 |
+| Mid | Deployment strategies | [14](./14-deployment-systemdesign-behavioral-qna.md) Q1–Q13 |
+| Mid | GitOps practices | [20](./20-devops-roadmap-gap-fill-qna.md) Q2, Q9–Q11, [`../GitOps.md`](../GitOps.md) |
+| Mid | Docker optimization | [03](./03-docker-qna.md) Q16–Q20, Q30–Q31, [20](./20-devops-roadmap-gap-fill-qna.md) Q15 |
+| Mid | Application monitoring | [20](./20-devops-roadmap-gap-fill-qna.md) Q6–Q7, Q16–Q17, [11](./11-monitoring-logging-observability-qna.md) Q11–Q20 |
+| Mid | Secrets management | [12](./12-security-devsecops-qna.md) Q12–Q13, [20](./20-devops-roadmap-gap-fill-qna.md) Q11 |
+| Mid | Blue-Green and Canary deployments | [14](./14-deployment-systemdesign-behavioral-qna.md) Q3–Q4, [05](./05-cicd-jenkins-github-actions-qna.md) Q23, [20](./20-devops-roadmap-gap-fill-qna.md) Q13 |
+| Senior | Production-grade Kubernetes design | [20](./20-devops-roadmap-gap-fill-qna.md) Q4, Q19, [04](./04-kubernetes-qna.md) Q42–Q48 |
+| Senior | Reliability and Security | [13](./13-sre-incident-loadbalancing-servicemesh-qna.md), [12](./12-security-devsecops-qna.md) |
+| Senior | Incident Management | [13](./13-sre-incident-loadbalancing-servicemesh-qna.md) Q2–Q4, Q9–Q13, Q19 |
+| Senior | SLI, SLO, and Error Budgets | [11](./11-monitoring-logging-observability-qna.md) Q14–Q15, Q25, [13](./13-sre-incident-loadbalancing-servicemesh-qna.md) Q22, [20](./20-devops-roadmap-gap-fill-qna.md) Q17 |
+| Senior | Supply Chain Security | [20](./20-devops-roadmap-gap-fill-qna.md) Q20, [12](./12-security-devsecops-qna.md) Q15, [03](./03-docker-qna.md) Q38 |
+| Senior | Disaster Recovery | [20](./20-devops-roadmap-gap-fill-qna.md) Q5, Q21, [07](./07-aws-cloud-qna.md) Q28, [13](./13-sre-incident-loadbalancing-servicemesh-qna.md) Q20 |
+| Senior | Cost Optimization | [20](./20-devops-roadmap-gap-fill-qna.md) Q8, Q18, Q22, [07](./07-aws-cloud-qna.md) Q27 |
+| Senior | Observability at scale | [20](./20-devops-roadmap-gap-fill-qna.md) Q23, [11](./11-monitoring-logging-observability-qna.md) Q23–Q24 |
 
 ---
 

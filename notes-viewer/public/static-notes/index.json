@@ -1110,6 +1110,72 @@
     "mtime": "2026-08-18T09:49:14.293Z"
   },
   {
+    "name": "commands.md",
+    "path": "Docker/commands.md",
+    "size": 4014,
+    "mtime": "2026-08-18T09:49:14.313Z"
+  },
+  {
+    "name": "docker-compose.md",
+    "path": "Docker/docker-compose.md",
+    "size": 14402,
+    "mtime": "2026-08-18T09:49:14.313Z"
+  },
+  {
+    "name": "docker-more.md",
+    "path": "Docker/docker-more.md",
+    "size": 7416,
+    "mtime": "2026-08-18T09:49:14.314Z"
+  },
+  {
+    "name": "docker-networking.md",
+    "path": "Docker/docker-networking.md",
+    "size": 8246,
+    "mtime": "2026-08-18T09:49:14.314Z"
+  },
+  {
+    "name": "docker-production-and-orchestration.md",
+    "path": "Docker/docker-production-and-orchestration.md",
+    "size": 15489,
+    "mtime": "2026-08-18T09:49:14.314Z"
+  },
+  {
+    "name": "docker-registries-and-distribution.md",
+    "path": "Docker/docker-registries-and-distribution.md",
+    "size": 12282,
+    "mtime": "2026-08-18T09:49:14.314Z"
+  },
+  {
+    "name": "docker-security.md",
+    "path": "Docker/docker-security.md",
+    "size": 17660,
+    "mtime": "2026-08-18T09:49:14.314Z"
+  },
+  {
+    "name": "docker-storage-and-volumes.md",
+    "path": "Docker/docker-storage-and-volumes.md",
+    "size": 7797,
+    "mtime": "2026-08-18T09:49:14.314Z"
+  },
+  {
+    "name": "docker-swarm.md",
+    "path": "Docker/docker-swarm.md",
+    "size": 14778,
+    "mtime": "2026-08-18T09:49:14.314Z"
+  },
+  {
+    "name": "docker.md",
+    "path": "Docker/docker.md",
+    "size": 11895,
+    "mtime": "2026-08-18T09:49:14.315Z"
+  },
+  {
+    "name": "dockerfile-deep-dive.md",
+    "path": "Docker/dockerfile-deep-dive.md",
+    "size": 15608,
+    "mtime": "2026-08-18T09:49:14.315Z"
+  },
+  {
     "name": "compute-cost-optimization.md",
     "path": "FinOps and Cost Optimization/compute-cost-optimization.md",
     "size": 11482,
@@ -1226,44 +1292,44 @@
   {
     "name": "02-git-version-control-qna.md",
     "path": "Interview Questions/02-git-version-control-qna.md",
-    "size": 29655,
-    "mtime": "2026-09-05T08:48:53.953Z"
+    "size": 30914,
+    "mtime": "2026-10-06T19:36:40.459Z"
   },
   {
     "name": "03-docker-qna.md",
     "path": "Interview Questions/03-docker-qna.md",
-    "size": 25333,
-    "mtime": "2026-09-05T08:48:53.958Z"
+    "size": 28682,
+    "mtime": "2026-10-06T19:34:31.215Z"
   },
   {
     "name": "04-kubernetes-qna.md",
     "path": "Interview Questions/04-kubernetes-qna.md",
-    "size": 34584,
-    "mtime": "2026-09-05T08:48:53.962Z"
+    "size": 40372,
+    "mtime": "2026-10-06T19:36:19.629Z"
   },
   {
     "name": "05-cicd-jenkins-github-actions-qna.md",
     "path": "Interview Questions/05-cicd-jenkins-github-actions-qna.md",
-    "size": 24072,
-    "mtime": "2026-09-05T08:48:53.965Z"
+    "size": 29347,
+    "mtime": "2026-10-06T19:38:08.677Z"
   },
   {
     "name": "06-terraform-and-iac-qna.md",
     "path": "Interview Questions/06-terraform-and-iac-qna.md",
-    "size": 22393,
-    "mtime": "2026-09-05T08:48:53.969Z"
+    "size": 23809,
+    "mtime": "2026-10-06T19:33:38.572Z"
   },
   {
     "name": "07-aws-cloud-qna.md",
     "path": "Interview Questions/07-aws-cloud-qna.md",
-    "size": 23545,
-    "mtime": "2026-09-05T08:48:53.974Z"
+    "size": 27155,
+    "mtime": "2026-10-06T19:37:14.478Z"
   },
   {
     "name": "08-networking-and-security-fundamentals-qna.md",
     "path": "Interview Questions/08-networking-and-security-fundamentals-qna.md",
-    "size": 21508,
-    "mtime": "2026-09-05T08:48:53.979Z"
+    "size": 23352,
+    "mtime": "2026-10-06T19:37:42.195Z"
   },
   {
     "name": "09-ansible-and-config-management-qna.md",
@@ -1280,8 +1346,8 @@
   {
     "name": "11-monitoring-logging-observability-qna.md",
     "path": "Interview Questions/11-monitoring-logging-observability-qna.md",
-    "size": 20931,
-    "mtime": "2026-09-05T08:48:53.993Z"
+    "size": 25272,
+    "mtime": "2026-10-06T19:35:18.930Z"
   },
   {
     "name": "12-security-devsecops-qna.md",
@@ -1332,10 +1398,16 @@
     "mtime": "2026-09-05T09:03:40.883Z"
   },
   {
+    "name": "20-devops-roadmap-gap-fill-qna.md",
+    "path": "Interview Questions/20-devops-roadmap-gap-fill-qna.md",
+    "size": 29516,
+    "mtime": "2026-10-06T19:36:05.336Z"
+  },
+  {
     "name": "README.md",
     "path": "Interview Questions/README.md",
-    "size": 7742,
-    "mtime": "2026-09-05T09:03:36.502Z"
+    "size": 11613,
+    "mtime": "2026-10-06T19:39:19.808Z"
   },
   {
     "name": "knative.md",
@@ -1374,6 +1446,48 @@
     "mtime": "2026-08-18T09:49:14.297Z"
   },
   {
+    "name": "01-services-endpoints-ports.md",
+    "path": "Kubernetes/deep-dive/01-services-endpoints-ports.md",
+    "size": 11319,
+    "mtime": "2026-10-08T14:12:41.765Z"
+  },
+  {
+    "name": "02-yaml-fields-explained.md",
+    "path": "Kubernetes/deep-dive/02-yaml-fields-explained.md",
+    "size": 12191,
+    "mtime": "2026-10-08T14:19:28.874Z"
+  },
+  {
+    "name": "03-pod-lifecycle-probes-resources.md",
+    "path": "Kubernetes/deep-dive/03-pod-lifecycle-probes-resources.md",
+    "size": 8361,
+    "mtime": "2026-10-08T14:21:05.980Z"
+  },
+  {
+    "name": "04-storage-config-secrets.md",
+    "path": "Kubernetes/deep-dive/04-storage-config-secrets.md",
+    "size": 7591,
+    "mtime": "2026-10-08T14:21:06.017Z"
+  },
+  {
+    "name": "05-workloads-rollouts-scheduling.md",
+    "path": "Kubernetes/deep-dive/05-workloads-rollouts-scheduling.md",
+    "size": 8149,
+    "mtime": "2026-10-08T14:21:06.037Z"
+  },
+  {
+    "name": "06-security-rbac-networkpolicy.md",
+    "path": "Kubernetes/deep-dive/06-security-rbac-networkpolicy.md",
+    "size": 7437,
+    "mtime": "2026-10-08T14:21:06.055Z"
+  },
+  {
+    "name": "README.md",
+    "path": "Kubernetes/deep-dive/README.md",
+    "size": 1133,
+    "mtime": "2026-10-08T14:21:13.162Z"
+  },
+  {
     "name": "ingress-eg.md",
     "path": "Kubernetes/examples/ingress-eg.md",
     "size": 3486,
@@ -1400,8 +1514,8 @@
   {
     "name": "k8s-learning-path.md",
     "path": "Kubernetes/k8s-learning-path.md",
-    "size": 49010,
-    "mtime": "2026-08-18T09:49:14.298Z"
+    "size": 49073,
+    "mtime": "2026-10-08T14:21:13.168Z"
   },
   {
     "name": "kubernetes.md",
@@ -1582,6 +1696,30 @@
     "path": "README.md",
     "size": 3264,
     "mtime": "2026-09-05T09:03:56.460Z"
+  },
+  {
+    "name": "bash-scripting.md",
+    "path": "Scripting/bash-scripting.md",
+    "size": 15414,
+    "mtime": "2026-08-18T09:49:14.409Z"
+  },
+  {
+    "name": "linux-cmds.md",
+    "path": "Scripting/linux-cmds.md",
+    "size": 5242,
+    "mtime": "2026-08-18T09:49:14.409Z"
+  },
+  {
+    "name": "linux-permissions.md",
+    "path": "Scripting/linux-permissions.md",
+    "size": 6977,
+    "mtime": "2026-08-18T09:49:14.409Z"
+  },
+  {
+    "name": "shell-scripting-devops.md",
+    "path": "Scripting/shell-scripting-devops.md",
+    "size": 9926,
+    "mtime": "2026-08-18T09:49:14.410Z"
   },
   {
     "name": "container-and-image-security.md",
@@ -1842,99 +1980,9 @@
     "mtime": "2026-08-18T09:49:14.313Z"
   },
   {
-    "name": "commands.md",
-    "path": "docker/commands.md",
-    "size": 4014,
-    "mtime": "2026-08-18T09:49:14.313Z"
-  },
-  {
-    "name": "docker-compose.md",
-    "path": "docker/docker-compose.md",
-    "size": 14402,
-    "mtime": "2026-08-18T09:49:14.313Z"
-  },
-  {
-    "name": "docker-more.md",
-    "path": "docker/docker-more.md",
-    "size": 7416,
-    "mtime": "2026-08-18T09:49:14.314Z"
-  },
-  {
-    "name": "docker-networking.md",
-    "path": "docker/docker-networking.md",
-    "size": 8246,
-    "mtime": "2026-08-18T09:49:14.314Z"
-  },
-  {
-    "name": "docker-production-and-orchestration.md",
-    "path": "docker/docker-production-and-orchestration.md",
-    "size": 15489,
-    "mtime": "2026-08-18T09:49:14.314Z"
-  },
-  {
-    "name": "docker-registries-and-distribution.md",
-    "path": "docker/docker-registries-and-distribution.md",
-    "size": 12282,
-    "mtime": "2026-08-18T09:49:14.314Z"
-  },
-  {
-    "name": "docker-security.md",
-    "path": "docker/docker-security.md",
-    "size": 17660,
-    "mtime": "2026-08-18T09:49:14.314Z"
-  },
-  {
-    "name": "docker-storage-and-volumes.md",
-    "path": "docker/docker-storage-and-volumes.md",
-    "size": 7797,
-    "mtime": "2026-08-18T09:49:14.314Z"
-  },
-  {
-    "name": "docker-swarm.md",
-    "path": "docker/docker-swarm.md",
-    "size": 14778,
-    "mtime": "2026-08-18T09:49:14.314Z"
-  },
-  {
-    "name": "docker.md",
-    "path": "docker/docker.md",
-    "size": 11895,
-    "mtime": "2026-08-18T09:49:14.315Z"
-  },
-  {
-    "name": "dockerfile-deep-dive.md",
-    "path": "docker/dockerfile-deep-dive.md",
-    "size": 15608,
-    "mtime": "2026-08-18T09:49:14.315Z"
-  },
-  {
     "name": "imp_concepts.md",
     "path": "imp_concepts.md",
     "size": 4180,
     "mtime": "2026-08-18T09:49:14.315Z"
-  },
-  {
-    "name": "bash-scripting.md",
-    "path": "scripting/bash-scripting.md",
-    "size": 15414,
-    "mtime": "2026-08-18T09:49:14.409Z"
-  },
-  {
-    "name": "linux-cmds.md",
-    "path": "scripting/linux-cmds.md",
-    "size": 5242,
-    "mtime": "2026-08-18T09:49:14.409Z"
-  },
-  {
-    "name": "linux-permissions.md",
-    "path": "scripting/linux-permissions.md",
-    "size": 6977,
-    "mtime": "2026-08-18T09:49:14.409Z"
-  },
-  {
-    "name": "shell-scripting-devops.md",
-    "path": "scripting/shell-scripting-devops.md",
-    "size": 9926,
-    "mtime": "2026-08-18T09:49:14.410Z"
   }
 ]

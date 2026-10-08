@@ -1,6 +1,6 @@
 # Kubernetes: Beginner → Intermediate → Advanced (Learning & Revision Notes)
 
-> This file is structured as a progressive learning path. For deep dives on specific topics already covered elsewhere in this folder, see: [kubernetes.md](kubernetes.md) (core concepts), [K-pods.md](K-pods.md) (pod internals), [Networking.md](Networking.md) (networking deep dive), [k8-doubts.md](k8-doubts.md) (Q&A style clarifications), [helmVkustomize.md](helmVkustomize.md), [good-practice-networking.md](good-practice-networking.md).
+> **Field-level deep dives: [deep-dive/](deep-dive/README.md).** This file is structured as a progressive learning path. For deep dives on specific topics already covered elsewhere in this folder, see: [kubernetes.md](kubernetes.md) (core concepts), [K-pods.md](K-pods.md) (pod internals), [Networking.md](Networking.md) (networking deep dive), [k8-doubts.md](k8-doubts.md) (Q&A style clarifications), [helmVkustomize.md](helmVkustomize.md), [good-practice-networking.md](good-practice-networking.md).
 
 ---
 
