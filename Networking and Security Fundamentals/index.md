@@ -7,6 +7,7 @@ The foundational networking/security knowledge that every other topic in this re
 - [dns-deep-dive.md](dns-deep-dive.md) — record types, resolution flow, authoritative vs recursive, DNSSEC, troubleshooting
 - [tls-and-certificates.md](tls-and-certificates.md) — TLS handshake, PKI/cert chains, cipher suites, mTLS, ACME/Let's Encrypt
 - [firewalls.md](firewalls.md) — stateless vs stateful, iptables/nftables, cloud security groups/NACLs, WAF, segmentation
+- [proxy-servers.md](proxy-servers.md) — forward/reverse/transparent proxies, HTTP vs TCP proxying, CONNECT, HTTP_PROXY/NO_PROXY, Squid, PROXY protocol
 - [vpns.md](vpns.md) — IPsec, OpenVPN, WireGuard, site-to-site vs remote access, zero-trust mesh (Tailscale/ZTNA)
 - [hardening-practices.md](hardening-practices.md) — CIS benchmarks, SSH/OS hardening, patching, least privilege, checklists
 

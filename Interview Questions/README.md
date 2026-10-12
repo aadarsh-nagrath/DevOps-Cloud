@@ -74,6 +74,17 @@ This sits alongside the deep-dive reference notes elsewhere in this repo (`Kuber
 |---|---|
 | [GitOps, Production K8s, DR, Cost, Observability at Scale, Supply Chain](./20-devops-roadmap-gap-fill-qna.md) | Argo CD vs Flux, GitOps promotion & secrets, ConfigMap/Secret reloads, Argo Rollouts canary analysis, Service debugging, CI build caching, OpenTelemetry, burn-rate alerting, rightsizing, production K8s checklist, SLSA/cosign, K8s DR (Velero), FinOps, Thanos/Mimir, org-wide secrets management |
 
+### Role-Specific: VoIP / Support-Heavy DevOps Roles
+| File | Topics Covered |
+|---|---|
+| [VoIP, SIP & Unified Communications](./21-voip-sip-unified-communications-qna.md) | SIP/RTP/SDP, response codes, one-way audio & 32-second drops, Wireshark/sngrep, Asterisk/FreeSWITCH/Kamailio/rtpengine, VoIP HA on AWS/EKS, toll fraud |
+| [Windows, Proxies, VAPT & Jira](./22-windows-proxy-vapt-jira-qna.md) | PowerShell/CMD troubleshooting, Ansible over WinRM, forward/reverse & HTTP/TCP proxies, egress design, VAPT remediation, JQL/Smart Commits, change management |
+
+### Under the Hood
+| File | Topics Covered |
+|---|---|
+| [How It Works Internally](./23-how-it-works-internals-qna.md) | Scheduler, `kubectl apply` pipeline, service discovery, probes, HPA math, self-healing, rolling updates, `docker run` & layer caching, Terraform DAG & locking, commit→deploy, pipeline DAGs, ALB/NLB, CloudFront, DNS, merge vs rebase, observability correlation, outage response, common prod mistakes |
+
 ---
 
 ## 📊 At a glance

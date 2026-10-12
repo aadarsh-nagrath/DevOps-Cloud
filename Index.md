@@ -28,6 +28,10 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | [Messaging, Caching & Distributed Systems Q&A](Interview%20Questions/17-messaging-caching-distributed-systems-qna.md) | Kafka/RabbitMQ/SQS, Redis/CDN caching, CAP theorem, replication/sharding, microservices vs monolith |
 | [Practical Scripting Challenges Q&A](Interview%20Questions/18-practical-scripting-challenges-qna.md) | Real live-coding-style tasks with working code (top processes, disk alerts, cert expiry, failover scripts) |
 | [Company-Specific Patterns & Behavioral-Plus Q&A](Interview%20Questions/19-company-specific-and-behavioral-plus-qna.md) | Amazon Leadership Principles, Google/SRE-style loops, resume walkthroughs, rapid-fire round-up |
+| [Roadmap Gap-Fill Q&A](Interview%20Questions/20-devops-roadmap-gap-fill-qna.md) | GitOps (Argo CD/Flux), production K8s design, DR, FinOps, observability at scale, supply chain security |
+| [VoIP, SIP & Unified Communications Q&A](Interview%20Questions/21-voip-sip-unified-communications-qna.md) | SIP/RTP call flows, one-way audio, Wireshark, Asterisk/FreeSWITCH/Kamailio, VoIP on AWS/EKS, toll fraud |
+| [Windows, Proxies, VAPT & Jira Q&A](Interview%20Questions/22-windows-proxy-vapt-jira-qna.md) | Windows admin & PowerShell, forward/reverse & HTTP/TCP proxies, VAPT handling, Jira/JQL & change management |
+| [How It Works Internally Q&A](Interview%20Questions/23-how-it-works-internals-qna.md) | Internals of K8s scheduling/apply/probes/HPA/rollouts, Docker run & caching, Terraform DAG & locking, CI/CD, AWS LB, CloudFront, DNS, Git, observability, incidents |
 
 ---
 
@@ -40,6 +44,7 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | [DNS Deep Dive](Networking%20and%20Security%20Fundamentals/dns-deep-dive.md) | Record types, resolution flow, split-horizon DNS, DNSSEC, CoreDNS, troubleshooting |
 | [TLS & Certificates](Networking%20and%20Security%20Fundamentals/tls-and-certificates.md) | Handshake (1.2 vs 1.3), PKI/cert chains, cipher suites, mTLS, ACME/Let's Encrypt, cert-manager |
 | [Firewalls](Networking%20and%20Security%20Fundamentals/firewalls.md) | iptables/nftables, Security Groups vs NACLs, WAF, NetworkPolicy, eBPF/Cilium, egress filtering |
+| [Proxy Servers](Networking%20and%20Security%20Fundamentals/proxy-servers.md) | Forward vs reverse vs transparent, HTTP vs TCP proxy, CONNECT, HTTP_PROXY/NO_PROXY, Squid, PROXY protocol, troubleshooting |
 | [VPNs](Networking%20and%20Security%20Fundamentals/vpns.md) | IPsec, OpenVPN, WireGuard, site-to-site vs remote access, split tunneling, ZTNA (Tailscale/BeyondCorp) |
 | [Hardening Practices](Networking%20and%20Security%20Fundamentals/hardening-practices.md) | CIS Benchmarks, SSH hardening, sysctl, SELinux/AppArmor, immutable infra, hardening checklist |
 
@@ -251,6 +256,7 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | [Secrets Management](Security%20in%20DevOps/secrets-management.md) | Vault dynamic secrets, Kubernetes Secret limitations, external-secrets patterns |
 | [Supply Chain Security](Security%20in%20DevOps/supply-chain-security.md) | Compromised dependency/CI scenarios, SLSA framework, provenance & attestation |
 | [Security in CI/CD Pipelines](Security%20in%20DevOps/security-in-cicd-pipelines.md) | Full annotated secure pipeline, fail-vs-warn gating strategy, compliance-as-code |
+| [VAPT](Security%20in%20DevOps/vapt.md) | VA vs PT, methodology (PTES/OWASP), tools (Nmap/Nessus/Burp/ZAP), common findings & fixes, DevOps role, retest |
 
 ---
 
@@ -312,6 +318,25 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | [Incident Command & Response](Incident%20Response%20and%20On-Call/incident-command-and-response.md) | IC role, incident roles, worked SEV1 timeline, mitigate-first mindset |
 | [Postmortems & Blameless Culture](Incident%20Response%20and%20On-Call/postmortems-and-blameless-culture.md) | Blameless philosophy, postmortem template, the follow-up-item trap |
 | [On-Call Practices & Sustainability](Incident%20Response%20and%20On-Call/on-call-practices-and-sustainability.md) | Rotation design, fairness/burnout, runbooks, reducing on-call burden |
+
+---
+
+## 📞 VoIP & Unified Communications
+
+| Note | Description |
+|---|---|
+| [VoIP & SIP Fundamentals](VoIP%20and%20Unified%20Communications/voip-sip-fundamentals.md) | SIP methods/responses, call flow, SDP, RTP/RTCP, codecs, DTMF, MOS/jitter/loss, NAT traversal, security, WebRTC |
+| [Asterisk, FreeSWITCH & Kamailio](VoIP%20and%20Unified%20Communications/asterisk-freeswitch-kamailio.md) | Roles & architecture, pjsip/dialplan, sofia/fs_cli, kamailio.cfg & modules, rtpengine, daily CLI, safe changes |
+| [VoIP Troubleshooting with Wireshark](VoIP%20and%20Unified%20Communications/voip-troubleshooting-wireshark.md) | tcpdump/sngrep capture, Wireshark VoIP filters & RTP analysis, symptom→cause→fix playbook, SIPp |
+| [VoIP on AWS & Kubernetes](VoIP%20and%20Unified%20Communications/voip-on-aws-and-kubernetes.md) | EC2/EIP, SG & NACL rules for SIP/RTP, NLB vs ALB, EKS hostNetwork/node groups/Helm/ConfigMaps, call draining |
+
+---
+
+## 🪟 Windows Administration
+
+| Note | Description |
+|---|---|
+| [Windows Administration for DevOps](Windows%20Administration/windows-administration-for-devops.md) | CMD/PowerShell vs Linux cheat sheet, Event Viewer, perfmon, IIS, AD, patching, Ansible WinRM, Windows on AWS/EKS |
 
 ---
 

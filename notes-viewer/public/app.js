@@ -263,6 +263,12 @@ const ICON_RULES = [
   [/chaos/, 'fa-solid fa-explosion', 'icon-security'],
   [/backup|disaster/, 'fa-solid fa-database', 'icon-security'],
 
+  // --- VoIP / Windows / proxies / VAPT ---
+  [/voip|\bsip\b|asterisk|freeswitch|kamailio/, 'fa-solid fa-phone-volume', 'icon-voip'],
+  [/windows/, 'fa-brands fa-windows', 'icon-azure'],
+  [/proxy/, 'fa-solid fa-right-left', 'icon-network'],
+  [/vapt|pentest/, 'fa-solid fa-user-secret', 'icon-security'],
+
   // --- Scripting / Linux ---
   [/permissions/, 'fa-solid fa-user-lock', 'icon-bash'],
   [/scripting|bash|linux.?cmds|\.sh$/, 'fa-solid fa-terminal', 'icon-bash'],
@@ -307,6 +313,8 @@ const FOLDER_RULES = [
   [/backup|disaster/, 'fa-solid fa-life-ring', 'icon-security'],
   [/service.?mesh/, 'fa-solid fa-share-nodes', 'icon-istio'],
   [/^project$/, 'fa-solid fa-diagram-project', 'icon-project'],
+  [/voip|unified.?comm/, 'fa-solid fa-phone-volume', 'icon-voip'],
+  [/^windows/, 'fa-brands fa-windows', 'icon-azure'],
 
   // --- CNCF projects ---
   [/^backstage$/, 'fa-solid fa-table-columns', 'icon-cncf'],
