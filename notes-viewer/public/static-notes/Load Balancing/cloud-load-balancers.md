@@ -4,15 +4,27 @@ Managed load balancing services from the three major cloud providers — no infr
 
 ---
 
-## 1. AWS
+## 1. AWS — Elastic Load Balancing (ELB)
 
-AWS offers four distinct load balancer products under the "Elastic Load Balancing" (ELB) umbrella — picking the wrong one is a common mistake, since they aren't interchangeable.
+**Elastic Load Balancing (ELB)** is the AWS service that distributes incoming traffic across multiple **targets**: EC2 instances, containers (ECS tasks / EKS pods), IP addresses (including on-prem over VPN/Direct Connect), and Lambda functions. It improves **availability, scalability and fault tolerance** by making sure no single server gets overloaded.
 
-### Application Load Balancer (ALB) — L7
-- HTTP/HTTPS/gRPC only.
-- Path-based and host-based routing, header/query-string/cookie-based routing rules.
-- Native integration with AWS WAF, AWS Certificate Manager (free managed TLS certs), Cognito for authentication.
-- Native support for target types: EC2 instances, IP addresses, Lambda functions (yes — an ALB can invoke a Lambda function directly as a target).
+- **Spreads requests** across multiple **healthy** targets. Health checks remove failing targets automatically and add them back when they recover.
+- **Keeps the app available when individual targets fail**: it runs across multiple Availability Zones, so even a whole AZ going down doesn't take the app offline.
+- **Works with Auto Scaling**: an Auto Scaling Group registers new instances in the **target group** as it scales out and deregisters them (after **connection draining / deregistration delay**) as it scales in. The ALB metric `RequestCountPerTarget` can itself drive scaling.
+- **Fully managed**: AWS scales the load balancer itself, patches it, and makes it highly available.
+- **Building blocks**: **Load balancer** → **Listener** (protocol + port, e.g. HTTPS:443, with TLS certs from ACM) → **Rules** (ALB only) → **Target group** (targets + health check settings).
+
+AWS offers **four** load balancer types under ELB, each built for a different OSI layer and use case. Picking the wrong one is a common mistake, because they aren't interchangeable.
+
+### 1) Application Load Balancer (ALB) — Layer 7
+- **Best for**: modern web applications, microservices, container-based apps (ECS/EKS via the AWS Load Balancer Controller).
+- **How it works**: operates at the **Application Layer (HTTP/HTTPS, plus HTTP/2, gRPC and WebSockets)**. It terminates the connection, **inspects the request** (URL path, host, headers, query string, cookies, source IP) and routes it according to listener rules. Because it opens a new connection to the backend, the client IP is passed in the `X-Forwarded-For` header.
+- **Key features**:
+  - **Path-based routing**: `/api/*` → API target group, `/images/*` → static/image service.
+  - **Host-based routing**: `api.example.com` and `www.example.com` → different backends on the same ALB.
+  - Header/query/method-based rules, **weighted target groups** (blue/green and canary at the LB), redirects (HTTP→HTTPS) and fixed responses.
+  - **Integrations**: **AWS WAF** (OWASP rules, rate limiting), **ACM** (free TLS certs, SNI for multiple certs), **Lambda** as a target, **Cognito/OIDC authentication** at the LB.
+  - Sticky sessions (cookie-based), slow start, least-outstanding-requests algorithm.
 ```bash
 aws elbv2 create-load-balancer \
   --name my-alb \
@@ -26,30 +38,52 @@ aws elbv2 create-target-group \
   --vpc-id vpc-123 \
   --health-check-path /healthz \
   --health-check-interval-seconds 15
+
+# path-based rule: /api/* → api target group
+aws elbv2 create-rule --listener-arn $LISTENER_ARN --priority 10 \
+  --conditions Field=path-pattern,Values='/api/*' \
+  --actions Type=forward,TargetGroupArn=$API_TG_ARN
 ```
 
-### Network Load Balancer (NLB) — L4
-- TCP/UDP/TLS (passthrough), extremely high throughput, ultra-low and consistent latency.
-- Preserves the client's source IP by default (ALB requires reading the `X-Forwarded-For` header instead, since it's a proxy that establishes its own connection to the backend).
-- Supports static IP addresses / Elastic IPs per Availability Zone — useful when a client needs to allowlist a fixed IP.
-- Use for: non-HTTP protocols, extreme performance requirements, or when you need TLS passthrough for end-to-end encryption.
+### 2) Network Load Balancer (NLB) — Layer 4
+- **Best for**: high-performance, low-latency workloads such as gaming, financial/trading systems, IoT, databases, and any raw **TCP/UDP** traffic.
+- **How it works**: operates at the **Transport Layer (Layer 4)**. It forwards connections/packets based on IP + port **without inspecting the request content**, so it's extremely fast. It **preserves the client's source IP** by default.
+- **Key features**:
+  - **Extreme performance**: handles **millions of requests per second** with ultra-low, consistent latency, and absorbs sudden spikes without "pre-warming".
+  - **Static IP per Availability Zone** (or your own **Elastic IPs**). Useful when clients or partners must **allowlist fixed IPs** in their firewalls. A common pattern puts an NLB in front of an ALB to get static IPs plus L7 routing.
+  - **TCP, UDP, TLS** (TLS termination or passthrough for end-to-end encryption).
+  - Exposes services privately to other VPCs/accounts via **AWS PrivateLink** (endpoint services are fronted by NLBs).
+  - Security groups are supported on NLBs (since 2023). Long-lived connections are fine.
 
-### Gateway Load Balancer (GLB)
-- A specialized product for inserting third-party virtual appliances (firewalls, intrusion detection/prevention systems) transparently into the traffic path — distributes traffic across a fleet of appliances and ensures traffic flows through them before reaching its destination.
-- Not something you'd choose for typical app-tier load balancing — this is a network/security infrastructure tool.
+### 3) Gateway Load Balancer (GWLB) — Layer 3
+- **Best for**: deploying, scaling and managing **third-party virtual appliances** such as firewalls (Palo Alto, Fortinet, Check Point), intrusion detection/prevention systems (IDS/IPS) and deep packet inspection tools.
+- **How it works**: operates at the **Network Layer (Layer 3)**. It listens for **all IP packets on all ports** and forwards them to a fleet of security appliances, encapsulated with the **GENEVE protocol (UDP port 6081)**. Once an appliance inspects and approves a packet, it goes back through the GWLB to its destination (the application). Traffic is steered to it through **GWLB Endpoints** (a VPC endpoint type) placed in route tables, so it acts as a **"bump in the wire"**.
+- **Key features**:
+  - **Transparent inspection**: the source/destination IPs are unchanged, so apps and clients don't need any reconfiguration.
+  - **Auto-scaling of security appliances**: appliances sit in a target group behind the GWLB, with health checks and Auto Scaling. Unhealthy appliances are removed.
+  - **Flow stickiness**: all packets of one flow go to the same appliance (needed for stateful firewalls).
+  - Used for **centralized inspection** in a security/inspection VPC shared by many VPCs via Transit Gateway.
+- Not something you'd choose for app-tier load balancing. It's network/security infrastructure.
 
-### Classic Load Balancer (CLB)
-- The original (2009-era) ELB product. Legacy — AWS recommends ALB or NLB for anything new. You'll still encounter it in older accounts/infrastructure.
+### 4) Classic Load Balancer (CLB) — Layer 4/7 (legacy)
+- The original (2009-era) ELB, from the EC2-Classic network days. Basic L4/L7 support only: no path/host routing, no target groups.
+- **Legacy**: AWS recommends ALB or NLB for anything new. You'll still see it in older accounts, and AWS provides a migration wizard to ALB/NLB.
 
 ### AWS Comparison Table
-| | ALB | NLB | GLB | CLB |
+| | ALB | NLB | GWLB | CLB |
 |---|---|---|---|---|
-| OSI Layer | 7 | 4 | 3/4 (Gateway) | 4 & 7 (limited) |
-| Protocols | HTTP/HTTPS/gRPC | TCP/UDP/TLS | IP | TCP/HTTP/HTTPS |
-| Preserves client IP natively | No (uses X-Forwarded-For) | Yes | Yes | No |
+| OSI Layer | 7 (Application) | 4 (Transport) | 3 (Network) | 4 & 7 (limited) |
+| Protocols | HTTP/HTTPS/HTTP2/gRPC/WebSocket | TCP/UDP/TLS | IP (all ports, GENEVE to appliances) | TCP/SSL/HTTP/HTTPS |
+| Targets | Instances, IPs, Lambda, (containers via IP/instance) | Instances, IPs, ALB | Appliance instances/IPs | Instances only |
+| Inspects request content | Yes (path, host, headers, cookies) | No | No (appliances do) | Minimal |
+| Preserves client IP natively | No (uses X-Forwarded-For) | Yes | Yes (transparent) | No |
 | Path/host-based routing | Yes | No | No | No |
-| Static IP support | No (use NLB in front, or Global Accelerator) | Yes | Yes | No |
-| Typical use | Web apps, microservices, APIs | High-perf TCP, gaming, DBs, TLS passthrough | Third-party network appliances | Legacy — avoid for new builds |
+| Static IP support | No (use NLB in front, or Global Accelerator) | Yes (per AZ / Elastic IP) | N/A (reached via GWLB endpoints) | No |
+| WAF integration | Yes | No | N/A | No |
+| Performance | High | **Highest** (millions of RPS, lowest latency) | High | Moderate |
+| Typical use | Web apps, microservices, APIs, containers | Gaming, finance, IoT, TCP/UDP, static IPs, PrivateLink | Third-party firewalls, IDS/IPS | Legacy — avoid for new builds |
+
+**How to choose (interview one-liner)**: HTTP(S) and smart routing → **ALB**. Raw TCP/UDP, extreme performance or static IPs → **NLB**. Inserting firewalls/IDS transparently → **GWLB**. Never pick CLB for new work.
 
 ---
 

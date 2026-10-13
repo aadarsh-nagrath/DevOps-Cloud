@@ -101,3 +101,52 @@ First, don't panic-apply again immediately — run `terraform plan` first to see
 
 ### 27. How would you manage Terraform provider and module version upgrades safely across a large, multi-team codebase, avoiding both "stuck on ancient versions forever" and "everyone breaks simultaneously on every upgrade"?
 Pin provider versions with a constrained range (`~> 5.0`, not fully unpinned) in every root module, and commit the `.terraform.lock.hcl` dependency lock file to source control so `terraform init` reproducibly resolves the exact same provider version everywhere until it's deliberately updated (`terraform init -upgrade`) — never letting versions silently drift between different engineers' machines or CI runs. Roll out major provider/module version upgrades through a staged process: upgrade and validate against a non-production environment first, read the provider's changelog/upgrade guide for breaking changes (a major provider version bump frequently renames or restructures resource arguments), and land the upgrade as its own isolated, reviewed change rather than bundled with unrelated infrastructure changes — so if something breaks, it's unambiguous what caused it. For shared internal modules consumed by many teams, apply semantic versioning and give consuming teams a real window to adopt a new major version on their own schedule (rather than force-upgrading everyone the moment a module changes), the same discipline you'd expect from any shared library dependency.
+
+### 28. How would you prevent conflicts during infrastructure changes when several engineers work on the same Terraform code?
+Conflicts happen at three levels: **the state file**, **the code**, and **the real infrastructure**. Handle each one:
+
+1. **State level: remote backend with locking.** S3 backend with locking (`use_lockfile = true` for native S3 locking in Terraform ≥1.10, or the older DynamoDB table), Terraform Cloud/HCP, or GCS/Azure Blob, which lock natively. A second `apply` then fails fast with "Error acquiring the state lock" instead of corrupting state (see Q12). Turn on S3 versioning so a bad state write can be rolled back.
+2. **Process level: nobody applies from their laptop.** Every change goes through a **Git PR → CI runs `terraform fmt/validate/plan` → plan posted on the PR → review → merge → pipeline applies the saved plan file** (`terraform plan -out=tfplan` then `terraform apply tfplan`, so what's applied is exactly what was reviewed). Tools like **Atlantis**, HCP Terraform, Spacelift or env-gated GitHub Actions also **serialize runs per workspace/directory**, so two PRs touching the same stack can't apply at the same time. Engineers get read-only cloud credentials, and only the pipeline role can write.
+3. **Blast-radius level: split state.** One huge state file means everyone contends for the same lock and every plan touches everything. Split by environment and component (`network/`, `eks/`, `rds/`, per env), and share outputs via `terraform_remote_state` or data sources. Smaller stacks mean fewer conflicts, faster plans and smaller mistakes.
+4. **Drift level: Terraform owns what it manages.** No ClickOps changes in the console (enforced via IAM/SCPs). Run scheduled `terraform plan -detailed-exitcode` drift detection in CI and alert on non-zero. Use `lifecycle { ignore_changes = [...] }` only for attributes that something else legitimately changes (e.g. ASG desired capacity managed by autoscaling).
+5. **Code level**: pin provider/module versions in `.terraform.lock.hcl` + `required_providers` so two engineers don't get different plans. Use small, focused PRs. Use `CODEOWNERS` so platform owners review shared modules. Add policy-as-code (OPA/Sentinel/Checkov) to block dangerous changes before they reach apply.
+
+One-line summary: **"Locking stops simultaneous writes, but the real fix is a single serialized PR-based pipeline as the only path to apply, plus small state files."**
+
+### 29. How would you delete a specific resource using Terraform?
+It depends on whether you want it **gone for good**, **destroyed just this once**, or **removed from Terraform's management but left running**:
+
+1. **The normal, correct way: remove it from the code.** Delete the `resource` block (or reduce `count`/remove the `for_each` key), then `terraform plan` shows `- destroy`, and `terraform apply`. Code and state stay in sync, and it goes through PR review. Prefer this for anything permanent.
+2. **One-off targeted destroy**:
+   ```bash
+   terraform plan -destroy -target=aws_instance.web          # preview first
+   terraform destroy -target=aws_instance.web
+   terraform destroy -target='aws_instance.web["app1"]'      # for_each instance (quote it)
+   terraform destroy -target='module.vpc.aws_nat_gateway.this[0]'
+   ```
+   `-target` also destroys things that **depend on** that resource. Terraform warns that targeting is for exceptional cases: if the block is still in the code, the **next `apply` recreates it**. Use it for break-glass situations, not as a workflow.
+3. **Stop managing it, but keep the real resource** (e.g. handing it to another stack or team):
+   ```bash
+   terraform state rm aws_s3_bucket.logs
+   ```
+   Or declaratively in Terraform ≥1.7:
+   ```hcl
+   removed {
+     from = aws_s3_bucket.logs
+     lifecycle { destroy = false }
+   }
+   ```
+   Then delete the resource block. The bucket keeps existing in AWS, and Terraform just forgets it.
+4. **Recreate rather than delete**: `terraform apply -replace=aws_instance.web` (the modern replacement for `terraform taint`).
+
+Safety notes: always `plan` first, watch for `prevent_destroy = true` in `lifecycle` (it blocks deletion on purpose, so remove it deliberately), and for stateful resources (RDS, S3) check `deletion_protection`, `skip_final_snapshot`, and `force_destroy` before you go.
+
+### 30. What is parallelism in Terraform?
+Terraform builds a **dependency graph** of all resources (from references like `aws_subnet.a.id` and explicit `depends_on`). Resources that **don't depend on each other are created, updated or destroyed concurrently**. A resource waits only for the things it references. **Parallelism** is the maximum number of graph nodes Terraform works on at the same time.
+
+- **Default: 10** concurrent operations.
+- Change it per run: `terraform apply -parallelism=20` (also on `plan` and `destroy`), or for every run with `export TF_CLI_ARGS_apply="-parallelism=20"`.
+- **Raise it** for large stacks with many independent resources (hundreds of DNS records, IAM policies, security group rules), so applies finish faster.
+- **Lower it** (e.g. `-parallelism=1` to `5`) when you hit **API rate limits / throttling** (`ThrottlingException`, `429 Too Many Requests`) from AWS, Azure or GitHub providers, when a provider has concurrency bugs, or to make debug logs readable and sequential.
+- It only controls concurrency **within one run**. It is unrelated to running two `apply`s at once, which **state locking** prevents (Q12).
+- It doesn't override dependencies. With `-parallelism=50`, a subnet still waits for its VPC. The order always comes from the graph (`terraform graph | dot -Tsvg > graph.svg` to visualize it).

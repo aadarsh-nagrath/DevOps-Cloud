@@ -217,3 +217,82 @@ For `ClusterIP`/`NodePort` this has always worked. For `type: LoadBalancer`, mix
 
 ### 59. An application upgrade caused downtime even though rolling updates were configured. What advanced strategies would you apply to ensure zero-downtime deployments next time?
 A rolling update only guarantees Pods are replaced gradually — not that traffic moves gracefully. Usual root causes and fixes: **Bad readiness** — no readiness probe, or one that returns OK before caches/connections are ready, so traffic hits Pods that can't serve it; use a real readiness endpoint plus a `startupProbe` for slow starters, and `minReadySeconds` so a Pod must stay healthy for a while before it counts. **Termination race** — on deletion, endpoint removal (kube-proxy, ingress, cloud LB) happens *in parallel* with SIGTERM, so Pods die while still receiving traffic; add a `preStop` hook (`sleep 10–15`), handle SIGTERM by draining in-flight requests, and set `terminationGracePeriodSeconds` above preStop + drain time. On AWS ALB, enable **Pod readiness gates** in the AWS Load Balancer Controller and match the target group's deregistration delay. **Capacity during rollout** — use `maxUnavailable: 0`, `maxSurge: 25%` (or 1) so capacity never drops; HPA `minReplicas` sized for peak traffic; a **PodDisruptionBudget** so node drains/upgrades during the rollout don't take down too many at once. **Incompatible changes** — a DB migration or API change that the old and new versions can't both handle during the overlap; use expand/contract migrations and backward-compatible APIs so both versions can run side by side. **Long-lived connections** (WebSockets, gRPC) need client reconnect logic and server-side draining. Beyond that: **progressive delivery** with Argo Rollouts or Flagger — canary (1% → 10% → 50% → 100%) with automated analysis against error-rate/latency SLOs and automatic rollback, or **blue-green** with instant switchback; decouple deploy from release with **feature flags**; set `progressDeadlineSeconds` so stuck rollouts fail loudly; and run the same rollout against staging under synthetic load first. Then write a short post-incident review so the specific failure becomes a pipeline check, not tribal knowledge.
+
+### 60. A Pod is not running. How would you troubleshoot it?
+Start with `kubectl get pod <pod> -o wide` and read the **STATUS** column, because each state points to a different layer. Then run `kubectl describe pod <pod>` (the **Events** section at the bottom is usually where the answer is) and `kubectl logs <pod> [-c container] [--previous]`.
+
+| Status | What it means | Where to look |
+|---|---|---|
+| **Pending** | The scheduler can't place it | Events: `Insufficient cpu/memory` (requests too big, or the cluster is full → autoscaler), node taints/affinity/nodeSelector mismatch, PVC not bound (`kubectl get pvc`), ResourceQuota exceeded |
+| **ContainerCreating** (stuck) | Scheduled, but the node can't start it | Volume mount failures (missing Secret/ConfigMap, EBS attached to another AZ/node), CNI out of IPs, image still pulling |
+| **ImagePullBackOff / ErrImagePull** | Can't fetch the image | Typo in image/tag, private registry without `imagePullSecrets`, registry rate limit, node has no egress |
+| **CrashLoopBackOff** | Container starts, then exits repeatedly | `kubectl logs --previous` for the last crash. Exit code via `kubectl get pod -o jsonpath='{.status.containerStatuses[*].lastState}'`: `137` = OOMKilled/SIGKILL, `1` = app error, `127` = command not found. Also a liveness probe killing it, or a bad command/args/env/config |
+| **Running but 0/1 Ready** | Readiness probe failing | Probe path/port wrong, app slow to start (add a `startupProbe`), a dependency (DB) unreachable. The Pod gets no Service traffic |
+| **Init:0/1, Init:CrashLoopBackOff** | An init container is failing | `kubectl logs <pod> -c <init-container>` |
+| **Evicted / OOMKilled / Error** | Killed by the node or kernel | `describe` shows the reason: memory/disk pressure on the node, or the memory limit exceeded |
+| **Terminating** (stuck) | Finalizers, or the node is down | Check `metadata.finalizers` and the node status. `--force --grace-period=0` is the last resort |
+
+Then widen the scope if the Pod itself looks fine: `kubectl get events -n <ns> --sort-by=.lastTimestamp`, `kubectl describe node <node>` (pressure conditions, allocatable vs allocated), `kubectl get deploy/rs` (a ReplicaSet that can't create Pods because of quota or admission webhook errors shows the error on the RS, not on any Pod), and `kubectl exec -it <pod> -- sh` or `kubectl debug` with an ephemeral container for network/DNS checks from inside. In interviews, say the order out loud: **status → describe/events → logs (current and previous) → node → controller → exec/debug**. It shows a method rather than guessing.
+
+### 61. What happens when a container exceeds its CPU or memory limit?
+They behave very differently because CPU is **compressible** and memory is **not**.
+
+- **CPU over limit → throttled, never killed.** The limit becomes a CFS quota in the container's cgroup (e.g. `limits.cpu: 500m` = 50ms of CPU time per 100ms period). Once the container uses its quota, its threads are paused until the next period. Symptoms: higher latency and timeouts, and failing liveness probes, which can then *indirectly* cause restarts. You see it in the `container_cpu_cfs_throttled_periods_total` metric. Multi-threaded apps (JVM, Go with many goroutines) can use the quota in a few ms and stall for the rest of the period, even at low average CPU. That's why many teams set CPU **requests** but leave out CPU **limits** for latency-sensitive services.
+- **Memory over limit → OOMKilled.** The kernel OOM killer in the cgroup kills the process right away (SIGKILL, so no graceful shutdown). The container shows `Reason: OOMKilled`, exit code **137**, and the kubelet restarts it per `restartPolicy`. Repeated kills lead to CrashLoopBackOff. Fix it by finding a leak or raising the limit, and by making runtimes respect cgroup limits (JVM `-XX:MaxRAMPercentage`, Node `--max-old-space-size`).
+- **Different thing, often confused: node-level pressure eviction.** If the whole *node* runs low on memory/disk/PIDs, the kubelet **evicts** Pods (status `Evicted`), even ones under their own limits. It starts with Pods using the most above their requests, so BestEffort before Burstable before Guaranteed (QoS). Ephemeral-storage over its limit also causes eviction.
+- **Requests vs limits link**: requests drive scheduling and eviction order. Limits drive throttling and OOM kills. Memory request = limit (Guaranteed QoS) is the usual setting for critical Pods.
+
+### 62. A user is unable to access an application exposed through a NodePort service. How would you troubleshoot it?
+Follow the packet path, **client → node IP:NodePort → kube-proxy rules → Service → endpoints → Pod port**, and check each hop from the inside out:
+
+1. **Is the Pod itself healthy?** `kubectl get pods -l app=myapp -o wide`. It must be `Running` **and** `Ready` (1/1). A Pod failing its readiness probe is removed from the endpoints, so the Service silently has nowhere to send traffic.
+2. **Does the Service actually select the Pods?** `kubectl get endpoints myapp-svc` (or `kubectl get endpointslices -l kubernetes.io/service-name=myapp-svc`). **Empty endpoints** is the #1 cause: the Service `selector` doesn't match the Pod labels (typo, different `app:` value) or the namespace is wrong.
+3. **Are the ports wired correctly?** `kubectl describe svc myapp-svc`: `port` (Service port), `targetPort` (**must equal the port the container actually listens on**), and `nodePort` (30000–32767). Test from inside the cluster: `kubectl run tmp --rm -it --image=busybox -- wget -qO- http://myapp-svc:<port>`. If that works, the problem is outside the cluster. If not, it's the Service/Pod.
+4. **Is the app listening on the right interface?** An app bound to `127.0.0.1` inside the container is unreachable from outside the Pod. It must listen on `0.0.0.0`. Check with `kubectl exec -it <pod> -- netstat -tlnp` (or `ss -tlnp`) and `kubectl port-forward pod/<pod> 8080:<port>`.
+5. **Can you hit the NodePort from the node itself?** `curl http://<node-internal-ip>:<nodePort>` from a node or a host in the VPC. If that works but the user can't reach it, the issue is the network in between.
+6. **Firewall / cloud security groups**: NodePorts need the **node's security group / firewall to allow inbound 30000–32767** (or that specific port) from the user's source IP. Also check host firewalls (`iptables`/`firewalld`/`ufw`) and NACLs.
+7. **Right IP?** The user needs a **node's reachable IP** (the public IP if they're outside the VPC). Nodes in private subnets have no public IP, so NodePort won't work from the internet. That's what `LoadBalancer`/Ingress is for.
+8. **`externalTrafficPolicy: Local`?** Then only nodes that **run a Pod of that Service** answer on the NodePort. Hitting a node without a local Pod fails (by design, to preserve client IP).
+9. **kube-proxy / CNI health**: `kubectl -n kube-system get pods | grep -E 'kube-proxy|calico|cilium|aws-node'`, and on the node `iptables-save | grep <nodePort>` (or `ipvsadm -Ln`). **NetworkPolicies** that deny ingress to the Pod also block NodePort traffic.
+
+Interview summary: **"Pod Ready → endpoints not empty → targetPort matches container port → app listens on 0.0.0.0 → curl the NodePort from a node → open the security group/firewall → right node IP → externalTrafficPolicy → kube-proxy/NetworkPolicy."**
+
+### 63. What is affinity, and what is node affinity in Kubernetes?
+**Affinity** is a set of scheduling rules that tells the scheduler **where a Pod should (or must) run**, based on labels. There are three kinds:
+
+| Type | Based on | Use case |
+|---|---|---|
+| **Node affinity** | Labels on **nodes** | "Run on SSD nodes / in zone us-east-1a / on GPU instances" |
+| **Pod affinity** | Labels on **other Pods** already running | "Put my cache next to my app (same node/zone) for low latency" |
+| **Pod anti-affinity** | Labels on other Pods | "Spread my replicas across nodes/zones so one failure doesn't take them all down" |
+
+Each comes in two strengths:
+- `requiredDuringSchedulingIgnoredDuringExecution`: a **hard** rule. If no node matches, the Pod stays **Pending**.
+- `preferredDuringSchedulingIgnoredDuringExecution`: a **soft** rule with a `weight` (1–100). The scheduler tries, but schedules anyway if it can't.
+- "IgnoredDuringExecution" means that if node labels change later, already-running Pods are **not** evicted.
+
+**Node affinity** is the more expressive replacement for `nodeSelector`: it supports operators `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`, and OR across terms.
+```yaml
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: node.kubernetes.io/instance-type
+                operator: In
+                values: ["m6i.large", "m6i.xlarge"]
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 80
+          preference:
+            matchExpressions:
+              - key: topology.kubernetes.io/zone
+                operator: In
+                values: ["us-east-1a"]
+    podAntiAffinity:                       # spread replicas, one per node
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchLabels: { app: web }
+          topologyKey: kubernetes.io/hostname   # "same node" = same domain; use topology.kubernetes.io/zone for zones
+```
+**How it relates to taints/tolerations** (Q31): affinity **attracts** a Pod to nodes, while taints **repel** Pods from nodes. To dedicate nodes to a workload you need both: taint the nodes so others stay off, and add a toleration plus node affinity so your Pods go there. For simply spreading replicas evenly, `topologySpreadConstraints` is often simpler than pod anti-affinity and scales better in big clusters.

@@ -119,3 +119,89 @@ A monorepo needs path/dependency-graph-aware pipeline logic (via a build tool li
 
 ### 33. What metrics would you track to know whether your CI/CD pipeline and deployment process are actually effective, and how do you use them?
 The DORA four keys are the industry-standard framework: **deployment frequency** (how often you successfully release to production), **lead time for changes** (commit to production), **change failure rate** (% of deployments causing a production incident/rollback), and **mean time to recovery/restore (MTTR)** (how fast you recover from a failure). Track these longitudinally, not as one-off snapshots, and use them to diagnose *where* to invest — e.g., low deployment frequency with low change-failure-rate suggests overly conservative/manual gates worth automating further, while high deployment frequency with high change-failure-rate suggests the pipeline's testing/quality gates need strengthening before shipping faster, not after. Pair these with pipeline-specific operational metrics (pipeline duration, flaky-test rate, queue/wait time for runners) since a great DORA score can still mask a painfully slow or unreliable day-to-day developer pipeline experience underneath it.
+
+### 34. What are the steps involved in a CI/CD pipeline using GitHub Actions?
+**Setup steps:**
+1. Create a workflow file in **`.github/workflows/ci-cd.yml`** in the repo.
+2. Define **triggers** (`on:`): `pull_request` for CI checks, `push` to `main` for deploy, `workflow_dispatch` for manual runs, `tags` for releases.
+3. Store credentials as **Secrets/Variables** (repo or **Environment** level), and prefer **OIDC** to the cloud (`aws-actions/configure-aws-credentials` with `role-to-assume`) over long-lived access keys.
+4. Configure **Environments** (`staging`, `production`) with **required reviewers** / wait timers, so prod deploys need approval. Add **branch protection** so PRs must pass CI before merging.
+
+**Pipeline stages (jobs):**
+1. **Checkout**: `actions/checkout`.
+2. **Set up toolchain + cache**: `actions/setup-node`/`setup-python`/`setup-java` with dependency caching.
+3. **Lint + unit tests** (fail fast), plus coverage.
+4. **Security scans**: SAST (CodeQL), dependency scan, secret scan, IaC scan.
+5. **Build** the artifact / **Docker image**, tagged with the **commit SHA** (not just `latest`).
+6. **Scan the image** (Trivy), then **push** to a registry (ECR/GHCR/Docker Hub).
+7. **Deploy to staging** (Helm/kubectl/Terraform/ECS deploy, or bump the image tag in a GitOps repo for Argo CD) → **smoke/integration tests**.
+8. **Approval gate** → **deploy to production** (rolling/canary/blue-green) → health check → **automatic rollback** on failure.
+9. **Notify** (Slack/Teams) and record the deployment.
+
+```yaml
+name: ci-cd
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  id-token: write          # for OIDC to AWS
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+
+  build:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.meta.outputs.image }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::123456789012:role/gha-deploy
+          aws-region: us-east-1
+      - id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+      - id: meta
+        run: echo "image=${{ steps.ecr.outputs.registry }}/myapp:${{ github.sha }}" >> "$GITHUB_OUTPUT"
+      - run: docker build -t ${{ steps.meta.outputs.image }} .
+      - uses: aquasecurity/trivy-action@master
+        with: { image-ref: "${{ steps.meta.outputs.image }}", exit-code: "1", severity: CRITICAL,HIGH }
+      - run: docker push ${{ steps.meta.outputs.image }}
+
+  deploy-staging:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with: { role-to-assume: "arn:aws:iam::123456789012:role/gha-deploy", aws-region: us-east-1 }
+      - run: aws eks update-kubeconfig --name staging-cluster
+      - run: helm upgrade --install myapp ./chart -n myapp --set image=${{ needs.build.outputs.image }} --wait --atomic
+      - run: ./scripts/smoke-test.sh https://staging.example.com
+
+  deploy-prod:
+    needs: [build, deploy-staging]
+    runs-on: ubuntu-latest
+    environment: production        # required reviewers = manual approval gate
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with: { role-to-assume: "arn:aws:iam::123456789012:role/gha-deploy", aws-region: us-east-1 }
+      - run: aws eks update-kubeconfig --name prod-cluster
+      - run: helm upgrade --install myapp ./chart -n myapp --set image=${{ needs.build.outputs.image }} --wait --atomic
+```
+Things worth saying out loud: `needs:` creates the stage order (jobs otherwise run in parallel), **build once and promote the same image** through environments, `--atomic` gives automatic Helm rollback, use **`concurrency:`** groups so two deploys to the same environment don't overlap, pin third-party actions to a commit SHA (Q19), and use self-hosted runners only when you need private network access.

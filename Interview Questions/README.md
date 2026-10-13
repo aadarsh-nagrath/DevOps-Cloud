@@ -89,7 +89,7 @@ This sits alongside the deep-dive reference notes elsewhere in this repo (`Kuber
 
 ## 📊 At a glance
 
-**20 topic files, 595+ individual Q&A**, each with a full-paragraph, interview-ready answer (not a one-liner) — spanning Linux, Git, Docker, Kubernetes, CI/CD, Terraform/IaC, AWS, Azure, GCP, Networking & Security, Ansible, Python, Agile/Culture, Monitoring/Observability, DevSecOps, SRE/Incident Response/Service Mesh, Messaging/Caching/Distributed Systems, Deployment Strategies, System Design, Behavioral interviewing, practical scripting challenges, and real company-specific interview patterns (Amazon LPs, Google/SRE-style loops).
+**20 topic files, 610+ individual Q&A**, each with a full-paragraph, interview-ready answer (not a one-liner) — spanning Linux, Git, Docker, Kubernetes, CI/CD, Terraform/IaC, AWS, Azure, GCP, Networking & Security, Ansible, Python, Agile/Culture, Monitoring/Observability, DevSecOps, SRE/Incident Response/Service Mesh, Messaging/Caching/Distributed Systems, Deployment Strategies, System Design, Behavioral interviewing, practical scripting challenges, and real company-specific interview patterns (Amazon LPs, Google/SRE-style loops).
 
 ---
 

@@ -187,7 +187,7 @@ Welcome to the centralized index of all notes in this repository. Click any link
 
 | Note | Description |
 |---|---|
-| [Knative](Knative/knative.md) | Serverless on Kubernetes, Knative Serving & Eventing |
+| [Knative](Knative/knative.md) | Serving (revisions, traffic split), KPA autoscaling & scale-from-zero internals (activator/queue-proxy), Eventing (Broker/Trigger, CloudEvents), Functions, prod config, troubleshooting, interview Q&A |
 
 ---
 
@@ -199,7 +199,7 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | [Load Balancing Algorithms](Load%20Balancing/load-balancing-algorithms.md) | Round robin, least connections, IP hash, consistent hashing, latency-based |
 | [L4 vs L7 Load Balancing](Load%20Balancing/l4-vs-l7-load-balancing.md) | Transport vs application layer — what each can and can't do |
 | [Software Load Balancers](Load%20Balancing/software-load-balancers.md) | NGINX, HAProxy, Envoy — config examples and when to pick which |
-| [Cloud Load Balancers](Load%20Balancing/cloud-load-balancers.md) | AWS (ALB/NLB/GLB), Azure (LB/App Gateway/Front Door), GCP compared |
+| [Cloud Load Balancers](Load%20Balancing/cloud-load-balancers.md) | AWS ELB (ALB/NLB/GWLB/CLB, Auto Scaling, target groups), Azure (LB/App Gateway/Front Door), GCP compared |
 | [Kubernetes Load Balancing](Load%20Balancing/kubernetes-load-balancing.md) | Service types, kube-proxy, Ingress, service mesh load balancing |
 | [Health Checks & Failover](Load%20Balancing/health-checks-and-failover.md) | Active vs passive checks, tuning trade-offs, thundering herd, split-brain |
 | [Sticky Sessions & Session Affinity](Load%20Balancing/sticky-sessions-and-session-affinity.md) | Cookie/IP-based affinity, when to externalize state instead |
@@ -242,6 +242,7 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | [Kibana](Monitoring%20and%20Loggin/kibana/kibana.md) | Visualization layer for Elasticsearch |
 | [Fluentd](Monitoring%20and%20Loggin/fluentid/fluentd.md) | Unified logging layer / log forwarder |
 | [Datadog](Monitoring%20and%20Loggin/datadog/datadog.md) | Commercial all-in-one observability SaaS |
+| [Splunk](Monitoring%20and%20Loggin/splunk/splunk.md) | Forwarders/indexers/search heads, indexing pipeline & buckets, props/transforms, SPL deep dive, CIM/tstats, clustering & SmartStore, K8s via OTel, licensing/cost, troubleshooting, interview Q&A |
 
 ---
 

@@ -359,3 +359,83 @@ done
 echo "Rolling restart completed successfully across all instances"
 ```
 **What it's testing:** the whole point of this task is the **fail-fast abort** — a candidate who writes a loop that restarts every instance regardless of intermediate health-check results has built something that can take down 100% of capacity on a bad release, one instance at a time, with nobody stopping it; explicitly halting on the first unhealthy instance (rather than "logging a warning and continuing") is the detail interviewers are specifically screening for, since it's exactly the difference between a script that's safe to run unattended in production and one that isn't.
+
+### 20. Write a shell script to delete all files in a particular directory.
+```bash
+#!/usr/bin/env bash
+# Usage: ./clean_dir.sh /path/to/dir [days]   → delete files (optionally only older than N days)
+set -euo pipefail
+
+DIR="${1:?Usage: $0 <directory> [older_than_days]}"
+DAYS="${2:-}"
+
+# Safety guards: the dangerous part of this question
+[[ -d "$DIR" ]] || { echo "Error: $DIR is not a directory" >&2; exit 1; }
+REAL=$(realpath "$DIR")
+case "$REAL" in
+  /|/bin|/boot|/dev|/etc|/home|/lib*|/proc|/root|/sbin|/sys|/usr|/var)
+    echo "Refusing to clean protected path: $REAL" >&2; exit 1 ;;
+esac
+
+FIND_ARGS=(-maxdepth 1 -type f)
+[[ -n "$DAYS" ]] && FIND_ARGS+=(-mtime "+$DAYS")
+
+COUNT=$(find "$REAL" "${FIND_ARGS[@]}" | wc -l)
+echo "Deleting $COUNT file(s) from $REAL"
+find "$REAL" "${FIND_ARGS[@]}" -print -delete
+```
+Points interviewers look for:
+- **Use `find ... -type f -delete`, not `rm -rf $DIR/*`**. `rm $DIR/*` fails with "Argument list too long" on huge directories, skips hidden files (dotfiles), and if `$DIR` is empty or unset `rm -rf /*` is catastrophic. `${1:?}` and `set -u` stop the script when the argument is missing.
+- **`-type f`** deletes only files and keeps subdirectories. Drop `-maxdepth 1` from `FIND_ARGS` to also delete files in subdirectories. To delete everything including subdirectories, use `find "$REAL" -mindepth 1 -delete`.
+- **Dry run first**: run without `-delete` (just `-print`) to see what would go.
+- One-liners: `find /tmp/app -type f -delete`. Logs older than 7 days: `find /var/log/app -type f -name '*.log' -mtime +7 -delete`. Run it from **cron** (`0 2 * * * /opt/scripts/clean_dir.sh /var/log/app 7`) or use `logrotate`/`tmpfiles.d` instead.
+
+### 21. Write a shell script to generate an alert when CPU utilization reaches 70%.
+```bash
+#!/usr/bin/env bash
+# Usage: ./cpu_alert.sh [threshold]    (run every minute from cron)
+set -euo pipefail
+
+THRESHOLD="${1:-70}"
+HOST=$(hostname)
+SLACK_WEBHOOK="${SLACK_WEBHOOK:-}"          # export it, don't hard-code secrets
+STATE_FILE="/tmp/cpu_alert.state"           # avoid re-alerting every minute
+
+# CPU usage over a 1-second sample, from /proc/stat (works on any Linux, no sysstat needed)
+read -r _ u1 n1 s1 i1 w1 x1 y1 z1 _ < /proc/stat
+sleep 1
+read -r _ u2 n2 s2 i2 w2 x2 y2 z2 _ < /proc/stat
+idle=$(( (i2 + w2) - (i1 + w1) ))
+total=$(( (u2+n2+s2+i2+w2+x2+y2+z2) - (u1+n1+s1+i1+w1+x1+y1+z1) ))
+CPU=$(( 100 * (total - idle) / total ))
+
+alert() {
+  local msg="$1"
+  echo "$(date '+%F %T') $msg" | tee -a "${LOG_FILE:-/tmp/cpu_alert.log}"
+  if [[ -n "$SLACK_WEBHOOK" ]]; then
+    curl -s -X POST -H 'Content-Type: application/json' \
+      -d "{\"text\":\"$msg\"}" "$SLACK_WEBHOOK" >/dev/null
+  fi
+  # or: echo "$msg" | mail -s "CPU alert on $HOST" ops@example.com
+}
+
+if (( CPU >= THRESHOLD )); then
+  if [[ ! -f "$STATE_FILE" ]]; then
+    TOP=$(ps -eo pid,comm,%cpu --sort=-%cpu | sed -n '2,4p' | tr '\n' ';')
+    alert "🔥 ALERT: CPU on $HOST is ${CPU}% (threshold ${THRESHOLD}%). Top: $TOP"
+    touch "$STATE_FILE"
+  fi
+else
+  if [[ -f "$STATE_FILE" ]]; then
+    alert "✅ RESOLVED: CPU on $HOST back to ${CPU}%"
+    rm -f "$STATE_FILE"
+  fi
+fi
+```
+Schedule it with cron: `* * * * * SLACK_WEBHOOK=https://hooks.slack.com/... /opt/scripts/cpu_alert.sh 70`.
+
+Points to mention:
+- **How CPU % is computed**: `/proc/stat` is cumulative counters, so you need **two samples** and the delta. Alternatives: `top -bn1 | grep 'Cpu(s)'` (parse 100 − idle), `mpstat 1 1` (sysstat), `vmstat 1 2`. Avoid `uptime` load average, which isn't CPU % (it includes I/O wait and depends on the core count).
+- **Avoid flapping/spam**: the state file sends one alert plus one resolve. A better version only fires if the CPU stays above the threshold for N consecutive checks (e.g. 5 minutes), like Prometheus `for: 5m`.
+- **Include context**: the top processes in the alert save the on-call engineer a login.
+- **In production you wouldn't use a script**: node_exporter + a Prometheus alert rule (`100 - avg by(instance)(rate(node_cpu_seconds_total{mode="idle"}[5m]))*100 > 70` with `for: 5m`), or a **CloudWatch alarm** on `CPUUtilization >= 70` for 2 datapoints → SNS → email/Slack. Say this: it shows you know when a script is the wrong tool.

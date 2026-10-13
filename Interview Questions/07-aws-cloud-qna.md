@@ -107,3 +107,68 @@ These represent an increasing spectrum of cost vs. recovery speed. **Backup & re
 
 ### 29. How would you approach securing and monitoring an AWS environment against both external attackers and insider/credential-compromise risk, at an organizational level (not just per-resource hardening)?
 Layer detective and preventive controls: enable CloudTrail organization-wide with logs shipped to a separate, access-restricted security account (so an attacker compromising a workload account can't tamper with the evidence of what they did); enable GuardDuty (ML/threat-intel-based anomaly detection across CloudTrail, VPC Flow Logs, DNS logs) and Security Hub (aggregating findings across GuardDuty, Config, Inspector, and third-party tools into one place) organization-wide rather than per-account, since a threat actor moving laterally across accounts is exactly the pattern siloed per-account monitoring misses; enforce MFA for all human access (and increasingly, phishing-resistant methods over SMS/TOTP where feasible) and eliminate long-lived IAM access keys in favor of federated/SSO access and short-lived role assumption wherever possible, since long-lived credentials leaked (in a public GitHub repo, a compromised laptop) are one of the most common real-world initial-access vectors; and specifically monitor for and alert on the small set of highly sensitive actions that legitimate automation rarely performs but an attacker consolidating access commonly does (CloudTrail disabling attempts, root account usage, IAM policy attachment to a role granting broad new permissions, unusual cross-region API activity from a region you don't normally operate in) rather than trying to alert on everything indiscriminately, which just produces alert fatigue that trains people to ignore the signal.
+
+### 30. How would you secure your AWS infrastructure using best practices?
+Answer in layers, so it's clear you think about it as defence in depth:
+
+1. **Identity (most important)**: lock away the root user (MFA, no access keys, use it for nothing). Humans log in via **IAM Identity Center/SSO** with MFA and short-lived role credentials, not long-lived IAM users with access keys. Workloads use **IAM roles** (instance profiles, IRSA/EKS Pod Identity, Lambda execution roles). **Least privilege**, refined with IAM Access Analyzer and last-accessed data. **Multi-account** with AWS Organizations, plus **SCPs** as guardrails (deny disabling CloudTrail, deny unused regions, deny leaving the org).
+2. **Network**: workloads in **private subnets**, only load balancers in public ones. **Security groups** that reference other SGs instead of `0.0.0.0/0`. No SSH from the internet: use **SSM Session Manager** instead of bastions. **VPC endpoints** for S3/DynamoDB/ECR so traffic stays off the internet. **WAF + Shield** on ALB/CloudFront/API Gateway.
+3. **Data**: encryption at rest everywhere with **KMS** (default EBS encryption, S3 SSE-KMS, RDS encryption), TLS in transit (ACM certs). **S3 Block Public Access** at account level, bucket policies denying non-TLS access. Secrets in **Secrets Manager/Parameter Store** with rotation, never in code or env files in Git. Backups with **AWS Backup**, cross-account and immutable (Vault Lock) against ransomware.
+4. **Detection & logging**: org-wide **CloudTrail** to a locked-down log-archive account, **GuardDuty**, **Security Hub** (CIS/AWS Foundational benchmarks), **AWS Config** rules for drift (e.g. "no public S3", "EBS encrypted"), VPC Flow Logs, and **Inspector** for EC2/ECR/Lambda vulnerabilities.
+5. **Automation & response**: everything via IaC (Terraform/CloudFormation) with policy-as-code checks (Checkov/tfsec/OPA) in CI. Auto-remediation through EventBridge → Lambda/SSM. Patching via SSM Patch Manager. A rehearsed incident-response runbook (isolate instance via SG, snapshot, revoke keys).
+
+Short version: **"Strong identity, private networking, encrypt everything, log everything centrally, enforce it all through code and guardrails, not good intentions."** The AWS Well-Architected **Security pillar** is the framework to name.
+
+### 31. What strategies would you use to reduce cloud infrastructure costs?
+First **get visibility**, then pick the biggest items, then make it continuous:
+
+1. **Visibility**: Cost Explorer + **CUR** (Cost and Usage Report) → Athena/QuickSight, mandatory **cost-allocation tags** (team, env, service) enforced via SCP/tag policies, **AWS Budgets** + **Cost Anomaly Detection** alerts, showback per team.
+2. **Delete waste** (quick wins): unattached EBS volumes, old snapshots/AMIs, idle load balancers, unused Elastic IPs, forgotten dev environments, idle RDS instances. **S3 lifecycle policies** and **Intelligent-Tiering** for old objects. CloudWatch log groups with no retention ("never expire" is a common silent cost).
+3. **Rightsize**: use **Compute Optimizer** and Trusted Advisor recommendations. Most instances are over-provisioned. Move to **Graviton (ARM)** for ~20–40% better price/performance. gp2 → **gp3** EBS (cheaper, with configurable IOPS).
+4. **Pricing models**: **Savings Plans / Reserved Instances** for the steady baseline (up to ~70% off), **Spot** for stateless, fault-tolerant work (CI runners, batch, K8s worker pools via Karpenter, up to ~90% off), On-Demand only for the spiky remainder.
+5. **Scale with demand**: Auto Scaling based on real metrics, **schedule dev/test to shut down nights and weekends** (~65% saving on those), serverless (Lambda/Fargate) for spiky low-utilization workloads, and in Kubernetes right-size requests (VPA/Kubecost) plus bin-packing via Karpenter.
+6. **Architecture & data transfer**: data transfer is the hidden bill. Use **VPC gateway endpoints** for S3/DynamoDB instead of paying NAT Gateway processing, keep chatty services in the same AZ, put CloudFront in front of S3/origin, and cut cross-region replication you don't need. Pick the right storage tier and DB (Aurora Serverless / DynamoDB on-demand for spiky traffic).
+7. **Make it a process (FinOps)**: monthly cost review with engineering owners, unit economics (cost per request/customer), cost checks in IaC PRs (**Infracost**), and accountability by tag.
+
+Give a concrete example in interviews, e.g. *"moving CI runners to Spot and adding S3 VPC endpoints cut our bill by X%"*. Numbers stick with interviewers.
+
+### 32. How would you configure AWS Lambda to automate a task?
+Example task: **every night, find and stop EC2 instances tagged `AutoStop=true`** (a classic cost-saving automation). The same steps apply to any Lambda automation:
+
+1. **Write the function** (Python + boto3):
+   ```python
+   import boto3, os
+   ec2 = boto3.client("ec2")
+
+   def lambda_handler(event, context):
+       resp = ec2.describe_instances(Filters=[
+           {"Name": "tag:AutoStop", "Values": ["true"]},
+           {"Name": "instance-state-name", "Values": ["running"]},
+       ])
+       ids = [i["InstanceId"] for r in resp["Reservations"] for i in r["Instances"]]
+       if ids and os.environ.get("DRY_RUN") != "true":
+           ec2.stop_instances(InstanceIds=ids)
+       print(f"Stopped: {ids}")          # goes to CloudWatch Logs
+       return {"stopped": ids}
+   ```
+2. **IAM execution role (least privilege)**: `AWSLambdaBasicExecutionRole` (for CloudWatch Logs) plus only `ec2:DescribeInstances` and `ec2:StopInstances`, ideally with a condition on the tag.
+3. **Create the function**: runtime (Python 3.12), handler `lambda_function.lambda_handler`, **timeout** (default 3s is too low for most automation, set 1–5 min; max 15 min), memory (also scales CPU), and **environment variables** for config (`DRY_RUN`, Slack webhook from **Secrets Manager**, not hard-coded).
+4. **Trigger** it. That's what makes it automation:
+   - **EventBridge Scheduler / rule** with a cron, e.g. `cron(0 20 ? * MON-FRI *)` for weekdays at 20:00 UTC.
+   - Or **event-driven**: S3 upload (process a file), SQS/SNS message, DynamoDB Stream, an EventBridge event (e.g. "EC2 state change", "GuardDuty finding" → auto-remediate), API Gateway (webhook), or a CloudWatch alarm via SNS.
+5. **Network**: only attach it to a **VPC** if it must reach private resources (RDS). It then needs a NAT gateway or VPC endpoints for AWS APIs.
+6. **Reliability & observability**: logs in **CloudWatch Logs**, alarms on `Errors`/`Throttles`/`Duration`, a **DLQ or on-failure destination** (SQS/SNS) for async invocations, **idempotent** code (async events are retried twice by default), and reserved concurrency if it must not overwhelm a downstream system.
+7. **Deploy as code**: Terraform (`aws_lambda_function` + `aws_cloudwatch_event_rule` + `aws_lambda_permission`), SAM or the Serverless Framework, through CI/CD. Not through console uploads.
+
+### 33. Where have you used AWS Lambda in your projects?
+Interviewers want **2–3 concrete stories**: what the trigger was, what the function did, and the result. Pick ones you can defend in depth. Typical real-world DevOps uses you can adapt to your own experience:
+
+- **Cost automation**: an EventBridge cron Lambda that stops tagged dev/test EC2 and RDS instances at night and starts them in the morning, and deletes unattached EBS volumes and old snapshots past retention. Mention the result: *"cut non-prod compute cost by ~60%"*.
+- **Security auto-remediation**: an EventBridge rule on CloudTrail/Config/GuardDuty events → Lambda that **removes `0.0.0.0/0` on port 22** from security groups, re-enables S3 Block Public Access, or disables a leaked IAM access key, then posts to Slack.
+- **Ops notifications / ChatOps**: CloudWatch alarm → SNS → Lambda that formats the alert and sends it to Slack/Teams with runbook links. Or CodePipeline/ECR events → deploy notifications.
+- **Data / file processing**: an S3 upload trigger that validates/transforms CSVs, resizes images, or loads data into DynamoDB/RDS. Kinesis/SQS consumers.
+- **Scheduled maintenance**: rotating secrets (Secrets Manager rotation Lambdas), checking SSL certificate expiry daily and alerting at 30/7 days, cleaning old ECR images, taking EBS/RDS snapshots across accounts.
+- **Lightweight APIs/webhooks**: API Gateway + Lambda for a GitHub webhook receiver, an internal tool backend, or a health-check endpoint.
+- **Infrastructure glue**: CloudFormation custom resources, ASG lifecycle hooks (drain a node before termination).
+
+Structure the answer as **STAR**: *"In my last project, dev environments ran 24/7 (situation). I built a Lambda triggered by EventBridge at 8 PM that stopped instances tagged `AutoStop`, with a matching start function at 8 AM, deployed via Terraform with a least-privilege role, logs and alarms in CloudWatch (action). It saved about $X per month (result)."* Be ready for follow-ups: cold starts, the 15-minute limit, how you handled retries/idempotency, VPC access, how you tested it (`DRY_RUN`, moto/localstack), and how you deployed it.

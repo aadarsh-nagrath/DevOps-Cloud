@@ -11,6 +11,7 @@ Complete notes on the Monitoring & Logging pillar of DevOps/SRE. Structured begi
 - [kibana/kibana.md](kibana/kibana.md) — visualization layer for Elasticsearch
 - [fluentid/fluentd.md](fluentid/fluentd.md) — unified logging layer / log forwarder
 - [datadog/datadog.md](datadog/datadog.md) — commercial all-in-one observability SaaS
+- [splunk/splunk.md](splunk/splunk.md) — enterprise log analytics/SIEM: forwarders, indexers, SPL, clustering, SmartStore, licensing
 - [ELK.md](ELK.md) — (legacy stub, superseded by elk/logstash.md)
 
 ---

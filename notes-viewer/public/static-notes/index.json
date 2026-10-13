@@ -1280,8 +1280,8 @@
   {
     "name": "Index.md",
     "path": "Index.md",
-    "size": 25301,
-    "mtime": "2026-09-05T09:03:49.883Z"
+    "size": 28195,
+    "mtime": "2026-10-13T02:00:41.015Z"
   },
   {
     "name": "01-linux-and-scripting-qna.md",
@@ -1304,26 +1304,26 @@
   {
     "name": "04-kubernetes-qna.md",
     "path": "Interview Questions/04-kubernetes-qna.md",
-    "size": 40372,
-    "mtime": "2026-10-06T19:36:19.629Z"
+    "size": 69457,
+    "mtime": "2026-10-13T01:58:23.658Z"
   },
   {
     "name": "05-cicd-jenkins-github-actions-qna.md",
     "path": "Interview Questions/05-cicd-jenkins-github-actions-qna.md",
-    "size": 29347,
-    "mtime": "2026-10-06T19:38:08.677Z"
+    "size": 33569,
+    "mtime": "2026-10-13T01:58:23.669Z"
   },
   {
     "name": "06-terraform-and-iac-qna.md",
     "path": "Interview Questions/06-terraform-and-iac-qna.md",
-    "size": 23809,
-    "mtime": "2026-10-06T19:33:38.572Z"
+    "size": 29493,
+    "mtime": "2026-10-13T01:58:23.661Z"
   },
   {
     "name": "07-aws-cloud-qna.md",
     "path": "Interview Questions/07-aws-cloud-qna.md",
-    "size": 27155,
-    "mtime": "2026-10-06T19:37:14.478Z"
+    "size": 36245,
+    "mtime": "2026-10-13T01:58:23.663Z"
   },
   {
     "name": "08-networking-and-security-fundamentals-qna.md",
@@ -1388,8 +1388,8 @@
   {
     "name": "18-practical-scripting-challenges-qna.md",
     "path": "Interview Questions/18-practical-scripting-challenges-qna.md",
-    "size": 17688,
-    "mtime": "2026-09-05T09:03:40.115Z"
+    "size": 21915,
+    "mtime": "2026-10-13T01:58:41.368Z"
   },
   {
     "name": "19-company-specific-and-behavioral-plus-qna.md",
@@ -1404,16 +1404,34 @@
     "mtime": "2026-10-06T19:36:05.336Z"
   },
   {
+    "name": "21-voip-sip-unified-communications-qna.md",
+    "path": "Interview Questions/21-voip-sip-unified-communications-qna.md",
+    "size": 14843,
+    "mtime": "2026-10-12T07:46:10.428Z"
+  },
+  {
+    "name": "22-windows-proxy-vapt-jira-qna.md",
+    "path": "Interview Questions/22-windows-proxy-vapt-jira-qna.md",
+    "size": 12301,
+    "mtime": "2026-10-12T07:46:11.474Z"
+  },
+  {
+    "name": "23-how-it-works-internals-qna.md",
+    "path": "Interview Questions/23-how-it-works-internals-qna.md",
+    "size": 31282,
+    "mtime": "2026-10-12T23:11:17.221Z"
+  },
+  {
     "name": "README.md",
     "path": "Interview Questions/README.md",
-    "size": 11613,
-    "mtime": "2026-10-06T19:39:19.808Z"
+    "size": 12638,
+    "mtime": "2026-10-13T01:59:31.659Z"
   },
   {
     "name": "knative.md",
     "path": "Knative/knative.md",
-    "size": 5607,
-    "mtime": "2026-08-18T09:49:14.297Z"
+    "size": 43245,
+    "mtime": "2026-10-13T01:44:26.642Z"
   },
   {
     "name": "creating-helm-chart.md",
@@ -1526,8 +1544,8 @@
   {
     "name": "cloud-load-balancers.md",
     "path": "Load Balancing/cloud-load-balancers.md",
-    "size": 8697,
-    "mtime": "2026-08-18T09:49:14.299Z"
+    "size": 13392,
+    "mtime": "2026-10-13T02:00:41.008Z"
   },
   {
     "name": "dns-and-global-load-balancing.md",
@@ -1622,8 +1640,8 @@
   {
     "name": "index.md",
     "path": "Monitoring and Loggin/index.md",
-    "size": 9546,
-    "mtime": "2026-08-18T10:02:46.625Z"
+    "size": 9681,
+    "mtime": "2026-10-13T01:47:55.056Z"
   },
   {
     "name": "kibana.md",
@@ -1642,6 +1660,12 @@
     "path": "Monitoring and Loggin/prometheous/prometheus.md",
     "size": 8975,
     "mtime": "2026-08-18T09:49:14.303Z"
+  },
+  {
+    "name": "splunk.md",
+    "path": "Monitoring and Loggin/splunk/splunk.md",
+    "size": 50893,
+    "mtime": "2026-10-13T01:47:47.416Z"
   },
   {
     "name": "dns-deep-dive.md",
@@ -1664,14 +1688,20 @@
   {
     "name": "index.md",
     "path": "Networking and Security Fundamentals/index.md",
-    "size": 7409,
-    "mtime": "2026-08-18T10:06:40.172Z"
+    "size": 7563,
+    "mtime": "2026-10-12T07:46:42.942Z"
   },
   {
     "name": "networking-fundamentals.md",
     "path": "Networking and Security Fundamentals/networking-fundamentals.md",
     "size": 10965,
     "mtime": "2026-08-18T10:07:29.923Z"
+  },
+  {
+    "name": "proxy-servers.md",
+    "path": "Networking and Security Fundamentals/proxy-servers.md",
+    "size": 7839,
+    "mtime": "2026-10-12T07:44:25.951Z"
   },
   {
     "name": "tls-and-certificates.md",
@@ -1762,6 +1792,12 @@
     "path": "Security in DevOps/supply-chain-security.md",
     "size": 10262,
     "mtime": "2026-08-18T09:49:14.304Z"
+  },
+  {
+    "name": "vapt.md",
+    "path": "Security in DevOps/vapt.md",
+    "size": 6360,
+    "mtime": "2026-10-12T07:44:26.981Z"
   },
   {
     "name": "istio-gateway-and-ingress.md",
@@ -1972,6 +2008,36 @@
     "path": "Terraform and CF/terraform.md",
     "size": 5927,
     "mtime": "2026-08-18T09:49:14.313Z"
+  },
+  {
+    "name": "asterisk-freeswitch-kamailio.md",
+    "path": "VoIP and Unified Communications/asterisk-freeswitch-kamailio.md",
+    "size": 10245,
+    "mtime": "2026-10-12T07:42:36.709Z"
+  },
+  {
+    "name": "voip-on-aws-and-kubernetes.md",
+    "path": "VoIP and Unified Communications/voip-on-aws-and-kubernetes.md",
+    "size": 7723,
+    "mtime": "2026-10-12T07:44:24.902Z"
+  },
+  {
+    "name": "voip-sip-fundamentals.md",
+    "path": "VoIP and Unified Communications/voip-sip-fundamentals.md",
+    "size": 13523,
+    "mtime": "2026-10-12T07:40:45.801Z"
+  },
+  {
+    "name": "voip-troubleshooting-wireshark.md",
+    "path": "VoIP and Unified Communications/voip-troubleshooting-wireshark.md",
+    "size": 7734,
+    "mtime": "2026-10-12T07:42:37.755Z"
+  },
+  {
+    "name": "windows-administration-for-devops.md",
+    "path": "Windows Administration/windows-administration-for-devops.md",
+    "size": 9410,
+    "mtime": "2026-10-12T07:44:28.045Z"
   },
   {
     "name": "argo-cd-integration-helm.md",
