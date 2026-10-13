@@ -108,14 +108,14 @@ Where each item of the common Junior → Mid → Senior DevOps roadmap is covere
 | Junior | Monitoring and Logging | [11](./11-monitoring-logging-observability-qna.md) Q1–Q10, [20](./20-devops-roadmap-gap-fill-qna.md) Q6 |
 | Junior | ConfigMaps and Secrets | [04](./04-kubernetes-qna.md) Q9, [20](./20-devops-roadmap-gap-fill-qna.md) Q3 |
 | Mid | Designing CI/CD pipelines | [05](./05-cicd-jenkins-github-actions-qna.md), [14](./14-deployment-systemdesign-behavioral-qna.md) Q14–Q15 |
-| Mid | Kubernetes troubleshooting | [04](./04-kubernetes-qna.md) Q36–Q38, Q40, Q49, [20](./20-devops-roadmap-gap-fill-qna.md) Q12, Q14 |
+| Mid | Kubernetes troubleshooting | [04](./04-kubernetes-qna.md) Q36–Q38, Q40, Q49–Q53, Q56–Q57, [20](./20-devops-roadmap-gap-fill-qna.md) Q12, Q14 |
 | Mid | Deployment strategies | [14](./14-deployment-systemdesign-behavioral-qna.md) Q1–Q13 |
 | Mid | GitOps practices | [20](./20-devops-roadmap-gap-fill-qna.md) Q2, Q9–Q11, [`../GitOps.md`](../GitOps.md) |
 | Mid | Docker optimization | [03](./03-docker-qna.md) Q16–Q20, Q30–Q31, [20](./20-devops-roadmap-gap-fill-qna.md) Q15 |
 | Mid | Application monitoring | [20](./20-devops-roadmap-gap-fill-qna.md) Q6–Q7, Q16–Q17, [11](./11-monitoring-logging-observability-qna.md) Q11–Q20 |
 | Mid | Secrets management | [12](./12-security-devsecops-qna.md) Q12–Q13, [20](./20-devops-roadmap-gap-fill-qna.md) Q11 |
 | Mid | Blue-Green and Canary deployments | [14](./14-deployment-systemdesign-behavioral-qna.md) Q3–Q4, [05](./05-cicd-jenkins-github-actions-qna.md) Q23, [20](./20-devops-roadmap-gap-fill-qna.md) Q13 |
-| Senior | Production-grade Kubernetes design | [20](./20-devops-roadmap-gap-fill-qna.md) Q4, Q19, [04](./04-kubernetes-qna.md) Q42–Q48 |
+| Senior | Production-grade Kubernetes design | [20](./20-devops-roadmap-gap-fill-qna.md) Q4, Q19, [04](./04-kubernetes-qna.md) Q42–Q48, Q54–Q55, Q58–Q59 |
 | Senior | Reliability and Security | [13](./13-sre-incident-loadbalancing-servicemesh-qna.md), [12](./12-security-devsecops-qna.md) |
 | Senior | Incident Management | [13](./13-sre-incident-loadbalancing-servicemesh-qna.md) Q2–Q4, Q9–Q13, Q19 |
 | Senior | SLI, SLO, and Error Budgets | [11](./11-monitoring-logging-observability-qna.md) Q14–Q15, Q25, [13](./13-sre-incident-loadbalancing-servicemesh-qna.md) Q22, [20](./20-devops-roadmap-gap-fill-qna.md) Q17 |
