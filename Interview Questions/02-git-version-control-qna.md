@@ -167,3 +167,11 @@ Git historically addresses objects by SHA-1 hash; academic collision attacks (e.
 
 ### 49. How would you structure Git repository and branch permissions/policies (branch protection, CODEOWNERS, required checks) for a regulated environment requiring auditable, non-repudiable change history?
 Enforce: branch protection on `main`/release branches disallowing force-pushes and direct pushes (all changes via reviewed PR), required approvals from `CODEOWNERS` mapped to the actual accountable teams per path, required status checks (tests, security scans, signed-commit verification) that must pass before merge, and disabling the ability for the merging user to also be the sole approver. For non-repudiation and audit trail integrity, combine this with signed commits/tags, an immutable audit log of merge events exported to a separate system (since repo-hosting audit logs are themselves mutable by admins), and a documented, tested process for the *rare* legitimate exception (e.g. an emergency hotfix bypass) that still leaves a clear, reviewable record rather than a silent policy override.
+
+### 50. How do you protect sensitive information from being pushed to GitHub?
+Layer it, because each control catches what the previous one missed:
+1. **Keep secrets out of the repo in the first place**: config via environment variables or a secrets manager (Vault, AWS Secrets Manager, SSM); commit a `.env.example` with dummy values; add `.env`, `*.pem`, `*.key`, `terraform.tfstate`, `*.tfvars` to **`.gitignore`**.
+2. **Pre-commit hooks on the developer's machine**: `gitleaks`, `detect-secrets`, or `git-secrets` via the `pre-commit` framework block the commit before it exists.
+3. **Server-side protection**: enable **GitHub Secret Scanning + Push Protection**, which rejects pushes containing known token formats. Add a CI secret-scan step (gitleaks/TruffleHog) as a required status check, plus branch protection so nothing reaches `main` without review.
+4. **Encrypt what must live in Git**: SOPS, Sealed Secrets, or `git-crypt` for config files.
+5. **If a secret does get pushed**: **rotate/revoke it immediately**. Deleting the file or rewriting history (`git filter-repo`, BFG) is cleanup, not remediation, because forks, clones, caches, and CI logs may already have it. Then check audit logs for misuse.

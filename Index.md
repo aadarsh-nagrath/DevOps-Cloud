@@ -31,6 +31,11 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | [Roadmap Gap-Fill Q&A](Interview%20Questions/20-devops-roadmap-gap-fill-qna.md) | GitOps (Argo CD/Flux), production K8s design, DR, FinOps, observability at scale, supply chain security |
 | [VoIP, SIP & Unified Communications Q&A](Interview%20Questions/21-voip-sip-unified-communications-qna.md) | SIP/RTP call flows, one-way audio, Wireshark, Asterisk/FreeSWITCH/Kamailio, VoIP on AWS/EKS, toll fraud |
 | [Windows, Proxies, VAPT & Jira Q&A](Interview%20Questions/22-windows-proxy-vapt-jira-qna.md) | Windows admin & PowerShell, forward/reverse & HTTP/TCP proxies, VAPT handling, Jira/JQL & change management |
+| [Cloud Fundamentals (Cross-Cloud) Q&A](Interview%20Questions/23-cloud-fundamentals-cross-cloud-qna.md) | IaaS/PaaS/SaaS, deployment models, regions/AZs, scaling, serverless, IAM, encryption, HA/DR, cost, migration |
+| [AWS Deep-Dive Q&A](Interview%20Questions/24-aws-deep-dive-qna.md) | S3/EBS/EFS, RDS/Aurora/DynamoDB, ELB/Route 53, IAM/STS/SCPs, DevOps & Terraform, Bedrock GenAI, scenarios |
+| [Azure Deep-Dive Q&A](Interview%20Questions/25-azure-deep-dive-qna.md) | AZ-900 → AZ-305: hierarchy, compute, storage, networking, Entra/RBAC, Policy, Defender/Sentinel, DR, hybrid AD |
+| [GCP Deep-Dive Q&A](Interview%20Questions/26-gcp-deep-dive-qna.md) | Cloud Run vs GKE vs GCE, IAM/WIF, VPC/Shared VPC, storage & DBs, Pub/Sub, BigQuery, GKE hardening |
+| [Cloud Architecture Scenarios Q&A](Interview%20Questions/27-cloud-architecture-scenarios-qna.md) | Design rounds: HA API, SaaS, secure multi-tier, CI/CD, data pipeline, DR, cut cost 40%, monolith → containers |
 | [How It Works Internally Q&A](Interview%20Questions/23-how-it-works-internals-qna.md) | Internals of K8s scheduling/apply/probes/HPA/rollouts, Docker run & caching, Terraform DAG & locking, CI/CD, AWS LB, CloudFront, DNS, Git, observability, incidents |
 
 ---
@@ -54,9 +59,36 @@ Welcome to the centralized index of all notes in this repository. Click any link
 
 | Note | Description |
 |---|---|
-| [AWS](Cloud/AWS/aws.md) | EC2, S3, EKS, Lambda, IAM, CodePipeline and core AWS services |
-| [Azure](Cloud/AZURE/azure.md) | AKS, Azure Pipelines, Entra ID, Azure Monitor, Bicep IaC |
-| [GCP](Cloud/GCP/gcp.md) | GKE, Cloud Run, Cloud Build, Cloud Deploy, BigQuery, IAM |
+| [Cloud Hub](Cloud/README.md) | Start here: folder map, AWS/Azure/GCP service mapping table, 5-week study plan, free practice sources |
+| [Cloud Computing Fundamentals](Cloud/Fundamentals/01-cloud-computing-fundamentals.md) | NIST definition, IaaS/PaaS/SaaS, deployment models, regions/AZs, scaling, virtualization/serverless, shared responsibility, SLA math, pricing |
+| [Cloud Storage & Databases](Cloud/Fundamentals/02-cloud-storage-and-databases.md) | Object/block/file, tiers & redundancy, relational vs NoSQL vs warehouse, OLTP/OLAP, CAP, choosing a DB |
+| [Cloud Security & IAM](Cloud/Fundamentals/03-cloud-security-and-iam.md) | IAM across clouds, encryption/KMS, secrets, zero trust, securing multi-tier apps, compliance, incident response |
+| [HA, DR & Backup](Cloud/Fundamentals/04-high-availability-dr-backup.md) | HA principles, RTO/RPO, DR strategies, provider DR services, backup strategy |
+| [Cloud Cost Optimization](Cloud/Fundamentals/05-cloud-cost-optimization.md) | Cost drivers, optimization playbook, "cut 40%" answer, capacity planning |
+| [Cloud Migration](Cloud/Fundamentals/06-cloud-migration.md) | 7 Rs, phases, landing zones, migration tools, monolith → containers |
+| [Cloud Observability](Cloud/Fundamentals/07-cloud-observability.md) | Native monitoring/logging/tracing per cloud, key metrics, latency troubleshooting |
+| [Cloud Architecture Patterns](Cloud/Fundamentals/08-cloud-architecture-patterns.md) | Well-Architected frameworks, reference architectures on AWS/Azure/GCP, design patterns |
+| [AWS — Overview & Hub](Cloud/AWS/aws.md) | Global infra, Organizations/Control Tower, CLI, service catalog by category |
+| [AWS Compute](Cloud/AWS/aws-compute.md) | EC2 types/purchasing/AMIs, Auto Scaling, Lambda, ECS/Fargate, EKS, Beanstalk |
+| [AWS Storage](Cloud/AWS/aws-storage.md) | S3 classes/lifecycle/versioning/presigned URLs/policies, EBS, EFS, FSx, Glacier, Backup |
+| [AWS Databases](Cloud/AWS/aws-databases.md) | RDS, Aurora, DynamoDB, ElastiCache, Redshift, DMS |
+| [AWS Networking](Cloud/AWS/aws-networking.md) | VPC, SG vs NACL, endpoints, peering/TGW/PrivateLink, ALB/NLB/GWLB, Route 53, CloudFront, hybrid |
+| [AWS IAM & Security](Cloud/AWS/aws-iam-and-security.md) | IAM, policy evaluation, permission boundaries, SCPs, STS, KMS, Secrets Manager, GuardDuty, Config |
+| [AWS DevOps, IaC & Monitoring](Cloud/AWS/aws-devops-iac-monitoring.md) | CloudFormation, CDK, Terraform, CodePipeline/Build/Deploy, SSM, CloudWatch, X-Ray |
+| [AWS Integration, Analytics & AI](Cloud/AWS/aws-integration-analytics-ai.md) | SQS/SNS/EventBridge/Kinesis/Step Functions/API Gateway, analytics, Bedrock & SageMaker |
+| [Azure — Overview](Cloud/AZURE/azure.md) | AKS, Azure Pipelines, Entra ID, Azure Monitor, Bicep IaC + links to deep dives |
+| [Azure Core & Governance](Cloud/AZURE/azure-core-and-governance.md) | Regions/pairs/AZs, hierarchy, ARM/Bicep/Arc, Policy, locks, tags, Purview, cost |
+| [Azure Compute](Cloud/AZURE/azure-compute.md) | VMs, availability sets/zones, VMSS, AVD, App Service, Functions, Container Apps, AKS |
+| [Azure Storage & Databases](Cloud/AZURE/azure-storage-and-databases.md) | Blob tiers, redundancy, Files, ADLS, disks, Azure SQL, Cosmos DB, Fabric |
+| [Azure Networking](Cloud/AZURE/azure-networking.md) | VNet, NSG, Firewall, private endpoints, VPN/ExpressRoute, LB vs App Gateway vs Front Door vs Traffic Manager |
+| [Azure Identity & Security](Cloud/AZURE/azure-identity-and-security.md) | Entra ID, Conditional Access, PIM, RBAC, managed identities, Key Vault, Defender, Sentinel |
+| [Azure Monitoring, DevOps & DR](Cloud/AZURE/azure-monitoring-devops-and-dr.md) | Azure Monitor/KQL, App Insights, Azure DevOps, Backup, Site Recovery |
+| [GCP — Overview](Cloud/GCP/gcp.md) | GKE, Cloud Run, Cloud Build, Cloud Deploy, BigQuery, IAM + links to deep dives |
+| [GCP IAM, Security & Governance](Cloud/GCP/gcp-iam-and-security.md) | Hierarchy, IAM, service accounts, WIF, Org Policies, VPC-SC, IAP, KMS, SCC |
+| [GCP Compute](Cloud/GCP/gcp-compute.md) | Compute Engine, MIGs, Spot, App Engine, Cloud Run, Cloud Run functions, GKE |
+| [GCP Storage & Databases](Cloud/GCP/gcp-storage-and-databases.md) | Cloud Storage, disks, Cloud SQL, AlloyDB, Spanner, Firestore, Bigtable, BigQuery |
+| [GCP Networking](Cloud/GCP/gcp-networking.md) | Global VPC, firewall, Cloud NAT, PGA/PSC, Shared VPC, VPN/Interconnect, LBs, CDN, Armor |
+| [GCP Data, DevOps & Operations](Cloud/GCP/gcp-data-devops-and-operations.md) | Pub/Sub, Dataflow, Composer, Cloud Build/Deploy, Operations suite, cost |
 | [Cloud Networking](Cloud/Cloud-Networking-for-DevOps.md) | VPC, Subnets, Load Balancers, DNS, CDN, hybrid connectivity |
 
 ---

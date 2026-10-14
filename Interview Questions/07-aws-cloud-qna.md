@@ -172,3 +172,44 @@ Interviewers want **2–3 concrete stories**: what the trigger was, what the fun
 - **Infrastructure glue**: CloudFormation custom resources, ASG lifecycle hooks (drain a node before termination).
 
 Structure the answer as **STAR**: *"In my last project, dev environments ran 24/7 (situation). I built a Lambda triggered by EventBridge at 8 PM that stopped instances tagged `AutoStop`, with a matching start function at 8 AM, deployed via Terraform with a least-privilege role, logs and alarms in CloudWatch (action). It saved about $X per month (result)."* Be ready for follow-ups: cold starts, the 15-minute limit, how you handled retries/idempotency, VPC access, how you tested it (`DRY_RUN`, moto/localstack), and how you deployed it.
+
+### 34. Explain VPC, subnet, route table, and security groups.
+- **VPC**: your own logically isolated network in a Region, defined by a CIDR block (e.g. `10.0.0.0/16`). Everything else lives inside it.
+- **Subnet**: a slice of the VPC's CIDR (e.g. `10.0.1.0/24`) that lives in **one AZ**. A subnet is **public** if its route table has a route to an **Internet Gateway**; **private** otherwise (outbound internet goes through a **NAT Gateway** in a public subnet). Spread subnets across at least 2 AZs for HA.
+- **Route table**: rules saying where traffic for a destination CIDR goes. Each subnet is associated with exactly one route table. Every table has the implicit `local` route (VPC-internal traffic). Typical setup: public RT `0.0.0.0/0 → igw-…`; private RT `0.0.0.0/0 → nat-…`; extra routes for peering, Transit Gateway, VPN, or VPC endpoints.
+- **Security group**: a **stateful** virtual firewall attached to an **ENI/instance** (not the subnet). **Allow rules only**, default deny inbound, return traffic is allowed automatically. Rules can reference **other security groups** (e.g. "DB SG allows 5432 from App SG"), which beats hardcoding IPs.
+- **NACL** (the usual follow-up): **stateless**, at the **subnet** level, supports allow and **deny**, rules evaluated in number order, and you must allow ephemeral return ports explicitly.
+
+Packet path for a request from the internet to a private app: IGW → public subnet (ALB, SG allows 443 from 0.0.0.0/0) → route `local` → private subnet (app instance, SG allows 8080 only from the ALB's SG); the app's outbound calls leave via the NAT Gateway.
+
+### 35. What's the difference between ALB, NLB, and CloudFront?
+| | **ALB** | **NLB** | **CloudFront** |
+|---|---|---|---|
+| Layer | L7 (HTTP/HTTPS, gRPC, WebSocket) | L4 (TCP, UDP, TLS) | Global CDN / edge (HTTP/HTTPS) |
+| Scope | Regional | Regional | Global (400+ edge locations) |
+| Routing | Path, host, header, query-string, method rules; weighted target groups | By port/protocol only | Cache behaviors by path pattern; routes to origins (S3, ALB, NLB, any HTTP server) |
+| IPs | Dynamic (use DNS name) | **Static IP / Elastic IP per AZ** | Anycast edge IPs |
+| Performance | Good; adds some latency | Millions of req/s, ultra-low latency, preserves client source IP | Caches content near users; cuts latency and origin load |
+| Extras | TLS termination, auth (Cognito/OIDC), WAF, Lambda targets | TLS passthrough or termination, PrivateLink endpoint services | TLS at edge, WAF, Shield, signed URLs/cookies, Lambda@Edge / CloudFront Functions |
+| Use for | Web apps, microservices, K8s Ingress | Non-HTTP protocols, gaming/IoT, static IP requirement, extreme throughput | Static assets, global users, caching APIs, DDoS protection at edge |
+
+They're complementary, not alternatives: a common pattern is **CloudFront → ALB → app** (or CloudFront → S3 for static files), with WAF on CloudFront.
+
+### 36. How do you troubleshoot an unreachable EC2 instance?
+Work from the instance outwards, then along the network path:
+1. **Instance health**: is it `running`? Check **status checks**: a failed *system* check = AWS host problem (stop/start to move hosts); a failed *instance* check = OS problem (kernel panic, full disk, bad `fstab`, network config). Look at **Get system log** and **instance screenshot**.
+2. **Correct address**: public IP changes on stop/start unless it's an **Elastic IP**. Is there a public IP at all? Are you in the right Region/VPC?
+3. **Security group**: inbound rule for the port (22/3389/443) from **your** IP. Outbound is normally open.
+4. **NACL**: subnet NACL allows inbound on the port **and** outbound ephemeral ports `1024–65535` (it's stateless).
+5. **Route table**: public subnet needs `0.0.0.0/0 → IGW`; a private instance is only reachable through a bastion, VPN, or **SSM Session Manager**.
+6. **OS level**: service listening (`ss -tlnp`), host firewall (`iptables`/`ufw`/firewalld), `sshd` running, correct key pair/username (`ec2-user`, `ubuntu`), disk not full, CPU/memory not exhausted (check CloudWatch).
+7. **Tools**: **VPC Reachability Analyzer** traces the path and tells you which component blocks it; **VPC Flow Logs** show `ACCEPT`/`REJECT`; **SSM Session Manager** or **EC2 Serial Console** get you in without SSH or networking.
+8. **Last resort** for a broken OS: stop the instance, detach the root volume, attach it to a helper instance, fix the config (`authorized_keys`, `fstab`, sshd config), and reattach.
+
+### 37. How do you monitor applications using CloudWatch?
+- **Metrics**: built-in metrics for EC2, ALB (`TargetResponseTime`, `HTTPCode_Target_5XX_Count`, `HealthyHostCount`), RDS, Lambda, etc. Install the **CloudWatch Agent** for memory, disk, and process metrics (EC2 doesn't publish those by default). Publish **custom/business metrics** via `PutMetricData` or the **Embedded Metric Format** in logs.
+- **Logs**: ship app and system logs to **CloudWatch Logs** (agent, Fluent Bit on EKS, native for Lambda/ECS). Use **Logs Insights** to query, **metric filters** to turn log patterns (e.g. `ERROR`) into metrics, and set **retention** to control cost.
+- **Alarms**: on the signals that matter (p99 latency, 5xx rate, error count, CPU, disk, queue depth) → **SNS** → email/Slack/PagerDuty, or auto-actions (Auto Scaling, EC2 recover). Use **composite alarms** to cut noise and **anomaly detection** for metrics without a fixed threshold.
+- **Dashboards**: one per service showing golden signals (latency, traffic, errors, saturation).
+- **Deeper**: **Container Insights** for EKS/ECS, **Application Signals / X-Ray** for tracing and SLOs, **Synthetics canaries** for uptime and user-journey checks from outside, **RUM** for real-user front-end performance.
+- Wire it all as code (Terraform/CloudFormation) so every new service gets the same baseline alarms and dashboards.

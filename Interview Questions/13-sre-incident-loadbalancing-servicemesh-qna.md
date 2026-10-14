@@ -86,3 +86,45 @@ A service mesh's value scales with the number of services and the sophistication
 
 ### 22. Explain how you'd calculate an appropriate SLO and error budget policy for a genuinely novel service with no historical reliability data, and how you'd revisit it over time.
 Without historical data, start from the *actual business/user requirement* rather than an arbitrary "everyone uses 99.9%" default — what user-facing behavior would actually be noticed and matter (a batch reporting service failing for 10 minutes might be genuinely unnoticed by users, while a real-time trading/payment path failing for even seconds is highly consequential) — and set an initial SLO deliberately conservative/achievable relative to your genuine current confidence in the system's reliability, explicitly framing it as a starting hypothesis to be revisited with real data, not a permanent commitment set in stone from day one. Instrument the actual SLI faithfully from launch (even before you're confident in the target number, you need real measured data to eventually set an honest one) and revisit the SLO on a regular, planned cadence (quarterly is common) using accumulated real operational data and actual user/business feedback about what reliability level genuinely matters — tightening it if the service is consistently and comfortably beating its target with room to spare (suggesting the target undersells real achieved reliability and a tighter target would better serve users, or conversely that a stricter target is now realistic to promise), or loosening it if the team is chronically burning through error budget while shipping genuinely necessary velocity, prompting an honest conversation about whether the original target was unrealistic for this service's actual risk profile rather than reflexively treating every budget breach as a reliability failure to fix at all costs.
+
+### 23. What would you do if CPU utilization suddenly reaches 95–100%?
+1. **Assess impact first**: are users affected (latency, errors)? Is it one host or the whole fleet? If users are hurting, mitigate before root-causing: scale out, shift traffic, or roll back a recent deploy.
+2. **Find the process**: `top`/`htop` (sort by CPU, press `1` for per-core), `ps aux --sort=-%cpu | head`. In Kubernetes: `kubectl top pods/nodes`.
+3. **Classify the CPU time**: high `%us` = application code; high `%sy` = kernel/syscalls; high `%wa` = actually waiting on disk I/O; high `%st` = steal (noisy neighbour, or burstable `t3` instance out of CPU credits).
+4. **Correlate with changes**: recent deploy, config change, cron job, traffic spike, or a bot/DDoS? Check request rate in metrics and access logs.
+5. **Dig into the hot process**: `top -H -p <pid>` for hot threads, `perf top` / flame graphs, language tools (`jstack` for Java, `py-spy` for Python). Look for infinite loops, regex backtracking, GC thrashing (often actually a memory problem), or retry storms.
+6. **Fix**: roll back the bad change, kill/renice a runaway job, scale horizontally (HPA/ASG), fix the code, or right-size the instance. Then add an alert on sustained CPU plus a latency SLO alert, and write a postmortem.
+
+### 24. How would you troubleshoot HTTP 503 errors?
+503 = **Service Unavailable**: something in the path had **no healthy backend** or was overloaded. Find **which layer** returned it first (response headers, `Server` header, and which component's logs show it):
+- **Load balancer (ALB/ELB)**: no healthy targets in the target group. Check target health, the health-check path/port/timeout, and the target's security group allowing the LB.
+- **Kubernetes**: the Service has **no endpoints** (`kubectl get endpoints <svc>`), usually because Pods are failing **readiness probes**, the Service selector doesn't match the Pod labels, or all Pods are crashing / not scheduled. Ingress controller logs will show "no upstream".
+- **Reverse proxy (Nginx/Envoy)**: upstream down, connection limits reached, or a service mesh circuit breaker / outlier detection ejecting hosts.
+- **Application**: overloaded (thread/connection pool exhausted), dependency down (DB), maintenance mode, or rate limiting.
+- **During deploys**: brief 503s mean the rollout isn't graceful: add readiness probes, a `preStop` sleep, connection draining, and `maxUnavailable: 0`.
+
+Steps: check the 5xx metrics to see when it started and how widespread it is → correlate with deploys/scaling events → check backend health → read LB/ingress/app logs → mitigate (roll back, scale out, fix the health check) → fix the root cause.
+
+### 25. Application latency increased from 200 ms to 5 seconds. How would you investigate?
+1. **Scope it**: all endpoints or one? All users/regions or some? p50 or only p99? Sudden (deploy, incident) or gradual (growth, leak, data size)?
+2. **What changed?** Recent deploys, config/feature flags, infra changes, traffic spike, a dependency's own incident. If a deploy lines up, **roll back first**.
+3. **Follow the request**: use **distributed tracing** (X-Ray, Jaeger, Tempo) to see which span takes the 4.8 seconds: app code, database, cache, or a downstream API.
+4. **Check saturation (USE method)** on each component: CPU, memory/GC pauses, thread and connection pools (waiting for a DB connection looks like slowness), disk I/O, network.
+5. **Database** is the most common culprit: slow query log, missing index, lock contention, a query plan change, replication lag, connection pool exhaustion.
+6. **Dependencies and network**: slow third-party API without timeouts, DNS resolution delays, cache miss storm (Redis down or evicted → every request hits the DB), cross-AZ/region traffic.
+7. **Mitigate, then fix**: roll back, scale out, add the index, warm the cache, add timeouts, circuit breakers, and retries with backoff. Then add a latency SLO alert on p95/p99 so you catch it before users report it.
+
+### 26. Disk usage reached 95%. What steps would you take?
+1. **Stop it getting worse/urgent**: at 100%, databases corrupt, logs stop, and apps crash. Check how fast it's growing.
+2. **Find what's using space**: `df -h` (which filesystem), `df -i` (**inodes** can run out while space looks fine), then `du -xh / --max-depth=1 | sort -h` drilling down, or `ncdu`. Find big files: `find / -xdev -type f -size +500M`.
+3. **Usual suspects**: logs in `/var/log` or app log directories, old Docker images/containers/volumes (`docker system df`, `docker system prune`), core dumps, `/tmp`, old releases/backups, the package cache (`apt clean`), `journalctl` (`journalctl --vacuum-size=500M`).
+4. **Deleted-but-open files**: `lsof +L1` shows files deleted while a process still holds them open, so the space isn't freed. Restart that process, or truncate it with `: > /proc/<pid>/fd/<n>`.
+5. **Free space safely**: compress/rotate or truncate logs (`truncate -s 0 file`, not `rm` on a file that's still open), delete only what you're sure of, and move data off the host.
+6. **Prevent recurrence**: fix **logrotate**, set log retention / ship logs centrally, set Docker log size limits (`max-size`), add an alert at 80% (and on growth rate), and expand the volume if growth is legitimate (e.g. resize EBS online + `growpart` + `resize2fs`/`xfs_growfs`).
+
+### 27. How do you monitor application availability and latency?
+- **Availability**: the ratio of **successful requests / total requests** (non-5xx responses, measured at the load balancer or ingress), and **synthetic checks** from outside (Blackbox Exporter, CloudWatch Synthetics, Pingdom) hitting real endpoints and key user journeys from multiple regions. Health-check endpoints alone aren't enough; a `/health` that returns 200 while the real API fails tells you nothing.
+- **Latency**: track **percentiles (p50, p95, p99)** using histograms, never just the average, since averages hide the slow tail that users actually feel. Measure server-side (Prometheus histograms, ALB `TargetResponseTime`) and client-side (RUM).
+- **Golden signals / RED**: rate, errors, duration per service and endpoint, plus saturation of the resources behind them.
+- **Tooling**: Prometheus + Grafana, or CloudWatch / Datadog / New Relic; OpenTelemetry tracing to explain *why* something is slow.
+- **Alerting on SLOs**: define SLOs (e.g. 99.9% availability, 95% of requests under 300 ms) and alert on **error budget burn rate**, not on every blip. Page on symptoms users feel; send causes (CPU, disk) to tickets/dashboards.

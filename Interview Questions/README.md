@@ -80,6 +80,15 @@ This sits alongside the deep-dive reference notes elsewhere in this repo (`Kuber
 | [VoIP, SIP & Unified Communications](./21-voip-sip-unified-communications-qna.md) | SIP/RTP/SDP, response codes, one-way audio & 32-second drops, Wireshark/sngrep, Asterisk/FreeSWITCH/Kamailio/rtpengine, VoIP HA on AWS/EKS, toll fraud |
 | [Windows, Proxies, VAPT & Jira](./22-windows-proxy-vapt-jira-qna.md) | PowerShell/CMD troubleshooting, Ansible over WinRM, forward/reverse & HTTP/TCP proxies, egress design, VAPT remediation, JQL/Smart Commits, change management |
 
+### Cloud Deep Dives (AWS / Azure / GCP)
+| File | Topics Covered |
+|---|---|
+| [Cloud Fundamentals (Cross-Cloud)](./23-cloud-fundamentals-cross-cloud-qna.md) | 68 Q: service & deployment models, regions/AZs, scaling, virtualization, serverless, shared responsibility, IAM, encryption, secrets, HA/DR, cost, migration, observability, multi-cloud, compliance |
+| [AWS Deep Dive](./24-aws-deep-dive-qna.md) | 84 Q: compute choice, S3 (classes/lifecycle/presigned/policies), databases, ELB/Route 53, IAM boundaries/STS/SCPs, monitoring stack, DevOps & Terraform, Bedrock/RAG/Guardrails, architecture scenarios |
+| [Azure Deep Dive](./25-azure-deep-dive-qna.md) | 60 Q: AZ-900 syllabus through AZ-305 design — hierarchy/ARM, VMs/VMSS/App Service/Functions/Container Apps/AKS, storage tiers & redundancy, Azure SQL/Cosmos DB, VNet/NSG/Firewall/Private Endpoints/ExpressRoute, LB family, Entra/CA/PIM/managed identities, Policy/Defender/Sentinel, Site Recovery, hybrid AD |
+| [GCP Deep Dive](./26-gcp-deep-dive-qna.md) | 85 Q: hierarchy & IAM, Cloud Run vs GKE vs GCE, Autopilot vs Standard, WIF, VPC/NAT/PGA/Shared VPC/Interconnect, load balancers/CDN/Armor, Cloud SQL/Spanner/Firestore/Bigtable/BigQuery, Pub/Sub semantics, Dataflow, VPC-SC, cost, recent product changes |
+| [Cloud Architecture Scenarios](./27-cloud-architecture-scenarios-qna.md) | 18 design rounds with service picks for all three clouds + an answer framework |
+
 ### Under the Hood
 | File | Topics Covered |
 |---|---|
@@ -89,7 +98,7 @@ This sits alongside the deep-dive reference notes elsewhere in this repo (`Kuber
 
 ## 📊 At a glance
 
-**20 topic files, 610+ individual Q&A**, each with a full-paragraph, interview-ready answer (not a one-liner) — spanning Linux, Git, Docker, Kubernetes, CI/CD, Terraform/IaC, AWS, Azure, GCP, Networking & Security, Ansible, Python, Agile/Culture, Monitoring/Observability, DevSecOps, SRE/Incident Response/Service Mesh, Messaging/Caching/Distributed Systems, Deployment Strategies, System Design, Behavioral interviewing, practical scripting challenges, and real company-specific interview patterns (Amazon LPs, Google/SRE-style loops).
+**27 topic files, 1,000+ individual Q&A**, each with a full-paragraph, interview-ready answer (not a one-liner) — spanning Linux, Git, Docker, Kubernetes, CI/CD, Terraform/IaC, AWS, Azure, GCP, Networking & Security, Ansible, Python, Agile/Culture, Monitoring/Observability, DevSecOps, SRE/Incident Response/Service Mesh, Messaging/Caching/Distributed Systems, Deployment Strategies, System Design, Behavioral interviewing, practical scripting challenges, and real company-specific interview patterns (Amazon LPs, Google/SRE-style loops).
 
 ---
 

@@ -314,6 +314,7 @@ const FOLDER_RULES = [
   [/service.?mesh/, 'fa-solid fa-share-nodes', 'icon-istio'],
   [/^project$/, 'fa-solid fa-diagram-project', 'icon-project'],
   [/voip|unified.?comm/, 'fa-solid fa-phone-volume', 'icon-voip'],
+  [/^fundamentals$/, 'fa-solid fa-book-open', 'icon-aws'],
   [/^windows/, 'fa-brands fa-windows', 'icon-azure'],
 
   // --- CNCF projects ---
