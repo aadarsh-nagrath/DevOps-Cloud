@@ -517,6 +517,7 @@ body {
   border-radius: 8px !important;
   border: 1px solid var(--border-color);
   background-color: #0b0f19 !important; /* Force dark background for code blocks */
+  color: #ccc; /* Match prism-tomorrow so untagged blocks (ASCII diagrams) stay readable in light mode */
   position: relative;
   overflow: hidden;
 }
