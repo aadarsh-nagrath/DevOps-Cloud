@@ -120,6 +120,83 @@ Taints vs affinity: taints say "keep **out** unless tolerated" (dedicated nodes)
 
 Built-in taints: `node.kubernetes.io/not-ready`, `unreachable` (pods get a default 300 s toleration), `unschedulable` (cordon), `disk-pressure`, `memory-pressure`.
 
+### 7.1 nodeSelector vs node affinity (pod → **node labels**)
+```yaml
+spec:
+  nodeSelector:
+    disk: ssd                     # only nodes labelled disk=ssd; AND-only, hard
+---
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:     # hard → Pending if no match
+        nodeSelectorTerms:                                # terms are OR'd, expressions inside a term AND'd
+        - matchExpressions:
+          - { key: topology.kubernetes.io/zone, operator: In, values: [us-east-1a, us-east-1b] }
+      preferredDuringSchedulingIgnoredDuringExecution:    # soft → falls back to any node
+      - weight: 80                                        # 1–100, adds to node score
+        preference:
+          matchExpressions:
+          - { key: node.kubernetes.io/instance-type, operator: In, values: [m6i.large] }
+```
+`IgnoredDuringExecution` = changing node labels later does **not** evict running pods.
+
+### 7.2 Replicas on different nodes = **pod anti-affinity** (not node affinity)
+Node affinity looks at *node labels*. Avoiding a single point of failure means "stay away from **pods like me**" → `podAntiAffinity`. `topologyKey` decides what counts as "the same place":
+
+```
+topologyKey: kubernetes.io/hostname          topologyKey: topology.kubernetes.io/zone
+(each NODE is a domain)                      (each ZONE is a domain — all its nodes count as one)
+
+ zone-a          zone-b                       zone-a              zone-b         zone-c
+┌──────┐┌──────┐┌──────┐                     ┌──────┐┌──────┐    ┌──────┐       ┌──────┐
+│node1 ││node2 ││node3 │                     │node1 ││node2 │    │node3 │       │node4 │
+│ pod1 ││ pod2 ││ pod3 │                     │ pod1 ││  ✗   │    │ pod2 │       │ pod3 │
+└──────┘└──────┘└──────┘                     └──────┘└──────┘    └──────┘       └──────┘
+✔ node dies → lose 1 replica                 node2 blocked: zone-a already has pod1
+✘ pod1+pod2 share zone-a → zone outage       ✔ zone outage → lose 1 replica
+  can kill 2 replicas                        ✘ hard rule + 4 replicas, 3 zones → pod4 Pending
+```
+Zone anti-affinity implies different nodes too (different zone ⇒ different node).
+
+**Hard-rule trap:** `required…` anti-affinity needs **≥ 1 domain per replica**. Hostname → replicas ≤ eligible nodes; zone → replicas ≤ zones. Extra replicas sit `Pending` (also blocks rolling updates with `maxSurge` on a full cluster).
+
+### 7.3 What to use in prod
+Hard on **node**, soft on **zone**:
+```yaml
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels: { app: core-api }
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:     # never two replicas on one node
+          - labelSelector: { matchLabels: { app: core-api } }
+            topologyKey: kubernetes.io/hostname
+          preferredDuringSchedulingIgnoredDuringExecution:    # try hard to use different zones
+          - weight: 100
+            podAffinityTerm:
+              labelSelector: { matchLabels: { app: core-api } }
+              topologyKey: topology.kubernetes.io/zone
+```
+- 10 replicas, 3 zones → spreads over zones first, then stacks on *separate nodes* inside zones. Still needs nodes ≥ replicas (cluster-autoscaler adds them).
+- **Modern alternative (often better):** `topologySpreadConstraints` gives *even* spread (`maxSkew`) instead of "at most one", and scales better on big clusters:
+```yaml
+      topologySpreadConstraints:
+      - { maxSkew: 1, topologyKey: topology.kubernetes.io/zone,  whenUnsatisfiable: ScheduleAnyway, labelSelector: { matchLabels: { app: core-api } } }
+      - { maxSkew: 1, topologyKey: kubernetes.io/hostname,       whenUnsatisfiable: DoNotSchedule,  labelSelector: { matchLabels: { app: core-api } } }
+```
+- Pair with a **PDB** (§8) — anti-affinity protects against crashes, PDB protects against drains/upgrades.
+
+Verify spread:
+```bash
+kubectl get nodes -L topology.kubernetes.io/zone          # zone labels set by the cloud provider
+kubectl get pods -l app=core-api -o wide                  # NODE column
+kubectl describe pod <pending-pod>                        # "didn't match pod anti-affinity rules"
+```
+
 ---
 
 ## 8. Voluntary disruptions: drain, PDB
