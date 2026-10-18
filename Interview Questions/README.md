@@ -89,6 +89,12 @@ This sits alongside the deep-dive reference notes elsewhere in this repo (`Kuber
 | [GCP Deep Dive](./26-gcp-deep-dive-qna.md) | 85 Q: hierarchy & IAM, Cloud Run vs GKE vs GCE, Autopilot vs Standard, WIF, VPC/NAT/PGA/Shared VPC/Interconnect, load balancers/CDN/Armor, Cloud SQL/Spanner/Firestore/Bigtable/BigQuery, Pub/Sub semantics, Dataflow, VPC-SC, cost, recent product changes |
 | [Cloud Architecture Scenarios](./27-cloud-architecture-scenarios-qna.md) | 18 design rounds with service picks for all three clouds + an answer framework |
 
+### Production Scenarios Rapid Round
+| File | Topics Covered |
+|---|---|
+| [Production Scenarios Rapid Round](./28-production-scenarios-rapid-round-qna.md) | 22 most-asked cross-topic scenarios: Linux CPU/mem/IO triage, health-check & safe-restart Bash scripts, OOMKilled/image pulls, Pending/CrashLoop/ImagePull, requests→HPA→Cluster Autoscaler, Helm rollback, Service/Ingress/DNS/NetPol debugging, failing pipelines, zero-downtime + auto-rollback, HA & DR, Terraform locking & drift, Prometheus latency triage, OpenTelemetry, SLOs, secrets, CI security scans, K8s platform design |
+| [Jenkins, K8s & Helm Interview Rounds](./29-jenkins-k8s-helm-interview-rounds-qna.md) | Screening + in-depth round Qs: multi-env Jenkins pipelines & triggers, shared libraries, "pipeline runs but no build", random failures, webhooks, EKS via Terraform & control plane vs workers, `kubectl exec`/objects/`*Class`es, Helm chart structure & commands, branching/hotfix/parallel changes, `--build-arg` & registries, DB connections, EKS auth & secrets, ephemeral envs with auto-destroy |
+
 ### Under the Hood
 | File | Topics Covered |
 |---|---|
@@ -98,7 +104,7 @@ This sits alongside the deep-dive reference notes elsewhere in this repo (`Kuber
 
 ## 📊 At a glance
 
-**27 topic files, 1,000+ individual Q&A**, each with a full-paragraph, interview-ready answer (not a one-liner) — spanning Linux, Git, Docker, Kubernetes, CI/CD, Terraform/IaC, AWS, Azure, GCP, Networking & Security, Ansible, Python, Agile/Culture, Monitoring/Observability, DevSecOps, SRE/Incident Response/Service Mesh, Messaging/Caching/Distributed Systems, Deployment Strategies, System Design, Behavioral interviewing, practical scripting challenges, and real company-specific interview patterns (Amazon LPs, Google/SRE-style loops).
+**29 topic files, 1,000+ individual Q&A**, each with a full-paragraph, interview-ready answer (not a one-liner) — spanning Linux, Git, Docker, Kubernetes, CI/CD, Terraform/IaC, AWS, Azure, GCP, Networking & Security, Ansible, Python, Agile/Culture, Monitoring/Observability, DevSecOps, SRE/Incident Response/Service Mesh, Messaging/Caching/Distributed Systems, Deployment Strategies, System Design, Behavioral interviewing, practical scripting challenges, and real company-specific interview patterns (Amazon LPs, Google/SRE-style loops).
 
 ---
 
