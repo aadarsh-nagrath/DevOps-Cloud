@@ -101,12 +101,25 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | [K8s Pods Deep Dive](Kubernetes/K-pods.md) | Pod lifecycle, init containers, probes, resource limits |
 | [Kubernetes Networking](Kubernetes/Networking.md) | CNI, Services, Ingress, Network Policies, DNS |
 | [Kubernetes Doubts](Kubernetes/k8-doubts.md) | Common questions, gotchas, and interview prep |
-| [Helm](Kubernetes/Helm/helm.md) | Helm charts, repositories, values, upgrades |
-| [Creating Helm Charts](Kubernetes/Helm/creating-helm-chart.md) | Writing your own chart from scratch |
-| [Helm Examples](Kubernetes/Helm/helm-eg.md) | Real-world Helm chart examples |
-| [Helm vs Kustomize](Kubernetes/helmVkustomize.md) | When to use which tool, comparison |
 | [Good Practice Networking](Kubernetes/good-practice-networking.md) | Production networking best practices |
 | [Ingress Examples](Kubernetes/examples/ingress-eg.md) | NGINX Ingress controller configurations |
+
+---
+
+## ⎈ Helm
+
+| Note | Description |
+|---|---|
+| [Helm Overview & Learning Path](Helm/README.md) | Start here: reading order and a one-page cheat sheet |
+| [Helm Fundamentals & Architecture](Helm/helm.md) | Charts, values, releases, revisions, release storage, install/upgrade flow, 3-way merge vs server-side apply, Helm 2 vs 3 vs 4 |
+| [Chart Structure](Helm/chart-structure.md) | Every chart file: Chart.yaml, values.yaml & precedence, values.schema.json, templates, _helpers.tpl, NOTES, tests, charts/, crds/, .helmignore, Chart.lock |
+| [Helm Templating](Helm/templating.md) | Go templates & Sprig, pipelines, if/with/range, `$` scope, include/define, toYaml/nindent, tpl, .Files, lookup, common mistakes |
+| [Helm Commands](Helm/helm-commands.md) | Complete CLI reference: repos, OCI, install/upgrade flags, `--set` gotchas, get/history/rollback, lint/template/package, plugins, Helm 4 changes |
+| [Creating Helm Charts](Helm/creating-helm-chart.md) | Hands-on: build a production-style chart, hooks, tests, schema, unit tests, publish to OCI, CI pipeline |
+| [Advanced Helm](Helm/advanced-helm.md) | Subcharts & globals, library charts, hooks, CRDs, post-renderers, plugins, secrets, signing, Helmfile |
+| [Helm in Production](Helm/helm-in-production.md) | CI/CD, Argo CD & Flux, security, troubleshooting table, Helm 3 → 4 migration, best practices |
+| [Helm Examples](Helm/helm-eg.md) | podinfo, cert-manager, kube-prometheus-stack, Argo CD, multi-env, blue/green, air-gapped mirroring, debugging |
+| [Helm vs Kustomize](Helm/helm-vs-kustomize.md) | Templating vs overlays, the same change both ways, combining them, a decision guide |
 
 ---
 

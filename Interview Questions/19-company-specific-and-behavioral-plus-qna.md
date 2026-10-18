@@ -105,3 +105,16 @@ Frame it in terms of what you're moving *toward* (a specific kind of technical c
 
 ### 23. How do you talk about a layoff (as opposed to a voluntary departure or being fired for performance) in an interview, given it's an increasingly common and non-stigmatized situation?
 State it plainly and factually — "my role was eliminated in a company-wide reduction, unrelated to my individual performance" — without over-explaining or sounding defensive, since layoffs are now a widely understood, normalized part of the industry and most interviewers won't hold it against a candidate at all; over-justifying or seeming embarrassed about it tends to read worse than the layoff itself. If you can briefly and factually note that it was broad/non-individual (e.g. "the whole platform team was affected," if true), that additional context is reasonable and helpful, but isn't required to satisfy the question.
+
+### 24. "Tell me about yourself and your experience as a DevOps Engineer." How do you answer it?
+Keep it to 60–90 seconds in a **present → past → future** shape: who you are now (role, years, the stack you own), one or two concrete wins with numbers, and why this role is the next step. It's not a life story or a recital of your resume; the interviewer wants a short pitch and a hook to dig into (see Q10 for structuring that deep-dive project).
+
+Sample answer (swap in your own facts and numbers):
+
+> "I'm a DevOps engineer with about 3 years of experience, currently at [company], where I own the CI/CD and cloud infrastructure for a set of microservices running on AWS EKS. Day to day I work with Terraform for infrastructure, GitHub Actions and Jenkins for pipelines, Docker and Helm for packaging, and Prometheus, Grafana and CloudWatch for monitoring.
+>
+> Two things I'm proud of: I moved our manual, ticket-driven deployments to a GitHub Actions pipeline with automated tests, image scanning and Helm-based rolling deploys, which took release time from about 2 hours to 15 minutes. I also cut our AWS bill by roughly 30% by rightsizing nodes, moving batch workloads to Spot, and using Lambda to shut down non-prod environments out of hours.
+>
+> I'm on call too, so I've handled real incidents like pods stuck in CrashLoopBackOff and Terraform drift. That's made me care about good alerting and runbooks. I'm looking for a role with bigger scale and more platform engineering ownership, which is why this position interests me."
+
+Tips: name tools only in the context of what you did with them, quantify at least one result, and end on why *this* role, which hands the interviewer a natural next question.

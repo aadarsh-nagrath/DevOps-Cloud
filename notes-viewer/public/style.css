@@ -604,6 +604,7 @@ body {
 .icon-git, .folder-git { color: #f05032 !important; }
 .icon-argo, .folder-argo { color: #ef7b4d !important; }
 .icon-helm, .folder-helm { color: #0f1689 !important; }
+:root:not([data-theme="light"]) .icon-helm, :root:not([data-theme="light"]) .folder-helm { color: #6b7cff !important; }  /* Helm navy is unreadable on dark themes */
 .icon-knative, .folder-knative { color: #7638e0 !important; }
 .icon-istio, .folder-istio { color: #466bb0 !important; }
 .icon-network, .folder-network { color: #14b8a6 !important; }

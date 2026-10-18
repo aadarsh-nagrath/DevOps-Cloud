@@ -16,6 +16,7 @@ The notes are categorized and structured as follows:
 
 *   **🔐 Networking & Security Fundamentals**: OSI/TCP-IP, DNS, TLS/certificates, firewalls, VPNs, and OS/network hardening practices, beginner → advanced, in the [`Networking and Security Fundamentals/`](./Networking%20and%20Security%20Fundamentals) directory.
 *   **☸️ Kubernetes & CKA**: Comprehensive preparation guides, resource specs, Kustomize/Helm configs, networking models, and k8s doubts resolver. See the [`Kubernetes/`](./Kubernetes) and [`CKA/`](./CKA) folders.
+*   **⎈ Helm**: Complete Helm guide: architecture, chart structure, templating, the full CLI, building and publishing a chart, hooks/subcharts/library charts, CI/CD and GitOps, troubleshooting, Helm 4 changes, and Helm vs Kustomize, in the [`Helm/`](./Helm) directory.
 *   **🐳 Docker**: Cheat sheets for containers, optimization patterns, and advanced network configs in the [`docker/`](./docker) directory.
 *   **📜 Scripting & Linux**: Bash scripting protocols, Linux command indexes, permissions references under [`scripting/`](./scripting).
 *   **🛠️ Terraform, CloudFormation & Pulumi**: Infrastructure-as-code patterns, workspaces, environments, and testing models in the [`Terraform and CF/`](./Terraform%20and%20CF) directory — including [Pulumi](./Terraform%20and%20CF/pulumi.md) notes covering IaC in general-purpose languages.

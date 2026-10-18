@@ -312,6 +312,7 @@ const FOLDER_RULES = [
   [/interview/, 'fa-solid fa-user-tie', 'icon-interview'],
   [/backup|disaster/, 'fa-solid fa-life-ring', 'icon-security'],
   [/service.?mesh/, 'fa-solid fa-share-nodes', 'icon-istio'],
+  [/^helm$/, 'fa-solid fa-ship', 'icon-helm'],
   [/^project$/, 'fa-solid fa-diagram-project', 'icon-project'],
   [/voip|unified.?comm/, 'fa-solid fa-phone-volume', 'icon-voip'],
   [/^fundamentals$/, 'fa-solid fa-book-open', 'icon-aws'],
@@ -582,6 +583,20 @@ async function loadNote(notePath) {
 
     // Rewrite images and embed video frames
     postProcessNoteContent(noteContentEl, notePath);
+
+    // Render ```mermaid blocks as diagrams (before Prism touches them)
+    const mermaidBlocks = [...noteContentEl.querySelectorAll('pre > code.language-mermaid')];
+    mermaidBlocks.forEach(code => {
+      const div = document.createElement('div');
+      div.className = 'mermaid';
+      div.textContent = code.textContent;
+      code.parentElement.replaceWith(div);
+    });
+    if (mermaidBlocks.length && window.mermaid) {
+      const dark = (document.documentElement.getAttribute('data-theme') || 'light') !== 'light';
+      mermaid.initialize({ startOnLoad: false, theme: dark ? 'dark' : 'default' });
+      await mermaid.run({ nodes: noteContentEl.querySelectorAll('.mermaid') });
+    }
 
     // Run Prism.js on container to format styles
     Prism.highlightAllUnder(noteContentEl);

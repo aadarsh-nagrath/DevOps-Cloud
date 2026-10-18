@@ -1,6 +1,6 @@
 # Kubernetes: Beginner → Intermediate → Advanced (Learning & Revision Notes)
 
-> **Field-level deep dives: [deep-dive/](deep-dive/README.md).** This file is structured as a progressive learning path. For deep dives on specific topics already covered elsewhere in this folder, see: [kubernetes.md](kubernetes.md) (core concepts), [K-pods.md](K-pods.md) (pod internals), [Networking.md](Networking.md) (networking deep dive), [k8-doubts.md](k8-doubts.md) (Q&A style clarifications), [helmVkustomize.md](helmVkustomize.md), [good-practice-networking.md](good-practice-networking.md).
+> **Field-level deep dives: [deep-dive/](deep-dive/README.md).** This file is structured as a progressive learning path. For deep dives on specific topics already covered elsewhere in this folder, see: [kubernetes.md](kubernetes.md) (core concepts), [K-pods.md](K-pods.md) (pod internals), [Networking.md](Networking.md) (networking deep dive), [k8-doubts.md](k8-doubts.md) (Q&A style clarifications), [Helm vs Kustomize](../Helm/helm-vs-kustomize.md), [good-practice-networking.md](good-practice-networking.md).
 
 ---
 
@@ -370,7 +370,7 @@ helm template .            # render locally without installing — great for deb
 ```
 - Chart structure: `Chart.yaml`, `values.yaml`, `templates/*.yaml`, `charts/` (subcharts/dependencies).
 - Templating uses Go templates: `{{ .Values.replicaCount }}`, `{{ .Release.Name }}`, `{{- if .Values.ingress.enabled }}`.
-- See [helmVkustomize.md](helmVkustomize.md) for Helm vs Kustomize tradeoffs and the [Helm/](Helm/) folder for more.
+- See [Helm vs Kustomize](../Helm/helm-vs-kustomize.md) for Helm vs Kustomize tradeoffs and the [Helm notes](../Helm/README.md) for more.
 
 ## 15. RBAC & Service Accounts
 
@@ -682,7 +682,7 @@ overlays/
   prod/kustomization.yaml      # patches replicas: 5, adds resource limits
 ```
 - Strengths vs Helm: no templating language to learn, plain YAML stays valid YAML, easy to reason about diffs. Weaker at packaging/distributing reusable charts to others (no public "Kustomize Hub" equivalent to Artifact Hub).
-- Many teams use **both**: consume third-party software as Helm charts, but manage their own app manifests with Kustomize overlays per environment. Argo CD and Flux both support Kustomize natively. Full comparison in [helmVkustomize.md](helmVkustomize.md).
+- Many teams use **both**: consume third-party software as Helm charts, but manage their own app manifests with Kustomize overlays per environment. Argo CD and Flux both support Kustomize natively. Full comparison in [Helm vs Kustomize](../Helm/helm-vs-kustomize.md).
 
 ## 40. Vertical Pod Autoscaler — Practical Detail
 
