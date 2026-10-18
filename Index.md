@@ -109,6 +109,7 @@ Welcome to the centralized index of all notes in this repository. Click any link
 |---|---|
 | [Kubernetes Core](Kubernetes/kubernetes.md) | Pods, Deployments, Services, ConfigMaps, RBAC, namespaces |
 | [K8s Pods Deep Dive](Kubernetes/K-pods.md) | Pod lifecycle, init containers, probes, resource limits |
+| [Kubernetes Networking Deep Dive](Kubernetes/kubernetes-networking-deep-dive.md) | Network model, netns/veth/iptables, CNI & IPAM, packet walks (real IPIP capture), Calico/Cilium/VPC CNI, Service VIP internals (real kube-proxy chains), iptables/IPVS/nftables/eBPF, EndpointSlices, traffic policies, CoreDNS & ndots, Gateway API, NetworkPolicy (lab-tested), egress, EKS/GKE/AKS, MTU, troubleshooting playbook, lab |
 | [Kubernetes Networking](Kubernetes/Networking.md) | CNI, Services, Ingress, Network Policies, DNS |
 | [Kubernetes Doubts](Kubernetes/k8-doubts.md) | Common questions, gotchas, and interview prep |
 | [Good Practice Networking](Kubernetes/good-practice-networking.md) | Production networking best practices |
@@ -172,7 +173,16 @@ Welcome to the centralized index of all notes in this repository. Click any link
 
 | Note | Description |
 |---|---|
-| [Terraform](Terraform%20and%20CF/terraform.md) | State, providers, resources, modules, workspaces |
+| [Terraform: Zero to Mastery (start here)](Terraform%20and%20CF/terraform.md) | Learning path, IaC fundamentals, architecture (core/providers/state), what init/plan/apply really do, reading plans, mental models, cheat sheet |
+| [Terraform HCL Language Deep Dive](Terraform%20and%20CF/terraform-hcl-language.md) | Types, `optional()`, variables & precedence, validation, locals, outputs, `for`/splat/`dynamic`, unknown values, sensitive vs ephemeral, functions, gotchas |
+| [Terraform Meta-Arguments & Lifecycle](Terraform%20and%20CF/terraform-meta-arguments-and-lifecycle.md) | `count` vs `for_each` (index-shift trap), `depends_on`, every `lifecycle` option, pre/postconditions, `check`, data sources, `terraform_data`, provisioners |
+| [Terraform State Deep Dive](Terraform%20and%20CF/terraform-state-deep-dive.md) | State JSON internals, backends, S3 native locking, `state` commands, import blocks, drift, secrets in state, splitting state, DR runbooks |
+| [Terraform Providers & Internals](Terraform%20and%20CF/terraform-providers-and-internals.md) | Version constraints, lock file, aliases (multi-region/account), DAG, plan internals, gRPC plugin protocol, mirrors, `TF_LOG` debugging |
+| [Terraform Modules](Terraform%20and%20CF/terraform-modules.md) | Sources & versioning, design rules, tested production VPC module, composition, anti-patterns, `terraform test` with mocks |
+| [Terraform CLI Reference](Terraform%20and%20CF/terraform-cli-reference.md) | Every command and the flags that matter, `-target`/`-replace`, plan files, env vars, exit codes, deprecated commands |
+| [Terraform Environments & CI/CD](Terraform%20and%20CF/terraform-environments-and-cicd.md) | Workspaces vs directories vs Terragrunt, team workflow, GitHub Actions + OIDC, Atlantis, HCP Terraform, secrets, quality gates |
+| [Terraform Production & Troubleshooting](Terraform%20and%20CF/terraform-production-and-troubleshooting.md) | `moved`/`removed`/`import` refactors, zero-downtime patterns, real error → fix table, upgrades, OpenTofu, outage gotchas, checklist |
+| [Terraform Hands-on Labs](Terraform%20and%20CF/terraform-hands-on-labs.md) | 12 verified labs (11 need no cloud account) + capstone |
 | [CloudFormation](Terraform%20and%20CF/cloud-formation.md) | AWS native IaC, stacks, templates, change sets |
 | [Pulumi](Terraform%20and%20CF/pulumi.md) | IaC in real languages (TS/Python/Go), beginner → advanced, vs Terraform, CrossGuard policy, Automation API |
 | [Terraform Sample Project](Terraform%20and%20CF/sample-project.md) | End-to-end Terraform project walkthrough |

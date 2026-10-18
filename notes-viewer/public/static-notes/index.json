@@ -1508,8 +1508,8 @@
   {
     "name": "Index.md",
     "path": "Index.md",
-    "size": 42985,
-    "mtime": "2026-10-18T11:03:01.497Z"
+    "size": 45489,
+    "mtime": "2026-10-18T14:44:42.261Z"
   },
   {
     "name": "01-linux-and-scripting-qna.md",
@@ -1760,8 +1760,8 @@
   {
     "name": "Networking.md",
     "path": "Kubernetes/Networking.md",
-    "size": 37295,
-    "mtime": "2026-10-18T11:40:37.510Z"
+    "size": 37518,
+    "mtime": "2026-10-18T14:44:42.262Z"
   },
   {
     "name": "01-services-endpoints-ports.md",
@@ -1802,8 +1802,8 @@
   {
     "name": "README.md",
     "path": "Kubernetes/deep-dive/README.md",
-    "size": 1133,
-    "mtime": "2026-10-08T14:21:13.162Z"
+    "size": 1321,
+    "mtime": "2026-10-18T14:44:42.261Z"
   },
   {
     "name": "ingress-eg.md",
@@ -1828,6 +1828,12 @@
     "path": "Kubernetes/k8s-learning-path.md",
     "size": 52147,
     "mtime": "2026-10-18T11:40:09.559Z"
+  },
+  {
+    "name": "kubernetes-networking-deep-dive.md",
+    "path": "Kubernetes/kubernetes-networking-deep-dive.md",
+    "size": 54156,
+    "mtime": "2026-10-18T14:44:17.654Z"
   },
   {
     "name": "kubernetes.md",
@@ -2018,8 +2024,8 @@
   {
     "name": "README.md",
     "path": "README.md",
-    "size": 3535,
-    "mtime": "2026-10-18T09:59:25.637Z"
+    "size": 3706,
+    "mtime": "2026-10-18T14:25:43.281Z"
   },
   {
     "name": "awk-mastery.md",
@@ -2322,10 +2328,64 @@
     "mtime": "2026-10-18T11:45:11.472Z"
   },
   {
+    "name": "terraform-cli-reference.md",
+    "path": "Terraform and CF/terraform-cli-reference.md",
+    "size": 10559,
+    "mtime": "2026-10-18T14:19:44.471Z"
+  },
+  {
+    "name": "terraform-environments-and-cicd.md",
+    "path": "Terraform and CF/terraform-environments-and-cicd.md",
+    "size": 16353,
+    "mtime": "2026-10-18T14:20:51.734Z"
+  },
+  {
+    "name": "terraform-hands-on-labs.md",
+    "path": "Terraform and CF/terraform-hands-on-labs.md",
+    "size": 15594,
+    "mtime": "2026-10-18T14:25:19.387Z"
+  },
+  {
+    "name": "terraform-hcl-language.md",
+    "path": "Terraform and CF/terraform-hcl-language.md",
+    "size": 23788,
+    "mtime": "2026-10-18T14:25:55.758Z"
+  },
+  {
+    "name": "terraform-meta-arguments-and-lifecycle.md",
+    "path": "Terraform and CF/terraform-meta-arguments-and-lifecycle.md",
+    "size": 14292,
+    "mtime": "2026-10-18T14:12:54.011Z"
+  },
+  {
+    "name": "terraform-modules.md",
+    "path": "Terraform and CF/terraform-modules.md",
+    "size": 18889,
+    "mtime": "2026-10-18T14:18:53.670Z"
+  },
+  {
+    "name": "terraform-production-and-troubleshooting.md",
+    "path": "Terraform and CF/terraform-production-and-troubleshooting.md",
+    "size": 16104,
+    "mtime": "2026-10-18T14:25:24.088Z"
+  },
+  {
+    "name": "terraform-providers-and-internals.md",
+    "path": "Terraform and CF/terraform-providers-and-internals.md",
+    "size": 15095,
+    "mtime": "2026-10-18T14:15:31.742Z"
+  },
+  {
+    "name": "terraform-state-deep-dive.md",
+    "path": "Terraform and CF/terraform-state-deep-dive.md",
+    "size": 22015,
+    "mtime": "2026-10-18T14:14:24.436Z"
+  },
+  {
     "name": "terraform.md",
     "path": "Terraform and CF/terraform.md",
-    "size": 6578,
-    "mtime": "2026-10-18T11:40:37.568Z"
+    "size": 22481,
+    "mtime": "2026-10-18T14:21:02.481Z"
   },
   {
     "name": "asterisk-freeswitch-kamailio.md",

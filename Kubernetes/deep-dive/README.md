@@ -8,5 +8,6 @@ In-depth, field-level companions to the summary notes in [k8s-learning-path.md](
 4. [ConfigMaps, Secrets & Storage](04-storage-config-secrets.md) — consumption modes, Secret types, PV/PVC/StorageClass, StatefulSet storage
 5. [Workloads, Rollouts & Scheduling](05-workloads-rollouts-scheduling.md) — Deployment strategy maths, StatefulSet/DaemonSet/Job, HPA, affinity/taints, PDB
 6. [Security: RBAC, NetworkPolicy, Pod Security](06-security-rbac-networkpolicy.md)
+7. [Kubernetes Networking: The Complete Deep Dive](../kubernetes-networking-deep-dive.md): CNI internals, packet walks, kube-proxy chains, DNS, Gateway API, NetworkPolicy, troubleshooting
 
 See also: [Ingress deep dive](../../Service%20Mesh/kubernetes-ingress-deep-dive.md) (TLS termination, pathType, annotations).

@@ -344,6 +344,8 @@ By understanding these networking options and how they operate, you can optimize
 
 # **Networking in Kubernetes**
 
+> **Going deeper:** [Kubernetes Networking: The Complete Deep Dive](./kubernetes-networking-deep-dive.md) covers CNI internals, real packet captures, kube-proxy chains, DNS, Gateway API, NetworkPolicy and troubleshooting.
+
 ## Theory
 **Kubernetes Networking Overview - Part 1**
 
