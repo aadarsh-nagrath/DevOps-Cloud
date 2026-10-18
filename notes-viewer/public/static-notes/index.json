@@ -1376,8 +1376,8 @@
   {
     "name": "GitOps.md",
     "path": "GitOps.md",
-    "size": 5228,
-    "mtime": "2026-10-18T11:40:09.755Z"
+    "size": 38270,
+    "mtime": "2026-10-18T22:11:13.845Z"
   },
   {
     "name": "README.md",
@@ -1508,8 +1508,8 @@
   {
     "name": "Index.md",
     "path": "Index.md",
-    "size": 45489,
-    "mtime": "2026-10-18T14:44:42.261Z"
+    "size": 48697,
+    "mtime": "2026-10-18T22:11:28.857Z"
   },
   {
     "name": "01-linux-and-scripting-qna.md",
@@ -1764,6 +1764,12 @@
     "mtime": "2026-10-18T14:44:42.262Z"
   },
   {
+    "name": "README.md",
+    "path": "Kubernetes/README.md",
+    "size": 7183,
+    "mtime": "2026-10-18T21:20:27.998Z"
+  },
+  {
     "name": "01-services-endpoints-ports.md",
     "path": "Kubernetes/deep-dive/01-services-endpoints-ports.md",
     "size": 11319,
@@ -1800,10 +1806,58 @@
     "mtime": "2026-10-18T11:40:09.561Z"
   },
   {
+    "name": "07-architecture-and-api-internals.md",
+    "path": "Kubernetes/deep-dive/07-architecture-and-api-internals.md",
+    "size": 25326,
+    "mtime": "2026-10-18T16:19:07.497Z"
+  },
+  {
+    "name": "08-scheduling-in-depth.md",
+    "path": "Kubernetes/deep-dive/08-scheduling-in-depth.md",
+    "size": 20560,
+    "mtime": "2026-10-18T16:22:37.139Z"
+  },
+  {
+    "name": "09-autoscaling.md",
+    "path": "Kubernetes/deep-dive/09-autoscaling.md",
+    "size": 14848,
+    "mtime": "2026-10-18T16:29:48.196Z"
+  },
+  {
+    "name": "10-extending-kubernetes.md",
+    "path": "Kubernetes/deep-dive/10-extending-kubernetes.md",
+    "size": 22167,
+    "mtime": "2026-10-18T16:32:08.855Z"
+  },
+  {
+    "name": "11-cluster-operations.md",
+    "path": "Kubernetes/deep-dive/11-cluster-operations.md",
+    "size": 21101,
+    "mtime": "2026-10-18T21:07:36.721Z"
+  },
+  {
+    "name": "12-security-hardening.md",
+    "path": "Kubernetes/deep-dive/12-security-hardening.md",
+    "size": 21177,
+    "mtime": "2026-10-18T21:10:37.719Z"
+  },
+  {
+    "name": "13-observability-and-troubleshooting.md",
+    "path": "Kubernetes/deep-dive/13-observability-and-troubleshooting.md",
+    "size": 17806,
+    "mtime": "2026-10-18T21:15:30.219Z"
+  },
+  {
+    "name": "14-advanced-workloads-and-multitenancy.md",
+    "path": "Kubernetes/deep-dive/14-advanced-workloads-and-multitenancy.md",
+    "size": 22048,
+    "mtime": "2026-10-18T21:19:15.774Z"
+  },
+  {
     "name": "README.md",
     "path": "Kubernetes/deep-dive/README.md",
-    "size": 1321,
-    "mtime": "2026-10-18T14:44:42.261Z"
+    "size": 3786,
+    "mtime": "2026-10-18T21:19:53.354Z"
   },
   {
     "name": "ingress-eg.md",
@@ -2024,8 +2078,8 @@
   {
     "name": "README.md",
     "path": "README.md",
-    "size": 3706,
-    "mtime": "2026-10-18T14:25:43.281Z"
+    "size": 3861,
+    "mtime": "2026-10-18T21:47:27.710Z"
   },
   {
     "name": "awk-mastery.md",
@@ -2192,8 +2246,32 @@
   {
     "name": "cloud-formation.md",
     "path": "Terraform and CF/cloud-formation.md",
-    "size": 18018,
-    "mtime": "2026-10-18T11:40:09.872Z"
+    "size": 24358,
+    "mtime": "2026-10-18T21:38:10.750Z"
+  },
+  {
+    "name": "cloudformation-composition-and-extensibility.md",
+    "path": "Terraform and CF/cloudformation-composition-and-extensibility.md",
+    "size": 23252,
+    "mtime": "2026-10-18T21:41:32.695Z"
+  },
+  {
+    "name": "cloudformation-hands-on-labs.md",
+    "path": "Terraform and CF/cloudformation-hands-on-labs.md",
+    "size": 14931,
+    "mtime": "2026-10-18T21:46:54.215Z"
+  },
+  {
+    "name": "cloudformation-tooling-cicd-and-troubleshooting.md",
+    "path": "Terraform and CF/cloudformation-tooling-cicd-and-troubleshooting.md",
+    "size": 23274,
+    "mtime": "2026-10-18T21:45:34.286Z"
+  },
+  {
+    "name": "cloudformation-updates-rollbacks-and-safety.md",
+    "path": "Terraform and CF/cloudformation-updates-rollbacks-and-safety.md",
+    "size": 19845,
+    "mtime": "2026-10-18T21:40:23.977Z"
   },
   {
     "name": "README.md",
@@ -2384,8 +2462,8 @@
   {
     "name": "terraform.md",
     "path": "Terraform and CF/terraform.md",
-    "size": 22481,
-    "mtime": "2026-10-18T14:21:02.481Z"
+    "size": 22488,
+    "mtime": "2026-10-18T21:47:27.711Z"
   },
   {
     "name": "asterisk-freeswitch-kamailio.md",

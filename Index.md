@@ -107,6 +107,7 @@ Welcome to the centralized index of all notes in this repository. Click any link
 
 | Note | Description |
 |---|---|
+| [☸️ Kubernetes Hub (start here)](Kubernetes/README.md) | Ordered learning path across every Kubernetes note, beginner → expert |
 | [Kubernetes Core](Kubernetes/kubernetes.md) | Pods, Deployments, Services, ConfigMaps, RBAC, namespaces |
 | [K8s Pods Deep Dive](Kubernetes/K-pods.md) | Pod lifecycle, init containers, probes, resource limits |
 | [Kubernetes Networking Deep Dive](Kubernetes/kubernetes-networking-deep-dive.md) | Network model, netns/veth/iptables, CNI & IPAM, packet walks (real IPIP capture), Calico/Cilium/VPC CNI, Service VIP internals (real kube-proxy chains), iptables/IPVS/nftables/eBPF, EndpointSlices, traffic policies, CoreDNS & ndots, Gateway API, NetworkPolicy (lab-tested), egress, EKS/GKE/AKS, MTU, troubleshooting playbook, lab |
@@ -122,6 +123,14 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | [ConfigMaps, Secrets & Storage](Kubernetes/deep-dive/04-storage-config-secrets.md) | Config injection, Secrets, PV/PVC/StorageClass |
 | [Workloads, Rollouts & Scheduling](Kubernetes/deep-dive/05-workloads-rollouts-scheduling.md) | Deployments/StatefulSets/DaemonSets/Jobs, rollouts, affinity, taints |
 | [RBAC, NetworkPolicy & Pod Security](Kubernetes/deep-dive/06-security-rbac-networkpolicy.md) | Roles/bindings, ServiceAccounts, NetworkPolicy, Pod Security Standards |
+| [Architecture & API Internals](Kubernetes/deep-dive/07-architecture-and-api-internals.md) | apiserver request path, etcd storage, authn/authz/admission, APF, SSA and field managers, GC and finalizers, leases, HA |
+| [Scheduling in Depth](Kubernetes/deep-dive/08-scheduling-in-depth.md) | Scheduler plugins, FailedScheduling messages, affinity, taints, topology spread, preemption, gates, eviction, PDB |
+| [Autoscaling](Kubernetes/deep-dive/09-autoscaling.md) | HPA algorithm and behaviour (real run), VPA, KEDA, Cluster Autoscaler vs Karpenter, in-place resize |
+| [Extending Kubernetes](Kubernetes/deep-dive/10-extending-kubernetes.md) | CRDs and CEL, operators, webhooks, ValidatingAdmissionPolicy and MutatingAdmissionPolicy, Kyverno vs Gatekeeper, aggregation |
+| [Cluster Operations](Kubernetes/deep-dive/11-cluster-operations.md) | Static Pods, kubeadm, etcd backup and restore, certificates, upgrades and version skew, kubelet, crictl, audit logs |
+| [Security Hardening](Kubernetes/deep-dive/12-security-hardening.md) | PSA, securityContext, RBAC escalation, SA tokens, workload identity, encryption at rest, supply chain |
+| [Observability & Troubleshooting](Kubernetes/deep-dive/13-observability-and-troubleshooting.md) | Monitoring stack, PromQL, real failure zoo, exit codes, node failure, kubectl debug |
+| [Advanced Workloads & Multi-tenancy](Kubernetes/deep-dive/14-advanced-workloads-and-multitenancy.md) | StatefulSets, Jobs, native sidecars, quotas, GPUs and DRA, Velero, Windows, multi-cluster, cost |
 
 ---
 
@@ -183,7 +192,11 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | [Terraform Environments & CI/CD](Terraform%20and%20CF/terraform-environments-and-cicd.md) | Workspaces vs directories vs Terragrunt, team workflow, GitHub Actions + OIDC, Atlantis, HCP Terraform, secrets, quality gates |
 | [Terraform Production & Troubleshooting](Terraform%20and%20CF/terraform-production-and-troubleshooting.md) | `moved`/`removed`/`import` refactors, zero-downtime patterns, real error → fix table, upgrades, OpenTofu, outage gotchas, checklist |
 | [Terraform Hands-on Labs](Terraform%20and%20CF/terraform-hands-on-labs.md) | 12 verified labs (11 need no cloud account) + capstone |
-| [CloudFormation](Terraform%20and%20CF/cloud-formation.md) | AWS native IaC, stacks, templates, change sets |
+| [CloudFormation: Zero to Mastery (start here)](Terraform%20and%20CF/cloud-formation.md) | How CloudFormation works, every stack status, template sections, parameter types, all intrinsic functions, conditions, Rules, `Fn::ForEach`, dynamic references (templates cfn-lint-verified) |
+| [CloudFormation Updates, Rollbacks & Safety](Terraform%20and%20CF/cloudformation-updates-rollbacks-and-safety.md) | Replacement behaviour, change sets (incl. drift-aware), Deletion/UpdateReplacePolicy, stack policies, termination protection, rollback triggers, UPDATE_ROLLBACK_FAILED recovery, drift, import, stack refactoring |
+| [CloudFormation Composition & Extensibility](Terraform%20and%20CF/cloudformation-composition-and-extensibility.md) | Exports vs SSM vs nested stacks, StackSets, modules, macros, custom resources, registry types, Hooks, cfn-init/cfn-signal/Creation & UpdatePolicy |
+| [CloudFormation Tooling, CI/CD & Troubleshooting](Terraform%20and%20CF/cloudformation-tooling-cicd-and-troubleshooting.md) | cfn-lint and cfn-guard (real runs), SAM, CDK synth analysed, rain, taskcat, IaC generator, GitHub Actions + OIDC, error → fix table, CFN vs TF vs CDK vs Pulumi, migration |
+| [CloudFormation Hands-on Labs](Terraform%20and%20CF/cloudformation-hands-on-labs.md) | 10 sandbox labs: replacement, rollback, export locks, stack policies, drift, import, nested stacks, custom resources, Guard |
 | [Pulumi](Terraform%20and%20CF/pulumi.md) | IaC in real languages (TS/Python/Go), beginner → advanced, vs Terraform, CrossGuard policy, Automation API |
 | [Terraform Sample Project](Terraform%20and%20CF/sample-project.md) | End-to-end Terraform project walkthrough |
 | [Terraform Learn Log](Terraform%20and%20CF/learnlog.md) | Personal notes and learning progress |
@@ -215,7 +228,7 @@ Welcome to the centralized index of all notes in this repository. Click any link
 
 | Note | Description |
 |---|---|
-| [GitOps](GitOps.md) | GitOps principles, Flux, ArgoCD-based workflows |
+| [GitOps](GitOps.md) | OpenGitOps principles, push vs pull, Argo CD and Flux internals (lab-verified on Argo CD v3.5 + Flux), repo layout, promotion, sync waves and hooks, drift/self-heal/prune, ApplicationSets, multi-cluster, secrets, image automation, progressive delivery, security, rollback/DR, troubleshooting, anti-patterns |
 | [ArgoCD](Continuous%20Delivery/ArgoCD/Argo-cd.md) | ArgoCD setup, apps, sync policies, RBAC |
 | [ArgoCD + Helm/Kustomize, RBAC & Multi-Cluster](Continuous%20Delivery/ArgoCD/argo-cd-integration-helm.md) | Deploy Helm charts and Kustomize overlays via ArgoCD, RBAC policies, managing many clusters |
 | [CI/CD Pipeline Project](Project/cicd-pipeline.md) | Real-world pipeline implementation |
