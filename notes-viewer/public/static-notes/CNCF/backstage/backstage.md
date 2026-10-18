@@ -117,6 +117,17 @@ catalog:
 ```
 
 ### Software Templates (Scaffolder)
+
+```mermaid
+flowchart LR
+    DEV([Developer]) -->|fills form| T[Template<br/>template.yaml]
+    T --> F[fetch:template<br/>render skeleton]
+    F --> PUB[publish:github<br/>create repo]
+    PUB --> REG[catalog:register<br/>catalog-info.yaml]
+    REG --> CAT[(Software Catalog)]
+    PUB --> CI[CI pipeline starts]
+```
+
 A template defines a golden path for creating a new service — repo creation, CI wiring, and catalog registration all happen in one guided flow instead of copy-pasting an existing repo and hoping you remembered to change everything.
 ```yaml
 apiVersion: scaffolder.backstage.io/v1beta3

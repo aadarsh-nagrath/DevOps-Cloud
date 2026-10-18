@@ -1,9 +1,21 @@
 Here’s a step-by-step guide for setting up the Terraform backend and provisioning the resources, formatted in Markdown:
 
-```md
 # Terraform Setup Walkthrough
 
 ## 1. Install Terraform
+
+What this project builds:
+
+```mermaid
+flowchart TB
+    U([Users]) --> R53[Route 53 DNS] --> ALB[Application Load Balancer]
+    ALB --> EC1[EC2 web 1]
+    ALB --> EC2[EC2 web 2]
+    EC1 --> RDS[(RDS PostgreSQL)]
+    EC2 --> RDS
+    EC1 --> S3[(S3 bucket)]
+    TF[Terraform] -.->|state| BK[(S3 backend + DynamoDB lock)]
+```
 
 First, install Terraform on your system. Use the following command for **Linux/MacOS** or **Windows**:
 
@@ -267,6 +279,5 @@ terraform destroy
 ## Conclusion
 
 You have successfully provisioned AWS resources using Terraform, including EC2 instances, a load balancer, Route 53 DNS, an S3 bucket, and an RDS instance.
-``` 
 
 This walkthrough covers the entire process of setting up infrastructure with Terraform. Adjust the values according to your environment as needed.

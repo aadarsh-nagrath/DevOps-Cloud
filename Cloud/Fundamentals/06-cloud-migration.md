@@ -5,6 +5,18 @@
 ---
 
 ## 1. Migration strategies — the "7 Rs"
+
+```mermaid
+flowchart TB
+    APP{Each application} -->|unused| RET[Retire]
+    APP -->|not ready / compliance| RTN[Retain]
+    APP -->|move as-is, fast| RH[Rehost]
+    APP -->|VMware estate| RL[Relocate]
+    APP -->|small tweaks, managed DB| RP[Replatform]
+    APP -->|SaaS exists| RPU[Repurchase]
+    APP -->|needs cloud-native scale| RF[Refactor]
+```
+
 | R | What | Effort | Example |
 |---|---|---|---|
 | **Retire** | Decommission unused apps | None | Old reporting tool nobody uses |
@@ -18,6 +30,14 @@
 Choose per application from discovery data: business value, technical fit, dependencies, licensing, compliance, team skills, timeline.
 
 ## 2. Migration phases
+
+```mermaid
+flowchart LR
+    A[Assess<br/>discovery, TCO,<br/>dependency map] --> M[Mobilize<br/>landing zone, skills,<br/>pilot apps]
+    M --> W[Migrate in waves<br/>replicate → test → cut over]
+    W --> O[Optimize<br/>right-size, modernize,<br/>FinOps]
+```
+
 1. **Assess / discover** — inventory servers, apps, dependencies (AWS Application Discovery Service / Migration Evaluator, **Azure Migrate**, GCP Migration Center), utilization for rightsizing, TCO business case, readiness assessment.
 2. **Mobilize / plan** — **landing zone** first (accounts/subscriptions/projects structure, identity/SSO, networking hub-spoke + hybrid connectivity, logging, security guardrails, tagging, budgets) — AWS Control Tower, Azure Landing Zones (Cloud Adoption Framework), GCP Cloud Foundation / Fabric FAST. Define migration waves (group tightly-coupled apps), pilot app, skills training.
 3. **Migrate & modernize** — replicate servers (block-level replication), migrate DBs (DMS with CDC for minimal downtime), data transfer (online or appliance), test in cloud, **cutover** (freeze → final sync → DNS switch → validate), rollback plan.

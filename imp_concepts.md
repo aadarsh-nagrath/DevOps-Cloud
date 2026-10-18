@@ -1,4 +1,20 @@
 ### **1. Continuous Integration (CI)**
+
+How the concepts in this note fit into one delivery loop:
+
+```mermaid
+flowchart LR
+    VCS[Version control] --> CI[CI: build + test]
+    CI --> CD[CD: deliver / deploy]
+    IAC[IaC + config mgmt] --> ENV[Environments]
+    CD --> ENV
+    ENV --> ORCH[Containers + orchestration]
+    ORCH --> OBS[Monitoring + observability]
+    OBS -->|feedback loops, SRE, chaos| VCS
+    SEC[DevSecOps at every stage] -.-> CI
+    SEC -.-> ENV
+```
+
 - Automating code integration into a shared repository multiple times a day.
 - Tools: Jenkins, CircleCI, GitHub Actions, GitLab CI/CD.
 - Key Benefit: Detects and fixes bugs early in the development lifecycle.
@@ -59,6 +75,16 @@
 ---
 
 ### **10. Microservices Architecture**
+
+```mermaid
+flowchart LR
+    C([Client]) --> GW[API gateway]
+    GW --> U[users svc] --> UDB[(users DB)]
+    GW --> O[orders svc] --> ODB[(orders DB)]
+    O -->|event| MQ[[message bus]]
+    MQ --> N[notifications svc]
+```
+
 - Building applications as a collection of loosely coupled services.
 - Benefits: Scalability, faster deployments, and fault isolation.
 
@@ -106,6 +132,15 @@
 ---
 
 ### **18. Site Reliability Engineering (SRE)**
+
+```mermaid
+flowchart LR
+    SLI[SLI<br/>measured: % good requests] --> SLO[SLO<br/>target: 99.9%]
+    SLO --> EB[Error budget<br/>0.1% allowed failure]
+    EB -->|budget left| SHIP[ship features faster]
+    EB -->|budget burned| FREEZE[freeze risky changes,<br/>fix reliability]
+```
+
 - Combining software engineering with IT operations to improve system reliability and scalability.
 - Key Metrics: Service Level Indicators (SLIs), Service Level Objectives (SLOs).
 

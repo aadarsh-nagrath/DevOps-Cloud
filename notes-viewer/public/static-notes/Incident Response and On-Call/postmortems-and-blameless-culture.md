@@ -6,6 +6,16 @@ The blameless postmortem philosophy explained from first principles, what a good
 
 ## 1. The Blameless Postmortem Philosophy
 
+```mermaid
+flowchart LR
+    INC[Incident resolved] --> DRAFT[Draft within 48h<br/>timeline, impact]
+    DRAFT --> RCA[Contributing factors<br/>systems, not people]
+    RCA --> REV[Review meeting]
+    REV --> AI[Action items<br/>owner + due date]
+    AI --> TRACK[Tracked to done]
+    TRACK -.->|fewer repeats| INC
+```
+
 The core insight blameless postmortems are built on: **people don't intentionally cause outages.** An engineer who pushed a bad deploy, fat-fingered a config value, or ran a destructive command against the wrong environment was not being careless in some morally blameworthy sense — they were operating inside a system (tooling, process, review practices, safeguards) that *allowed* that mistake to become a major incident. The thing actually worth fixing is the system that allowed it, not the individual who happened to be the one holding the pager or the keyboard when the gap got exposed.
 
 This is worth explaining clearly because it's genuinely counterintuitive to a lot of people's instincts, especially in organizations that came from a more traditional "find out who's responsible" culture:

@@ -6,6 +6,17 @@ How traffic actually *enters* an Istio mesh from outside the cluster, and how th
 
 ## 1. North-South vs East-West Traffic — the Distinction That Explains Everything Here
 
+```mermaid
+flowchart LR
+    EXT([Internet]) -->|north-south| GW[Istio ingress gateway<br/>Envoy at the edge]
+    subgraph MESH[Mesh]
+        GW --> A[svc A + sidecar]
+        A <-->|east-west, mTLS| B[svc B + sidecar]
+        B <--> C[svc C + sidecar]
+    end
+    C -->|north-south egress| EG[egress gateway] --> API[(external API)]
+```
+
 | | North-South | East-West |
 |---|---|---|
 | Direction | External client → cluster | Service → service, inside the cluster |

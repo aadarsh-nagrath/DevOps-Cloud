@@ -77,6 +77,18 @@ Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4625} -MaxEvents 20      
 - Logs in `C:\inetpub\logs\LogFiles`; 503 usually means a stopped app pool (check its identity password / crash in Event Viewer).
 
 ### Active Directory essentials
+
+```mermaid
+flowchart TB
+    FOR[Forest] --> DOM[Domain: corp.example.com]
+    DOM --> OU1[OU: Servers]
+    DOM --> OU2[OU: Users]
+    OU1 --> GPO[Group Policy Objects<br/>linked to OUs]
+    DOM --> DC1[Domain controller 1<br/>DNS, Kerberos, LDAP]
+    DOM --> DC2[Domain controller 2]
+    DC1 <-->|replication| DC2
+```
+
 Domain controllers provide authentication (Kerberos/NTLM), DNS, and Group Policy. Users, groups, and computers live in OUs. Useful commands: `Get-ADUser jdoe -Properties *`, `Unlock-ADAccount`, `nltest /dsgetdc:corp.local` (find a DC), `whoami /groups`. Many "can't log in" or "service account failing" issues are expired passwords, lockouts, or time skew.
 
 ---
@@ -84,6 +96,18 @@ Domain controllers provide authentication (Kerberos/NTLM), DNS, and Group Policy
 ## 3. Advanced: Windows in a DevOps toolchain
 
 ### Automation
+
+```mermaid
+flowchart LR
+    GIT[(Git)] --> CI[CI pipeline]
+    CI -->|WinRM / SSH| ANS[Ansible win_* modules]
+    CI --> DSC[PowerShell DSC]
+    CI -->|SSM Run Command| SSM[AWS Systems Manager]
+    ANS --> WS[Windows servers]
+    DSC --> WS
+    SSM --> WS
+```
+
 - **PowerShell scripts** with `Set-StrictMode -Version Latest`, `$ErrorActionPreference = 'Stop'`, and `try/catch`, plus Pester for tests.
 - **Ansible for Windows**: connects over **WinRM** (or SSH) and uses `ansible.windows.*` modules (`win_service`, `win_package`, `win_updates`, `win_feature`, `win_copy`, `win_regedit`, `win_shell`).
 ```yaml

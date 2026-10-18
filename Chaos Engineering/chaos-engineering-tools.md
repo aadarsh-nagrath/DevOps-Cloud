@@ -44,6 +44,16 @@ Chaos Monkey's value is its simplicity — it doesn't try to model every fault t
 
 ## 3. Chaos Mesh (CNCF, Kubernetes-native)
 
+```mermaid
+flowchart LR
+    U[kubectl apply PodChaos /<br/>NetworkChaos CR] --> CM[chaos-controller-manager]
+    CM --> D1[chaos-daemon<br/>on node 1]
+    CM --> D2[chaos-daemon<br/>on node 2]
+    D1 -->|kill pod / tc netem delay| P1[target pods<br/>selected by labels]
+    D2 --> P2[target pods]
+    DASH[Chaos Dashboard] --> CM
+```
+
 A CNCF project that defines chaos experiments as Kubernetes Custom Resources (CRDs) — `PodChaos`, `NetworkChaos`, `IOChaos`, `StressChaos`, `KernelChaos`, `TimeChaos`, and more. Because it's CRD-based, experiments are declarative, version-controllable YAML, applied with `kubectl` exactly like any other Kubernetes object.
 
 ### Worked example: `PodChaos` — kill a pod
@@ -214,6 +224,15 @@ The `stopConditions` block is FIS's built-in abort mechanism — bind it to an e
 ---
 
 ## 7. Decision Guide
+
+```mermaid
+flowchart TB
+    Q{Where do you run?} -->|"Kubernetes, want CRDs + UI"| CMESH[Chaos Mesh]
+    Q -->|"Kubernetes, ChaosHub experiments + workflows"| LIT[LitmusChaos]
+    Q -->|"AWS-managed resources: EC2, RDS, EKS"| FIS[AWS FIS]
+    Q -->|"multi-cloud, enterprise, support + safety UI"| GRE[Gremlin]
+    Q -->|"just random instance termination"| MON[Chaos Monkey]
+```
 
 **Simple open-source tool vs managed/commercial:**
 - Choose a simple OSS tool (Chaos Monkey, or hand-rolled scripts) if you only need basic instance-kill testing and don't need fine-grained blast-radius UI controls or organizational safety tooling.

@@ -24,6 +24,16 @@ Toleration allows a pod to say, "Hey, I can handle that taint. Schedule me anywa
 
 ## Taints & Tolerations in Action 🎬
 
+```mermaid
+flowchart LR
+    N1["node-1<br/>taint gpu=true:NoSchedule"]
+    N2["node-2<br/>no taints"]
+    PA["Pod A<br/>no toleration"] -.-x|repelled| N1
+    PA --> N2
+    PB["Pod B<br/>tolerates gpu=true"] --> N1
+    PB -.->|"may ALSO land here:<br/>toleration ≠ attraction"| N2
+```
+
 Here’s a breakdown of the commands to manage taints and tolerations:
 
 ### Tainting a Node:

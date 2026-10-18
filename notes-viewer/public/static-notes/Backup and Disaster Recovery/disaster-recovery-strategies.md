@@ -74,6 +74,18 @@ This is the same RTO/RPO-drives-strategy logic from the [Overview](backup-and-dr
 
 ## 4. Decision Framework — Picking a Tier
 
+```mermaid
+flowchart TB
+    Q{Business impact of downtime?} -->|"hours OK, low cost"| BR[Backup & restore]
+    Q -->|"under ~1h, data loss minutes"| PL[Pilot light]
+    Q -->|"minutes"| WS[Warm standby]
+    Q -->|"near zero, revenue-critical"| AA[Multi-site active-active]
+    BR --> TIER[Assign per service tier,<br/>not one size for everything]
+    PL --> TIER
+    WS --> TIER
+    AA --> TIER
+```
+
 Not every system needs Multi-Site Active-Active, and defaulting everything to the most expensive tier wastes budget that would matter more concentrated on the systems that actually need it. Work through this in order:
 
 1. **Classify business criticality.** What's the actual cost of downtime and data loss for *this specific system* — revenue impact, regulatory exposure, customer trust, safety? Not "how important does the team building it feel it is."

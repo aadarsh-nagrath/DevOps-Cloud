@@ -7,6 +7,16 @@
 - Lets you search logs, build dashboards/visualizations, and manage cluster/index settings, all through a web UI.
 
 ### Core Concepts
+
+```mermaid
+flowchart LR
+    ES[(Elasticsearch indices)] --> DV[Data view<br/>logs-*]
+    DV --> DISC[Discover<br/>search with KQL]
+    DV --> VIS[Lens / visualizations]
+    VIS --> DASH[Dashboards]
+    DISC --> SAVED[Saved searches]
+```
+
 - **Index Pattern / Data View**: tells Kibana which Elasticsearch indices to query (e.g., `logs-*`) and which field is the time field (`@timestamp`).
 - **Discover**: the primary log-search screen — free-text/KQL search + time range picker + field list, similar to `grep` with a UI.
 - **Visualize**: build individual charts (bar, line, pie, data table, metric) from aggregations.

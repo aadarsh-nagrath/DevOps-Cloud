@@ -39,6 +39,15 @@ gcloud pubsub topics publish orders --message='{"id":42}' --ordering-key=custome
 **Dataflow vs Dataproc**: Dataflow = serverless, Beam programming model, best for new streaming/batch pipelines with autoscaling and no cluster ops. Dataproc = you choose cluster config, best for existing Spark/Hadoop code/ecosystem (notebooks, MLlib) and fine control; Dataproc Serverless narrows the gap.
 
 ### Streaming data pipeline: Pub/Sub → Dataflow → BigQuery → Looker
+
+```mermaid
+flowchart LR
+    SRC[Apps / devices] --> PS[Pub/Sub topic] --> DF[Dataflow<br/>Apache Beam streaming]
+    DF --> BQ[(BigQuery)]
+    DF --> GCS[(Cloud Storage<br/>raw archive)]
+    BQ --> LK[Looker dashboards]
+```
+
 1. **Ingest**: producers (apps, IoT via MQTT bridge, Datastream CDC) publish JSON/Avro to **Pub/Sub** (schema enforced, DLQ).
 2. **Process**: **Dataflow** streaming job (Beam) parses, validates (bad records → dead-letter GCS/BigQuery table), enriches (side inputs/lookup), deduplicates (by event ID), applies **event-time windowing** with **watermarks/allowed lateness** for late data, aggregates.
 3. **Store**: write to **BigQuery** (Storage Write API, exactly-once) into **partitioned & clustered** tables; raw copy to GCS (cheap replay/archive, lifecycle to Coldline).

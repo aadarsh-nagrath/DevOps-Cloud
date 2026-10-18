@@ -26,6 +26,22 @@ The core promise of CI: **the main branch should always be in a working, deploya
 
 ## 2. CI vs CD — Three Related but Distinct Terms
 
+```mermaid
+flowchart LR
+    subgraph CI[Continuous Integration]
+        C1[commit] --> C2[build] --> C3[unit + lint] --> C4[artifact]
+    end
+    subgraph CDL[Continuous Delivery]
+        D1[deploy to staging] --> D2[acceptance tests] --> D3{manual approval}
+    end
+    subgraph CDP[Continuous Deployment]
+        P1[auto deploy to prod]
+    end
+    C4 --> D1
+    D3 -->|delivery: a human clicks| PROD[(production)]
+    D2 -.->|deployment: no human gate| P1 --> PROD
+```
+
 | Term | Meaning |
 |---|---|
 | **Continuous Integration (CI)** | Automatically build and test every code change as it's merged |
@@ -101,6 +117,14 @@ matrix:
 ---
 
 ## 6. Caching — Making CI Fast
+
+```mermaid
+flowchart LR
+    K["key = os + hash(package-lock.json)"] --> R{cache hit?}
+    R -->|exact hit| FAST[restore deps → skip install]
+    R -->|"miss: try restore-keys prefix"| PART[partial restore → install the delta]
+    PART --> SAVE[save new cache under key]
+```
 
 Without caching, every single pipeline run reinstalls every dependency from scratch — for a large project, this can dominate total build time.
 

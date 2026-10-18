@@ -6,6 +6,14 @@ A hands-on walkthrough using HAProxy in front of a few real backend servers, so 
 
 ## 1. The Setup
 
+```mermaid
+flowchart LR
+    C([curl loop]) --> LB[nginx LB :8080]
+    LB --> B1[backend-1]
+    LB --> B2[backend-2]
+    LB --> B3[backend-3]
+```
+
 Three simple backend servers (just `netcat`/Python one-liners standing in for real app instances, so you can run this on a laptop with nothing but Docker) behind an HAProxy load balancer.
 
 ```bash

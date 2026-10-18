@@ -124,6 +124,16 @@ docker push image ---> Harbor Core stores manifest ---> (auto or manual) trigger
 | **Harbor Operator** | Kubernetes-native lifecycle management via CRDs — less commonly used than the Helm chart in practice |
 
 ### Replication Example
+
+```mermaid
+flowchart LR
+    CI[CI pushes image] --> H1[(Harbor - primary DC)]
+    H1 -->|scan: Trivy| SCAN{policy:<br/>no Critical CVEs?}
+    SCAN -->|pass| REP[replication rule<br/>push-based, event-driven]
+    REP --> H2[(Harbor - DR / edge site)]
+    SCAN -->|fail| BLK[pull blocked]
+```
+
 ```yaml
 # Conceptual — configured via UI/API, not a raw manifest, but this is the shape:
 name: sync-to-dr-region

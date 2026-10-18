@@ -38,6 +38,19 @@ In a service mesh, this means: `payment-service` doesn't just accept a connectio
 
 ## 3. How Certificate Issuance & Rotation Works (Istio Example)
 
+```mermaid
+sequenceDiagram
+    participant E as Envoy sidecar (pod)
+    participant A as istio-agent
+    participant I as istiod (CA)
+    A->>A: generate private key + CSR
+    A->>I: CSR + ServiceAccount token
+    I->>I: validate token with K8s API
+    I-->>A: cert for spiffe://cluster.local/ns/prod/sa/web (24h)
+    A-->>E: deliver via SDS (key never leaves the pod)
+    Note over A,I: rotated automatically before expiry
+```
+
 This is the part that would be a massive operational burden to do manually per-service — the control plane automates all of it.
 
 ```

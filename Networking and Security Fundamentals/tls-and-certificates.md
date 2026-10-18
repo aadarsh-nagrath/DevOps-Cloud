@@ -29,6 +29,15 @@ An X.509 certificate binds a **public key** to an **identity** (a domain name), 
 - **Signature**: the CA's cryptographic signature over the above, provable against the CA's own public key.
 
 ### The Certificate Chain
+
+```mermaid
+flowchart TB
+    ROOT[Root CA<br/>self-signed, in OS / browser trust store] -->|signs| INT[Intermediate CA]
+    INT -->|signs| LEAF[Leaf cert<br/>CN / SAN: api.example.com]
+    SRV[Server sends leaf + intermediate] -.-> LEAF
+    CL[Client verifies signatures up to a trusted root,<br/>plus expiry, hostname, revocation] -.-> ROOT
+```
+
 ```
 Root CA (self-signed, in OS/browser trust store)
    └── Intermediate CA (signed by Root)
@@ -88,6 +97,19 @@ A cipher suite specifies the algorithms used for each part of the connection, e.
 - **OCSP (Online Certificate Status Protocol)**: client (or server, via **OCSP stapling**) asks the CA in real time "is this specific cert still valid?" — smaller, faster, but a live OCSP query from every client leaks browsing metadata to the CA and adds latency; **OCSP stapling** fixes both by having the server periodically fetch and "staple" a signed, time-stamped OCSP response onto its own handshake.
 
 ### mTLS (Mutual TLS)
+
+```mermaid
+sequenceDiagram
+    participant C as Client service
+    participant S as Server service
+    C->>S: ClientHello
+    S-->>C: ServerHello + server cert + CertificateRequest
+    C->>C: verify server cert against CA
+    C->>S: client cert + proof of key
+    S->>S: verify client cert against CA → identity
+    Note over C,S: both sides authenticated, encrypted channel
+```
+
 Standard TLS only authenticates the **server** to the client. mTLS adds the reverse: the **client also presents a certificate**, and the server verifies it — mutual, cryptographic, two-way identity verification. This is the backbone of zero-trust service-to-service auth in a service mesh — see [Service Mesh Security & mTLS](../Service%20Mesh/security-and-mtls.md) for the full Istio/Envoy implementation, cert rotation via SPIFFE/sidecar injection, and AuthorizationPolicy layered on top.
 
 ---
@@ -95,6 +117,19 @@ Standard TLS only authenticates the **server** to the client. mTLS adds the reve
 ## 3. Advanced
 
 ### ACME & Let's Encrypt (Automated Certificate Issuance)
+
+```mermaid
+sequenceDiagram
+    participant A as ACME client (certbot / cert-manager)
+    participant LE as Let's Encrypt
+    A->>LE: new order for example.com
+    LE-->>A: challenge (HTTP-01 token or DNS-01 TXT)
+    A->>A: publish token at /.well-known/acme-challenge or TXT record
+    LE->>LE: verify from multiple vantage points
+    A->>LE: CSR
+    LE-->>A: certificate (90 days) → renew at ~60
+```
+
 - **ACME (Automatic Certificate Management Environment)**: a protocol for automating certificate issuance/renewal without human interaction — the mechanism behind Let's Encrypt (free, automated, 90-day certs) and now widely supported by paid CAs too.
 - **Domain validation flow (HTTP-01)**: CA gives you a random token → you serve it at `http://yourdomain/.well-known/acme-challenge/<token>` → CA fetches it to prove you control the domain → issues the cert.
 - **DNS-01 challenge**: prove domain control by publishing a specific TXT record instead — the only option for wildcard certs (`*.example.com`) and works even for services with no public HTTP endpoint.

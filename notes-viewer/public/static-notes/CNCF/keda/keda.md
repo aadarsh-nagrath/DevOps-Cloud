@@ -179,6 +179,18 @@ Referenced from a trigger via `authenticationRef.name`. Also supports pod identi
 ## 3. Advanced
 
 ### Scale-to-Zero Mechanics and HTTP Workloads
+
+```mermaid
+stateDiagram-v2
+    [*] --> Zero: no events (replicas = 0)
+    Zero --> Active: KEDA operator sees events > activationThreshold
+    Active --> Scaling: HPA scales 1..N on KEDA external metric
+    Scaling --> Active: load drops
+    Active --> Cooldown: metric at 0
+    Cooldown --> Zero: cooldownPeriod elapsed
+    Cooldown --> Active: events return
+```
+
 - Plain HTTP services can't naturally scale to zero because there's no metric to poll when the deployment has zero pods (no pods = nothing to measure). The **KEDA HTTP Add-on** solves this with a lightweight interceptor proxy sitting in front of the service: it buffers incoming requests, triggers activation (0 -> 1), and forwards the request once a pod is ready — genuinely useful for internal/low-traffic services that shouldn't burn resources idling.
 - For non-HTTP scalers, the source itself (Redis, Kafka, SQS, etc.) exists independently of pod count, so polling at zero replicas is trivial — KEDA operator does the polling, not the workload.
 

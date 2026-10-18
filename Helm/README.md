@@ -18,7 +18,7 @@ The package manager for Kubernetes: charts, templating, releases, and how to run
 
 ## Related notes
 
-- [Argo CD + Helm Integration](../argo-cd-integration-helm.md)
+- [Argo CD + Helm Integration](../Continuous%20Delivery/ArgoCD/argo-cd-integration-helm.md)
 - [CKA Helm resources](../CKA/Resources/Helm/readme.md)
 - Interview questions: [Platform Engineering Deep Dive Q37–42 (Helm)](../Interview%20Questions/33-platform-engineering-deep-dive-qna.md#helm-advanced), [Jenkins, K8s & Helm rounds Q9](../Interview%20Questions/29-jenkins-k8s-helm-interview-rounds-qna.md), [Production scenarios Q07](../Interview%20Questions/28-production-scenarios-rapid-round-qna.md)
 

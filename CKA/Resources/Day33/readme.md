@@ -29,6 +29,13 @@ kubectl apply -f k8s/service.yaml
 
 ## Create Ingress
 
+```mermaid
+flowchart LR
+    C([curl myapp.local]) --> IC[ingress-nginx controller]
+    ING[Ingress<br/>host: myapp.local<br/>path: /] -.-> IC
+    IC --> SVC[Service: ClusterIP] --> POD[Deployment pods]
+```
+
 ```bash
 kubectl apply -f k8s/ingress.yaml
 ```

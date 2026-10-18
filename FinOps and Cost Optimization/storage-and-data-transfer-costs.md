@@ -6,6 +6,14 @@ Storage tiering across AWS/Azure/GCP, the often-overlooked cost of data transfer
 
 ## 1. Storage Tiering
 
+```mermaid
+flowchart LR
+    HOT[Hot<br/>frequent access<br/>$$$ storage, $ retrieval] --> WARM[Infrequent access]
+    WARM --> COLD[Archive<br/>$ storage, $$$ retrieval,<br/>hours to restore]
+    LC[Lifecycle policy<br/>age-based transitions] -.-> WARM
+    LC -.-> COLD
+```
+
 Moving infrequently-accessed data to a cheaper storage tier is one of the **highest-ROI, lowest-effort** cost optimizations available — the data doesn't need to change, the access pattern doesn't need to change, only the storage class does, and it can be fully automated with lifecycle policies.
 
 | Access pattern | AWS S3 | Azure Blob | GCP Cloud Storage | Typical relative cost |

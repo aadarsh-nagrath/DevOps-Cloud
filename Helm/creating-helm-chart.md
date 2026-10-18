@@ -12,6 +12,17 @@ You'll need: a cluster (`kind create cluster` or minikube is fine), `kubectl`, a
 
 ## Step 1: Scaffold
 
+Where this walkthrough is heading:
+
+```mermaid
+flowchart LR
+    S[helm create] --> C[Chart.yaml + values.yaml<br/>+ schema]
+    C --> T[templates: Deployment,<br/>Service, Ingress, HPA, PDB,<br/>migration hook, test]
+    T --> L[helm lint +<br/>helm template + unit tests]
+    L --> P[helm package +<br/>push to OCI registry]
+    P --> I[helm upgrade --install<br/>per environment]
+```
+
 ```bash
 helm create orders
 cd orders
@@ -263,6 +274,19 @@ spec:
 ```
 
 ## Step 8: A pre-upgrade migration hook
+
+```mermaid
+sequenceDiagram
+    participant H as helm upgrade
+    participant K as Cluster
+    H->>K: render chart
+    H->>K: create Job (hook: pre-upgrade, weight -5)
+    K-->>H: Job succeeded (db migrated)
+    H->>K: delete Job (hook-delete-policy: before-hook-creation)
+    H->>K: apply Deployment, Service, ...
+    H->>K: wait for rollout (--wait)
+    Note over H,K: Job fails → upgrade fails → nothing else applied
+```
 
 `templates/migration-job.yaml`:
 ```yaml

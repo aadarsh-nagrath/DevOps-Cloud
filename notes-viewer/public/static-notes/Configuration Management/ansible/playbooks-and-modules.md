@@ -6,6 +6,16 @@ Playbook YAML syntax, tasks, handlers, the most-used built-in modules, condition
 
 ## 1. Playbook Anatomy
 
+```mermaid
+flowchart TB
+    PB[playbook.yml] --> P1[Play 1<br/>hosts: web, become: yes]
+    PB --> P2[Play 2<br/>hosts: db]
+    P1 --> T1[task: apt install nginx]
+    P1 --> T2[task: template nginx.conf<br/>notify: restart nginx]
+    T2 -.->|only if changed| H[handler: restart nginx<br/>runs once at end of play]
+    P2 --> T3[task: postgresql_db]
+```
+
 A playbook is a list of **plays**. Each play maps hosts to tasks.
 
 ```yaml
@@ -329,6 +339,13 @@ Special tags: `always` (always runs unless explicitly skipped), `never` (only ru
 ---
 
 ## 8. Blocks — `block` / `rescue` / `always`
+
+```mermaid
+flowchart LR
+    B[block:<br/>deploy steps] -->|any task fails| R[rescue:<br/>roll back, notify]
+    B -->|success| A[always:<br/>cleanup, re-enable monitoring]
+    R --> A
+```
 
 Groups tasks for shared error handling and shared directives (`when`, `become`, tags applied to the whole block).
 

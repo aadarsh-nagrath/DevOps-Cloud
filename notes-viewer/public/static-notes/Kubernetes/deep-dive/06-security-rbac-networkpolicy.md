@@ -63,6 +63,15 @@ Built-in ClusterRoles: `cluster-admin`, `admin` (namespace admin), `edit`, `view
 ---
 
 ## 4. NetworkPolicy
+
+```mermaid
+flowchart LR
+    FE[frontend pods<br/>app=frontend] -->|allowed: TCP 8080| API[api pods<br/>app=api]
+    API -->|allowed: TCP 5432| DB[db pods<br/>app=db]
+    FE -.-x|denied| DB
+    OTHER[any other pod] -.-x|denied| API
+```
+
 By default **all pods can talk to all pods**. A NetworkPolicy selects pods and, once any policy selects a pod for a direction, that direction becomes **default-deny** except what policies allow (rules are additive/union).
 
 **Requires a CNI that enforces it** (Calico, Cilium, Antrea…). Flannel alone silently ignores NetworkPolicy; the object is accepted anyway.

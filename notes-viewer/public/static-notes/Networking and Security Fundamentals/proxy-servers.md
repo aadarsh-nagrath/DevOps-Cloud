@@ -5,6 +5,17 @@
 ## 1. Beginner
 
 ### What is a proxy?
+
+```mermaid
+flowchart LR
+    subgraph FWD[Forward proxy - acts for CLIENTS]
+        C1[internal clients] --> FP[Squid / corporate proxy] --> NET1((Internet))
+    end
+    subgraph REV[Reverse proxy - acts for SERVERS]
+        NET2((Internet)) --> RP[nginx / HAProxy / Envoy] --> S1[backend servers]
+    end
+```
+
 A proxy is an intermediary that receives a connection or request from a client and makes a separate connection to the destination on the client's behalf.
 
 | Type | Sits in front of | Who configures it | Typical uses | Examples |
@@ -26,6 +37,18 @@ A proxy is an intermediary that receives a connection or request from a client a
 ## 2. Intermediate
 
 ### How HTTPS goes through a forward proxy: `CONNECT`
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant P as Forward proxy
+    participant S as api.example.com:443
+    C->>P: CONNECT api.example.com:443
+    P->>S: open TCP connection
+    P-->>C: 200 Connection established
+    C->>S: TLS handshake + HTTPS (tunnelled, proxy sees only bytes)
+```
+
 For `https://` URLs the client sends `CONNECT api.example.com:443 HTTP/1.1` to the proxy. The proxy opens a TCP tunnel and returns `200 Connection established`, and then the client does TLS **end to end** through the tunnel. The proxy only sees the hostname and the number of bytes, not the content (unless it does TLS interception; see below).
 
 ### Proxy environment variables (Linux, containers, tools)

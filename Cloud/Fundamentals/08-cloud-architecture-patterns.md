@@ -41,11 +41,32 @@ Private subnets for app/DB, NAT for egress, secrets manager, central logging, au
 - CI/CD + IaC, feature flags, per-tenant observability dimensions, cost per tenant.
 
 ### C. Serverless API / event-driven
+
+```mermaid
+flowchart LR
+    C([Client]) --> APIGW[API Gateway] --> FN[Function]
+    FN --> DB[(DynamoDB / Firestore)]
+    FN -->|event| Q[Queue / topic]
+    Q --> W[Worker function] --> S3[(Object storage)]
+```
+
 - **AWS**: API Gateway → Lambda → DynamoDB; S3 events → Lambda; EventBridge for routing; SQS for buffering; Step Functions for orchestration; Cognito auth.
 - **Azure**: API Management → Functions (Flex Consumption) / Container Apps → Cosmos DB; Event Grid; Service Bus; Durable Functions / Logic Apps.
 - **GCP**: API Gateway / Apigee → Cloud Run → Firestore; Eventarc; Pub/Sub; Workflows; Cloud Tasks; Cloud Scheduler.
 
 ### D. Data pipeline (batch + streaming)
+
+```mermaid
+flowchart LR
+    SRC[Apps, IoT, DB CDC] --> ING[Stream: Kinesis / Pub/Sub / Event Hubs]
+    SRC --> BATCH[Batch: files to object storage]
+    ING --> PROC[Processing: Flink / Dataflow / Spark]
+    BATCH --> PROC
+    PROC --> LAKE[(Data lake)]
+    PROC --> DW[(Warehouse)]
+    DW --> BI[BI dashboards / ML]
+```
+
 | Stage | AWS | Azure | GCP |
 |---|---|---|---|
 | Ingest (stream) | Kinesis Data Streams / MSK / Firehose | Event Hubs | **Pub/Sub** |

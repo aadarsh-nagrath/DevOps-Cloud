@@ -48,6 +48,14 @@ The point isn't to block every cost increase — plenty of legitimate work costs
 
 ## 3. Guardrails vs Hard Blocks
 
+```mermaid
+flowchart LR
+    REQ[Engineer launches resource] --> G{Policy check}
+    G -->|"missing tags / huge instance"| WARN[Guardrail: allow + notify,<br/>ticket to owner]
+    G -->|"GPU in sandbox, public bucket"| BLOCK[Hard block: SCP / policy deny]
+    G -->|ok| RUN[created]
+```
+
 Not every cost control needs to be, or should be, a hard block. There's a spectrum, and picking the wrong point on it for a given situation causes real friction:
 
 | Approach | Mechanism | Best for | Trade-off |

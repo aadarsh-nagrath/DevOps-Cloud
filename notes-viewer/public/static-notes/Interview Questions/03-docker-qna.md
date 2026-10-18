@@ -156,3 +156,30 @@ Pin all base images by digest (not just tag, since tags are mutable) in source-c
 
 ### 39. Explain the tradeoffs of running Docker (or any container runtime) in production directly on bare-metal hosts vs. inside VMs, from a defense-in-depth and multi-tenancy perspective.
 Bare-metal containers give you the best raw performance and resource efficiency (no hypervisor tax, no double-scheduling of CPU/memory between hypervisor and container orchestrator), simpler capacity planning, and is common for organizations running their own fleet at scale. Running containers *inside* VMs (the common cloud pattern — e.g. Kubernetes nodes that are themselves cloud VMs) adds a genuine additional isolation boundary: a kernel-level container escape is contained within that VM's blast radius rather than reaching a shared bare-metal host running many customers' or teams' workloads, at the cost of some performance overhead and an extra layer of infrastructure (VM images, hypervisor patching) to manage. Multi-tenant platforms (cloud providers themselves, or internal platforms hosting many independent teams with varying trust levels) almost always choose the VM-wrapped approach specifically for this defense-in-depth reason, even though it's not "necessary" for isolation among fully trusted, single-organization workloads.
+
+### 40. How do you troubleshoot a container that keeps restarting?
+1. **Look at the state and exit code**: `docker ps -a`, then `docker inspect <c> --format '{{.State.ExitCode}} {{.State.OOMKilled}} {{.RestartCount}}'`. Exit codes tell you a lot: `0` = the process finished (the main process isn't long-running, or it daemonized itself into the background); `1` = app error; `125/126/127` = Docker couldn't run it / not executable / command not found; `137` = SIGKILL, usually **OOM**; `139` = segfault; `143` = SIGTERM.
+2. **Read the logs**, including the previous run: `docker logs --tail 100 <c>` (or `kubectl logs <pod> --previous`).
+3. **Common causes**: wrong `CMD`/`ENTRYPOINT` or a missing binary; missing env vars/config/secrets; a dependency (DB, another service) not reachable at startup; port already in use; permission problems (non-root user can't write a volume); memory limit too low (OOMKilled); a failing `HEALTHCHECK` combined with a restart policy.
+4. **Stop the loop and get inside**: `docker update --restart=no <c>`, then run the image with a shell, overriding the entrypoint: `docker run -it --entrypoint sh <image>`, and run the start command by hand to see the failure.
+5. **Check resources and events**: `docker stats`, `docker events`, and `dmesg | grep -i oom` on the host.
+6. **Fix and prevent**: correct the config, add retry/backoff for dependencies instead of crashing, size memory limits from real usage, and use `depends_on` with `condition: service_healthy` in Compose.
+
+### 41. How do you push Docker images to Amazon ECR?
+```bash
+# 1. Create the repository once (enable scan-on-push and immutable tags)
+aws ecr create-repository --repository-name myapp \
+  --image-scanning-configuration scanOnPush=true --image-tag-mutability IMMUTABLE
+
+# 2. Authenticate Docker to the registry (token is valid for 12 hours)
+aws ecr get-login-password --region ap-south-1 | \
+  docker login --username AWS --password-stdin 123456789012.dkr.ecr.ap-south-1.amazonaws.com
+
+# 3. Build and tag with the full registry URI
+docker build -t myapp:1.4.0 .
+docker tag myapp:1.4.0 123456789012.dkr.ecr.ap-south-1.amazonaws.com/myapp:1.4.0
+
+# 4. Push
+docker push 123456789012.dkr.ecr.ap-south-1.amazonaws.com/myapp:1.4.0
+```
+The identity pushing needs IAM permissions `ecr:GetAuthorizationToken` plus `ecr:BatchCheckLayerAvailability`, `ecr:InitiateLayerUpload`, `ecr:UploadLayerPart`, `ecr:CompleteLayerUpload`, `ecr:PutImage` on the repo. In CI, use an **IAM role** (GitHub Actions **OIDC** with `aws-actions/configure-aws-credentials` + `aws-actions/amazon-ecr-login`, or an instance profile on a Jenkins agent) rather than access keys. Tag images with the git SHA, add a **lifecycle policy** to expire old/untagged images, and on EKS the nodes pull through their node IAM role (`AmazonEC2ContainerRegistryReadOnly`).

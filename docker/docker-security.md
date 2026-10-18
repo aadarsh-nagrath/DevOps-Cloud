@@ -334,6 +334,18 @@ docker run \
 
 ## 13. Secure Dockerfile Checklist
 
+Defence in depth: each layer shrinks what a compromised process can do.
+
+```mermaid
+flowchart LR
+    A[Minimal / distroless<br/>base image] --> B[Scanned + signed<br/>image]
+    B --> C[Non-root USER]
+    C --> D[Read-only rootfs]
+    D --> E[cap-drop ALL<br/>+ seccomp / AppArmor]
+    E --> F[CPU / mem / pids limits]
+    F --> G[Segmented networks,<br/>secrets at runtime]
+```
+
 | Check | Why |
 |---|---|
 | Pin base image to a digest or exact version, not `:latest` | Reproducible, avoids surprise upstream changes (see also [docker-more.md](docker-more.md) on `Dockerfile.lock`) |

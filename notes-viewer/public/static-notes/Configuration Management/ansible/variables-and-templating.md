@@ -6,6 +6,17 @@ Variable precedence, group_vars/host_vars, facts, Jinja2 templating deep dive, a
 
 ## 1. Variable Precedence (Highest to Lowest)
 
+```mermaid
+flowchart TB
+    LOW["role defaults/main.yml<br/>(lowest - meant to be overridden)"] --> INV[inventory vars, group_vars/all]
+    INV --> GRP[group_vars/&lt;group&gt;]
+    GRP --> HOST[host_vars/&lt;host&gt;]
+    HOST --> PLAY[play vars, vars_files]
+    PLAY --> ROLEV[role vars/main.yml]
+    ROLEV --> SET[set_fact / register]
+    SET --> EXTRA["-e extra vars<br/>(always win)"]
+```
+
 Ansible merges variables from many sources. When the same variable is defined in more than one place, this order decides which value wins (most authoritative first):
 
 | # | Source | Notes |

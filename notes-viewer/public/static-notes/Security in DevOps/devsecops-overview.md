@@ -32,6 +32,16 @@ The core insight: a vulnerability found in a design review or a pre-commit hook 
 
 ### Security-as-gate vs DevSecOps
 
+```mermaid
+flowchart LR
+    subgraph OLD[Security as a final gate]
+        A1[plan] --> A2[code] --> A3[build] --> A4[test] --> A5[security review<br/>weeks, late, expensive] --> A6[release]
+    end
+    subgraph NEW[DevSecOps - shift left]
+        B1[threat model] --> B2[IDE + pre-commit<br/>secret scan] --> B3[CI: SAST, SCA,<br/>IaC scan] --> B4[image scan + sign] --> B5[admission policy] --> B6[runtime detection]
+    end
+```
+
 | | Security-as-gate (traditional) | DevSecOps |
 |---|---|---|
 | When security is involved | End of the cycle, pre-release | Continuously, every commit/PR/build |

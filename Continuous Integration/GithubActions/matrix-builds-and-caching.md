@@ -6,6 +6,15 @@ Deep dive on `strategy.matrix`, `actions/cache` internals, and passing files bet
 
 ## 1. Matrix Strategy Deep Dive
 
+```mermaid
+flowchart LR
+    M["matrix:<br/>os: [ubuntu, windows]<br/>node: [18, 20]"] --> J1[ubuntu + 18]
+    M --> J2[ubuntu + 20]
+    M --> J3[windows + 18]
+    M --> J4[windows + 20]
+    EX["exclude: windows + 18"] -.-x J3
+```
+
 ```yaml
 jobs:
   test:

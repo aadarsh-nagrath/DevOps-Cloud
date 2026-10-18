@@ -25,6 +25,18 @@ Interview prep: [AWS Q&A (core)](../../Interview%20Questions/07-aws-cloud-qna.md
 - **Global services**: IAM, Route 53, CloudFront, Organizations, WAF for CloudFront.
 
 ## 2. Accounts & organization
+
+```mermaid
+flowchart TB
+    ORG[AWS Organization<br/>management account] --> SEC[OU: Security<br/>log archive, audit]
+    ORG --> INF[OU: Infrastructure<br/>network, shared services]
+    ORG --> WL[OU: Workloads]
+    WL --> DEV[dev account]
+    WL --> STG[staging account]
+    WL --> PRD[prod account]
+    SCP[SCPs - guardrails] -.-> WL
+```
+
 - **AWS account** = billing + security boundary. **Root user**: lock with MFA, no access keys, use only for few tasks (close account, change support plan, some billing).
 - **AWS Organizations**: management account + member accounts in **OUs**; consolidated billing; **SCPs** (max permissions for accounts) and **RCPs** (max permissions on resources); tag policies, backup policies.
 - **Control Tower**: automated **landing zone** (log archive + audit accounts, guardrails/controls, Account Factory).

@@ -27,6 +27,17 @@ CVSS scores 0–10: **Critical 9.0–10, High 7.0–8.9, Medium 4.0–6.9, Low 0
 ## 2. Intermediate
 
 ### Methodology (PTES / OWASP WSTG / NIST SP 800-115)
+
+```mermaid
+flowchart LR
+    S[Scope + rules<br/>of engagement] --> R[Recon]
+    R --> V[Vulnerability<br/>scanning]
+    V --> E[Exploitation<br/>PT only]
+    E --> P[Post-exploitation<br/>impact]
+    P --> REP[Report<br/>CVSS, evidence, fixes]
+    REP --> FIX[Remediate] --> RT[Retest]
+```
+
 1. **Scoping & Rules of Engagement**: targets (IPs, domains, apps), out-of-scope systems, test windows, allowed techniques (no DoS?), contacts, emergency stop, written authorization.
 2. **Reconnaissance**: DNS/subdomains, exposed services, tech fingerprinting, leaked credentials.
 3. **Scanning & enumeration**: ports/services/versions, known CVEs, misconfigurations.

@@ -200,6 +200,16 @@ Treat Kompose's output as a **starting draft**, not a finished manifest set — 
 
 ## 8. CI/CD Patterns for Docker
 
+```mermaid
+flowchart LR
+    G[git push] --> B[build image<br/>with cache]
+    B --> T[test inside container]
+    T --> S[scan: trivy / grype]
+    S --> TAG[tag: git SHA + semver]
+    TAG --> P[push to registry]
+    P --> DEP[deploy by digest<br/>staging → prod]
+```
+
 ### Build-tag-push pipeline (generic shape, any CI system)
 ```yaml
 # Conceptual pipeline stages

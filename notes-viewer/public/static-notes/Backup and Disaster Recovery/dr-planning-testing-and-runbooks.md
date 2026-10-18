@@ -21,6 +21,16 @@ A DR plan is not a one-page diagram — it's an operational document meant to be
 | **Communication templates** | Pre-drafted status update language for stakeholders/customers, so nobody is composing incident comms from scratch while also fixing the problem |
 
 ### Dependency ordering — worked example
+
+```mermaid
+flowchart LR
+    NET[Network + DNS<br/>VPC, VPN, Route 53] --> ID[Identity + secrets<br/>IAM, KMS, Vault]
+    ID --> DATA[Data tier<br/>promote replica / restore]
+    DATA --> APP[Application tier<br/>scale up compute]
+    APP --> EDGE[Traffic cutover<br/>DNS / Global Accelerator]
+    EDGE --> VER[Verify + communicate]
+```
+
 ```
 Restore order for a typical web app stack:
 
@@ -38,6 +48,12 @@ Getting this order wrong under pressure — e.g., cutting DNS over before the ap
 ---
 
 ## 2. DR Testing / Drills
+
+```mermaid
+flowchart LR
+    TT[Tabletop<br/>discussion only<br/>quarterly] --> PART[Component test<br/>restore one DB,<br/>fail one AZ]
+    PART --> FULL[Full failover<br/>real traffic to DR region<br/>yearly]
+```
 
 The same "start small, build confidence" progression that applies to chaos engineering (covered in more depth elsewhere in this repo, in the dedicated Chaos Engineering notes) applies directly to DR testing — you do not go straight to pulling the plug on production as your first test.
 

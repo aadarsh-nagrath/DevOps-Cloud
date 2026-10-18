@@ -20,6 +20,17 @@ Git is a **distributed** version control system — every clone is a full copy o
 `git init` creates a brand-new, empty Git repository in the current directory. `git clone <url>` copies an *existing* remote repository (full history, all branches/tags by default) to your local machine and automatically sets up a remote named `origin` pointing back to it.
 
 ### 3. What are the three main states/areas in Git — working directory, staging area (index), and repository?
+
+```mermaid
+flowchart LR
+    WD[Working directory] -->|git add| ST[Staging area / index]
+    ST -->|git commit| LR[(Local repo .git)]
+    LR -->|git push| RR[(Remote: origin)]
+    RR -->|git fetch| LR
+    LR -->|git checkout / switch| WD
+    RR -->|"git pull = fetch + merge/rebase"| WD
+```
+
 The **working directory** is your actual files on disk that you edit. The **staging area** (a.k.a. the index) is a snapshot-in-progress where `git add` stages the exact changes you intend to include in the next commit. The **repository** (`.git` directory) is where committed history is permanently stored as objects. This three-stage model is why `git add` and `git commit` are separate steps — it lets you build a commit out of only some of your changes.
 
 ### 4. What's the difference between `git add`, `git commit`, and `git push`?
@@ -44,6 +55,19 @@ A branch is simply a movable, lightweight pointer (a 40/64-character reference) 
 The staged version (snapshot at the time of `git add`) and the working directory version diverge — `git status` will show the file as *both* staged and modified. Committing at that point commits only the originally staged version; you'd need to `git add` again to include the newer edits, or use `git commit -a` (which only re-stages *already-tracked, modified* files, not new untracked ones).
 
 ### 11. What's the difference between `git merge` and `git rebase`, at a basic level?
+
+```mermaid
+gitGraph
+    commit id: "A"
+    commit id: "B"
+    branch feature
+    commit id: "F1"
+    commit id: "F2"
+    checkout main
+    commit id: "C"
+    merge feature id: "M (merge commit)"
+```
+
 `git merge` combines two branches' histories by creating a new "merge commit" with two parents, preserving both branches' commit history exactly as it happened. `git rebase` instead replays your branch's commits one by one on top of the target branch's latest commit, producing new commits (with new hashes) and a linear history with no merge commit. Merge preserves true history; rebase rewrites it for a cleaner-looking log.
 
 ### 12. What is a merge conflict, and why does it happen?
@@ -71,6 +95,13 @@ A remote is a named reference to another copy of the repository, usually hosted 
 `git revert <bad-commit-hash>` is the correct tool, not `git reset`. Since the commit is already on a shared branch others may have fetched/pulled, you need a fix that *adds* history rather than rewriting it — `revert` creates a new commit that applies the inverse of the bad commit's changes, then you `git push` that new revert commit normally, same as any other change. This is safe for everyone else's clones (their next `pull` just brings in one more new commit, no conflict/divergence), whereas `git reset --hard HEAD~1` followed by a force-push would rewrite the branch's history out from under anyone who already pulled the bad commit, causing exactly the kind of diverged-history mess covered in the force-push recovery question later in this file — force-pushing a "fix" to a shared branch is a bigger risk than the original bad commit in most real teams, which is precisely why `revert`, not `reset`, is the standard answer here. If the bad commit broke a build/deploy and you need to restore service immediately, reverting and letting the normal pipeline redeploy the reverted state is usually faster and safer than trying to hand-patch the problem forward.
 
 ### 20. What are the differences between `git reset --soft`, `--mixed`, and `--hard`?
+
+```mermaid
+flowchart LR
+    S["--soft<br/>move HEAD only<br/>changes stay staged"] --> M["--mixed (default)<br/>HEAD + index reset<br/>changes stay in files, unstaged"]
+    M --> H["--hard<br/>HEAD + index + working dir<br/>changes GONE (reflog can save you)"]
+```
+
 `--soft` moves the branch pointer only — staged changes and working directory are untouched (all your changes stay staged, ready to re-commit differently). `--mixed` (the default) also resets the staging area to match the target commit, but leaves working directory files alone (changes become unstaged). `--hard` resets *everything* — branch pointer, staging area, and working directory — permanently discarding any uncommitted changes, so it's the one to be careful with.
 
 ### 21. How do you undo the last commit but keep its changes so you can edit and recommit?

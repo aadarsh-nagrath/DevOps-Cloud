@@ -87,6 +87,18 @@ argo submit --watch hello-world.yaml
 ## 2. Intermediate
 
 ### DAG-Based Workflow with Dependencies
+
+```mermaid
+flowchart LR
+    A[checkout] --> B[unit-tests]
+    A --> C[lint]
+    A --> D[build-image]
+    B --> E[integration-tests]
+    D --> E
+    C --> F[publish]
+    E --> F
+```
+
 ```yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow

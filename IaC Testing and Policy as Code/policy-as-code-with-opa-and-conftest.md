@@ -6,6 +6,14 @@ Open Policy Agent explained from first principles, Rego syntax walked through li
 
 ## 1. What OPA Actually Is
 
+```mermaid
+flowchart LR
+    IN[input JSON<br/>plan, manifest, request] --> OPA[OPA engine]
+    POL[Rego policy] --> OPA
+    DATA[(data: allowlists)] --> OPA
+    OPA --> DEC[decision<br/>allow / deny + messages]
+```
+
 **Open Policy Agent (OPA)** is a general-purpose policy engine. It is **not Terraform-specific** and not Kubernetes-specific — it's a standalone tool that evaluates *any* structured data (JSON/YAML) against rules you write, and returns an allow/deny decision (or a list of violation messages).
 
 Things OPA can evaluate policies against, all using the exact same engine:
@@ -118,6 +126,13 @@ If `deny` is a non-empty set, the policy has failed — that's the convention ne
 **Conftest** is a CLI wrapper around OPA that makes it trivial to run Rego policies against config files (Terraform plans, Kubernetes YAML, Dockerfiles, etc.) without writing any custom integration code yourself — no need to write a Go program that calls the OPA library; Conftest handles input parsing and policy loading for you.
 
 ### 3.1 Worked example: gating a Terraform plan in CI
+
+```mermaid
+flowchart LR
+    P[terraform plan -out tf.plan] --> J[terraform show -json] --> C[conftest test plan.json]
+    C -->|deny rules hit| X[CI fails with messages]
+    C -->|clean| A[terraform apply]
+```
 
 ```bash
 # 1. Generate a plan and save it to a binary file
@@ -275,6 +290,13 @@ A common real pattern: use Conftest/Rego for CI-stage Terraform/config checks (w
 ---
 
 ## 6. Shift Left: Why Catch It in CI, Not at Admission, Not in an Incident
+
+```mermaid
+flowchart LR
+    IDE[IDE / pre-commit<br/>cheapest] --> CI[CI: conftest on plan]
+    CI --> ADM[Admission: Gatekeeper / Kyverno<br/>last line before cluster]
+    ADM --> RT[Runtime / audit<br/>most expensive to fix]
+```
 
 The same violation can theoretically be caught at three different points, and the cost/impact of catching it grows by roughly an order of magnitude at each stage:
 

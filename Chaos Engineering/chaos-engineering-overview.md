@@ -71,6 +71,18 @@ This doesn't mean you should skip staging — it's exactly where a chaos enginee
 
 ## 4. The Principles of Chaos Engineering
 
+```mermaid
+flowchart LR
+    SS[Define steady state<br/>business metric, e.g. orders/min] --> H[Hypothesis<br/>it stays steady when X fails]
+    H --> INJ[Inject real-world fault<br/>small blast radius]
+    INJ --> OBS[Observe vs control group]
+    OBS --> D{Steady state held?}
+    D -->|yes| GROW[Confidence ↑<br/>widen blast radius / automate]
+    D -->|no| FIX[Found a weakness<br/>fix it, then rerun]
+    FIX --> H
+    GROW --> H
+```
+
 Conceptually (from [principlesofchaos.org](https://principlesofchaos.org)), a rigorous chaos experiment follows this structure:
 
 1. **Define steady state as a measurable output of the system's normal behavior.** Not "the system feels fine" — a concrete metric like checkout success rate, p99 latency, or requests/sec. If you can't measure steady state, you can't tell if your experiment actually broke anything.

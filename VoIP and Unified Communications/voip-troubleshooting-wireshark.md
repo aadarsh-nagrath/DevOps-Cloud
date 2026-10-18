@@ -71,6 +71,15 @@ It shows every dialog with From/To and state; open one to see the call-flow arro
 
 ## 3. Advanced: symptom → cause → fix playbook
 
+```mermaid
+flowchart TB
+    S{Symptom?} -->|"no audio both ways"| A[SDP IPs / RTP ports blocked<br/>check SG, firewall]
+    S -->|"one-way audio"| B[NAT: private IP in SDP<br/>check c= line, rtpengine]
+    S -->|"call drops at ~30s"| C[ACK never arrives<br/>NAT / Record-Route / TLS]
+    S -->|"choppy audio"| D[jitter, loss: RTP stream<br/>analysis in Wireshark]
+    S -->|"call fails 4xx/5xx"| E[read SIP response code<br/>in sngrep ladder]
+```
+
 | Symptom | What you'll see in the capture | Likely cause | Fix |
 |---|---|---|---|
 | **One-way audio** | RTP only in one direction; SDP `c=` has a private IP | NAT / wrong advertised IP / firewall blocking RTP inbound | Set external media IP, `rtp_symmetric`, `direct_media=no`, open the RTP range in SG/NACL/firewall, use rtpengine |

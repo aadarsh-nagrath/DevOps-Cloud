@@ -6,6 +6,16 @@ What configuration drift is, why it's dangerous, how to detect and prevent it, a
 
 ## 1. What Configuration Drift Actually Is
 
+```mermaid
+flowchart LR
+    GIT[(Code in Git<br/>desired)] --> STATE[(Terraform state<br/>last known)]
+    STATE -.->|console click / hotfix| REAL[(Real cloud<br/>actual)]
+    REAL --> DET[terraform plan -detailed-exitcode<br/>exit 2 = drift]
+    DET --> ACT{decide}
+    ACT -->|revert| APPLY[apply code]
+    ACT -->|keep| UPD[update code to match]
+```
+
 **Drift** is when the real state of infrastructure diverges from what's declared in code. Terraform believes (via its state file) that a resource looks a certain way; the actual cloud resource has been changed to look different — and code and reality disagree.
 
 Common causes:

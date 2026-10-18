@@ -139,6 +139,14 @@ Prefer short-lived, scope-limited credentials (IAM roles, OIDC federation, robot
 
 ## 6. Image Manifests and Multi-Arch Manifest Lists
 
+```mermaid
+flowchart TB
+    TAG["app:1.4.2"] --> IDX[Manifest list / OCI index]
+    IDX -->|linux/amd64| M1[Manifest] --> L1[(layers + config)]
+    IDX -->|linux/arm64| M2[Manifest] --> L2[(layers + config)]
+    PULL([docker pull on a Mac M-series]) -.->|picks arm64| M2
+```
+
 A pulled "image" is really a **manifest** referencing content-addressed layer blobs. For multi-platform images, a **manifest list** (aka "fat manifest" / OCI image index) wraps per-architecture manifests under one tag.
 
 ```bash
@@ -169,6 +177,20 @@ This is why the same `myapp:1.4.0` tag works transparently on both an Intel CI r
 ---
 
 ## 7. Push/Pull Workflow End to End
+
+```mermaid
+sequenceDiagram
+    participant Dev as CI / developer
+    participant R as Registry
+    participant H as Prod host / kubelet
+    Dev->>Dev: docker build -t reg.io/team/app:1.4.2 .
+    Dev->>R: docker login (token)
+    Dev->>R: docker push (uploads only missing layers)
+    R-->>Dev: digest sha256:...
+    H->>R: pull reg.io/team/app@sha256:...
+    R-->>H: manifest, then layers it does not have
+    H->>H: run container
+```
 
 ```bash
 # 1. Build locally, tag for the target registry

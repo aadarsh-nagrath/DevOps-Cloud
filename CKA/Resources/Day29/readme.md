@@ -6,6 +6,15 @@
 
 ### How they are related to each other
 
+```mermaid
+flowchart LR
+    ADMIN([Admin]) -->|creates| PV[PersistentVolume<br/>1Gi, hostPath / EBS]
+    DEV([Developer]) -->|creates| PVC[PVC<br/>request 500Mi RWO]
+    PVC -->|binds to a matching PV| PV
+    POD[Pod] -->|claimName| PVC
+    SC[StorageClass] -.->|or provisions PV dynamically| PV
+```
+
 ![image](https://github.com/user-attachments/assets/dfe93e1e-e5d2-447a-a3da-ee2391b1b73a)
 
 ### Example snippet of non-persistent volume , type:emptydir

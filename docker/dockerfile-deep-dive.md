@@ -27,6 +27,13 @@ Combine related commands into a single `RUN` with `&&` to avoid creating throwaw
 
 ### `CMD` vs `ENTRYPOINT`
 
+```mermaid
+flowchart LR
+    EP["ENTRYPOINT ['python','app.py']"] --> RUN1["docker run img<br/>→ python app.py --port 80"]
+    CMD["CMD ['--port','80']<br/>default args"] --> RUN1
+    OVR["docker run img --port 9000"] -->|replaces CMD only| RUN2["→ python app.py --port 9000"]
+```
+
 | Aspect | `CMD` | `ENTRYPOINT` |
 |---|---|---|
 | Purpose | Default command/args for the container | Fixed executable the container always runs |
@@ -169,6 +176,25 @@ Rule of thumb: if it's not needed inside the image, keep it out of the context. 
 
 ## 3. Layer Caching Mechanics
 
+Each instruction is a cached layer. The first changed layer invalidates **everything after it**, which is why dependency files are copied before source code:
+
+```mermaid
+flowchart TB
+    A["FROM node:20-alpine"] --> B["WORKDIR /app"]
+    B --> C["COPY package*.json ./"]
+    C --> D["RUN npm ci  (slow)"]
+    D --> E["COPY . .  ← source changed"]
+    E --> F["RUN npm run build"]
+    F --> G["CMD ..."]
+    style A fill:#2e7d32,color:#fff
+    style B fill:#2e7d32,color:#fff
+    style C fill:#2e7d32,color:#fff
+    style D fill:#2e7d32,color:#fff
+    style E fill:#c62828,color:#fff
+    style F fill:#c62828,color:#fff
+    style G fill:#c62828,color:#fff
+```
+
 Each instruction that modifies the filesystem (`RUN`, `COPY`, `ADD`) produces a cached layer, keyed by:
 1. The instruction's own content (the command string, or file checksums for `COPY`/`ADD`).
 2. The parent layer's cache key (cache is invalidated for every layer *after* the first change — it's a chain, not independent per-layer checks).
@@ -252,6 +278,19 @@ RUN apt-get update && \
 Because layers are diffs, deleting a file in a *later* layer doesn't shrink an *earlier* layer — the bytes are still in the image, just hidden. Cleanup must happen in the same `RUN` that created the bloat.
 
 ### Multi-stage builds
+
+```mermaid
+flowchart LR
+    subgraph S1[Stage 1: build - large]
+        B1[golang / node image<br/>compilers, dev deps] --> B2[compile / bundle]
+    end
+    subgraph S2[Stage 2: runtime - small]
+        R1[distroless / alpine] --> R2[app binary only]
+    end
+    B2 -->|COPY --from=build| R2
+    R2 --> OUT[(Final image<br/>MBs, not GBs)]
+```
+
 Already covered with a full worked example in [docker-more.md](docker-more.md) — use `FROM ... AS builder` to compile/build in one stage, then `COPY --from=builder` only the needed artifacts into a slim final stage. This is the single biggest lever for cutting image size and attack surface.
 
 ### Base image comparison

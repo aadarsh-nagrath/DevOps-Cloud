@@ -6,6 +6,14 @@ The Incident Commander role, other incident roles, the incident channel/war room
 
 ## 1. The Incident Commander (IC)
 
+```mermaid
+flowchart TB
+    IC[Incident Commander<br/>coordinates, decides, does NOT debug] --> OPS[Ops / tech lead<br/>hands on keyboard]
+    IC --> COMMS[Comms lead<br/>status page, stakeholders]
+    IC --> SCRIBE[Scribe<br/>timeline in channel]
+    OPS --> SME[Subject-matter experts<br/>pulled in as needed]
+```
+
 The **Incident Commander** coordinates the response. This is the single most misunderstood role for people new to formal incident response, so it's worth stating plainly what it is *not*: the IC is **not necessarily the most senior engineer, and not necessarily the person who knows the most about the broken system.**
 
 The IC's job is coordination and communication:
@@ -48,6 +56,23 @@ The incident channel is also usually where the IC, scribe, and communications le
 ---
 
 ## 4. Worked Example: A SEV1 Timeline
+
+```mermaid
+gantt
+    title SEV1 checkout outage (minutes from first alert)
+    dateFormat X
+    axisFormat %s
+    section Detect
+    Burn-rate alert fires, page :0, 2
+    section Respond
+    IC declared, channel opened :2, 5
+    Investigate (recent deploy?) :5, 15
+    section Mitigate
+    Roll back deploy :15, 20
+    Error rate recovers :20, 30
+    section Follow-up
+    Monitor and resolve :30, 45
+```
 
 A fictional but realistic walkthrough — an e-commerce checkout outage caused by a bad deploy — showing roles and communication in action from first alert to resolution.
 

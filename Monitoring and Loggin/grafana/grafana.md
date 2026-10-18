@@ -7,6 +7,18 @@
 - Supports Prometheus, Elasticsearch, Loki, InfluxDB, CloudWatch, MySQL/Postgres, Datadog, and dozens more via plugins.
 
 ### Core Concepts
+
+```mermaid
+flowchart LR
+    DS1[(Prometheus)] --> GR[Grafana]
+    DS2[(Loki)] --> GR
+    DS3[(Tempo)] --> GR
+    DS4[(Elasticsearch / SQL)] --> GR
+    GR --> D[Dashboards<br/>panels + variables]
+    GR --> AL[Unified alerting<br/>contact points]
+    GR --> EX[Explore<br/>ad-hoc queries]
+```
+
 - **Data Source**: connection config to a backend (e.g., a Prometheus server URL).
 - **Dashboard**: a collection of panels arranged on a grid.
 - **Panel**: single visualization (graph, table, gauge, stat, heatmap, logs panel).

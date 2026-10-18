@@ -307,7 +307,7 @@ helm diff upgrade api ./chart -f values-prod.yaml   # (helm-diff plugin) preview
 - Version charts with SemVer, publish them to an OCI registry, and pin chart versions.
 - At scale, let **GitOps** run Helm (Argo CD / Flux). Git becomes the record of what's deployed, and rollback is a `git revert`.
 
-**See also:** [`../argo-cd-integration-helm.md`](../argo-cd-integration-helm.md), [20 Gap-fill](./20-devops-roadmap-gap-fill-qna.md) Q2–Q3, Q9–Q11.
+**See also:** [Argo CD + Helm integration](../Continuous%20Delivery/ArgoCD/argo-cd-integration-helm.md), [20 Gap-fill](./20-devops-roadmap-gap-fill-qna.md) Q2–Q3, Q9–Q11.
 
 ---
 

@@ -215,6 +215,12 @@ package { 'nginx':
 
 ## 5. Chaining Arrows: `->` and `~>`
 
+```mermaid
+flowchart LR
+    P["Package['nginx']"] -->|"-> before"| F["File['/etc/nginx/nginx.conf']"]
+    F -->|"~> notify (refresh on change)"| S["Service['nginx']"]
+```
+
 Chaining arrows are a terser alternative to `before`/`require`/`notify`/`subscribe`, read left-to-right.
 
 | Arrow | Meaning |

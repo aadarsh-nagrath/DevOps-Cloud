@@ -6,6 +6,18 @@ Reusable workflows vs composite actions, a complete end-to-end CI/CD pipeline ex
 
 ## 1. Reusable Workflows (`workflow_call`) vs Composite Actions
 
+```mermaid
+flowchart TB
+    subgraph CALLER[app repo: ci.yml]
+        J[job: uses org/platform/.github/workflows/build.yml@v2]
+    end
+    subgraph REUSE[platform repo: build.yml - on: workflow_call]
+        R1[job: build] --> R2[job: scan] --> R3[job: push]
+    end
+    J -->|inputs + secrets: inherit| REUSE
+    COMP[Composite action<br/>= reusable STEPS inside one job] -.-> R1
+```
+
 Both let you avoid duplicating logic, but they operate at different levels and solve different problems.
 
 | | Composite Action | Reusable Workflow (`workflow_call`) |
@@ -73,6 +85,17 @@ jobs:
 ---
 
 ## 2. Full End-to-End CI/CD Pipeline Example
+
+```mermaid
+flowchart LR
+    PR[PR / push] --> L[lint + test<br/>matrix]
+    L --> B[build + push image<br/>tag: sha]
+    B --> SC[scan: Trivy / CodeQL]
+    SC --> ST[deploy staging<br/>environment: staging]
+    ST --> SM[smoke tests]
+    SM --> AP{environment: production<br/>required reviewers}
+    AP --> PR2[deploy prod]
+```
 
 Lint -> test (matrix) -> build Docker image -> push to registry -> deploy (behind an environment gate). Every stage annotated.
 

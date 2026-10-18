@@ -43,6 +43,22 @@
 **Managed policies examples**: `AdministratorAccess`, **`PowerUserAccess`** (full access to all services **except IAM/Organizations management** — users can't manage users/roles), `ReadOnlyAccess`, `ViewOnlyAccess`, job-function policies.
 
 ### Policy evaluation logic
+
+```mermaid
+flowchart TB
+    S[Request] --> D{Explicit Deny<br/>anywhere?}
+    D -->|yes| DENY[DENY]
+    D -->|no| G{"SCP / RCP, permission boundary,<br/>session policy allow?"}
+    G -->|no| DENY
+    G -->|yes| A{Allow in identity OR<br/>resource policy?}
+    A -->|no| IMP[Implicit DENY]
+    A -->|yes| X{Cross-account?}
+    X -->|no| ALLOW[ALLOW]
+    X -->|yes| BOTH{Allowed on BOTH sides?}
+    BOTH -->|yes| ALLOW
+    BOTH -->|no| IMP
+```
+
 1. Everything starts as **implicit deny**.
 2. Any **explicit Deny** in any applicable policy → **Deny** (always wins).
 3. **SCPs/RCPs** must allow (if present); **permission boundary** must allow; **session policy** must allow.
@@ -54,6 +70,19 @@ Effective permission = intersection of guardrails ∩ union of grants, minus exp
 Global keys: `aws:SourceIp`, `aws:SourceVpce`, `aws:PrincipalOrgID`, `aws:RequestedRegion`, `aws:MultiFactorAuthPresent`, `aws:SecureTransport`, `aws:PrincipalTag/*`, `aws:ResourceTag/*`, `aws:CalledVia`. ABAC = match principal tags to resource tags → fewer policies at scale.
 
 ## 3. STS (Security Token Service)
+
+```mermaid
+sequenceDiagram
+    participant P as Pod / CI job / user
+    participant STS as AWS STS
+    participant S as AWS service (S3)
+    P->>STS: AssumeRole / AssumeRoleWithWebIdentity (OIDC token)
+    STS->>STS: check role trust policy
+    STS-->>P: temp credentials (key, secret, session token, expiry)
+    P->>S: signed request with temp credentials
+    S-->>P: allowed by role's permission policy
+```
+
 | API | Use |
 |---|---|
 | `AssumeRole` | Cross-account access, switching roles, CI/CD into accounts |

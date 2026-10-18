@@ -50,6 +50,14 @@ Now, even if this job's credentials are ever compromised (a leaked token, a supp
 
 ### Blast radius reasoning
 
+```mermaid
+flowchart TB
+    LEAK([Credential leaked]) --> Q{What can it do?}
+    Q -->|"AdministratorAccess, all accounts"| BIG[Whole org compromised]
+    Q -->|"s3:* on all buckets"| MED[All data exposed]
+    Q -->|"s3:GetObject on one bucket,<br/>1h session, one role"| SMALL[One bucket, briefly]
+```
+
 ```
 Scoped credential compromised:            Admin credential compromised:
   attacker can touch ONE bucket             attacker can:
@@ -156,6 +164,19 @@ Historically, a workload needing cloud access (e.g., a Pod reading from S3) was 
 - It's provisioned once and often over-scoped "to avoid future permission errors" — see §2.
 
 ### The modern alternative: workload identity federation
+
+```mermaid
+sequenceDiagram
+    participant Pod as Pod (ServiceAccount app-sa)
+    participant K as EKS OIDC issuer
+    participant STS as AWS STS
+    participant S3 as S3
+    K-->>Pod: projected SA token (JWT, auto-rotated)
+    Pod->>STS: AssumeRoleWithWebIdentity(JWT)
+    STS->>STS: trust policy: sub = system:serviceaccount:prod:app-sa
+    STS-->>Pod: temporary credentials
+    Pod->>S3: GetObject (no static keys in the pod)
+```
 
 Instead of a stored credential, the cloud provider **trusts a signed identity token the platform already issues**, and exchanges it for short-lived, scoped credentials on demand — the workload never holds a long-lived secret at all.
 

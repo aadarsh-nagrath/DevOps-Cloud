@@ -50,6 +50,16 @@ Every architecture diagram should mark where trust changes: public internet → 
 - **East-west**: traffic between internal services (service A → service B). Governed by internal firewall rules/NetworkPolicies, and increasingly by [service mesh mTLS](../Service%20Mesh/security-and-mtls.md) rather than perimeter firewalls alone — see **zero trust** below.
 
 ### Zero Trust (the thread connecting all six files)
+
+```mermaid
+flowchart LR
+    REQ[Every request] --> AUTHN[Who? strong identity<br/>mTLS / OIDC]
+    AUTHN --> AUTHZ[Allowed? least privilege<br/>policy per call]
+    AUTHZ --> ENC[Encrypted in transit]
+    ENC --> LOG[Logged + monitored]
+    LOG -.->|never trust the network location| REQ
+```
+
 Traditional model: "inside the firewall = trusted." Zero trust model: **never trust, always verify** — every request is authenticated and encrypted regardless of network location.
 - DNS: split-horizon/private DNS scopes what's even resolvable internally.
 - TLS: mTLS authenticates *both* sides of every connection, not just the server.

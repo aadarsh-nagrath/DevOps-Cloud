@@ -44,6 +44,19 @@ AWS CloudFormation is a service that helps you model, provision, and manage AWS 
 ## Key Concepts
 
 ### Stacks
+
+```mermaid
+stateDiagram-v2
+    [*] --> CREATE_IN_PROGRESS: create-stack
+    CREATE_IN_PROGRESS --> CREATE_COMPLETE
+    CREATE_IN_PROGRESS --> ROLLBACK_COMPLETE: resource failed
+    CREATE_COMPLETE --> UPDATE_IN_PROGRESS: update / change set executed
+    UPDATE_IN_PROGRESS --> UPDATE_COMPLETE
+    UPDATE_IN_PROGRESS --> UPDATE_ROLLBACK_COMPLETE: failure → automatic rollback
+    UPDATE_COMPLETE --> DELETE_COMPLETE: delete-stack
+    ROLLBACK_COMPLETE --> DELETE_COMPLETE: must delete, then recreate
+```
+
 - A stack is a collection of AWS resources that you can manage as a single unit.
 - Changes to resources in a stack are tracked and managed collectively.
 
@@ -112,6 +125,20 @@ AWS CloudFormation is a service that helps you model, provision, and manage AWS 
 ---
 
 ## Template Anatomy
+
+```mermaid
+flowchart LR
+    T[Template] --> PAR[Parameters<br/>inputs]
+    T --> MAP[Mappings<br/>lookup tables]
+    T --> CON[Conditions]
+    T --> RES[Resources<br/>the only required section]
+    T --> OUT[Outputs<br/>exports for other stacks]
+    PAR --> RES
+    MAP --> RES
+    CON --> RES
+    RES --> OUT
+```
+
 A CloudFormation template typically includes the following sections:
 
 - `AWSTemplateFormatVersion`

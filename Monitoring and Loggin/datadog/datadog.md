@@ -7,6 +7,19 @@
 - Trade-off vs self-hosted stacks (Prometheus/ELK/Grafana): faster setup and unified correlation out of the box, but ongoing cost that scales with hosts/data volume, and vendor lock-in.
 
 ### The Datadog Agent
+
+```mermaid
+flowchart LR
+    subgraph HOST[Host / node]
+        AG[Datadog Agent] --> INT[integrations<br/>nginx, postgres, redis]
+        APP[app + dd-trace] -->|traces :8126| AG
+        APP -->|DogStatsD :8125| AG
+        LOGS[(log files)] --> AG
+    end
+    AG -->|HTTPS| DD[(Datadog SaaS<br/>metrics, logs, APM)]
+    DD --> MON[Monitors → PagerDuty / Slack]
+```
+
 - A single lightweight process installed per host/container/pod that collects metrics, logs, and traces and forwards them to Datadog's backend.
 ```bash
 # Docker

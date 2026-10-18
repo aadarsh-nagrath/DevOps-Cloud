@@ -122,6 +122,16 @@ groups:
 - `for:` requires the condition to be true continuously before firing — avoids flapping/noise.
 
 ### Alertmanager Routing
+
+```mermaid
+flowchart TB
+    ROOT[route: receiver default<br/>group_by alertname, cluster] --> C1{severity = critical?}
+    ROOT --> C2{team = db?}
+    C1 -->|yes| PD[pagerduty-oncall]
+    C2 -->|yes| DBS[slack-db-team]
+    ROOT -->|no match| DEF[slack-general]
+```
+
 ```yaml
 route:
   receiver: default
@@ -163,6 +173,18 @@ groups:
 - Not designed for long-term/durable storage by default — local disk only, no built-in replication.
 
 ### Long-Term Storage & HA: Thanos / Cortex / Mimir
+
+```mermaid
+flowchart LR
+    P1[Prometheus A] -->|sidecar uploads blocks| OBJ[(Object storage<br/>S3 / GCS)]
+    P2[Prometheus B<br/>HA replica] --> OBJ
+    Q[Thanos Query<br/>dedupes A + B] --> P1
+    Q --> P2
+    Q --> SG[Store Gateway] --> OBJ
+    COMP[Compactor<br/>downsampling] --> OBJ
+    GRAF[Grafana] --> Q
+```
+
 - **Problem**: vanilla Prometheus is single-node, limited retention, no global query view across multiple clusters.
 - **Thanos**: sidecar uploads TSDB blocks to object storage (S3/GCS), a Querier provides a unified query across many Prometheus instances + historical data, a Compactor downsamples old data.
 - **Cortex / Grafana Mimir**: horizontally scalable, multi-tenant Prometheus-compatible TSDB, remote-write target.

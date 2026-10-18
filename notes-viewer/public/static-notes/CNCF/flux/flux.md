@@ -94,6 +94,22 @@ spec:
 ## 2. Intermediate
 
 ### The `flux bootstrap` Workflow
+
+```mermaid
+sequenceDiagram
+    participant U as flux bootstrap github
+    participant G as Git repo
+    participant K as Cluster
+    U->>G: create repo / commit flux-system manifests
+    U->>K: install Flux controllers
+    U->>K: create GitRepository + Kustomization (flux-system)
+    loop every interval
+        K->>G: source-controller fetches new commits
+        K->>K: kustomize/helm controllers apply + prune
+    end
+    Note over G,K: From now on, Flux manages itself from Git
+```
+
 Bootstrapping installs Flux's controllers and wires them to a Git repo in one command — and the resulting Flux manifests are themselves committed to that repo, so Flux manages its own installation via GitOps from day one:
 ```bash
 flux bootstrap github \

@@ -10,6 +10,20 @@
 - **Availability Zones**: ≥3 physically separate DCs in AZ-enabled regions. Services are **zonal** (pinned to a zone: VM, disk, IP), **zone-redundant** (spread automatically: ZRS storage, zone-redundant SQL/App Service/AKS control plane), or **non-regional/global** (Entra ID, Front Door, Traffic Manager).
 
 ### Resource hierarchy
+
+```mermaid
+flowchart TB
+    T[Entra tenant] --> RMG[Root management group]
+    RMG --> MG1[MG: Platform]
+    RMG --> MG2[MG: Landing zones]
+    MG2 --> SUB1[Subscription: prod]
+    MG2 --> SUB2[Subscription: dev]
+    SUB1 --> RG1[Resource group: app-prod]
+    RG1 --> R1[VM]
+    RG1 --> R2[Storage account]
+    POL[Policy + RBAC] -.->|inherited downward| MG2
+```
+
 ```
 Microsoft Entra tenant
  └─ Root management group

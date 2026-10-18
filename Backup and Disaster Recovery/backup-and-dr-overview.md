@@ -21,6 +21,13 @@ DR planning treats all of these as instances of the same underlying question: *i
 
 ## 2. Backup vs Disaster Recovery — Related but Distinct
 
+```mermaid
+flowchart LR
+    B[Backup<br/>a COPY of data] --> R[Restore<br/>one DB, one file,<br/>last Tuesday's data]
+    DR[Disaster recovery<br/>a PLAN + infrastructure] --> F[Bring the whole service back<br/>in another AZ / region:<br/>data + compute + network + DNS + people]
+    B -.->|is one input to| DR
+```
+
 These terms get used interchangeably in casual conversation, and that sloppiness causes real outages. They are not the same thing.
 
 | | Backup | Disaster Recovery |

@@ -69,6 +69,18 @@ Both Terraform and Ansible are IaC tools, but they are suited for different task
 ---
 
 ### ** Terraform Workflow**
+
+```mermaid
+flowchart LR
+    W[Write .tf] --> I[terraform init<br/>providers, backend, modules]
+    I --> P[terraform plan<br/>refresh + diff]
+    P --> REV{review plan}
+    REV -->|ok| A[terraform apply]
+    A --> ST[(state file<br/>S3 + DynamoDB lock)]
+    ST -.->|next plan compares against| P
+    A --> D[terraform destroy<br/>when done]
+```
+
 1. **Write Configuration**:
    - Define the desired infrastructure state in `.tf` files.
 
@@ -92,6 +104,16 @@ Both Terraform and Ansible are IaC tools, but they are suited for different task
 ---
 
 ### ** Terraform Architecture**
+
+```mermaid
+flowchart LR
+    CFG[.tf configuration] --> CORE[Terraform Core<br/>builds dependency graph]
+    STATE[(state)] <--> CORE
+    CORE -->|gRPC| P1[AWS provider] --> AWS[(AWS API)]
+    CORE --> P2[Kubernetes provider] --> K8S[(K8s API)]
+    CORE --> P3[GitHub provider] --> GH[(GitHub API)]
+```
+
 1. **Core**:
    - Reads configuration files and the state file.
    - Determines the execution plan and applies changes.

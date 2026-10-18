@@ -422,6 +422,15 @@ Rules that only make sense for `mutate`/`generate` (not `validate`) are typicall
 
 ## 10. Mutate Rules, In Depth
 
+```mermaid
+flowchart LR
+    REQ[Pod create] --> MUT[Mutating webhook<br/>Kyverno mutate rules:<br/>add labels, defaults]
+    MUT --> SCH[schema validation]
+    SCH --> VAL[Validating webhook<br/>Kyverno validate rules]
+    VAL -->|pass| ETCD[(persisted)]
+    VAL -->|fail + Enforce| REJ[rejected]
+```
+
 Mutation runs *before* validation in the admission chain — a common pattern is: mutate a sane default in, then validate that the field is present (which it now always will be, either from the user or from the mutation).
 
 ### 10.1 `patchStrategicMerge` — the common case

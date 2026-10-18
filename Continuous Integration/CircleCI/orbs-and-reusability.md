@@ -6,6 +6,15 @@ What orbs are, how to use popular ones, version pinning, and writing your own re
 
 ## 1. What an Orb Actually Is
 
+```mermaid
+flowchart LR
+    ORB["orb circleci/node@5.2"] --> CMD[commands<br/>reusable step sequences]
+    ORB --> JOB[jobs<br/>prebuilt jobs]
+    ORB --> EXE[executors<br/>prebuilt environments]
+    CFG[your .circleci/config.yml] -->|"orbs: node: circleci/node@5.2"| ORB
+    CFG -->|"node/test"| JOB
+```
+
 An **orb** is a versioned, shareable package of CircleCI config — bundling together **commands**, **jobs**, and **executors** that you reference by name instead of writing from scratch. It's conceptually similar to a GitHub Actions marketplace action, but broader: a single orb can ship multiple reusable jobs, multiple reusable commands, *and* executor definitions together, versioned as one unit — where a GitHub Action is typically one narrow reusable step.
 
 ```yaml

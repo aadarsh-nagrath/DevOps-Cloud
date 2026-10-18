@@ -37,6 +37,21 @@
 ### **Key Concepts**
 
 #### **Push Deployment Model (Traditional CI/CD)**
+
+Push vs pull, side by side:
+
+```mermaid
+flowchart TB
+    subgraph PUSH[Push model - traditional CI/CD]
+        G1[git push] --> CI1[CI pipeline<br/>holds cluster credentials] -->|kubectl / helm apply| K1[(Cluster)]
+    end
+    subgraph PULL[Pull model - GitOps with Argo CD]
+        G2[git push] --> REPO[(Git repo<br/>desired state)]
+        AC[Argo CD inside the cluster] -->|poll / webhook| REPO
+        AC -->|apply + self-heal| K2[(Cluster)]
+    end
+```
+
 1. Code changes are pushed to a GitHub repository.
 2. CI/CD pipeline executes:
    - CI steps: Build and package the application (e.g., `npm run build`, `docker build`).
@@ -55,6 +70,17 @@
    - Applies the required updates to align the cluster's actual state with the desired state.
 
 #### **How Argo CD Works**
+
+```mermaid
+flowchart LR
+    GIT[(Git repo)] --> RS[repo-server<br/>renders Helm / Kustomize / YAML]
+    RS --> AC[application-controller<br/>compares desired vs live]
+    AC <-->|watch + apply| K8S[(Kubernetes API)]
+    API[argocd-server<br/>UI, CLI, SSO, RBAC] --> AC
+    AC -->|Synced / OutOfSync,<br/>Healthy / Degraded| API
+    REDIS[(redis cache)] --- RS
+```
+
 - Uses **Kubernetes custom resources** to define applications.
 - Continuously monitors Git repositories for changes in Kubernetes configuration files.
 - Automatically applies changes to the cluster as necessary.
@@ -62,6 +88,23 @@
 ---
 
 ### **The GitOps Workflow with Argo CD:**
+
+```mermaid
+sequenceDiagram
+    participant Dev
+    participant Git as Config repo
+    participant CI
+    participant Argo as Argo CD
+    participant K as Cluster
+    Dev->>CI: push app code
+    CI->>CI: build, test, push image app:1.4.3
+    CI->>Git: PR: bump image tag to 1.4.3
+    Dev->>Git: review + merge
+    Argo->>Git: detects new commit (poll 3 min / webhook)
+    Argo->>K: sync: apply changed manifests
+    Argo->>K: health checks
+    Note over Argo,K: Someone runs kubectl edit → OutOfSync → selfHeal reverts it
+```
 
 1. **Separation of Concerns:**
    - The **CI pipeline** (handled by Jenkins) builds the application, runs tests, and pushes a new Docker image to a repository.
@@ -305,4 +348,4 @@ By following these steps, you’ll be able to manage your Kubernetes application
 ### **Next Steps**
 1. Explore more about Argo CD’s integration with **Helm** and **Kustomize** for managing complex applications.
 2. Dive deeper into Argo CD's security features, including role-based access control (RBAC) and how to manage multi-cluster environments.
-https://github.com/aadarsh-nagrath/DevOps/blob/7670958d598c5ef2f0bc78f5c48a0e5a17197700/argo-cd-integration-helm/next-steps.md
+Next: [Argo CD with Helm & Kustomize, RBAC and multi-cluster](./argo-cd-integration-helm.md)

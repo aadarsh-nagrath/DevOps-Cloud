@@ -23,6 +23,20 @@ docker network ls --filter driver=bridge
 
 ## 2. Default Bridge vs User-Defined Bridge
 
+```mermaid
+flowchart TB
+    subgraph HOST[Docker host]
+        subgraph NET[user-defined bridge: app-net]
+            WEB[web container] -->|"DNS: http://api:8080"| API[api container]
+            API -->|"db:5432"| DB[(db container)]
+        end
+        DNS{{embedded DNS 127.0.0.11}} -.-> NET
+        BR[docker0 / br-xxxx + NAT]
+    end
+    NET --- BR
+    U([Browser]) -->|"-p 8080:80 → host:8080"| BR --> WEB
+```
+
 Docker creates a default network named `bridge` automatically. Containers not attached to any other network land here unless told otherwise.
 
 | Aspect | Default `bridge` | User-defined bridge |
@@ -54,6 +68,13 @@ This DNS-based discovery — not needing to hardcode IPs, which are not stable a
 ---
 
 ## 4. Exposing and Publishing Ports
+
+```mermaid
+flowchart LR
+    C([Client]) -->|host-ip:8080| IPT[iptables DNAT<br/>docker-proxy]
+    IPT -->|172.18.0.5:80| CT[Container port 80]
+    EXP["EXPOSE 80 in Dockerfile"] -.->|documentation only<br/>publishes nothing| CT
+```
 
 | Mechanism | Effect |
 |---|---|

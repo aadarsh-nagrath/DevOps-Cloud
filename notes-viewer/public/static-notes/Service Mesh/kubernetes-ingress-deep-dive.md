@@ -121,6 +121,21 @@ This is the modern replacement for the older `kubernetes.io/ingress.class` annot
 
 ## 4. TLS Termination
 
+```mermaid
+sequenceDiagram
+    participant CM as cert-manager
+    participant LE as Let's Encrypt
+    participant ING as Ingress + Secret
+    participant IC as Ingress controller
+    CM->>LE: order cert for app.example.com (ACME)
+    LE-->>CM: HTTP-01 / DNS-01 challenge
+    CM->>CM: solve challenge
+    LE-->>CM: signed certificate
+    CM->>ING: write tls Secret
+    IC->>ING: load cert, terminate HTTPS
+    Note over CM: renews ~30 days before expiry
+```
+
 ```yaml
 spec:
   tls:
@@ -216,6 +231,15 @@ helm install ingress-nginx ingress-nginx/ingress-nginx \
 ---
 
 ## 7. The Gateway API — Ingress's Modern Successor
+
+```mermaid
+flowchart TB
+    GC[GatewayClass<br/>infra provider: istio, envoy-gateway] --> GW[Gateway<br/>listeners, ports, TLS<br/>owned by platform team]
+    GW --> R1[HTTPRoute<br/>team A: /api]
+    GW --> R2[HTTPRoute<br/>team B: /shop]
+    R1 --> S1[Service api]
+    R2 --> S2[Service shop]
+```
 
 `networking.k8s.io/v1` Ingress has known, fundamental limitations: no native support for multiple protocols beyond HTTP(S), no first-class traffic splitting/weighting, no clean way to express which team/namespace owns which routing rules, and heavy reliance on non-portable annotations (§5). The **Gateway API** (a separate, newer Kubernetes API group, `gateway.networking.k8s.io`) was built to replace it long-term, with a deliberately more expressive and portable design.
 

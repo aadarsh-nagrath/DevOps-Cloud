@@ -52,6 +52,14 @@ This folder focuses on runbooks in the context of everyday production incident r
 
 ## 4. Reducing On-Call Burden as an Explicit Goal
 
+```mermaid
+flowchart LR
+    PAGE[Every page] --> REV{Was it actionable<br/>and urgent?}
+    REV -->|no| TUNE[tune / delete alert]
+    REV -->|yes, manual fix| AUTO[runbook → automation]
+    REV -->|yes, recurring| FIX[engineering fix<br/>in sprint]
+```
+
 **Every recurring page for the same known issue is a bug or a gap that should get fixed — not something to just get used to tolerating.** A team that pages three times a week for the same flaky dependency and treats that as "just how it is" has normalized a problem that's actively degrading on-call sustainability, and normalizing it removes the pressure to ever actually fix it.
 
 The practical fix: **track pages per week/month as a real, trackable health metric for the system** — the same way you'd track error rate or latency. A rising or persistently high page volume, especially concentrated on a small number of repeat-offender alerts, is a direct, quantifiable signal that reliability work needs to be prioritized, and it's a much more concrete argument for that prioritization than "on-call has felt rough lately." Some teams review this explicitly on a regular cadence (e.g., "pages this month, broken down by alert, with repeat offenders flagged") specifically so recurring pain doesn't stay anecdotal and easy to deprioritize against feature work — the same dynamic as the follow-up-item trap described in [postmortems-and-blameless-culture.md](postmortems-and-blameless-culture.md) §3, just applied to on-call load instead of postmortem action items specifically.

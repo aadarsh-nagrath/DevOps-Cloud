@@ -15,6 +15,20 @@ helm template demo ./web --debug                          # show the broken YAML
 
 ## 1. Values and built-in objects
 
+How a chart becomes manifests:
+
+```mermaid
+flowchart LR
+    V1[values.yaml<br/>chart defaults] --> M{merge<br/>later wins}
+    V2["-f values-prod.yaml"] --> M
+    V3["--set image.tag=1.4.3"] --> M
+    M --> VAL[.Values]
+    BI[.Release .Chart<br/>.Capabilities .Files] --> ENG
+    VAL --> ENG[Go template engine<br/>+ Sprig functions]
+    T[templates/*.yaml<br/>_helpers.tpl] --> ENG
+    ENG --> OUT[rendered YAML<br/>helm template shows it]
+```
+
 ```yaml
 replicas: {{ .Values.replicaCount }}
 namespace: {{ .Release.Namespace }}
@@ -160,6 +174,14 @@ Inside `range`, `.` is the current element, so again use `$` for root values: `{
 ---
 
 ## 5. Named templates: `define`, `include`, `template`
+
+```mermaid
+flowchart LR
+    H["_helpers.tpl<br/>define 'app.labels'"] -->|include 'app.labels' .| D[deployment.yaml]
+    H --> S[service.yaml]
+    H --> I[ingress.yaml]
+    D --> NIN["| nindent 4<br/>fix indentation"]
+```
 
 ```yaml
 {{/* templates/_helpers.tpl */}}

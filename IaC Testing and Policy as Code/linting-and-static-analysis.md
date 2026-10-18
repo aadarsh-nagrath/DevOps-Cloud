@@ -137,6 +137,13 @@ ingress {
 
 ## 4. Where These Run in a Pipeline
 
+```mermaid
+flowchart LR
+    PC[pre-commit<br/>fmt, tflint] --> PR[PR pipeline<br/>validate, Checkov / Trivy,<br/>plan + conftest]
+    PR --> CMT[plan posted<br/>as PR comment]
+    CMT --> MERGE[merge] --> APPLY[apply]
+```
+
 | Stage | Tools | Purpose |
 |---|---|---|
 | **Pre-commit hook** | `terraform fmt -check`, `terraform validate`, TFLint | Instant local feedback — catches issues before they even reach a PR, cheapest possible point to fail |

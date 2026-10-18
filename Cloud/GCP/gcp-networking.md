@@ -39,6 +39,18 @@ gcloud compute firewall-rules create allow-iap-ssh --network=prod-vpc --rules=tc
 | **Serverless VPC Access / Direct VPC egress** | Let Cloud Run/functions reach VPC resources |
 
 ## 4. Connecting VPCs: Peering vs Shared VPC
+
+```mermaid
+flowchart TB
+    subgraph SV[Shared VPC]
+        HOST[Host project<br/>owns VPC, subnets, firewall] --> SP1[Service project A<br/>VMs / GKE use host subnets]
+        HOST --> SP2[Service project B]
+    end
+    subgraph PR[VPC Network Peering]
+        V1[VPC 1] <-->|not transitive| V2[VPC 2]
+    end
+```
+
 | | **VPC Network Peering** | **Shared VPC** |
 |---|---|---|
 | Model | Two separate VPCs (same/different orgs) exchange routes | **Host project** owns one VPC; **service projects** deploy resources into its subnets |

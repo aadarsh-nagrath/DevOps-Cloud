@@ -194,6 +194,13 @@ static_resources:
 
 ## 5. Choosing One
 
+```mermaid
+flowchart TB
+    Q{Need?} -->|"web server + reverse proxy + LB in one"| NG[NGINX]
+    Q -->|"very high-perf TCP/HTTP LB, rich stats"| HA[HAProxy]
+    Q -->|"dynamic config via API, gRPC, mesh data plane"| EN[Envoy]
+```
+
 - **NGINX**: you're already using it as a web server/static content server, need a simple reverse proxy/LB, or want the most widely documented option for a straightforward setup.
 - **HAProxy**: load balancing is the primary job (not bundled with anything else), you need precise control over timeouts/queueing/health-check behavior, or you're fronting non-HTTP TCP services.
 - **Envoy**: you're in a dynamic/cloud-native environment (Kubernetes, frequent autoscaling), you need a service mesh, or you need sophisticated traffic management (circuit breaking, retries, outlier detection) beyond what NGINX/HAProxy offer out of the box. See [kubernetes-load-balancing.md](kubernetes-load-balancing.md) for how Envoy shows up as the default data plane in Istio.

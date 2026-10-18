@@ -2,32 +2,32 @@
   {
     "name": "backup-and-dr-overview.md",
     "path": "Backup and Disaster Recovery/backup-and-dr-overview.md",
-    "size": 9772,
-    "mtime": "2026-08-18T09:49:14.266Z"
+    "size": 10088,
+    "mtime": "2026-10-18T11:40:09.913Z"
   },
   {
     "name": "backup-strategies-and-types.md",
     "path": "Backup and Disaster Recovery/backup-strategies-and-types.md",
-    "size": 14023,
-    "mtime": "2026-08-18T09:49:14.267Z"
+    "size": 14756,
+    "mtime": "2026-10-18T11:40:09.915Z"
   },
   {
     "name": "database-backup-and-restore.md",
     "path": "Backup and Disaster Recovery/database-backup-and-restore.md",
-    "size": 14057,
-    "mtime": "2026-08-18T09:49:14.267Z"
+    "size": 14412,
+    "mtime": "2026-10-18T11:40:09.915Z"
   },
   {
     "name": "disaster-recovery-strategies.md",
     "path": "Backup and Disaster Recovery/disaster-recovery-strategies.md",
-    "size": 10229,
-    "mtime": "2026-08-18T09:49:14.267Z"
+    "size": 10629,
+    "mtime": "2026-10-18T11:40:09.915Z"
   },
   {
     "name": "dr-planning-testing-and-runbooks.md",
     "path": "Backup and Disaster Recovery/dr-planning-testing-and-runbooks.md",
-    "size": 13672,
-    "mtime": "2026-08-18T09:49:14.267Z"
+    "size": 14225,
+    "mtime": "2026-10-18T11:40:09.916Z"
   },
   {
     "name": "#40daysofkubernetes.md",
@@ -164,8 +164,8 @@
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day11/readme.md",
-    "size": 1571,
-    "mtime": "2026-08-18T09:49:14.270Z"
+    "size": 2145,
+    "mtime": "2026-10-18T11:40:09.953Z"
   },
   {
     "name": "task.md",
@@ -176,8 +176,8 @@
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day12/readme.md",
-    "size": 1399,
-    "mtime": "2026-08-18T09:49:14.271Z"
+    "size": 1596,
+    "mtime": "2026-10-18T11:40:09.953Z"
   },
   {
     "name": "task.md",
@@ -188,8 +188,8 @@
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day13/readme.md",
-    "size": 3500,
-    "mtime": "2026-08-18T09:49:14.271Z"
+    "size": 3833,
+    "mtime": "2026-10-18T11:40:37.539Z"
   },
   {
     "name": "task.md",
@@ -200,8 +200,8 @@
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day14/readme.md",
-    "size": 2443,
-    "mtime": "2026-08-18T09:49:14.271Z"
+    "size": 2730,
+    "mtime": "2026-10-18T11:40:09.954Z"
   },
   {
     "name": "task.md",
@@ -212,8 +212,8 @@
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day15/readme.md",
-    "size": 2280,
-    "mtime": "2026-08-18T09:49:14.271Z"
+    "size": 2607,
+    "mtime": "2026-10-18T11:40:09.954Z"
   },
   {
     "name": "task.md",
@@ -236,8 +236,8 @@
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day17/readme.md",
-    "size": 1856,
-    "mtime": "2026-08-18T09:49:14.272Z"
+    "size": 2172,
+    "mtime": "2026-10-18T11:40:09.955Z"
   },
   {
     "name": "task.md",
@@ -284,8 +284,8 @@
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day21/readme.md",
-    "size": 1295,
-    "mtime": "2026-08-18T09:49:14.273Z"
+    "size": 1736,
+    "mtime": "2026-10-18T11:40:09.955Z"
   },
   {
     "name": "task.md",
@@ -296,8 +296,8 @@
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day22/readme.md",
-    "size": 2467,
-    "mtime": "2026-08-18T09:49:14.273Z"
+    "size": 2797,
+    "mtime": "2026-10-18T11:40:09.955Z"
   },
   {
     "name": "task.md",
@@ -308,8 +308,8 @@
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day23/readme.md",
-    "size": 1743,
-    "mtime": "2026-08-18T09:49:14.273Z"
+    "size": 2029,
+    "mtime": "2026-10-18T11:40:09.955Z"
   },
   {
     "name": "task.md",
@@ -356,8 +356,8 @@
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day27/readme.md",
-    "size": 7452,
-    "mtime": "2026-08-18T09:49:14.274Z"
+    "size": 7865,
+    "mtime": "2026-10-18T11:40:09.955Z"
   },
   {
     "name": "task.md",
@@ -380,8 +380,8 @@
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day29/readme.md",
-    "size": 1638,
-    "mtime": "2026-08-18T09:49:14.275Z"
+    "size": 1939,
+    "mtime": "2026-10-18T11:40:09.956Z"
   },
   {
     "name": "task.md",
@@ -428,8 +428,8 @@
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day33/readme.md",
-    "size": 640,
-    "mtime": "2026-08-18T09:49:14.277Z"
+    "size": 847,
+    "mtime": "2026-10-18T11:40:09.956Z"
   },
   {
     "name": "task.md",
@@ -440,8 +440,8 @@
   {
     "name": "readme.md",
     "path": "CKA/Resources/Day34/readme.md",
-    "size": 2023,
-    "mtime": "2026-08-18T09:49:14.277Z"
+    "size": 2506,
+    "mtime": "2026-10-18T11:40:09.956Z"
   },
   {
     "name": "task.md",
@@ -554,8 +554,8 @@
   {
     "name": "argo-workflows.md",
     "path": "CNCF/argo-workflows/argo-workflows.md",
-    "size": 15231,
-    "mtime": "2026-09-28T10:44:07.364Z"
+    "size": 15414,
+    "mtime": "2026-10-18T11:40:09.676Z"
   },
   {
     "name": "local-setup.md",
@@ -566,8 +566,8 @@
   {
     "name": "backstage.md",
     "path": "CNCF/backstage/backstage.md",
-    "size": 13069,
-    "mtime": "2026-09-28T10:42:36.965Z"
+    "size": 13387,
+    "mtime": "2026-10-18T11:40:09.677Z"
   },
   {
     "name": "local-setup.md",
@@ -578,8 +578,8 @@
   {
     "name": "cilium.md",
     "path": "CNCF/cilium/cilium.md",
-    "size": 15199,
-    "mtime": "2026-09-28T10:42:43.442Z"
+    "size": 15533,
+    "mtime": "2026-10-18T11:40:09.678Z"
   },
   {
     "name": "local-setup.md",
@@ -614,8 +614,8 @@
   {
     "name": "crossplane.md",
     "path": "CNCF/crossplane/crossplane.md",
-    "size": 15351,
-    "mtime": "2026-09-28T10:42:35.930Z"
+    "size": 15936,
+    "mtime": "2026-10-18T11:40:09.674Z"
   },
   {
     "name": "local-setup.md",
@@ -638,8 +638,8 @@
   {
     "name": "etcd.md",
     "path": "CNCF/etcd/etcd.md",
-    "size": 15070,
-    "mtime": "2026-09-28T10:41:08.699Z"
+    "size": 15857,
+    "mtime": "2026-10-18T11:40:09.671Z"
   },
   {
     "name": "local-setup.md",
@@ -650,8 +650,8 @@
   {
     "name": "falco.md",
     "path": "CNCF/falco/falco.md",
-    "size": 14031,
-    "mtime": "2026-09-28T10:44:10.566Z"
+    "size": 14398,
+    "mtime": "2026-10-18T11:40:09.679Z"
   },
   {
     "name": "local-setup.md",
@@ -662,8 +662,8 @@
   {
     "name": "flux.md",
     "path": "CNCF/flux/flux.md",
-    "size": 14447,
-    "mtime": "2026-09-28T10:42:17.760Z"
+    "size": 14936,
+    "mtime": "2026-10-18T11:40:09.674Z"
   },
   {
     "name": "local-setup.md",
@@ -674,8 +674,8 @@
   {
     "name": "harbor.md",
     "path": "CNCF/harbor/harbor.md",
-    "size": 14542,
-    "mtime": "2026-09-28T10:40:53.890Z"
+    "size": 14835,
+    "mtime": "2026-10-18T11:40:09.679Z"
   },
   {
     "name": "local-setup.md",
@@ -686,8 +686,8 @@
   {
     "name": "jaeger.md",
     "path": "CNCF/jaeger/jaeger.md",
-    "size": 24302,
-    "mtime": "2026-09-28T11:34:20.837Z"
+    "size": 24878,
+    "mtime": "2026-10-18T11:40:09.677Z"
   },
   {
     "name": "local-setup.md",
@@ -698,8 +698,8 @@
   {
     "name": "keda.md",
     "path": "CNCF/keda/keda.md",
-    "size": 14407,
-    "mtime": "2026-09-28T10:42:34.883Z"
+    "size": 14773,
+    "mtime": "2026-10-18T11:40:09.674Z"
   },
   {
     "name": "local-setup.md",
@@ -710,8 +710,8 @@
   {
     "name": "longhorn.md",
     "path": "CNCF/longhorn/longhorn.md",
-    "size": 14645,
-    "mtime": "2026-09-28T10:44:17.747Z"
+    "size": 14976,
+    "mtime": "2026-10-18T11:40:09.673Z"
   },
   {
     "name": "local-setup.md",
@@ -722,8 +722,8 @@
   {
     "name": "nats.md",
     "path": "CNCF/nats/nats.md",
-    "size": 13172,
-    "mtime": "2026-09-28T10:43:33.599Z"
+    "size": 13609,
+    "mtime": "2026-10-18T11:40:09.675Z"
   },
   {
     "name": "local-setup.md",
@@ -746,8 +746,8 @@
   {
     "name": "rook.md",
     "path": "CNCF/rook/rook.md",
-    "size": 14028,
-    "mtime": "2026-09-28T10:42:44.025Z"
+    "size": 14354,
+    "mtime": "2026-10-18T11:40:09.678Z"
   },
   {
     "name": "local-setup.md",
@@ -758,8 +758,8 @@
   {
     "name": "spire.md",
     "path": "CNCF/spire/spire.md",
-    "size": 17746,
-    "mtime": "2026-09-28T10:41:10.972Z"
+    "size": 18374,
+    "mtime": "2026-10-18T11:40:09.672Z"
   },
   {
     "name": "local-setup.md",
@@ -782,20 +782,20 @@
   {
     "name": "chaos-engineering-in-production-simulation.md",
     "path": "Chaos Engineering/chaos-engineering-in-production-simulation.md",
-    "size": 11297,
-    "mtime": "2026-08-18T09:49:14.280Z"
+    "size": 11586,
+    "mtime": "2026-10-18T11:40:09.913Z"
   },
   {
     "name": "chaos-engineering-overview.md",
     "path": "Chaos Engineering/chaos-engineering-overview.md",
-    "size": 11167,
-    "mtime": "2026-08-18T09:49:14.281Z"
+    "size": 11608,
+    "mtime": "2026-10-18T11:40:09.911Z"
   },
   {
     "name": "chaos-engineering-tools.md",
     "path": "Chaos Engineering/chaos-engineering-tools.md",
-    "size": 11798,
-    "mtime": "2026-08-18T09:49:14.281Z"
+    "size": 12512,
+    "mtime": "2026-10-18T11:40:09.912Z"
   },
   {
     "name": "designing-chaos-experiments.md",
@@ -806,20 +806,98 @@
   {
     "name": "game-days-and-organizational-practice.md",
     "path": "Chaos Engineering/game-days-and-organizational-practice.md",
-    "size": 9583,
-    "mtime": "2026-08-18T09:49:14.281Z"
+    "size": 10163,
+    "mtime": "2026-10-18T11:40:09.912Z"
+  },
+  {
+    "name": "aws-compute.md",
+    "path": "Cloud/AWS/aws-compute.md",
+    "size": 11152,
+    "mtime": "2026-10-18T11:40:09.713Z"
+  },
+  {
+    "name": "aws-databases.md",
+    "path": "Cloud/AWS/aws-databases.md",
+    "size": 7430,
+    "mtime": "2026-10-14T06:05:24.578Z"
+  },
+  {
+    "name": "aws-devops-iac-monitoring.md",
+    "path": "Cloud/AWS/aws-devops-iac-monitoring.md",
+    "size": 7933,
+    "mtime": "2026-10-14T06:06:27.965Z"
+  },
+  {
+    "name": "aws-iam-and-security.md",
+    "path": "Cloud/AWS/aws-iam-and-security.md",
+    "size": 10121,
+    "mtime": "2026-10-18T11:40:09.712Z"
+  },
+  {
+    "name": "aws-integration-analytics-ai.md",
+    "path": "Cloud/AWS/aws-integration-analytics-ai.md",
+    "size": 6449,
+    "mtime": "2026-10-14T06:06:29.004Z"
+  },
+  {
+    "name": "aws-networking.md",
+    "path": "Cloud/AWS/aws-networking.md",
+    "size": 9709,
+    "mtime": "2026-10-18T11:40:09.712Z"
+  },
+  {
+    "name": "aws-storage.md",
+    "path": "Cloud/AWS/aws-storage.md",
+    "size": 9133,
+    "mtime": "2026-10-18T11:40:09.713Z"
   },
   {
     "name": "aws.md",
     "path": "Cloud/AWS/aws.md",
-    "size": 5238,
-    "mtime": "2026-08-18T09:49:14.282Z"
+    "size": 6701,
+    "mtime": "2026-10-18T11:40:09.714Z"
+  },
+  {
+    "name": "azure-compute.md",
+    "path": "Cloud/AZURE/azure-compute.md",
+    "size": 7539,
+    "mtime": "2026-10-14T06:08:09.408Z"
+  },
+  {
+    "name": "azure-core-and-governance.md",
+    "path": "Cloud/AZURE/azure-core-and-governance.md",
+    "size": 8371,
+    "mtime": "2026-10-18T11:40:09.714Z"
+  },
+  {
+    "name": "azure-identity-and-security.md",
+    "path": "Cloud/AZURE/azure-identity-and-security.md",
+    "size": 9677,
+    "mtime": "2026-10-18T11:40:09.714Z"
+  },
+  {
+    "name": "azure-monitoring-devops-and-dr.md",
+    "path": "Cloud/AZURE/azure-monitoring-devops-and-dr.md",
+    "size": 7139,
+    "mtime": "2026-10-18T11:40:09.716Z"
+  },
+  {
+    "name": "azure-networking.md",
+    "path": "Cloud/AZURE/azure-networking.md",
+    "size": 8489,
+    "mtime": "2026-10-18T11:40:09.715Z"
+  },
+  {
+    "name": "azure-storage-and-databases.md",
+    "path": "Cloud/AZURE/azure-storage-and-databases.md",
+    "size": 8626,
+    "mtime": "2026-10-18T11:40:09.715Z"
   },
   {
     "name": "azure.md",
     "path": "Cloud/AZURE/azure.md",
-    "size": 8653,
-    "mtime": "2026-08-18T09:49:14.282Z"
+    "size": 10290,
+    "mtime": "2026-10-14T06:10:20.366Z"
   },
   {
     "name": "Cloud-Networking-for-DevOps.md",
@@ -828,16 +906,100 @@
     "mtime": "2026-08-18T09:49:14.282Z"
   },
   {
+    "name": "01-cloud-computing-fundamentals.md",
+    "path": "Cloud/Fundamentals/01-cloud-computing-fundamentals.md",
+    "size": 17618,
+    "mtime": "2026-10-18T11:40:09.708Z"
+  },
+  {
+    "name": "02-cloud-storage-and-databases.md",
+    "path": "Cloud/Fundamentals/02-cloud-storage-and-databases.md",
+    "size": 8869,
+    "mtime": "2026-10-18T11:40:09.708Z"
+  },
+  {
+    "name": "03-cloud-security-and-iam.md",
+    "path": "Cloud/Fundamentals/03-cloud-security-and-iam.md",
+    "size": 11375,
+    "mtime": "2026-10-18T11:40:09.709Z"
+  },
+  {
+    "name": "04-high-availability-dr-backup.md",
+    "path": "Cloud/Fundamentals/04-high-availability-dr-backup.md",
+    "size": 6216,
+    "mtime": "2026-10-18T11:40:09.710Z"
+  },
+  {
+    "name": "05-cloud-cost-optimization.md",
+    "path": "Cloud/Fundamentals/05-cloud-cost-optimization.md",
+    "size": 3537,
+    "mtime": "2026-10-14T06:01:41.226Z"
+  },
+  {
+    "name": "06-cloud-migration.md",
+    "path": "Cloud/Fundamentals/06-cloud-migration.md",
+    "size": 5185,
+    "mtime": "2026-10-18T11:40:09.711Z"
+  },
+  {
+    "name": "07-cloud-observability.md",
+    "path": "Cloud/Fundamentals/07-cloud-observability.md",
+    "size": 3811,
+    "mtime": "2026-10-14T06:01:43.291Z"
+  },
+  {
+    "name": "08-cloud-architecture-patterns.md",
+    "path": "Cloud/Fundamentals/08-cloud-architecture-patterns.md",
+    "size": 7240,
+    "mtime": "2026-10-18T11:40:09.711Z"
+  },
+  {
+    "name": "gcp-compute.md",
+    "path": "Cloud/GCP/gcp-compute.md",
+    "size": 11446,
+    "mtime": "2026-10-18T11:40:09.718Z"
+  },
+  {
+    "name": "gcp-data-devops-and-operations.md",
+    "path": "Cloud/GCP/gcp-data-devops-and-operations.md",
+    "size": 12711,
+    "mtime": "2026-10-18T11:40:09.717Z"
+  },
+  {
+    "name": "gcp-iam-and-security.md",
+    "path": "Cloud/GCP/gcp-iam-and-security.md",
+    "size": 11514,
+    "mtime": "2026-10-18T11:40:09.716Z"
+  },
+  {
+    "name": "gcp-networking.md",
+    "path": "Cloud/GCP/gcp-networking.md",
+    "size": 10821,
+    "mtime": "2026-10-18T11:40:09.717Z"
+  },
+  {
+    "name": "gcp-storage-and-databases.md",
+    "path": "Cloud/GCP/gcp-storage-and-databases.md",
+    "size": 10727,
+    "mtime": "2026-10-14T06:12:31.614Z"
+  },
+  {
     "name": "gcp.md",
     "path": "Cloud/GCP/gcp.md",
-    "size": 10530,
-    "mtime": "2026-08-18T09:49:14.283Z"
+    "size": 12048,
+    "mtime": "2026-10-14T06:10:20.366Z"
+  },
+  {
+    "name": "README.md",
+    "path": "Cloud/README.md",
+    "size": 14933,
+    "mtime": "2026-10-14T06:15:00.390Z"
   },
   {
     "name": "advanced-and-production-patterns.md",
     "path": "Configuration Management/ansible/advanced-and-production-patterns.md",
-    "size": 12186,
-    "mtime": "2026-08-18T09:49:14.283Z"
+    "size": 12796,
+    "mtime": "2026-10-18T11:40:09.924Z"
   },
   {
     "name": "ansible.md",
@@ -854,8 +1016,8 @@
   {
     "name": "playbooks-and-modules.md",
     "path": "Configuration Management/ansible/playbooks-and-modules.md",
-    "size": 13912,
-    "mtime": "2026-08-18T09:49:14.283Z"
+    "size": 14455,
+    "mtime": "2026-10-18T11:40:09.923Z"
   },
   {
     "name": "roles-and-collections.md",
@@ -872,14 +1034,14 @@
   {
     "name": "variables-and-templating.md",
     "path": "Configuration Management/ansible/variables-and-templating.md",
-    "size": 10192,
-    "mtime": "2026-08-18T09:49:14.284Z"
+    "size": 10587,
+    "mtime": "2026-10-18T11:40:09.923Z"
   },
   {
     "name": "vault-and-security.md",
     "path": "Configuration Management/ansible/vault-and-security.md",
-    "size": 9214,
-    "mtime": "2026-08-18T09:49:14.284Z"
+    "size": 9533,
+    "mtime": "2026-10-18T11:40:09.924Z"
   },
   {
     "name": "advanced-and-production-patterns.md",
@@ -890,8 +1052,8 @@
   {
     "name": "attributes-and-templates.md",
     "path": "Configuration Management/chef/attributes-and-templates.md",
-    "size": 9509,
-    "mtime": "2026-08-18T09:49:14.285Z"
+    "size": 9721,
+    "mtime": "2026-10-18T11:40:09.925Z"
   },
   {
     "name": "chef.md",
@@ -914,8 +1076,8 @@
   {
     "name": "testing-and-dev-workflow.md",
     "path": "Configuration Management/chef/testing-and-dev-workflow.md",
-    "size": 8437,
-    "mtime": "2026-08-18T09:49:14.286Z"
+    "size": 8871,
+    "mtime": "2026-10-18T11:40:09.925Z"
   },
   {
     "name": "advanced-and-production-patterns.md",
@@ -932,20 +1094,20 @@
   {
     "name": "hiera-and-data.md",
     "path": "Configuration Management/puppet/hiera-and-data.md",
-    "size": 10199,
-    "mtime": "2026-08-18T09:49:14.287Z"
+    "size": 10538,
+    "mtime": "2026-10-18T11:40:09.926Z"
   },
   {
     "name": "manifests-and-resources.md",
     "path": "Configuration Management/puppet/manifests-and-resources.md",
-    "size": 11672,
-    "mtime": "2026-08-18T09:49:14.287Z"
+    "size": 11844,
+    "mtime": "2026-10-18T11:40:09.926Z"
   },
   {
     "name": "nodes-environments-and-roles-profiles.md",
     "path": "Configuration Management/puppet/nodes-environments-and-roles-profiles.md",
-    "size": 11063,
-    "mtime": "2026-08-18T09:49:14.287Z"
+    "size": 11357,
+    "mtime": "2026-10-18T11:40:09.926Z"
   },
   {
     "name": "puppet.md",
@@ -962,8 +1124,14 @@
   {
     "name": "Argo-cd.md",
     "path": "Continuous Delivery/ArgoCD/Argo-cd.md",
-    "size": 16175,
-    "mtime": "2026-08-18T09:49:14.288Z"
+    "size": 17498,
+    "mtime": "2026-10-18T11:40:09.754Z"
+  },
+  {
+    "name": "argo-cd-integration-helm.md",
+    "path": "Continuous Delivery/ArgoCD/argo-cd-integration-helm.md",
+    "size": 9045,
+    "mtime": "2026-10-18T11:40:09.755Z"
   },
   {
     "name": "local-setup.md",
@@ -974,8 +1142,8 @@
   {
     "name": "caching-parallelism-and-workflows.md",
     "path": "Continuous Integration/CircleCI/caching-parallelism-and-workflows.md",
-    "size": 9452,
-    "mtime": "2026-08-18T09:49:14.288Z"
+    "size": 9662,
+    "mtime": "2026-10-18T11:40:09.751Z"
   },
   {
     "name": "circleci.md",
@@ -986,14 +1154,14 @@
   {
     "name": "config-syntax-and-pipelines.md",
     "path": "Continuous Integration/CircleCI/config-syntax-and-pipelines.md",
-    "size": 9697,
-    "mtime": "2026-08-18T09:49:14.288Z"
+    "size": 9972,
+    "mtime": "2026-10-18T11:40:09.752Z"
   },
   {
     "name": "contexts-security-and-cicd-patterns.md",
     "path": "Continuous Integration/CircleCI/contexts-security-and-cicd-patterns.md",
-    "size": 11138,
-    "mtime": "2026-08-18T09:49:14.289Z"
+    "size": 11379,
+    "mtime": "2026-10-18T11:40:09.752Z"
   },
   {
     "name": "executors-and-environments.md",
@@ -1004,8 +1172,8 @@
   {
     "name": "orbs-and-reusability.md",
     "path": "Continuous Integration/CircleCI/orbs-and-reusability.md",
-    "size": 8616,
-    "mtime": "2026-08-18T09:49:14.289Z"
+    "size": 8922,
+    "mtime": "2026-10-18T11:40:09.753Z"
   },
   {
     "name": "actions-and-marketplace.md",
@@ -1016,44 +1184,44 @@
   {
     "name": "github-actions.md",
     "path": "Continuous Integration/GithubActions/github-actions.md",
-    "size": 7883,
-    "mtime": "2026-08-18T09:49:14.290Z"
+    "size": 8287,
+    "mtime": "2026-10-18T11:40:09.749Z"
   },
   {
     "name": "matrix-builds-and-caching.md",
     "path": "Continuous Integration/GithubActions/matrix-builds-and-caching.md",
-    "size": 9328,
-    "mtime": "2026-08-18T09:49:14.290Z"
+    "size": 9559,
+    "mtime": "2026-10-18T11:40:09.750Z"
   },
   {
     "name": "reusable-workflows-and-cicd-patterns.md",
     "path": "Continuous Integration/GithubActions/reusable-workflows-and-cicd-patterns.md",
-    "size": 13099,
-    "mtime": "2026-08-18T09:49:14.290Z"
+    "size": 13814,
+    "mtime": "2026-10-18T11:40:09.751Z"
   },
   {
     "name": "secrets-and-security.md",
     "path": "Continuous Integration/GithubActions/secrets-and-security.md",
-    "size": 12447,
-    "mtime": "2026-08-18T09:49:14.290Z"
+    "size": 12938,
+    "mtime": "2026-10-18T11:40:09.750Z"
   },
   {
     "name": "workflow-syntax-and-triggers.md",
     "path": "Continuous Integration/GithubActions/workflow-syntax-and-triggers.md",
-    "size": 14642,
-    "mtime": "2026-08-18T09:49:14.290Z"
+    "size": 15237,
+    "mtime": "2026-10-18T11:40:09.749Z"
   },
   {
     "name": "jenkins.md",
     "path": "Continuous Integration/Jenkins/jenkins.md",
-    "size": 19038,
-    "mtime": "2026-08-18T09:49:14.291Z"
+    "size": 19995,
+    "mtime": "2026-10-18T11:40:09.748Z"
   },
   {
     "name": "ci-fundamentals.md",
     "path": "Continuous Integration/ci-fundamentals.md",
-    "size": 11103,
-    "mtime": "2026-08-18T09:49:14.291Z"
+    "size": 11855,
+    "mtime": "2026-10-18T11:40:09.747Z"
   },
   {
     "name": "blue-green-deployment.md",
@@ -1064,14 +1232,14 @@
   {
     "name": "canary-deployment.md",
     "path": "Deployment/Canary Deployment/canary-deployment.md",
-    "size": 8489,
-    "mtime": "2026-08-18T09:49:14.291Z"
+    "size": 9169,
+    "mtime": "2026-10-18T11:40:09.786Z"
   },
   {
     "name": "ab-testing-deployment.md",
     "path": "Deployment/ab-testing-deployment.md",
-    "size": 5818,
-    "mtime": "2026-08-18T09:49:14.292Z"
+    "size": 6388,
+    "mtime": "2026-10-18T11:40:09.787Z"
   },
   {
     "name": "deployment-anti-patterns-and-checklist.md",
@@ -1082,8 +1250,8 @@
   {
     "name": "deployment-strategies.md",
     "path": "Deployment/deployment-strategies.md",
-    "size": 6834,
-    "mtime": "2026-08-18T09:49:14.292Z"
+    "size": 7719,
+    "mtime": "2026-10-18T11:40:09.786Z"
   },
   {
     "name": "feature-flags-and-progressive-delivery.md",
@@ -1118,8 +1286,8 @@
   {
     "name": "docker-compose.md",
     "path": "Docker/docker-compose.md",
-    "size": 14402,
-    "mtime": "2026-08-18T09:49:14.313Z"
+    "size": 14994,
+    "mtime": "2026-10-18T11:40:09.606Z"
   },
   {
     "name": "docker-more.md",
@@ -1130,68 +1298,68 @@
   {
     "name": "docker-networking.md",
     "path": "Docker/docker-networking.md",
-    "size": 8246,
-    "mtime": "2026-08-18T09:49:14.314Z"
+    "size": 8897,
+    "mtime": "2026-10-18T11:40:09.605Z"
   },
   {
     "name": "docker-production-and-orchestration.md",
     "path": "Docker/docker-production-and-orchestration.md",
-    "size": 15489,
-    "mtime": "2026-08-18T09:49:14.314Z"
+    "size": 15758,
+    "mtime": "2026-10-18T11:40:09.608Z"
   },
   {
     "name": "docker-registries-and-distribution.md",
     "path": "Docker/docker-registries-and-distribution.md",
-    "size": 12282,
-    "mtime": "2026-08-18T09:49:14.314Z"
+    "size": 12994,
+    "mtime": "2026-10-18T11:40:09.607Z"
   },
   {
     "name": "docker-security.md",
     "path": "Docker/docker-security.md",
-    "size": 17660,
-    "mtime": "2026-08-18T09:49:14.314Z"
+    "size": 18040,
+    "mtime": "2026-10-18T11:40:09.607Z"
   },
   {
     "name": "docker-storage-and-volumes.md",
     "path": "Docker/docker-storage-and-volumes.md",
-    "size": 7797,
-    "mtime": "2026-08-18T09:49:14.314Z"
+    "size": 8153,
+    "mtime": "2026-10-18T11:40:09.605Z"
   },
   {
     "name": "docker-swarm.md",
     "path": "Docker/docker-swarm.md",
-    "size": 14778,
-    "mtime": "2026-08-18T09:49:14.314Z"
+    "size": 15259,
+    "mtime": "2026-10-18T11:40:09.608Z"
   },
   {
     "name": "docker.md",
     "path": "Docker/docker.md",
-    "size": 11895,
-    "mtime": "2026-08-18T09:49:14.315Z"
+    "size": 11270,
+    "mtime": "2026-10-18T11:40:09.593Z"
   },
   {
     "name": "dockerfile-deep-dive.md",
     "path": "Docker/dockerfile-deep-dive.md",
-    "size": 15608,
-    "mtime": "2026-08-18T09:49:14.315Z"
+    "size": 16900,
+    "mtime": "2026-10-18T11:40:09.601Z"
   },
   {
     "name": "compute-cost-optimization.md",
     "path": "FinOps and Cost Optimization/compute-cost-optimization.md",
-    "size": 11482,
-    "mtime": "2026-08-18T09:49:14.293Z"
+    "size": 11822,
+    "mtime": "2026-10-18T11:40:09.917Z"
   },
   {
     "name": "cost-visibility-and-allocation.md",
     "path": "FinOps and Cost Optimization/cost-visibility-and-allocation.md",
-    "size": 10731,
-    "mtime": "2026-08-18T09:49:14.293Z"
+    "size": 11371,
+    "mtime": "2026-10-18T11:40:09.917Z"
   },
   {
     "name": "finops-culture-and-governance.md",
     "path": "FinOps and Cost Optimization/finops-culture-and-governance.md",
-    "size": 9987,
-    "mtime": "2026-08-18T09:49:14.293Z"
+    "size": 10274,
+    "mtime": "2026-10-18T11:40:09.916Z"
   },
   {
     "name": "finops-overview.md",
@@ -1202,62 +1370,122 @@
   {
     "name": "storage-and-data-transfer-costs.md",
     "path": "FinOps and Cost Optimization/storage-and-data-transfer-costs.md",
-    "size": 9603,
-    "mtime": "2026-08-18T09:49:14.294Z"
+    "size": 9878,
+    "mtime": "2026-10-18T11:40:09.918Z"
   },
   {
     "name": "GitOps.md",
     "path": "GitOps.md",
-    "size": 4705,
-    "mtime": "2026-08-18T09:49:14.294Z"
+    "size": 5228,
+    "mtime": "2026-10-18T11:40:09.755Z"
+  },
+  {
+    "name": "README.md",
+    "path": "Helm/README.md",
+    "size": 4051,
+    "mtime": "2026-10-18T11:02:07.166Z"
+  },
+  {
+    "name": "advanced-helm.md",
+    "path": "Helm/advanced-helm.md",
+    "size": 17776,
+    "mtime": "2026-10-18T09:55:51.375Z"
+  },
+  {
+    "name": "chart-structure.md",
+    "path": "Helm/chart-structure.md",
+    "size": 18355,
+    "mtime": "2026-10-18T09:54:18.449Z"
+  },
+  {
+    "name": "creating-helm-chart.md",
+    "path": "Helm/creating-helm-chart.md",
+    "size": 15984,
+    "mtime": "2026-10-18T11:40:09.797Z"
+  },
+  {
+    "name": "helm-commands.md",
+    "path": "Helm/helm-commands.md",
+    "size": 15518,
+    "mtime": "2026-10-18T09:53:44.658Z"
+  },
+  {
+    "name": "helm-eg.md",
+    "path": "Helm/helm-eg.md",
+    "size": 9499,
+    "mtime": "2026-10-18T11:40:09.798Z"
+  },
+  {
+    "name": "helm-in-production.md",
+    "path": "Helm/helm-in-production.md",
+    "size": 14959,
+    "mtime": "2026-10-18T11:02:07.167Z"
+  },
+  {
+    "name": "helm-vs-kustomize.md",
+    "path": "Helm/helm-vs-kustomize.md",
+    "size": 7355,
+    "mtime": "2026-10-18T09:58:15.166Z"
+  },
+  {
+    "name": "helm.md",
+    "path": "Helm/helm.md",
+    "size": 13134,
+    "mtime": "2026-10-18T09:53:44.659Z"
+  },
+  {
+    "name": "templating.md",
+    "path": "Helm/templating.md",
+    "size": 15302,
+    "mtime": "2026-10-18T11:40:09.796Z"
   },
   {
     "name": "drift-detection-and-continuous-validation.md",
     "path": "IaC Testing and Policy as Code/drift-detection-and-continuous-validation.md",
-    "size": 8995,
-    "mtime": "2026-08-18T09:49:14.294Z"
+    "size": 9349,
+    "mtime": "2026-10-18T11:40:09.877Z"
   },
   {
     "name": "iac-testing-overview.md",
     "path": "IaC Testing and Policy as Code/iac-testing-overview.md",
-    "size": 7228,
-    "mtime": "2026-09-05T08:26:29.098Z"
+    "size": 7557,
+    "mtime": "2026-10-18T11:40:09.874Z"
   },
   {
     "name": "kyverno.md",
     "path": "IaC Testing and Policy as Code/kyverno.md",
-    "size": 50825,
-    "mtime": "2026-09-05T08:25:08.750Z"
+    "size": 51127,
+    "mtime": "2026-10-18T11:40:09.878Z"
   },
   {
     "name": "linting-and-static-analysis.md",
     "path": "IaC Testing and Policy as Code/linting-and-static-analysis.md",
-    "size": 6355,
-    "mtime": "2026-08-18T09:49:14.295Z"
+    "size": 6578,
+    "mtime": "2026-10-18T11:40:09.876Z"
   },
   {
     "name": "policy-as-code-with-opa-and-conftest.md",
     "path": "IaC Testing and Policy as Code/policy-as-code-with-opa-and-conftest.md",
-    "size": 13876,
-    "mtime": "2026-09-05T08:26:06.219Z"
+    "size": 14535,
+    "mtime": "2026-10-18T11:40:09.875Z"
   },
   {
     "name": "terraform-testing-frameworks.md",
     "path": "IaC Testing and Policy as Code/terraform-testing-frameworks.md",
-    "size": 9769,
-    "mtime": "2026-08-18T09:49:14.295Z"
+    "size": 10064,
+    "mtime": "2026-10-18T11:40:09.876Z"
   },
   {
     "name": "detection-and-alerting.md",
     "path": "Incident Response and On-Call/detection-and-alerting.md",
-    "size": 10345,
-    "mtime": "2026-08-18T09:49:14.296Z"
+    "size": 10826,
+    "mtime": "2026-10-18T11:40:09.879Z"
   },
   {
     "name": "incident-command-and-response.md",
     "path": "Incident Response and On-Call/incident-command-and-response.md",
-    "size": 9881,
-    "mtime": "2026-08-18T09:49:14.296Z"
+    "size": 10604,
+    "mtime": "2026-10-18T11:40:09.879Z"
   },
   {
     "name": "incident-response-overview.md",
@@ -1268,20 +1496,20 @@
   {
     "name": "on-call-practices-and-sustainability.md",
     "path": "Incident Response and On-Call/on-call-practices-and-sustainability.md",
-    "size": 9053,
-    "mtime": "2026-08-18T09:49:14.296Z"
+    "size": 9309,
+    "mtime": "2026-10-18T11:40:09.880Z"
   },
   {
     "name": "postmortems-and-blameless-culture.md",
     "path": "Incident Response and On-Call/postmortems-and-blameless-culture.md",
-    "size": 11489,
-    "mtime": "2026-08-18T09:49:14.296Z"
+    "size": 11808,
+    "mtime": "2026-10-18T11:40:09.880Z"
   },
   {
     "name": "Index.md",
     "path": "Index.md",
-    "size": 28195,
-    "mtime": "2026-10-13T02:00:41.015Z"
+    "size": 42985,
+    "mtime": "2026-10-18T11:03:01.497Z"
   },
   {
     "name": "01-linux-and-scripting-qna.md",
@@ -1292,38 +1520,38 @@
   {
     "name": "02-git-version-control-qna.md",
     "path": "Interview Questions/02-git-version-control-qna.md",
-    "size": 30914,
-    "mtime": "2026-10-06T19:36:40.459Z"
+    "size": 32890,
+    "mtime": "2026-10-18T11:40:09.983Z"
   },
   {
     "name": "03-docker-qna.md",
     "path": "Interview Questions/03-docker-qna.md",
-    "size": 28682,
-    "mtime": "2026-10-06T19:34:31.215Z"
+    "size": 31513,
+    "mtime": "2026-10-13T10:03:48.688Z"
   },
   {
     "name": "04-kubernetes-qna.md",
     "path": "Interview Questions/04-kubernetes-qna.md",
-    "size": 69457,
-    "mtime": "2026-10-13T01:58:23.658Z"
+    "size": 71241,
+    "mtime": "2026-10-13T10:03:48.690Z"
   },
   {
     "name": "05-cicd-jenkins-github-actions-qna.md",
     "path": "Interview Questions/05-cicd-jenkins-github-actions-qna.md",
-    "size": 33569,
-    "mtime": "2026-10-13T01:58:23.669Z"
+    "size": 39899,
+    "mtime": "2026-10-13T10:03:48.682Z"
   },
   {
     "name": "06-terraform-and-iac-qna.md",
     "path": "Interview Questions/06-terraform-and-iac-qna.md",
-    "size": 29493,
-    "mtime": "2026-10-13T01:58:23.661Z"
+    "size": 29865,
+    "mtime": "2026-10-18T11:40:09.986Z"
   },
   {
     "name": "07-aws-cloud-qna.md",
     "path": "Interview Questions/07-aws-cloud-qna.md",
-    "size": 36245,
-    "mtime": "2026-10-13T01:58:23.663Z"
+    "size": 42121,
+    "mtime": "2026-10-13T10:03:48.693Z"
   },
   {
     "name": "08-networking-and-security-fundamentals-qna.md",
@@ -1346,8 +1574,8 @@
   {
     "name": "11-monitoring-logging-observability-qna.md",
     "path": "Interview Questions/11-monitoring-logging-observability-qna.md",
-    "size": 25272,
-    "mtime": "2026-10-06T19:35:18.930Z"
+    "size": 25549,
+    "mtime": "2026-10-18T11:40:09.987Z"
   },
   {
     "name": "12-security-devsecops-qna.md",
@@ -1358,8 +1586,8 @@
   {
     "name": "13-sre-incident-loadbalancing-servicemesh-qna.md",
     "path": "Interview Questions/13-sre-incident-loadbalancing-servicemesh-qna.md",
-    "size": 22799,
-    "mtime": "2026-09-05T08:48:54.001Z"
+    "size": 29350,
+    "mtime": "2026-10-13T10:03:55.034Z"
   },
   {
     "name": "14-deployment-systemdesign-behavioral-qna.md",
@@ -1382,8 +1610,8 @@
   {
     "name": "17-messaging-caching-distributed-systems-qna.md",
     "path": "Interview Questions/17-messaging-caching-distributed-systems-qna.md",
-    "size": 22245,
-    "mtime": "2026-09-05T09:03:39.398Z"
+    "size": 23099,
+    "mtime": "2026-10-18T11:40:09.988Z"
   },
   {
     "name": "18-practical-scripting-challenges-qna.md",
@@ -1394,8 +1622,8 @@
   {
     "name": "19-company-specific-and-behavioral-plus-qna.md",
     "path": "Interview Questions/19-company-specific-and-behavioral-plus-qna.md",
-    "size": 19266,
-    "mtime": "2026-09-05T09:03:40.883Z"
+    "size": 20985,
+    "mtime": "2026-10-18T08:08:45.314Z"
   },
   {
     "name": "20-devops-roadmap-gap-fill-qna.md",
@@ -1416,52 +1644,124 @@
     "mtime": "2026-10-12T07:46:11.474Z"
   },
   {
+    "name": "23-cloud-fundamentals-cross-cloud-qna.md",
+    "path": "Interview Questions/23-cloud-fundamentals-cross-cloud-qna.md",
+    "size": 29770,
+    "mtime": "2026-10-14T06:16:43.707Z"
+  },
+  {
     "name": "23-how-it-works-internals-qna.md",
     "path": "Interview Questions/23-how-it-works-internals-qna.md",
-    "size": 31282,
-    "mtime": "2026-10-12T23:11:17.221Z"
+    "size": 33449,
+    "mtime": "2026-10-18T11:40:09.985Z"
+  },
+  {
+    "name": "24-aws-deep-dive-qna.md",
+    "path": "Interview Questions/24-aws-deep-dive-qna.md",
+    "size": 42414,
+    "mtime": "2026-10-14T06:19:12.848Z"
+  },
+  {
+    "name": "25-azure-deep-dive-qna.md",
+    "path": "Interview Questions/25-azure-deep-dive-qna.md",
+    "size": 29913,
+    "mtime": "2026-10-14T06:20:53.943Z"
+  },
+  {
+    "name": "26-gcp-deep-dive-qna.md",
+    "path": "Interview Questions/26-gcp-deep-dive-qna.md",
+    "size": 39488,
+    "mtime": "2026-10-14T06:23:04.667Z"
+  },
+  {
+    "name": "27-cloud-architecture-scenarios-qna.md",
+    "path": "Interview Questions/27-cloud-architecture-scenarios-qna.md",
+    "size": 19914,
+    "mtime": "2026-10-14T06:25:00.240Z"
+  },
+  {
+    "name": "28-production-scenarios-rapid-round-qna.md",
+    "path": "Interview Questions/28-production-scenarios-rapid-round-qna.md",
+    "size": 64223,
+    "mtime": "2026-10-18T11:02:07.168Z"
+  },
+  {
+    "name": "29-jenkins-k8s-helm-interview-rounds-qna.md",
+    "path": "Interview Questions/29-jenkins-k8s-helm-interview-rounds-qna.md",
+    "size": 47570,
+    "mtime": "2026-10-18T11:02:07.168Z"
+  },
+  {
+    "name": "30-azure-production-scenarios-qna.md",
+    "path": "Interview Questions/30-azure-production-scenarios-qna.md",
+    "size": 43206,
+    "mtime": "2026-10-18T06:40:04.447Z"
+  },
+  {
+    "name": "31-core-devops-scenarios-gap-fill-qna.md",
+    "path": "Interview Questions/31-core-devops-scenarios-gap-fill-qna.md",
+    "size": 22777,
+    "mtime": "2026-10-18T06:58:10.132Z"
+  },
+  {
+    "name": "32-two-round-devops-aws-interview-qna.md",
+    "path": "Interview Questions/32-two-round-devops-aws-interview-qna.md",
+    "size": 21029,
+    "mtime": "2026-10-18T07:14:56.541Z"
+  },
+  {
+    "name": "33-platform-engineering-deep-dive-qna.md",
+    "path": "Interview Questions/33-platform-engineering-deep-dive-qna.md",
+    "size": 45343,
+    "mtime": "2026-10-18T08:15:52.897Z"
+  },
+  {
+    "name": "34-onprem-banking-infrastructure-qna.md",
+    "path": "Interview Questions/34-onprem-banking-infrastructure-qna.md",
+    "size": 43728,
+    "mtime": "2026-10-18T08:18:46.972Z"
+  },
+  {
+    "name": "35-observability-rca-scripting-go-qna.md",
+    "path": "Interview Questions/35-observability-rca-scripting-go-qna.md",
+    "size": 35545,
+    "mtime": "2026-10-18T08:21:18.220Z"
+  },
+  {
+    "name": "36-aws-networking-deep-dive-qna.md",
+    "path": "Interview Questions/36-aws-networking-deep-dive-qna.md",
+    "size": 57885,
+    "mtime": "2026-10-18T08:28:58.655Z"
+  },
+  {
+    "name": "37-devops-fundamentals-screening-round-qna.md",
+    "path": "Interview Questions/37-devops-fundamentals-screening-round-qna.md",
+    "size": 50701,
+    "mtime": "2026-10-18T10:04:54.784Z"
   },
   {
     "name": "README.md",
     "path": "Interview Questions/README.md",
-    "size": 12638,
-    "mtime": "2026-10-13T01:59:31.659Z"
+    "size": 20206,
+    "mtime": "2026-10-18T10:04:59.218Z"
   },
   {
     "name": "knative.md",
     "path": "Knative/knative.md",
-    "size": 43245,
-    "mtime": "2026-10-13T01:44:26.642Z"
-  },
-  {
-    "name": "creating-helm-chart.md",
-    "path": "Kubernetes/Helm/creating-helm-chart.md",
-    "size": 77,
-    "mtime": "2026-08-18T09:49:14.297Z"
-  },
-  {
-    "name": "helm-eg.md",
-    "path": "Kubernetes/Helm/helm-eg.md",
-    "size": 3139,
-    "mtime": "2026-08-18T09:49:14.297Z"
-  },
-  {
-    "name": "helm.md",
-    "path": "Kubernetes/Helm/helm.md",
-    "size": 6297,
-    "mtime": "2026-08-18T09:49:14.297Z"
+    "size": 43535,
+    "mtime": "2026-10-18T11:40:09.921Z"
   },
   {
     "name": "K-pods.md",
     "path": "Kubernetes/K-pods.md",
-    "size": 16405,
-    "mtime": "2026-08-18T09:49:14.297Z"
+    "size": 17407,
+    "mtime": "2026-10-18T11:40:09.553Z"
   },
   {
     "name": "Networking.md",
     "path": "Kubernetes/Networking.md",
-    "size": 36336,
-    "mtime": "2026-08-18T09:49:14.297Z"
+    "size": 37295,
+    "mtime": "2026-10-18T11:40:37.510Z"
   },
   {
     "name": "01-services-endpoints-ports.md",
@@ -1490,14 +1790,14 @@
   {
     "name": "05-workloads-rollouts-scheduling.md",
     "path": "Kubernetes/deep-dive/05-workloads-rollouts-scheduling.md",
-    "size": 8149,
-    "mtime": "2026-10-08T14:21:06.037Z"
+    "size": 12652,
+    "mtime": "2026-10-18T10:32:33.925Z"
   },
   {
     "name": "06-security-rbac-networkpolicy.md",
     "path": "Kubernetes/deep-dive/06-security-rbac-networkpolicy.md",
-    "size": 7437,
-    "mtime": "2026-10-08T14:21:06.055Z"
+    "size": 7674,
+    "mtime": "2026-10-18T11:40:09.561Z"
   },
   {
     "name": "README.md",
@@ -1508,20 +1808,14 @@
   {
     "name": "ingress-eg.md",
     "path": "Kubernetes/examples/ingress-eg.md",
-    "size": 3486,
-    "mtime": "2026-08-18T09:49:14.298Z"
+    "size": 3677,
+    "mtime": "2026-10-18T11:40:37.512Z"
   },
   {
     "name": "good-practice-networking.md",
     "path": "Kubernetes/good-practice-networking.md",
-    "size": 5328,
-    "mtime": "2026-08-18T09:49:14.298Z"
-  },
-  {
-    "name": "helmVkustomize.md",
-    "path": "Kubernetes/helmVkustomize.md",
-    "size": 5661,
-    "mtime": "2026-08-18T09:49:14.298Z"
+    "size": 5657,
+    "mtime": "2026-10-18T11:40:09.559Z"
   },
   {
     "name": "k8-doubts.md",
@@ -1532,32 +1826,32 @@
   {
     "name": "k8s-learning-path.md",
     "path": "Kubernetes/k8s-learning-path.md",
-    "size": 49073,
-    "mtime": "2026-10-08T14:21:13.168Z"
+    "size": 52147,
+    "mtime": "2026-10-18T11:40:09.559Z"
   },
   {
     "name": "kubernetes.md",
     "path": "Kubernetes/kubernetes.md",
-    "size": 38267,
-    "mtime": "2026-08-18T09:49:14.298Z"
+    "size": 40729,
+    "mtime": "2026-10-18T11:40:09.552Z"
   },
   {
     "name": "cloud-load-balancers.md",
     "path": "Load Balancing/cloud-load-balancers.md",
-    "size": 13392,
-    "mtime": "2026-10-13T02:00:41.008Z"
+    "size": 13724,
+    "mtime": "2026-10-18T11:40:09.794Z"
   },
   {
     "name": "dns-and-global-load-balancing.md",
     "path": "Load Balancing/dns-and-global-load-balancing.md",
-    "size": 9209,
-    "mtime": "2026-08-18T09:49:14.299Z"
+    "size": 9483,
+    "mtime": "2026-10-18T11:40:09.793Z"
   },
   {
     "name": "health-checks-and-failover.md",
     "path": "Load Balancing/health-checks-and-failover.md",
-    "size": 10033,
-    "mtime": "2026-08-18T09:49:14.299Z"
+    "size": 10634,
+    "mtime": "2026-10-18T11:40:09.793Z"
   },
   {
     "name": "kubernetes-load-balancing.md",
@@ -1574,8 +1868,8 @@
   {
     "name": "load-balancing-algorithms.md",
     "path": "Load Balancing/load-balancing-algorithms.md",
-    "size": 7887,
-    "mtime": "2026-08-18T09:49:14.300Z"
+    "size": 8370,
+    "mtime": "2026-10-18T11:40:09.792Z"
   },
   {
     "name": "load-balancing-overview.md",
@@ -1586,14 +1880,14 @@
   {
     "name": "load-balancing-production-simulation.md",
     "path": "Load Balancing/load-balancing-production-simulation.md",
-    "size": 9697,
-    "mtime": "2026-08-18T09:49:14.300Z"
+    "size": 9843,
+    "mtime": "2026-10-18T11:40:09.795Z"
   },
   {
     "name": "software-load-balancers.md",
     "path": "Load Balancing/software-load-balancers.md",
-    "size": 10081,
-    "mtime": "2026-08-18T09:49:14.300Z"
+    "size": 10312,
+    "mtime": "2026-10-18T11:40:09.794Z"
   },
   {
     "name": "sticky-sessions-and-session-affinity.md",
@@ -1610,14 +1904,14 @@
   {
     "name": "datadog.md",
     "path": "Monitoring and Loggin/datadog/datadog.md",
-    "size": 8387,
-    "mtime": "2026-08-18T09:49:14.301Z"
+    "size": 8756,
+    "mtime": "2026-10-18T11:40:09.833Z"
   },
   {
     "name": "elasticsearch.md",
     "path": "Monitoring and Loggin/elasticsearch/elasticsearch.md",
-    "size": 7302,
-    "mtime": "2026-08-18T09:49:14.301Z"
+    "size": 7848,
+    "mtime": "2026-10-18T11:40:09.831Z"
   },
   {
     "name": "logstash.md",
@@ -1628,26 +1922,26 @@
   {
     "name": "fluentd.md",
     "path": "Monitoring and Loggin/fluentid/fluentd.md",
-    "size": 6647,
-    "mtime": "2026-08-18T09:49:14.302Z"
+    "size": 7244,
+    "mtime": "2026-10-18T11:40:09.832Z"
   },
   {
     "name": "grafana.md",
     "path": "Monitoring and Loggin/grafana/grafana.md",
-    "size": 6040,
-    "mtime": "2026-08-18T09:49:14.302Z"
+    "size": 6334,
+    "mtime": "2026-10-18T11:40:09.832Z"
   },
   {
     "name": "index.md",
     "path": "Monitoring and Loggin/index.md",
-    "size": 9681,
-    "mtime": "2026-10-13T01:47:55.056Z"
+    "size": 11292,
+    "mtime": "2026-10-18T11:40:09.830Z"
   },
   {
     "name": "kibana.md",
     "path": "Monitoring and Loggin/kibana/kibana.md",
-    "size": 5369,
-    "mtime": "2026-08-18T09:49:14.302Z"
+    "size": 5608,
+    "mtime": "2026-10-18T11:40:09.833Z"
   },
   {
     "name": "loki.md",
@@ -1658,8 +1952,8 @@
   {
     "name": "prometheus.md",
     "path": "Monitoring and Loggin/prometheous/prometheus.md",
-    "size": 8975,
-    "mtime": "2026-08-18T09:49:14.303Z"
+    "size": 9563,
+    "mtime": "2026-10-18T11:40:09.830Z"
   },
   {
     "name": "splunk.md",
@@ -1676,44 +1970,44 @@
   {
     "name": "firewalls.md",
     "path": "Networking and Security Fundamentals/firewalls.md",
-    "size": 12251,
-    "mtime": "2026-08-18T10:10:04.852Z"
+    "size": 13269,
+    "mtime": "2026-10-18T11:40:09.835Z"
   },
   {
     "name": "hardening-practices.md",
     "path": "Networking and Security Fundamentals/hardening-practices.md",
-    "size": 13222,
-    "mtime": "2026-08-18T10:11:48.550Z"
+    "size": 13555,
+    "mtime": "2026-10-18T11:40:09.836Z"
   },
   {
     "name": "index.md",
     "path": "Networking and Security Fundamentals/index.md",
-    "size": 7563,
-    "mtime": "2026-10-12T07:46:42.942Z"
+    "size": 7857,
+    "mtime": "2026-10-18T11:40:09.839Z"
   },
   {
     "name": "networking-fundamentals.md",
     "path": "Networking and Security Fundamentals/networking-fundamentals.md",
-    "size": 10965,
-    "mtime": "2026-08-18T10:07:29.923Z"
+    "size": 11987,
+    "mtime": "2026-10-18T11:40:09.834Z"
   },
   {
     "name": "proxy-servers.md",
     "path": "Networking and Security Fundamentals/proxy-servers.md",
-    "size": 7839,
-    "mtime": "2026-10-12T07:44:25.951Z"
+    "size": 8464,
+    "mtime": "2026-10-18T11:40:09.837Z"
   },
   {
     "name": "tls-and-certificates.md",
     "path": "Networking and Security Fundamentals/tls-and-certificates.md",
-    "size": 12608,
-    "mtime": "2026-08-18T10:09:13.153Z"
+    "size": 13743,
+    "mtime": "2026-10-18T11:40:09.837Z"
   },
   {
     "name": "vpns.md",
     "path": "Networking and Security Fundamentals/vpns.md",
-    "size": 11929,
-    "mtime": "2026-08-18T10:10:55.204Z"
+    "size": 12785,
+    "mtime": "2026-10-18T11:40:09.838Z"
   },
   {
     "name": "cicd-pipeline.md",
@@ -1724,14 +2018,26 @@
   {
     "name": "README.md",
     "path": "README.md",
-    "size": 3264,
-    "mtime": "2026-09-05T09:03:56.460Z"
+    "size": 3535,
+    "mtime": "2026-10-18T09:59:25.637Z"
+  },
+  {
+    "name": "awk-mastery.md",
+    "path": "Scripting/awk-mastery.md",
+    "size": 49703,
+    "mtime": "2026-10-18T11:40:09.641Z"
   },
   {
     "name": "bash-scripting.md",
     "path": "Scripting/bash-scripting.md",
-    "size": 15414,
-    "mtime": "2026-08-18T09:49:14.409Z"
+    "size": 17005,
+    "mtime": "2026-10-18T11:40:09.638Z"
+  },
+  {
+    "name": "grep-mastery.md",
+    "path": "Scripting/grep-mastery.md",
+    "size": 30508,
+    "mtime": "2026-10-18T11:40:09.643Z"
   },
   {
     "name": "linux-cmds.md",
@@ -1742,68 +2048,80 @@
   {
     "name": "linux-permissions.md",
     "path": "Scripting/linux-permissions.md",
-    "size": 6977,
-    "mtime": "2026-08-18T09:49:14.409Z"
+    "size": 7543,
+    "mtime": "2026-10-18T11:40:09.640Z"
+  },
+  {
+    "name": "sed-mastery.md",
+    "path": "Scripting/sed-mastery.md",
+    "size": 36581,
+    "mtime": "2026-10-18T11:40:09.642Z"
   },
   {
     "name": "shell-scripting-devops.md",
     "path": "Scripting/shell-scripting-devops.md",
-    "size": 9926,
-    "mtime": "2026-08-18T09:49:14.410Z"
+    "size": 11100,
+    "mtime": "2026-10-18T11:40:09.639Z"
+  },
+  {
+    "name": "text-processing-lab.md",
+    "path": "Scripting/text-processing-lab.md",
+    "size": 6277,
+    "mtime": "2026-10-18T10:42:24.367Z"
   },
   {
     "name": "container-and-image-security.md",
     "path": "Security in DevOps/container-and-image-security.md",
-    "size": 12590,
-    "mtime": "2026-08-18T09:49:14.303Z"
+    "size": 13433,
+    "mtime": "2026-10-18T11:40:09.867Z"
   },
   {
     "name": "devsecops-overview.md",
     "path": "Security in DevOps/devsecops-overview.md",
-    "size": 11415,
-    "mtime": "2026-08-18T09:49:14.303Z"
+    "size": 11847,
+    "mtime": "2026-10-18T11:40:09.866Z"
   },
   {
     "name": "iam-and-least-privilege.md",
     "path": "Security in DevOps/iam-and-least-privilege.md",
-    "size": 11881,
-    "mtime": "2026-08-18T09:49:14.303Z"
+    "size": 12619,
+    "mtime": "2026-10-18T11:40:09.868Z"
   },
   {
     "name": "sast-dast-and-code-scanning.md",
     "path": "Security in DevOps/sast-dast-and-code-scanning.md",
-    "size": 12416,
-    "mtime": "2026-08-18T09:49:14.303Z"
+    "size": 13051,
+    "mtime": "2026-10-18T11:40:09.869Z"
   },
   {
     "name": "secrets-management.md",
     "path": "Security in DevOps/secrets-management.md",
-    "size": 10532,
-    "mtime": "2026-08-18T09:49:14.304Z"
+    "size": 11322,
+    "mtime": "2026-10-18T11:40:09.870Z"
   },
   {
     "name": "security-in-cicd-pipelines.md",
     "path": "Security in DevOps/security-in-cicd-pipelines.md",
-    "size": 10815,
-    "mtime": "2026-08-18T09:49:14.304Z"
+    "size": 11272,
+    "mtime": "2026-10-18T11:40:09.870Z"
   },
   {
     "name": "supply-chain-security.md",
     "path": "Security in DevOps/supply-chain-security.md",
-    "size": 10262,
-    "mtime": "2026-08-18T09:49:14.304Z"
+    "size": 10596,
+    "mtime": "2026-10-18T11:40:09.871Z"
   },
   {
     "name": "vapt.md",
     "path": "Security in DevOps/vapt.md",
-    "size": 6360,
-    "mtime": "2026-10-12T07:44:26.981Z"
+    "size": 6652,
+    "mtime": "2026-10-18T11:40:09.871Z"
   },
   {
     "name": "istio-gateway-and-ingress.md",
     "path": "Service Mesh/istio-gateway-and-ingress.md",
-    "size": 9795,
-    "mtime": "2026-08-18T09:49:14.304Z"
+    "size": 10133,
+    "mtime": "2026-10-18T11:40:09.789Z"
   },
   {
     "name": "istio-vs-linkerd-vs-consul.md",
@@ -1814,38 +2132,38 @@
   {
     "name": "istio.md",
     "path": "Service Mesh/istio.md",
-    "size": 17800,
-    "mtime": "2026-08-18T09:49:14.304Z"
+    "size": 18729,
+    "mtime": "2026-10-18T11:40:09.790Z"
   },
   {
     "name": "kubernetes-ingress-deep-dive.md",
     "path": "Service Mesh/kubernetes-ingress-deep-dive.md",
-    "size": 14004,
-    "mtime": "2026-08-18T09:49:14.305Z"
+    "size": 14762,
+    "mtime": "2026-10-18T11:40:09.791Z"
   },
   {
     "name": "observability-in-service-mesh.md",
     "path": "Service Mesh/observability-in-service-mesh.md",
-    "size": 8929,
-    "mtime": "2026-08-18T09:49:14.305Z"
+    "size": 9185,
+    "mtime": "2026-10-18T11:40:09.791Z"
   },
   {
     "name": "resilience-patterns.md",
     "path": "Service Mesh/resilience-patterns.md",
-    "size": 9714,
-    "mtime": "2026-08-18T09:49:14.305Z"
+    "size": 10385,
+    "mtime": "2026-10-18T11:40:09.788Z"
   },
   {
     "name": "security-and-mtls.md",
     "path": "Service Mesh/security-and-mtls.md",
-    "size": 10498,
-    "mtime": "2026-08-18T09:49:14.305Z"
+    "size": 10927,
+    "mtime": "2026-10-18T11:40:09.789Z"
   },
   {
     "name": "service-mesh-architecture-and-sidecar-pattern.md",
     "path": "Service Mesh/service-mesh-architecture-and-sidecar-pattern.md",
-    "size": 9920,
-    "mtime": "2026-08-18T09:49:14.305Z"
+    "size": 10971,
+    "mtime": "2026-10-18T11:40:09.790Z"
   },
   {
     "name": "service-mesh-overview.md",
@@ -1862,14 +2180,14 @@
   {
     "name": "traffic-management.md",
     "path": "Service Mesh/traffic-management.md",
-    "size": 11867,
-    "mtime": "2026-08-18T09:49:14.306Z"
+    "size": 12711,
+    "mtime": "2026-10-18T11:40:09.788Z"
   },
   {
     "name": "cloud-formation.md",
     "path": "Terraform and CF/cloud-formation.md",
-    "size": 17195,
-    "mtime": "2026-08-18T09:49:14.306Z"
+    "size": 18018,
+    "mtime": "2026-10-18T11:40:09.872Z"
   },
   {
     "name": "README.md",
@@ -1994,20 +2312,20 @@
   {
     "name": "pulumi.md",
     "path": "Terraform and CF/pulumi.md",
-    "size": 15714,
-    "mtime": "2026-08-18T09:51:51.155Z"
+    "size": 16006,
+    "mtime": "2026-10-18T11:40:09.873Z"
   },
   {
     "name": "sample-project.md",
     "path": "Terraform and CF/sample-project.md",
-    "size": 6000,
-    "mtime": "2026-08-18T09:49:14.313Z"
+    "size": 6312,
+    "mtime": "2026-10-18T11:45:11.472Z"
   },
   {
     "name": "terraform.md",
     "path": "Terraform and CF/terraform.md",
-    "size": 5927,
-    "mtime": "2026-08-18T09:49:14.313Z"
+    "size": 6578,
+    "mtime": "2026-10-18T11:40:37.568Z"
   },
   {
     "name": "asterisk-freeswitch-kamailio.md",
@@ -2018,37 +2336,31 @@
   {
     "name": "voip-on-aws-and-kubernetes.md",
     "path": "VoIP and Unified Communications/voip-on-aws-and-kubernetes.md",
-    "size": 7723,
-    "mtime": "2026-10-12T07:44:24.902Z"
+    "size": 8020,
+    "mtime": "2026-10-18T11:40:09.919Z"
   },
   {
     "name": "voip-sip-fundamentals.md",
     "path": "VoIP and Unified Communications/voip-sip-fundamentals.md",
-    "size": 13523,
-    "mtime": "2026-10-12T07:40:45.801Z"
+    "size": 14116,
+    "mtime": "2026-10-18T11:40:09.918Z"
   },
   {
     "name": "voip-troubleshooting-wireshark.md",
     "path": "VoIP and Unified Communications/voip-troubleshooting-wireshark.md",
-    "size": 7734,
-    "mtime": "2026-10-12T07:42:37.755Z"
+    "size": 8182,
+    "mtime": "2026-10-18T11:40:09.920Z"
   },
   {
     "name": "windows-administration-for-devops.md",
     "path": "Windows Administration/windows-administration-for-devops.md",
-    "size": 9410,
-    "mtime": "2026-10-12T07:44:28.045Z"
-  },
-  {
-    "name": "argo-cd-integration-helm.md",
-    "path": "argo-cd-integration-helm.md",
-    "size": 7243,
-    "mtime": "2026-08-18T09:49:14.313Z"
+    "size": 9992,
+    "mtime": "2026-10-18T11:40:09.920Z"
   },
   {
     "name": "imp_concepts.md",
     "path": "imp_concepts.md",
-    "size": 4180,
-    "mtime": "2026-08-18T09:49:14.315Z"
+    "size": 5120,
+    "mtime": "2026-10-18T11:40:09.922Z"
   }
 ]

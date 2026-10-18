@@ -65,6 +65,13 @@ Practical guidance: commit the baseline/floor of your usage (the level of traffi
 
 ## 3. Spot / Preemptible Instances
 
+```mermaid
+flowchart TB
+    Q{Workload interruptible?<br/>2-min notice OK} -->|"no: DB, stateful singleton"| OD[On-demand / reserved]
+    Q -->|"yes: CI, batch, stateless web behind LB"| SP[Spot / preemptible<br/>up to ~90% off]
+    SP --> DIV[Diversify instance types + AZs,<br/>handle termination notice,<br/>keep an on-demand base]
+```
+
 Spot instances (AWS/Azure terminology) and Preemptible VMs (GCP terminology) are spare cloud capacity sold at a steep discount — commonly **60-90% off on-demand** — with the catch that the provider can reclaim the instance with little notice (AWS: 2-minute warning; GCP Preemptible: 30-second warning; Azure Spot: 30-second warning, or no warning on eviction due to capacity).
 
 ### What's actually suitable

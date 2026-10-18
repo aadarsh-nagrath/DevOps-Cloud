@@ -29,6 +29,16 @@ VPC 10.0.0.0/16
 Plan CIDRs to avoid overlap with on-prem and other VPCs (needed for peering/TGW). For EKS give large subnets (pods take VPC IPs) or use prefix delegation / secondary CIDRs.
 
 ## 2. Security Groups vs NACLs
+
+```mermaid
+flowchart LR
+    IN([Inbound packet]) --> NACL{"NACL - subnet level<br/>stateless, ordered rules,<br/>allow AND deny"}
+    NACL -->|allowed| SG{"Security Group - ENI level<br/>stateful, allow only"}
+    SG --> EC2[Instance]
+    EC2 -->|reply auto-allowed by SG| SG2[SG]
+    SG2 --> NACL2{"NACL outbound<br/>must allow ephemeral ports"}
+```
+
 | | **Security Group** | **Network ACL** |
 |---|---|---|
 | Level | ENI/instance | Subnet |
@@ -45,6 +55,22 @@ Use SGs as the main control; NACLs for coarse subnet-level blocks (e.g. deny a m
 - **Endpoint policies** restrict what can be accessed through them (data perimeter). Saves NAT costs and keeps traffic off the internet.
 
 ## 4. Connecting VPCs
+
+```mermaid
+flowchart TB
+    subgraph PEER[VPC peering - 1:1, not transitive]
+        A[VPC A] <--> B[VPC B]
+        B <--> C[VPC C]
+        A -.-x|no A↔C via B| C
+    end
+    subgraph TGWX[Transit Gateway - hub and spoke]
+        TGW((TGW)) <--> V1[VPC 1]
+        TGW <--> V2[VPC 2]
+        TGW <--> V3[VPC 3]
+        TGW <--> ONP[On-prem VPN / DX]
+    end
+```
+
 | Option | What | Notes |
 |---|---|---|
 | **VPC Peering** | 1:1 private connection (same/cross account/region) | **Non-transitive**, no overlapping CIDRs, mesh gets messy past a few VPCs |

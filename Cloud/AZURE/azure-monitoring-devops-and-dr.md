@@ -5,6 +5,17 @@
 ---
 
 ## 1. Azure Monitor (the umbrella)
+
+```mermaid
+flowchart LR
+    RES[Resources, VMs, AKS, apps] -->|metrics| MET[(Metrics store)]
+    RES -->|logs via diagnostic settings| LAW[(Log Analytics workspace)]
+    APPI[Application Insights] --> LAW
+    MET --> AL[Alerts → Action groups]
+    LAW -->|KQL| AL
+    LAW --> WB[Workbooks / Grafana]
+```
+
 | Component | What |
 |---|---|
 | **Metrics** | Numeric time series (platform metrics free, 93-day retention), near real-time, metric alerts, autoscale input |

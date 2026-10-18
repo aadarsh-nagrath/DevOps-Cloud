@@ -6,6 +6,21 @@ Real-world automation scripts and patterns that come up constantly in DevOps wor
 
 ## 1. Script Template (starting point for any DevOps script)
 
+The shape every production script should follow:
+
+```mermaid
+flowchart TB
+    A["Shebang + set -euo pipefail"] --> B[Constants and defaults]
+    B --> C[Functions: log, die, usage]
+    C --> D[Parse and validate arguments]
+    D --> E[Check dependencies: command -v]
+    E --> F["trap cleanup EXIT"]
+    F --> G[Main logic - idempotent steps]
+    G --> H{Success?}
+    H -->|yes| I[exit 0]
+    H -->|no| J[log error, exit non-zero]
+```
+
 ```bash
 #!/usr/bin/env bash
 set -euo pipefail
@@ -39,6 +54,16 @@ Wrapping logic in a `main()` and calling it at the bottom keeps top-level scope 
 ## 2. Health Checks & Monitoring
 
 ### Service health check with retry
+
+```mermaid
+flowchart LR
+    S[attempt = 1] --> C{"curl -fsS /health"}
+    C -->|200| OK[healthy, exit 0]
+    C -->|fail| R{attempt &lt; max?}
+    R -->|yes| W[sleep with back-off<br/>attempt++] --> C
+    R -->|no| F[alert + exit 1]
+```
+
 ```bash
 #!/usr/bin/env bash
 set -euo pipefail
@@ -91,6 +116,16 @@ Run via cron every minute: `* * * * * /opt/scripts/watchdog.sh`
 ## 3. Deployment Automation
 
 ### Simple blue-green style deploy script
+
+```mermaid
+flowchart LR
+    LB[Load balancer / symlink] -->|live| BLUE[blue: v1]
+    LB -.->|idle| GREEN[green: v2 deployed]
+    GREEN --> HC{health check<br/>passes?}
+    HC -->|yes| SW[switch LB to green]
+    HC -->|no| RB[keep blue live, tear down green]
+```
+
 ```bash
 #!/usr/bin/env bash
 set -euo pipefail
@@ -365,6 +400,20 @@ echo "All restarts complete"
 ```
 
 ### Bounded parallelism with `xargs -P`
+
+```mermaid
+flowchart LR
+    Q[(host list)] --> X["xargs -P 4"]
+    X --> W1[worker 1]
+    X --> W2[worker 2]
+    X --> W3[worker 3]
+    X --> W4[worker 4]
+    W1 --> R[results + exit codes]
+    W2 --> R
+    W3 --> R
+    W4 --> R
+```
+
 ```bash
 cat hosts.txt | xargs -P 4 -I{} ssh {} "df -h /"
 ```

@@ -7,6 +7,26 @@
 
 ## Sample YAML used in the demo
 
+Init containers run **one after another, to completion, before** the app starts. Sidecars run **alongside** it:
+
+```mermaid
+sequenceDiagram
+    participant K as kubelet
+    participant I1 as init: wait-for-db
+    participant I2 as init: migrate
+    participant A as app container
+    participant S as sidecar (log shipper)
+    K->>I1: start
+    I1-->>K: exit 0
+    K->>I2: start
+    I2-->>K: exit 0
+    par main containers start together
+        K->>A: start
+        K->>S: start
+    end
+    Note over K,I2: an init container failing → Pod restarts the init sequence
+```
+
 ```yaml
 apiVersion: v1
 kind: Pod

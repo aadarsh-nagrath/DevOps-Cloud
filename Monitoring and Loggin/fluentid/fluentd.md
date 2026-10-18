@@ -41,6 +41,15 @@
 - `<match>` = output plugin, routes events matching a tag pattern to a destination.
 
 ### Tag-Based Routing
+
+```mermaid
+flowchart LR
+    S1[source: tail app logs<br/>tag app.web] --> R{match by tag}
+    S2[source: syslog<br/>tag system.auth] --> R
+    R -->|"app.**"| F1[filter: parse JSON,<br/>add k8s metadata] --> O1[(Elasticsearch)]
+    R -->|"system.**"| O2[(S3 archive)]
+```
+
 - Every event carries a **tag** (e.g., `kubernetes.pod.nginx`). Fluentd routes events by matching tags against `<filter>`/`<match>` patterns (`*` = one segment, `**` = any depth) — this tag-routing model is Fluentd's signature design and what makes multi-destination fan-out simple.
 
 ---
@@ -55,6 +64,17 @@
 - 700+ community plugins available via RubyGems (`fluent-plugin-*`).
 
 ### Buffering & Reliability
+
+```mermaid
+flowchart LR
+    IN[events] --> CH[chunk<br/>memory / file buffer]
+    CH -->|flush_interval or chunk full| Q[(queue)]
+    Q --> OUT{output OK?}
+    OUT -->|yes| DONE[delivered]
+    OUT -->|no| RETRY[retry with<br/>exponential back-off] --> Q
+    RETRY -->|retry_max exceeded| SEC[secondary output / drop]
+```
+
 - Fluentd buffers events in memory or on disk before flushing to output — critical for handling downstream outages without losing data.
 ```conf
 <match **>

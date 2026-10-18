@@ -56,6 +56,17 @@ Modeled directly on electrical circuit breakers: if a dependency keeps failing, 
 ```
 
 ### Why "fail immediately" is actually the resilient choice
+
+```mermaid
+stateDiagram-v2
+    [*] --> Closed
+    Closed --> Open: failures exceed threshold
+    Open --> HalfOpen: after cool-down
+    HalfOpen --> Closed: trial requests succeed
+    HalfOpen --> Open: trial request fails
+    note right of Open: requests rejected instantly, no load on the sick service
+```
+
 It seems counterintuitive — isn't giving up on a dependency worse than trying? But the key insight is: **a request that's going to fail anyway is better failed fast than failed slow**. Failing fast means:
 - The calling service (`payment-service` in the example above) doesn't waste its own limited connection pool/threads waiting on a doomed call.
 - The caller can fail gracefully and quickly (return a clear error, use a fallback/cached response) rather than hanging and dragging its own health down with it.
@@ -125,6 +136,16 @@ This is conceptually the same self-healing behavior as [Health Checks & Failover
 ---
 
 ## 4. How These Patterns Compose
+
+```mermaid
+flowchart LR
+    REQ[Request] --> TO[Timeout<br/>per try + overall]
+    TO --> RT[Retries<br/>only idempotent, with budget]
+    RT --> CB{Circuit breaker<br/>connection / request limits}
+    CB -->|open| FF[fail fast 503<br/>caller uses fallback]
+    CB -->|closed| OD[Outlier detection<br/>eject bad pods]
+    OD --> HEALTHY[healthy instances]
+```
 
 Retries, timeouts, circuit breaking, and outlier detection are not alternatives to each other — they're complementary layers that work together:
 

@@ -116,6 +116,17 @@ The **roles and profiles** pattern is the de-facto standard way to organize Pupp
 
 ### The two layers
 
+```mermaid
+flowchart TB
+    NODE[node web01] -->|exactly one| ROLE[role::webserver]
+    ROLE --> P1[profile::base]
+    ROLE --> P2[profile::nginx]
+    ROLE --> P3[profile::monitoring]
+    P2 --> M1[module: puppet-nginx]
+    P3 --> M2[module: node_exporter]
+    HIERA[(Hiera data)] -.-> P2
+```
+
 | Layer | Answers | Contains | Cardinality |
 |---|---|---|---|
 | **Profile** | "How do I configure *this technology* for us?" | Technology-specific class composition — wires together one or more Forge/vendor modules with our Hiera data, our conventions | One profile per technology/concern (`profile::nginx`, `profile::monitoring`, `profile::base`) |

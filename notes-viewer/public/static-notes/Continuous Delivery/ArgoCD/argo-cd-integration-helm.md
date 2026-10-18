@@ -1,10 +1,24 @@
-# **Next Steps: Argo CD Integration and Security Features**
+# Argo CD: Helm & Kustomize Integration, RBAC and Multi-Cluster
+
+> Part of the [Argo CD notes](./Argo-cd.md). Start there for installation, Applications and sync policies; this note covers what comes next. Related: [Helm](../../Helm/README.md) · [Helm vs Kustomize](../../Helm/helm-vs-kustomize.md) · [GitOps](../../GitOps.md)
 
 ## 1. **Argo CD Integration with Helm and Kustomize**
 
 Argo CD supports integration with **Helm** and **Kustomize**, allowing you to manage complex applications more efficiently. Below are the key concepts and examples for both integrations.
 
 ### **Helm Integration with Argo CD**
+
+Argo CD renders the chart itself with `helm template`. There is no Helm release or `helm list` entry; Argo CD owns the objects.
+
+```mermaid
+flowchart LR
+    CH[(Helm chart<br/>Git path or Helm/OCI repo)] --> RS[repo-server:<br/>helm template]
+    V[values files +<br/>spec.source.helm.parameters] --> RS
+    RS --> MAN[plain manifests]
+    MAN --> DIFF{diff vs live cluster}
+    DIFF -->|OutOfSync| APPLY[kubectl apply<br/>+ prune if enabled]
+```
+
 Helm is a Kubernetes package manager, which allows you to define, install, and upgrade even the most complex Kubernetes applications.
 
 #### **Key Concepts**
@@ -61,6 +75,15 @@ Helm is a Kubernetes package manager, which allows you to define, install, and u
 ---
 
 ### **Kustomize Integration with Argo CD**
+
+```mermaid
+flowchart LR
+    BASE[base/<br/>deployment, service] --> OV1[overlays/dev<br/>replicas 1, dev image]
+    BASE --> OV2[overlays/prod<br/>replicas 5, resources, HPA]
+    OV1 --> A1[Argo CD App: web-dev<br/>path: overlays/dev] --> C1[(dev namespace)]
+    OV2 --> A2[Argo CD App: web-prod<br/>path: overlays/prod] --> C2[(prod namespace)]
+```
+
 Kustomize is a tool to customize Kubernetes resource YAML files without modifying the original files.
 
 #### **Key Concepts**
@@ -112,6 +135,15 @@ Kustomize is a tool to customize Kubernetes resource YAML files without modifyin
 Argo CD offers robust security mechanisms to control access and manage applications across multiple clusters. Two key features are **Role-Based Access Control (RBAC)** and **multi-cluster support**.
 
 ### **RBAC in Argo CD**
+
+```mermaid
+flowchart LR
+    SSO[SSO / OIDC group<br/>e.g. team-payments] -->|"g, team-payments, role:payments-dev"| ROLE[role:payments-dev]
+    ROLE -->|"p, ..., applications, sync,<br/>payments/*, allow"| PROJ[AppProject: payments<br/>allowed repos, clusters, namespaces]
+    PROJ --> APPS[Applications in project]
+    DEF[policy.default: role:readonly] -.-> ROLE
+```
+
 Role-Based Access Control (RBAC) allows you to define who can access Argo CD resources and what operations they can perform.
 
 #### **Key Concepts**
@@ -161,6 +193,17 @@ Role-Based Access Control (RBAC) allows you to define who can access Argo CD res
 ---
 
 ### **Managing Multi-Cluster Environments with Argo CD**
+
+```mermaid
+flowchart TB
+    GIT[(Git: apps + cluster configs)] --> ARGO[Argo CD<br/>management cluster]
+    ARGO -->|cluster secret / SA token| DEV[(dev cluster)]
+    ARGO --> STG[(staging cluster)]
+    ARGO --> PRD1[(prod us-east)]
+    ARGO --> PRD2[(prod eu-west)]
+    APPSET[ApplicationSet<br/>cluster generator] -.->|one Application per cluster| ARGO
+```
+
 Argo CD supports managing applications across multiple clusters. This is crucial in environments where you have different Kubernetes clusters for various regions, environments (dev, staging, prod), or teams.
 
 #### **Key Concepts**

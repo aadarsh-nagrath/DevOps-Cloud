@@ -6,6 +6,18 @@
 A firewall is a control point that permits or denies network traffic based on a rule set — the fundamental building block of network segmentation and perimeter defense. Firewalls exist at multiple layers: network edge, host OS, and (in cloud-native environments) the pod/service level.
 
 ### Stateless vs Stateful
+
+```mermaid
+flowchart TB
+    subgraph SF[Stateful - Security Group, iptables conntrack]
+        A1[outbound request allowed] --> A2[reply automatically allowed<br/>connection is tracked]
+    end
+    subgraph SL[Stateless - NACL, plain ACL]
+        B1[outbound request allowed] --> B2{explicit inbound rule<br/>for ephemeral ports?}
+        B2 -->|no| B3[reply dropped]
+    end
+```
+
 | | Stateless | Stateful |
 |---|---|---|
 | How it decides | Evaluates each packet independently against static rules | Tracks connection state (a "connection table") and allows return traffic automatically |
@@ -32,6 +44,17 @@ A firewall is a control point that permits or denies network traffic based on a 
 ## 2. Intermediate
 
 ### iptables (Linux, Legacy but Still Everywhere)
+
+```mermaid
+flowchart LR
+    IN([packet in]) --> PRE[PREROUTING<br/>nat: DNAT]
+    PRE --> D{for this host?}
+    D -->|yes| INP[INPUT<br/>filter] --> LP[local process]
+    D -->|no| FWD[FORWARD<br/>filter] --> POST
+    LP --> OUTC[OUTPUT] --> POST[POSTROUTING<br/>nat: SNAT / MASQUERADE]
+    POST --> OUTP([packet out])
+```
+
 - Rules organized into **tables** (`filter`, `nat`, `mangle`, `raw`) and **chains** (`INPUT`, `OUTPUT`, `FORWARD` for the filter table; `PREROUTING`/`POSTROUTING` for NAT).
 - `INPUT`: traffic destined for this host. `OUTPUT`: traffic originating from this host. `FORWARD`: traffic passing through this host (acting as a router).
 ```bash
@@ -120,6 +143,16 @@ Most firewall effort goes into inbound rules; egress is often left wide open. Th
 - **Egress allowlisting** (only permit outbound to known package registries, APIs, cloud metadata endpoints) meaningfully limits blast radius after a compromise — increasingly standard in hardened Kubernetes clusters (Cilium `FQDN` egress policies) and hardened CI runners (see [Supply Chain Security](../Security%20in%20DevOps/supply-chain-security.md)).
 
 ### DDoS Mitigation Layers
+
+```mermaid
+flowchart LR
+    ATK([Traffic + attack]) --> ANY[Anycast / scrubbing<br/>Shield, Cloudflare]
+    ANY --> CDN[CDN cache<br/>absorbs GET floods]
+    CDN --> WAF[WAF + rate limits<br/>L7 rules, bot control]
+    WAF --> LB[Load balancer<br/>SYN cookies, conn limits]
+    LB --> APP[Autoscaled app]
+```
+
 1. **Anycast absorption** at the edge (CDN/cloud provider spreads attack traffic across many global PoPs).
 2. **Rate limiting** at L4/L7 (per-IP connection/request caps).
 3. **SYN cookies** (stateless handshake validation, see [Networking Fundamentals](networking-fundamentals.md#connection-scaling-concepts)) to survive SYN floods without exhausting connection tables.

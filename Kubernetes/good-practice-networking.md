@@ -76,6 +76,18 @@ To secure your networking while exposing your app to users, you should implement
 - **VPN or Private Networks**: Use a VPN or private networking for sensitive communications between containers or between the app and your database.
 
 ### Suggested Setup for Production-Ready, Secure & Exposed App:
+
+```mermaid
+flowchart LR
+    U([Users]) -->|HTTPS 443| RP[Reverse proxy<br/>nginx / Traefik<br/>TLS termination]
+    subgraph HOST[Docker host - only 80/443 published]
+        RP --> APP1[app container]
+        RP --> APP2[app container]
+        APP1 --> DB[(database<br/>internal network only)]
+        APP2 --> DB
+    end
+```
+
 1. **Use a Reverse Proxy (e.g., Nginx)**:
    - Expose the app to the internet securely over HTTPS.
    - Handle SSL/TLS encryption at the proxy level.

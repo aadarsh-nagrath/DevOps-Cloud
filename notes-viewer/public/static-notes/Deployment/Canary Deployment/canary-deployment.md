@@ -6,6 +6,18 @@ Release a new version to a small subset of traffic (or users) first, watch key m
 
 ## 1. How It Works
 
+```mermaid
+flowchart LR
+    U([Users]) --> R{Router / mesh / LB}
+    R -->|95%| S[Stable v1]
+    R -->|5%| C[Canary v2]
+    C --> M[(Metrics: errors,<br/>latency, saturation)]
+    M --> A{Analysis passes?}
+    A -->|yes| STEP[Increase weight<br/>5 → 25 → 50 → 100%]
+    A -->|no| RB[Abort: route 100% to v1]
+    STEP --> R
+```
+
 ```
 Step 1:  [ v1: 95% traffic ]  [ v2 canary: 5% traffic  ]   <- watch error rate, latency, etc.
 Step 2:  [ v1: 75% traffic ]  [ v2 canary: 25% traffic ]   <- still healthy, continue
@@ -35,6 +47,15 @@ The critical difference from Rolling: canary progression is gated by **metric an
 | **Geography/region-based** | Roll out to one region/data center first | DNS, global load balancer, multi-region deploy pipeline |
 
 ## 3. What to Measure During a Canary
+
+```mermaid
+flowchart TB
+    C[Canary metrics] --> CMP{Compare against<br/>stable baseline,<br/>same time window}
+    CMP -->|"error rate ≤ baseline + 0.5%"| OK1[pass]
+    CMP -->|"p99 latency ≤ baseline × 1.1"| OK2[pass]
+    CMP -->|"saturation / restarts normal"| OK3[pass]
+    CMP -->|any threshold breached| FAIL[automated rollback]
+```
 
 A canary is only useful if you're watching the right signals:
 - **Error rate** (HTTP 5xx, exceptions, gRPC error codes) — compare canary vs baseline, not just an absolute threshold, since baseline itself fluctuates.

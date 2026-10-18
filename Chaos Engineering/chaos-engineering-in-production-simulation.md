@@ -6,6 +6,16 @@ A hands-on walkthrough using Chaos Mesh on a local Kubernetes cluster (kind or M
 
 ## 1. The Setup
 
+```mermaid
+flowchart LR
+    LOAD[load generator] --> GW[frontend]
+    GW -->|timeout 2s| CO[checkout-service<br/>3 replicas]
+    CO --> DB[(database)]
+    PC[PodChaos: kill 1 pod] -.-> CO
+    NC[NetworkChaos: +3s latency] -.-> CO
+    MON[Grafana: error rate,<br/>p99 latency] -.-> GW
+```
+
 ```bash
 # Install Chaos Mesh into a local kind/Minikube cluster via Helm
 kubectl create ns chaos-testing

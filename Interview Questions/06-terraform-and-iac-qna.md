@@ -51,6 +51,20 @@ A module is a reusable, self-contained package of Terraform configuration (its o
 Local state creates two hard problems the moment more than one person touches the infrastructure: no shared source of truth (everyone has their own possibly-stale copy, so `plan` output is unreliable/wrong for anyone but the last person to apply), and no locking (two people running `apply` concurrently can corrupt state or create conflicting/duplicate resources). A remote backend (S3 + DynamoDB for locking, Terraform Cloud/HCP Terraform, Azure Storage, GCS) centralizes state as the single source of truth and provides locking so concurrent applies are serialized safely rather than racing.
 
 ### 12. What is state locking, and what happens if it isn't configured?
+
+```mermaid
+sequenceDiagram
+    participant A as Engineer A (apply)
+    participant B as Engineer B (apply)
+    participant L as DynamoDB lock / backend lock
+    participant S as S3 state
+    A->>L: acquire lock ✔
+    B->>L: acquire lock ✖ "state locked by A"
+    A->>S: read state, apply, write new state
+    A->>L: release lock
+    B->>L: retry → acquire ✔
+```
+
 State locking prevents two `terraform apply` operations from running against the same state simultaneously — the backend (e.g. a DynamoDB table alongside an S3 backend) acquires a lock before an operation begins and releases it after. Without locking, two concurrent applies can both read the same "before" state, compute conflicting plans, and both write back — resulting in a corrupted state file that no longer accurately reflects real infrastructure, often requiring manual `terraform state` surgery or `import` to reconcile.
 
 ### 13. You hit a "state locked" error mid-pipeline. How would you actually resolve it?

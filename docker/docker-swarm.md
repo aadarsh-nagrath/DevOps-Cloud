@@ -36,6 +36,18 @@ It solves the same class of problem as Kubernetes — multi-host container orche
 
 ## 3. Initializing a Swarm
 
+```mermaid
+flowchart TB
+    subgraph MGR[Managers - Raft quorum, odd number]
+        M1[manager 1<br/>leader] <--> M2[manager 2]
+        M2 <--> M3[manager 3]
+        M1 <--> M3
+    end
+    M1 -->|schedule tasks| W1[worker]
+    M1 --> W2[worker]
+    M1 --> W3[worker]
+```
+
 ```bash
 # On the first machine -- becomes the initial manager node
 docker swarm init --advertise-addr <MANAGER_IP>
@@ -164,6 +176,15 @@ docker network create --driver overlay --attachable app-overlay
 ---
 
 ## 7. Routing Mesh / Ingress Networking
+
+```mermaid
+flowchart LR
+    C([Client]) -->|any-node:8080| N1[node 1]
+    C -.-> N2[node 2 - no replica]
+    N2 -->|ingress overlay + IPVS| T1[task on node 1]
+    N1 --> T1
+    N1 --> T3[task on node 3]
+```
 
 When you publish a port with `--publish published=8080,target=80` (or `ports:` in a stack file), Swarm's **routing mesh** makes that port reachable on **every node in the cluster**, not just the node(s) actually running the container.
 

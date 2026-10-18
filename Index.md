@@ -37,6 +37,16 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | [GCP Deep-Dive Q&A](Interview%20Questions/26-gcp-deep-dive-qna.md) | Cloud Run vs GKE vs GCE, IAM/WIF, VPC/Shared VPC, storage & DBs, Pub/Sub, BigQuery, GKE hardening |
 | [Cloud Architecture Scenarios Q&A](Interview%20Questions/27-cloud-architecture-scenarios-qna.md) | Design rounds: HA API, SaaS, secure multi-tier, CI/CD, data pipeline, DR, cut cost 40%, monolith → containers |
 | [How It Works Internally Q&A](Interview%20Questions/23-how-it-works-internals-qna.md) | Internals of K8s scheduling/apply/probes/HPA/rollouts, Docker run & caching, Terraform DAG & locking, CI/CD, AWS LB, CloudFront, DNS, Git, observability, incidents |
+| [Production Scenarios Rapid Round Q&A](Interview%20Questions/28-production-scenarios-rapid-round-qna.md) | The 22 most-asked cross-topic DevOps/SRE scenario questions, answered compactly |
+| [Jenkins, K8s & Helm Interview Rounds Q&A](Interview%20Questions/29-jenkins-k8s-helm-interview-rounds-qna.md) | Real screening → in-depth rounds: Jenkins pipelines, EKS, Helm, Terraform |
+| [Azure Production Scenarios Q&A](Interview%20Questions/30-azure-production-scenarios-qna.md) | AKS debugging, Azure DevOps pipelines, App Gateway/WAF, DNS, Functions, DR, cost |
+| [Core DevOps Scenarios Gap-Fill Q&A](Interview%20Questions/31-core-devops-scenarios-gap-fill-qna.md) | 20 common mid/senior questions, with links to answers elsewhere in the hub |
+| [Two-Round DevOps + AWS Interview Q&A](Interview%20Questions/32-two-round-devops-aws-interview-qna.md) | Round 1 fundamentals + round 2 scenario troubleshooting (24 questions) |
+| [Platform Engineering Deep Dive Q&A](Interview%20Questions/33-platform-engineering-deep-dive-qna.md) | Terraform, CloudFormation, Jenkins, GitHub Actions, Argo CD, Helm, Gateway API, service mesh internals |
+| [On-Prem & Banking Infrastructure Q&A](Interview%20Questions/34-onprem-banking-infrastructure-qna.md) | Linux admin, VPN, firewalls, proxies, SSL/TLS, DR and compliance in regulated orgs |
+| [Observability, RCA & Automation Q&A](Interview%20Questions/35-observability-rca-scripting-go-qna.md) | OpenTelemetry, alerting, production troubleshooting, shell/Python/Go automation |
+| [AWS Networking Deep Dive Q&A](Interview%20Questions/36-aws-networking-deep-dive-qna.md) | VPC, subnets, route tables, gateways, endpoints, Transit Gateway, hybrid, DNS, troubleshooting |
+| [DevOps Fundamentals Screening Round Q&A](Interview%20Questions/37-devops-fundamentals-screening-round-qna.md) | First-round screen: web servers, Linux, Git, Jenkins, Docker, AWS, K8s, IaC |
 
 ---
 
@@ -103,6 +113,14 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | [Kubernetes Doubts](Kubernetes/k8-doubts.md) | Common questions, gotchas, and interview prep |
 | [Good Practice Networking](Kubernetes/good-practice-networking.md) | Production networking best practices |
 | [Ingress Examples](Kubernetes/examples/ingress-eg.md) | NGINX Ingress controller configurations |
+| [Kubernetes Learning Path](Kubernetes/k8s-learning-path.md) | Beginner → advanced learning & revision path across every core K8s topic |
+| [Deep Dives — Hub](Kubernetes/deep-dive/README.md) | Field-level companions to the learning path |
+| [Services, Endpoints & Ports](Kubernetes/deep-dive/01-services-endpoints-ports.md) | ClusterIP/NodePort/LB, EndpointSlices, port vs targetPort vs containerPort, kube-proxy |
+| [YAML Fields Explained](Kubernetes/deep-dive/02-yaml-fields-explained.md) | How to read any manifest field by field, plus `kubectl explain` |
+| [Pod Lifecycle, Probes & Resources](Kubernetes/deep-dive/03-pod-lifecycle-probes-resources.md) | Phases, probes, requests/limits, QoS, graceful shutdown |
+| [ConfigMaps, Secrets & Storage](Kubernetes/deep-dive/04-storage-config-secrets.md) | Config injection, Secrets, PV/PVC/StorageClass |
+| [Workloads, Rollouts & Scheduling](Kubernetes/deep-dive/05-workloads-rollouts-scheduling.md) | Deployments/StatefulSets/DaemonSets/Jobs, rollouts, affinity, taints |
+| [RBAC, NetworkPolicy & Pod Security](Kubernetes/deep-dive/06-security-rbac-networkpolicy.md) | Roles/bindings, ServiceAccounts, NetworkPolicy, Pod Security Standards |
 
 ---
 
@@ -189,7 +207,7 @@ Welcome to the centralized index of all notes in this repository. Click any link
 |---|---|
 | [GitOps](GitOps.md) | GitOps principles, Flux, ArgoCD-based workflows |
 | [ArgoCD](Continuous%20Delivery/ArgoCD/Argo-cd.md) | ArgoCD setup, apps, sync policies, RBAC |
-| [ArgoCD + Helm Integration](argo-cd-integration-helm.md) | Deploy Helm charts via ArgoCD |
+| [ArgoCD + Helm/Kustomize, RBAC & Multi-Cluster](Continuous%20Delivery/ArgoCD/argo-cd-integration-helm.md) | Deploy Helm charts and Kustomize overlays via ArgoCD, RBAC policies, managing many clusters |
 | [CI/CD Pipeline Project](Project/cicd-pipeline.md) | Real-world pipeline implementation |
 
 ---
@@ -261,6 +279,10 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | [Shell Scripting for DevOps](scripting/shell-scripting-devops.md) | Automation scripts, real DevOps use cases |
 | [Linux Commands](scripting/linux-cmds.md) | Essential Linux CLI commands reference |
 | [Linux Permissions](scripting/linux-permissions.md) | chmod, chown, ACLs, umask explained |
+| [grep in Depth](scripting/grep-mastery.md) | Beginner → master: regex engines, PCRE lookarounds, script-safe exit codes, secret scanning + exercises |
+| [sed in Depth](scripting/sed-mastery.md) | Beginner → master: addresses, hold space, N/P/D, labels, idempotent config edits + exercises |
+| [awk in Depth](scripting/awk-mastery.md) | Beginner → master: fields, arrays, joins, functions, gawk FPAT/asort/percentiles, log reports + exercises |
+| [Text-Processing Lab](scripting/text-processing-lab.md) | Sample data (logs, CSV, configs, YAML) used by the grep/sed/awk exercises |
 
 ---
 
@@ -269,8 +291,26 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | Note | Description |
 |---|---|
 | [Chef](Configuration%20Management/chef/chef.md) | Client-server & masterless architecture, cookbooks, recipes, roles, environments, testing |
+| ↳ [Chef: Cookbooks & Recipes](Configuration%20Management/chef/cookbooks-and-recipes.md) | Cookbook layout, resources, notifications, custom resources |
+| ↳ [Chef: Attributes & Templates](Configuration%20Management/chef/attributes-and-templates.md) | Attribute precedence, Ohai, ERB, data bags, search |
+| ↳ [Chef: Roles, Environments & Policyfiles](Configuration%20Management/chef/roles-environments-and-orgs.md) | Chef Server object model, knife, Policyfiles |
+| ↳ [Chef: Testing & Dev Workflow](Configuration%20Management/chef/testing-and-dev-workflow.md) | Test Kitchen, ChefSpec, InSpec, linting |
+| ↳ [Chef: Advanced & Production Patterns](Configuration%20Management/chef/advanced-and-production-patterns.md) | Compile vs converge, HA, masterless, CI/CD |
 | [Ansible](Configuration%20Management/ansible/ansible.md) | Agentless architecture, playbooks, roles, collections, vault, dynamic inventory, testing & CI |
+| ↳ [Ansible: Playbooks & Modules](Configuration%20Management/ansible/playbooks-and-modules.md) | Playbook syntax, handlers, core modules, loops, conditionals, idempotency |
+| ↳ [Ansible: Inventory & Dynamic Inventory](Configuration%20Management/ansible/inventory-and-dynamic-inventory.md) | Static groups, cloud inventory plugins, multi-environment layouts |
+| ↳ [Ansible: Variables & Templating](Configuration%20Management/ansible/variables-and-templating.md) | Variable precedence, facts, Jinja2, magic variables |
+| ↳ [Ansible: Roles & Collections](Configuration%20Management/ansible/roles-and-collections.md) | Role structure, Galaxy, import vs include, collections |
+| ↳ [Ansible: Vault & Security](Configuration%20Management/ansible/vault-and-security.md) | Encrypting secrets with Ansible Vault, security practices |
+| ↳ [Ansible: Testing & CI](Configuration%20Management/ansible/testing-and-ci.md) | ansible-lint, Molecule, CI pipelines |
+| ↳ [Ansible: Advanced & Production Patterns](Configuration%20Management/ansible/advanced-and-production-patterns.md) | Performance, ansible-pull, AWX/AAP, plugins, gotchas |
 | [Puppet](Configuration%20Management/puppet/puppet.md) | Agent/master architecture, manifests, classes/modules, Hiera, roles & profiles, PuppetDB, testing & CI |
+| ↳ [Puppet: Manifests & Resources](Configuration%20Management/puppet/manifests-and-resources.md) | Puppet DSL, resource types, relationships, idempotency |
+| ↳ [Puppet: Classes, Modules & Templates](Configuration%20Management/puppet/classes-modules-and-templates.md) | Modules, Forge, r10k, ERB/EPP |
+| ↳ [Puppet: Hiera & Data](Configuration%20Management/puppet/hiera-and-data.md) | Hierarchical data lookup, separating data from code |
+| ↳ [Puppet: Nodes, Environments & Roles/Profiles](Configuration%20Management/puppet/nodes-environments-and-roles-profiles.md) | Classification, environments, roles & profiles, Bolt |
+| ↳ [Puppet: Testing & CI](Configuration%20Management/puppet/testing-and-ci.md) | rspec-puppet, PDK, acceptance tests, CI |
+| ↳ [Puppet: Advanced & Production Patterns](Configuration%20Management/puppet/advanced-and-production-patterns.md) | Catalog compilation, PuppetDB, scaling, PE vs OSS |
 
 ---
 
@@ -383,6 +423,35 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | Note | Description |
 |---|---|
 | [Windows Administration for DevOps](Windows%20Administration/windows-administration-for-devops.md) | CMD/PowerShell vs Linux cheat sheet, Event Viewer, perfmon, IIS, AD, patching, Ansible WinRM, Windows on AWS/EKS |
+
+---
+
+## 🌱 CNCF Projects
+
+Each project has full notes plus a hands-on `tutorial/local-setup.md` in its folder.
+
+| Note | Description |
+|---|---|
+| [CNCF Notes — Hub](CNCF/Readme.md) | Overview of every CNCF project covered, with tutorial links |
+| [Jaeger](CNCF/jaeger/jaeger.md) | Distributed tracing |
+| [OpenTelemetry](CNCF/open-telemetry/opentelemetry.md) | Vendor-neutral instrumentation & the Collector |
+| [Envoy](CNCF/envoy/envoy.md) | L4/L7 proxy, service-mesh data plane |
+| [containerd](CNCF/containerd/containerd.md) | CRI container runtime |
+| [etcd](CNCF/etcd/etcd.md) | Raft key-value store behind Kubernetes |
+| [Cilium](CNCF/cilium/cilium.md) | eBPF CNI, network policy, Hubble |
+| [Falco](CNCF/falco/falco.md) | Runtime threat detection |
+| [Vitess](CNCF/vitess/vitess.md) | Horizontal MySQL sharding |
+| [Flux](CNCF/flux/flux.md) | GitOps with composable controllers |
+| [Argo Workflows](CNCF/argo-workflows/argo-workflows.md) | Kubernetes-native workflow engine |
+| [KEDA](CNCF/keda/keda.md) | Event-driven autoscaling |
+| [Crossplane](CNCF/crossplane/crossplane.md) | Cloud infra as Kubernetes resources |
+| [Backstage](CNCF/backstage/backstage.md) | Internal developer portal |
+| [SPIRE](CNCF/spire/spire.md) | SPIFFE workload identity |
+| [Rook](CNCF/rook/rook.md) | Ceph storage orchestration |
+| [Longhorn](CNCF/longhorn/longhorn.md) | Distributed block storage |
+| [Harbor](CNCF/harbor/harbor.md) | Image registry with scanning & signing |
+| [CoreDNS](CNCF/coredns/coredns.md) | DNS server and Kubernetes cluster DNS |
+| [NATS](CNCF/nats/nats.md) | Lightweight pub/sub and JetStream |
 
 ---
 

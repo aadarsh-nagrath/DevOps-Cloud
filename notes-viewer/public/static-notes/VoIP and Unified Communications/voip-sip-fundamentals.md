@@ -97,6 +97,14 @@ UC is voice, video, conferencing, chat/presence, voicemail, IVR, and contact-cen
 A **dialog** (one call) = `Call-ID` + From-tag + To-tag. A **transaction** = one request plus its responses (identified by the Via `branch`).
 
 ### SDP: how the media is negotiated
+
+```mermaid
+flowchart LR
+    A[Caller INVITE<br/>SDP offer: IP, port,<br/>codecs opus, PCMU] --> B[Callee 200 OK<br/>SDP answer: chosen codec,<br/>its IP + port]
+    B --> RTP[RTP flows directly<br/>between the two media addresses]
+    RTP -.-> RTCP[RTCP: jitter, loss, RTT reports]
+```
+
 SIP carries an **SDP** (Session Description Protocol) body using the **offer/answer** model:
 ```
 v=0
@@ -154,6 +162,15 @@ Related call-level KPIs: **ASR** (Answer Seizure Ratio, % of calls answered), **
 ## 3. Advanced
 
 ### NAT: the #1 source of VoIP problems
+
+```mermaid
+flowchart LR
+    PH[Phone 192.168.1.20] -->|"SDP says: send audio to 192.168.1.20"| NAT[Home NAT]
+    NAT --> SRV[SIP server]
+    SRV -.->|RTP to 192.168.1.20 → unroutable| X[one-way audio]
+    FIX["Fixes: STUN / ICE, rport,<br/>media relay (rtpengine),<br/>SBC rewrites SDP"] -.-> SRV
+```
+
 SIP puts IP addresses **inside the message body** (Via, Contact, SDP `c=`). NAT only rewrites packet headers, so the far end gets told to send traffic to an unreachable private IP.
 
 | Symptom | Typical NAT cause |

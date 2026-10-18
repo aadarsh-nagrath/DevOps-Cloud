@@ -20,6 +20,25 @@ Core value:
 
 ## 2. Containers vs Virtual Machines
 
+```mermaid
+flowchart TB
+    subgraph VM[Virtual machines]
+        direction TB
+        VA[App A] --> GA[Guest OS + kernel]
+        VB[App B] --> GB[Guest OS + kernel]
+        GA --> HV[Hypervisor]
+        GB --> HV
+        HV --> HW1[Hardware]
+    end
+    subgraph CT[Containers]
+        direction TB
+        CA[App A + libs] --> ENG[Container runtime]
+        CB[App B + libs] --> ENG
+        ENG --> K[Shared host kernel<br/>namespaces + cgroups]
+        K --> HW2[Hardware]
+    end
+```
+
 | Aspect | Containers | Virtual Machines |
 |---|---|---|
 | Isolation unit | OS process (namespaces + cgroups) | Full guest OS on virtualized hardware |
@@ -38,28 +57,14 @@ Containers and VMs are often combined in practice: cloud instances (EC2, GCE) ar
 
 ## 3. Docker Architecture
 
-```
-+-------------------+       REST API (HTTP over Unix socket / TCP)      +--------------------+
-|   Docker Client   |  ------------------------------------------------> |   Docker Daemon     |
-|   (docker CLI)     |                                                    |   (dockerd)          |
-+-------------------+                                                    +--------------------+
-                                                                                    |
-                                                                                    | manages
-                                                                                    v
-                                                                          +--------------------+
-                                                                          |    containerd       |
-                                                                          | (container lifecycle,|
-                                                                          |  image pull/store)    |
-                                                                          +--------------------+
-                                                                                    |
-                                                                                    | spawns via
-                                                                                    v
-                                                                          +--------------------+
-                                                                          |      runc            |
-                                                                          | (OCI runtime — creates|
-                                                                          |  the actual namespaces|
-                                                                          |  + cgroups process)   |
-                                                                          +--------------------+
+```mermaid
+flowchart LR
+    CLI["Docker client<br/>docker CLI"] -->|"REST API over<br/>/var/run/docker.sock or TCP"| D["Docker daemon<br/>dockerd: images, networks,<br/>volumes, build"]
+    D -->|gRPC| C["containerd<br/>container lifecycle,<br/>image pull + storage"]
+    C --> S["containerd-shim<br/>stays as the container's parent"]
+    S -->|spawns, then exits| R["runc<br/>OCI runtime: namespaces + cgroups"]
+    R --> P(("container<br/>process"))
+    D <-->|push / pull| REG[("Registry")]
 ```
 
 - **Docker Client (`docker` CLI)** — what you type commands into. Talks to the daemon over a REST API (usually a Unix socket `/var/run/docker.sock`, or TCP for remote daemons).
@@ -113,6 +118,18 @@ Trade-offs: some features are limited or need extra setup (certain network drive
 ---
 
 ## 5. Core Concepts Glossary
+
+How the core objects relate:
+
+```mermaid
+flowchart LR
+    DF[Dockerfile] -->|docker build| IMG[Image<br/>read-only layers]
+    IMG -->|docker push| REG[(Registry<br/>Docker Hub / ECR / GHCR)]
+    REG -->|docker pull| IMG2[Image on another host]
+    IMG2 -->|docker run| C1[Container<br/>+ thin writable layer]
+    C1 --- VOL[(Volume<br/>persists data)]
+    C1 --- NET[Network<br/>bridge / overlay]
+```
 
 | Term | Definition |
 |---|---|

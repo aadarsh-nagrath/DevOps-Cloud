@@ -13,6 +13,15 @@
 - Upload: single PUT up to 5 GB; use **multipart upload** for objects > ~100 MB (parallel parts, retry individual parts, required above 5 GB); `aws s3 cp` does multipart automatically. **Transfer Acceleration** speeds long-distance uploads via edge locations. Lifecycle rule to **abort incomplete multipart uploads**.
 
 ### Storage classes
+
+```mermaid
+flowchart LR
+    STD[S3 Standard<br/>hot] -->|30 days| IA[Standard-IA<br/>infrequent]
+    IA -->|90 days| GIR[Glacier Instant<br/>Retrieval]
+    GIR -->|180 days| GDA[Glacier Deep Archive<br/>hours to restore]
+    INT[Intelligent-Tiering<br/>moves objects automatically] -.-> STD
+```
+
 | Class | Use | Notes |
 |---|---|---|
 | **S3 Standard** | Frequently accessed | Default, ≥3 AZs |

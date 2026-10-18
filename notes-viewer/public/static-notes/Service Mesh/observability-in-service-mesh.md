@@ -114,6 +114,16 @@ Kiali visualizes the metrics and topology data above as an actual live graph of 
 
 ## 5. The Full Observability Stack (as referenced in istio.md)
 
+```mermaid
+flowchart LR
+    ENV[Envoy sidecars] -->|metrics| PROM[(Prometheus)]
+    ENV -->|spans| TR[(Jaeger / Tempo)]
+    ENV -->|access logs| LOG[(Loki / ELK)]
+    PROM --> GRAF[Grafana]
+    PROM --> KIALI[Kiali<br/>service graph]
+    TR --> KIALI
+```
+
 | Tool | Role |
 |---|---|
 | **Prometheus** | Scrapes and stores the metrics Envoy emits |

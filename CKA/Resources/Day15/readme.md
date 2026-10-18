@@ -13,6 +13,15 @@ Node Selectors are great for basic pod placement based on node labels. But what 
 
 ## Node Affinity: The Powerhouse 🔥
 
+```mermaid
+flowchart TB
+    P[Pod with nodeAffinity] --> R{"required...DuringScheduling<br/>disktype In [ssd]"}
+    R -->|nodes without label| X[filtered out]
+    R -->|ssd nodes| PREF{"preferred...<br/>weight 80: zone = us-east-1a"}
+    PREF -->|score higher| A[ssd + zone a]
+    PREF -->|score lower| B[ssd, other zone]
+```
+
 Node Affinity lets you define complex rules for where your pods can be scheduled based on node labels. Think of it as creating a wishlist for your pod's ideal home!
 
 ### Key Features:

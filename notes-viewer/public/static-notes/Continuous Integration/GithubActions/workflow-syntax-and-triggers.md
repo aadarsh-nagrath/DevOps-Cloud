@@ -30,6 +30,15 @@ Critically: `pull_request` checks out and runs against the **merge commit of the
 
 ### `pull_request_target` — SECURITY CRITICAL
 
+```mermaid
+flowchart TB
+    FORK[PR from a fork] --> T{trigger}
+    T -->|pull_request| SAFE["runs fork's code<br/>read-only token, NO secrets ✅"]
+    T -->|pull_request_target| DANGER["runs in BASE repo context<br/>write token + secrets"]
+    DANGER -->|checks out PR head and runs it| PWN["attacker code with your secrets ❌"]
+    DANGER -->|only labels / comments, no PR code| OK[acceptable use]
+```
+
 `pull_request_target` looks almost identical to `pull_request` but behaves fundamentally differently:
 
 | | `pull_request` | `pull_request_target` |
@@ -194,6 +203,14 @@ GitHub-hosted runners are ephemeral VMs: fresh for every job, pre-installed with
 ---
 
 ## 5. `needs:` — Job Dependencies
+
+```mermaid
+flowchart LR
+    LINT[lint] --> BUILD[build]
+    TEST[test] --> BUILD
+    BUILD --> DS[deploy-staging]
+    DS --> DP["deploy-prod<br/>if: github.ref == 'refs/heads/main'"]
+```
 
 ```yaml
 jobs:

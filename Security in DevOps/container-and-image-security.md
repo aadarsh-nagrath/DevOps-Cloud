@@ -133,6 +133,22 @@ The two dominant formats are **SPDX** (Linux Foundation, broader legal/licensing
 
 ## 4. Image Signing and Verification (cosign / Sigstore)
 
+```mermaid
+sequenceDiagram
+    participant CI as CI job (OIDC identity)
+    participant F as Fulcio (Sigstore CA)
+    participant R as Registry
+    participant RK as Rekor (transparency log)
+    participant K as Cluster admission (Kyverno)
+    CI->>R: push image@sha256:...
+    CI->>F: get short-lived cert for my OIDC identity
+    CI->>R: cosign sign: signature stored next to image
+    CI->>RK: record signature in public log
+    K->>R: on Pod create: fetch signature
+    K->>K: verify identity = github.com/org/repo workflow
+    K-->>K: admit if valid, reject otherwise
+```
+
 ### Why signing matters
 
 Without signing, anything that can write to your registry (a compromised CI credential, a malicious registry admin, or a MITM on an unauthenticated pull) can **replace a legitimate image with a tampered one**, and nothing downstream would notice — the tag still says `myapp:1.4.0`, it just isn't the image your pipeline actually built. Signing binds a cryptographic proof of origin to the image digest, so a deploy-time check can refuse anything that doesn't verify.
@@ -160,6 +176,14 @@ If someone swaps `myapp:1.4.0` in the registry for a tampered image, `cosign ver
 ---
 
 ## 5. Admission Control — Enforcing These Policies in Kubernetes
+
+```mermaid
+flowchart LR
+    DEP[kubectl apply / Argo CD] --> API[API server]
+    API --> ADM{Kyverno / Gatekeeper}
+    ADM -->|"signed? no critical CVEs?<br/>non-root? limits set?"| OK[admitted → scheduled]
+    ADM -->|violation| DENY[rejected with message]
+```
 
 Scanning and signing are only useful if something actually **enforces** them at deploy time — otherwise they're advisory, and a rushed or bypassed deploy can still ship a vulnerable or unsigned image. Kubernetes admission controllers intercept resource creation (e.g., a Pod being scheduled) and can reject it before it ever runs.
 

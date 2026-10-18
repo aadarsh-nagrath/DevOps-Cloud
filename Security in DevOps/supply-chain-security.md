@@ -65,6 +65,15 @@ The common thread: **supply chain attacks are dangerous specifically because the
 
 ## 2. SLSA — Supply-chain Levels for Software Artifacts
 
+```mermaid
+flowchart LR
+    SRC[Source<br/>reviewed, protected branch] --> BUILD[Build<br/>hosted, isolated, scripted]
+    BUILD --> PROV[Provenance attestation<br/>who built what, from which commit]
+    PROV --> ART[(Signed artifact)]
+    ART --> VER{Consumer verifies<br/>provenance + signature}
+    VER -->|ok| DEPLOY[deploy]
+```
+
 SLSA is a framework of increasing maturity levels describing how much you can trust that an artifact was built the way it claims to have been built — not a single tool, but a set of practices you can audit against.
 
 | Level | Roughly means | Example practice |

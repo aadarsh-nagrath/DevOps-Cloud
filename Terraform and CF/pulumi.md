@@ -81,6 +81,15 @@ pulumi.export("bucket_name", bucket.id)
 ```
 
 ### Core Workflow (CLI)
+
+```mermaid
+flowchart LR
+    CODE[Program in TS / Python / Go] --> LANG[language host<br/>runs your code]
+    LANG -->|resource registrations| ENG[Pulumi engine<br/>diff vs state]
+    ENG --> PROV[providers] --> CLOUD[(Cloud APIs)]
+    ENG <--> ST[(state backend<br/>Pulumi Cloud / S3)]
+```
+
 ```bash
 pulumi new <template>       # scaffold a project (language + cloud template)
 pulumi preview               # diff desired vs actual state (like `terraform plan`)

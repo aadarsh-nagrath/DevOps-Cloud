@@ -43,6 +43,20 @@ gcloud storage buckets add-iam-policy-binding gs://my-bucket --member="serviceAc
 - **Impersonation** for humans/CI: `gcloud --impersonate-service-account=deployer@...` (short-lived tokens, audited).
 
 ### Workload Identity Federation (WIF)
+
+```mermaid
+sequenceDiagram
+    participant CI as GitHub Actions / AWS / AKS
+    participant STS as Google STS
+    participant IAM as IAM Credentials
+    participant API as GCP API
+    CI->>STS: exchange external OIDC token (workload identity pool)
+    STS-->>CI: federated access token
+    CI->>IAM: impersonate service account
+    IAM-->>CI: short-lived SA token
+    CI->>API: call with token (no JSON key file)
+```
+
 Lets **external workloads** (AWS, Azure, GitHub Actions, GitLab, on-prem OIDC/SAML, Kubernetes clusters) exchange their own identity token for **short-lived Google credentials** via **STS** — no exported keys.
 - **Workload identity pool** + **provider** (OIDC/AWS/SAML) with **attribute mapping** & **attribute conditions** (e.g. only `repo:org/app` on `main`), then grant roles to the federated principal (or let it impersonate a SA).
 - **Why preferred over SA keys**: no long-lived secret to leak/rotate, scoped by attributes, short TTL, full audit trail.

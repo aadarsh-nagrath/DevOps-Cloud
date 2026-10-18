@@ -3,6 +3,23 @@ Deployments are abstraction on pods and pods are abstraction on containers.
 Components:
 
 ### **Pods**
+
+**Big picture:** how the main objects in this note relate to each other.
+
+```mermaid
+flowchart LR
+    U([User / kubectl]) -->|apply YAML| DEP[Deployment]
+    DEP -->|creates & versions| RS[ReplicaSet]
+    RS -->|keeps N replicas of| P1[Pod]
+    RS --> P2[Pod]
+    CM[(ConfigMap / Secret)] -.->|env / files| P1
+    PVC[(PersistentVolumeClaim)] -.->|volume| P2
+    SVC[Service<br/>stable IP + DNS] -->|label selector| P1
+    SVC --> P2
+    ING[Ingress] -->|host / path rules| SVC
+    C([Internet client]) --> ING
+```
+
 - **Pod**: A pod in Kubernetes is the smallest deployable unit. It encapsulates one or more containers that share the same network namespace and storage. For your full-stack app, each component (frontend, backend, and database) will run in a separate pod.
 - A **pod** typically contains one container, but it can host multiple containers that are tightly coupled, such as a backend and a cache system.
 
@@ -74,6 +91,16 @@ The **kubectl** CLI tool is the main way administrators and developers interact 
 ---
 
 ### **How Service Works as a Load Balancer**
+
+```mermaid
+flowchart LR
+    C([Client pod]) -->|my-svc:80| DNS{{CoreDNS}}
+    DNS -->|ClusterIP 10.96.0.10| VIP[Service virtual IP]
+    VIP -->|kube-proxy rules<br/>iptables / IPVS| P1[Pod A :8080]
+    VIP --> P2[Pod B :8080]
+    VIP --> P3[Pod C :8080]
+```
+
 A Kubernetes **Service** is an abstraction that exposes a group of pods as a single network endpoint. It enables communication between pods and external users or other pods inside the cluster.
 
 #### Example of Service Acting as a Load Balancer:
@@ -114,6 +141,28 @@ The **kube-proxy** is a network component that enables communication between ser
 ---
 
 ### **How to Schedule a Pod**
+
+What happens between `kubectl apply` and a running container:
+
+```mermaid
+sequenceDiagram
+    participant U as kubectl
+    participant A as API server
+    participant E as etcd
+    participant C as Controllers
+    participant S as Scheduler
+    participant K as kubelet (node)
+    U->>A: apply Deployment
+    A->>E: store desired state
+    C->>A: watch: Deployment needs ReplicaSet + Pods
+    C->>A: create Pod objects (no node yet)
+    S->>A: watch: unscheduled Pods
+    S->>A: bind Pod to node-2 (filter + score)
+    K->>A: watch: Pod assigned to me
+    K->>K: pull image, start containers via CRI
+    K->>A: report status Running / Ready
+```
+
 Scheduling in Kubernetes refers to the process of deciding which node should run a pod.
 
 #### Steps to Schedule a Pod:
@@ -166,6 +215,31 @@ In summary:
 ---
 
 ### **API Server in Kubernetes**
+
+Every component talks **only** to the API server; only the API server talks to etcd.
+
+```mermaid
+flowchart TB
+    subgraph CP[Control Plane]
+        API[kube-apiserver]
+        ETCD[(etcd)]
+        SCH[kube-scheduler]
+        CM[kube-controller-manager]
+        CCM[cloud-controller-manager]
+        API <--> ETCD
+        SCH <-->|watch / bind| API
+        CM <-->|watch / reconcile| API
+        CCM <--> API
+    end
+    subgraph N1[Worker Node]
+        KL[kubelet] --> CR[containerd / CRI-O] --> PODS[Pods]
+        KP[kube-proxy]
+    end
+    K([kubectl]) -->|HTTPS + auth| API
+    KL <-->|pod specs / status| API
+    KP <-->|Services / EndpointSlices| API
+    CCM -->|LBs, routes, volumes| CLOUD[(Cloud provider API)]
+```
 
 The **Kubernetes API Server** is the central management component of Kubernetes. It serves as the gateway for all communication within the cluster, acting as the interface between users, tools (like `kubectl`), and the cluster components.
 
@@ -397,6 +471,16 @@ Kubernetes uses YAML (or JSON) files to define the desired state of cluster reso
 ---
 
 ### **Ports in Kubernetes**
+
+The three port fields, and where each one applies:
+
+```mermaid
+flowchart LR
+    EXT([Outside client]) -->|nodeIP:30080<br/>nodePort| NODE[Any node]
+    NODE --> SVC[Service<br/>port: 80]
+    INC([In-cluster client]) -->|svc-name:80<br/>port| SVC
+    SVC -->|targetPort: 8080| POD[Pod<br/>containerPort: 8080]
+```
 
 - **Container Port**:
   - The port inside the container.

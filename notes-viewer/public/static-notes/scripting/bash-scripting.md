@@ -113,6 +113,14 @@ Usage: `./script.sh -n myapp -e prod`
 
 ## 4. Conditionals
 
+```mermaid
+flowchart TB
+    T{"[[ test ]] or command"} -->|exit status 0 = true| A[then-branch]
+    T -->|non-zero = false| E{elif ...}
+    E -->|0| B[elif-branch]
+    E -->|non-zero| C[else-branch]
+```
+
 ```bash
 if [ "$env" == "prod" ]; then
   echo "Production deployment"
@@ -258,6 +266,17 @@ done
 
 ## 8. Command Substitution & Pipes
 
+In a pipeline every command runs at the same time, connected stdout → stdin:
+
+```mermaid
+flowchart LR
+    A["grep ERROR app.log"] -->|stdout → stdin| B["awk '{print $3}'"]
+    B --> C["sort"]
+    C --> D["uniq -c"]
+    D --> OUT[(terminal / file)]
+    A -. stderr .-> ERR[(terminal)]
+```
+
 ```bash
 today=$(date +%Y-%m-%d)          # preferred over legacy backticks `date`
 files=$(ls *.txt | wc -l)
@@ -275,6 +294,17 @@ grep "ERROR" access.log   # instead of: cat access.log | grep "ERROR"
 ## 9. Error Handling
 
 ### Strict mode (put this near the top of every serious script)
+
+What each strict-mode flag catches:
+
+```mermaid
+flowchart LR
+    S["set -euo pipefail"] --> E["-e<br/>exit when a command fails"]
+    S --> U["-u<br/>error on unset variables"]
+    S --> P["-o pipefail<br/>pipeline fails if ANY stage fails,<br/>not just the last"]
+    E --> TR["trap ... ERR / EXIT<br/>for cleanup + messages"]
+```
+
 ```bash
 set -euo pipefail
 ```
@@ -333,6 +363,16 @@ set +x                   # turn it back off
 ---
 
 ## 10. Input/Output & Redirection
+
+Every process starts with three file descriptors; redirections rewire them:
+
+```mermaid
+flowchart LR
+    IN["0 stdin<br/>keyboard / &lt; file / pipe"] --> P((process))
+    P --> O["1 stdout<br/>&gt; file, &gt;&gt; append, | next cmd"]
+    P --> E["2 stderr<br/>2&gt; err.log, 2&gt;&amp;1 merge into stdout"]
+    O --> NULL["/dev/null discards"]
+```
 
 ```bash
 command > file.txt        # redirect stdout, overwrite
@@ -393,6 +433,8 @@ env="$1"
 
 ## 12. `grep` — Pattern Searching
 
+> This is a quick reference. For full beginner → master coverage with exercises and answers, see **[grep in depth](grep-mastery.md)**.
+
 ```bash
 grep "pattern" file                 # basic search
 grep -i "pattern" file              # case-insensitive
@@ -427,6 +469,8 @@ grep -rn "image:" --include="*.yaml" ./manifests
 ---
 
 ## 13. `sed` — Stream Editing
+
+> This is a quick reference. For full beginner → master coverage with exercises and answers, see **[sed in depth](sed-mastery.md)**.
 
 ```bash
 sed 's/old/new/' file           # replace first match per line
@@ -464,6 +508,8 @@ sed -i 's/[ \t]*$//' file.txt
 ---
 
 ## 14. `awk` — Field/Column Processing
+
+> This is a quick reference. For full beginner → master coverage with exercises and answers, see **[awk in depth](awk-mastery.md)**.
 
 ```bash
 awk '{print $1}' file            # print first column (whitespace-delimited)

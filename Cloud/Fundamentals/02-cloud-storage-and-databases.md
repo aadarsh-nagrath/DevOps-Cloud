@@ -6,6 +6,12 @@
 
 ## 1. Storage types: object vs block vs file
 
+```mermaid
+flowchart LR
+    OBJ[Object storage<br/>S3 / Blob / GCS<br/>HTTP API, flat namespace,<br/>virtually unlimited] --- BLK[Block storage<br/>EBS / Managed Disk / PD<br/>attached to ONE VM like a disk]
+    BLK --- FILE[File storage<br/>EFS / Azure Files / Filestore<br/>NFS/SMB, shared by many VMs]
+```
+
 | | **Object** | **Block** | **File** |
 |---|---|---|---|
 | Unit | Objects (data + metadata + key) in a flat namespace (buckets) | Fixed-size blocks presented as a raw disk | Files in hierarchical directories |
@@ -79,6 +85,17 @@ Tables with schemas, joins, **ACID** transactions, strong consistency. Scale up 
 ---
 
 ## 3. Choosing a database — decision guide
+
+```mermaid
+flowchart TB
+    Q{What does the data look like?} -->|"relations, transactions, joins"| SQL[Relational<br/>RDS / Azure SQL / Cloud SQL]
+    Q -->|"key-value at massive scale"| KV[DynamoDB / Cosmos DB / Bigtable]
+    Q -->|"flexible JSON documents"| DOC[MongoDB / DocumentDB / Firestore]
+    Q -->|"analytics over TBs"| DW[Redshift / Synapse / BigQuery]
+    Q -->|"sub-ms reads, cache"| CACHE[Redis / ElastiCache / Memorystore]
+    SQL -->|"global scale + SQL"| GSQL[Aurora Global / Spanner / Cosmos DB]
+```
+
 1. Need joins, transactions, fixed schema, moderate scale? → **Managed relational** (RDS/Aurora, Azure SQL/Flexible Server, Cloud SQL/AlloyDB).
 2. Massive scale, single-digit ms key lookups, flexible schema, predictable access patterns? → **DynamoDB / Cosmos DB / Firestore / Bigtable**.
 3. Global writes + strong consistency + relational? → **Spanner** (or Cosmos DB with strong consistency/Aurora DSQL).

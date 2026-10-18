@@ -106,6 +106,21 @@ then grant specific write scopes (`pull-requests: write`, `packages: write`, `id
 A static access key stored as a GitHub secret works, but: it doesn't expire on its own, it grants whatever permissions were attached at creation time indefinitely, it can be copy-pasted or logged accidentally, and if it ever leaks (a misconfigured log, a compromised dependency reading `process.env`, a `pull_request_target` mistake per [workflow-syntax-and-triggers.md](workflow-syntax-and-triggers.md)) it remains valid and exploitable until someone notices and manually revokes it — which could be days or weeks.
 
 ### The OIDC way
+
+```mermaid
+sequenceDiagram
+    participant GH as GitHub Actions job
+    participant OIDC as GitHub OIDC provider
+    participant STS as AWS STS
+    participant AWS as AWS APIs
+    GH->>OIDC: request ID token (permissions: id-token: write)
+    OIDC-->>GH: JWT sub=repo:org/app:ref:refs/heads/main
+    GH->>STS: AssumeRoleWithWebIdentity(JWT)
+    STS->>STS: trust policy checks aud + sub
+    STS-->>GH: credentials valid ~1 hour
+    GH->>AWS: deploy (no long-lived keys stored anywhere)
+```
+
 GitHub Actions can issue a short-lived, cryptographically signed **OIDC token** for each workflow run, which your cloud provider (AWS/Azure/GCP) can be configured to trust *without you ever storing a credential at all*. The workflow requests a token, presents it to the cloud provider, and the provider — having been told in advance "trust tokens from this specific GitHub repo/branch/environment" — hands back a **temporary session credential** valid for that run only.
 
 **Why this is better:**

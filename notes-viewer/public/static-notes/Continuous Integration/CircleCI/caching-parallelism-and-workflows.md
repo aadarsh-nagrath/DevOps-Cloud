@@ -137,6 +137,18 @@ workflows:
 ```
 
 ### Combined fan-out then fan-in — a realistic full shape
+
+```mermaid
+flowchart LR
+    B[build] --> U[unit tests<br/>parallelism: 4]
+    B --> I[integration tests]
+    B --> L[lint]
+    U --> H{hold<br/>type: approval}
+    I --> H
+    L --> H
+    H --> D[deploy]
+```
+
 ```yaml
 workflows:
   full-pipeline:

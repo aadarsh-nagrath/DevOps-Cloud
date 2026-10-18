@@ -6,6 +6,16 @@
 **Hardening** is the process of reducing a system's attack surface by removing unnecessary functionality, tightening configuration defaults, and applying the principle of **least privilege** — everything gets only the access it strictly needs, nothing more. It's a continuous discipline (patching, config drift correction), not a one-time checklist you run once and forget.
 
 ### Why Hardening Matters (The Layered Defense Argument)
+
+```mermaid
+flowchart LR
+    ATK([Attacker]) --> NET[Network: firewall,<br/>no public SSH]
+    NET --> HOST[Host: patched, CIS baseline,<br/>SELinux / AppArmor]
+    HOST --> ID[Identity: keys only,<br/>MFA, least privilege]
+    ID --> APP[App: non-root,<br/>secrets not on disk]
+    APP --> DATA[(Data: encrypted,<br/>audited)]
+```
+
 Firewalls and TLS ([firewalls.md](firewalls.md), [tls-and-certificates.md](tls-and-certificates.md)) control what can *reach* a system and whether traffic *in transit* is protected. Hardening is the last line of defense — **assuming an attacker does get through**, how much damage can they actually do? A hardened host with a compromised service still limits lateral movement, data exposure, and persistence.
 
 ### The CIS Benchmarks

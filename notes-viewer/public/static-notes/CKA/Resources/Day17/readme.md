@@ -11,6 +11,19 @@
 
 ## HPA v/S VPA
 
+```mermaid
+flowchart LR
+    subgraph H[HPA - scale OUT]
+        H1[CPU 80%] --> H2[3 pods → 6 pods]
+    end
+    subgraph V[VPA - scale UP]
+        V1[pod needs more] --> V2[requests 250m → 500m<br/>pod recreated]
+    end
+    subgraph C[Cluster Autoscaler]
+        C1[pods Pending] --> C2[add nodes]
+    end
+```
+
 ![image](https://github.com/user-attachments/assets/5b68a4b1-e5de-4086-9f55-6845bd420f1b)
 
 

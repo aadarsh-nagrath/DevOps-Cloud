@@ -42,6 +42,26 @@ Suppose we have a microservice
 ---
 
 #### **3. Service Mesh Solution**
+
+```mermaid
+flowchart TB
+    subgraph CP[Control plane]
+        ISTIOD[istiod<br/>config, discovery, CA]
+    end
+    subgraph DP[Data plane]
+        subgraph PA[Pod A]
+            A[app] <--> EA[Envoy]
+        end
+        subgraph PB[Pod B]
+            EB[Envoy] <--> B[app]
+        end
+        EA <-->|mTLS, retries, metrics| EB
+    end
+    ISTIOD -->|xDS config + certs| EA
+    ISTIOD --> EB
+    IG[Ingress gateway] --> EA
+```
+
 - Extracts non-business logic (e.g., communication, security, observability) into a sidecar proxy.
 - **Sidecar Proxy**:
   - Acts as an intermediary for all inter-service communication.
@@ -155,6 +175,24 @@ To get the sidecar proxy running alongside each microservice:
 ![{26676EFA-AF0D-4ED9-B1BF-C9B706AE364A}](https://github.com/user-attachments/assets/9883c774-4a7a-4cd8-9617-4f29987f0758)
 
 #### **8. Traffic Flow in Istio**
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant G as Ingress gateway
+    participant EA as Envoy (frontend pod)
+    participant FA as frontend
+    participant EB as Envoy (backend pod)
+    participant BB as backend
+    U->>G: HTTPS request
+    G->>EA: route by Gateway + VirtualService (mTLS)
+    EA->>FA: localhost
+    FA->>EA: call backend:8080 (plain HTTP)
+    EA->>EB: mTLS, retries, LB, telemetry
+    EB->>BB: localhost
+    BB-->>U: response flows back the same path
+```
+
 ![{7D8C3240-20AB-4EE6-B219-E42B95CC644E}](https://github.com/user-attachments/assets/f7b480ac-34bf-4b46-b37e-694f3c5ecffc)
 
 1. User request reaches the **Istio Ingress Gateway**.

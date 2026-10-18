@@ -65,6 +65,22 @@ If Terminal 1 isn't running when Terminal 2 publishes, the message is simply gon
 
 ### The Three Usage Patterns
 
+```mermaid
+flowchart TB
+    subgraph PS[Pub/Sub - fan-out]
+        P1[publisher] -->|orders.created| S1[sub A]
+        P1 --> S2[sub B]
+    end
+    subgraph QG[Queue group - load balanced]
+        P2[publisher] -->|jobs| QA[worker 1]
+        P2 -.->|one member gets each msg| QB[worker 2]
+    end
+    subgraph RR[Request / reply]
+        RQ[requester] -->|"pricing.get + reply inbox"| RS[responder]
+        RS -->|reply| RQ
+    end
+```
+
 **1. Core NATS — at-most-once, fire-and-forget**
 - No persistence. If no subscriber is connected at publish time, the message is lost.
 - Extremely fast — this is the mode to reach for when you need low-latency pub/sub or request-reply and don't need a delivery guarantee (e.g., service discovery pings, live dashboards, ephemeral RPC calls).

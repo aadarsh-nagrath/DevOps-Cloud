@@ -18,6 +18,17 @@
 
 ### Upgrade steps
 
+```mermaid
+flowchart TB
+    P[Plan: 1.29 → 1.30<br/>one minor version at a time] --> M1[master: upgrade kubeadm,<br/>kubeadm upgrade plan / apply]
+    M1 --> M2[drain master → upgrade kubelet + kubectl<br/>→ restart → uncordon]
+    M2 --> W1[each worker: drain from master]
+    W1 --> W2[upgrade kubeadm, kubeadm upgrade node,<br/>kubelet, restart]
+    W2 --> W3[uncordon] --> NEXT{more workers?}
+    NEXT -->|yes| W1
+    NEXT -->|no| DONE[kubectl get nodes: all v1.30]
+```
+
 1) Upgrade master node
 2) Ipgrade worker node
 

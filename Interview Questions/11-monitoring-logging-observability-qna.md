@@ -57,6 +57,14 @@ A **counter** only increases (or resets to zero on restart) — total requests, 
 Cardinality is the number of unique label-value combinations a metric can produce — a metric labeled by `user_id` or a raw, unbounded URL path can explode into millions of distinct time series, since every unique label combination becomes its own separately-stored series. High cardinality directly degrades Prometheus's (and most time-series databases') memory usage, query performance, and storage cost, and in severe cases can effectively take down the monitoring system itself — a classic real-world incident is an engineer adding a well-intentioned but unbounded label (a full request path, a customer ID) to a metric, causing memory usage on the Prometheus server to spike and query latency to degrade cluster-wide, well after the change seemed to work fine in initial testing at low traffic.
 
 ### 14. What are SLIs, SLOs, and SLAs, and how do they relate to each other?
+
+```mermaid
+flowchart LR
+    SLI["SLI - what you measure<br/>99.95% of requests &lt; 300ms"] --> SLO["SLO - internal target<br/>99.9% over 30 days"]
+    SLO --> SLA["SLA - external contract<br/>99.5%, with credits if missed"]
+    SLO --> EB["Error budget = 100% − SLO"]
+```
+
 An **SLI** (Service Level Indicator) is an actual, measured metric of some aspect of service behavior (e.g. "percentage of requests served in under 200ms"). An **SLO** (Service Level Objective) is an internal target for that SLI (e.g. "99.9% of requests under 200ms, measured over a rolling 30 days") — the goal you actually operate against day to day. An **SLA** (Service Level Agreement) is an externally-facing, often contractual commitment (frequently with financial penalties for breach) typically set *looser* than your internal SLO, so you have margin to notice and respond to degradation before you actually breach a customer-facing contractual commitment.
 
 ### 15. What is an error budget, and how does it change the conversation between reliability and feature velocity?

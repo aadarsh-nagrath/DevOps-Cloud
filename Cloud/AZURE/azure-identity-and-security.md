@@ -41,6 +41,16 @@ az role assignment create --assignee <objectId-or-upn> --role "Storage Blob Data
 ```
 
 ## 3. Workload identities: service principals vs managed identities
+
+```mermaid
+flowchart LR
+    VM[VM / App Service / AKS pod] -->|managed identity, no secret| ENTRA[Entra ID]
+    ENTRA -->|token| KV[(Key Vault)]
+    ENTRA -->|token| ST[(Storage)]
+    CI[GitHub Actions] -->|OIDC federated credential| SP[Service principal / app registration]
+    SP --> ENTRA
+```
+
 | | **Service principal** | **Managed identity** |
 |---|---|---|
 | What | Identity of an **app registration** in a tenant | Entra identity **managed by Azure** for an Azure resource |

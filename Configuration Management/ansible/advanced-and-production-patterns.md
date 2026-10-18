@@ -93,6 +93,16 @@ Combine `forks` + `pipelining` + `ControlPersist` + `strategy: free` for the big
 
 ## 3. `ansible-pull` — Masterless Pull-Based Config
 
+```mermaid
+flowchart LR
+    subgraph PUSH[Default push mode]
+        CTRL[control node] -->|SSH| H1[host]
+    end
+    subgraph PULLM[ansible-pull]
+        CRON[cron on each host] --> GITP[git pull repo] --> LOCAL[run playbook against localhost]
+    end
+```
+
 Instead of a control node pushing to targets over SSH, each managed node pulls and applies its own configuration from a git repo — useful for large fleets, autoscaling groups, or environments where inbound SSH from a central control node isn't desirable.
 
 ```bash
@@ -109,6 +119,16 @@ Trade-offs vs push: no need for the control node to reach every host over SSH (g
 ---
 
 ## 4. AWX / Ansible Tower / Ansible Automation Platform (AAP)
+
+```mermaid
+flowchart LR
+    U([User / API / webhook]) --> AWX[AWX / AAP controller<br/>RBAC, credentials, schedules]
+    AWX --> PROJ[(Project: Git repo)]
+    AWX --> INV[(Inventories: dynamic)]
+    AWX --> EE[Execution environment<br/>container with collections]
+    EE -->|SSH / WinRM| FLEET[Managed hosts]
+    AWX --> LOGS[Job history + audit]
+```
 
 AWX is the open-source upstream project; **Ansible Tower** was Red Hat's commercial product built on it; **Ansible Automation Platform (AAP)** is the current Red Hat commercial offering (Tower is effectively superseded by AAP).
 

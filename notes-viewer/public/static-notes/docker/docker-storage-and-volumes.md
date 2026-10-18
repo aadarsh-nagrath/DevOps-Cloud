@@ -6,6 +6,18 @@ Volumes, bind mounts, and tmpfs compared in depth, plus backup/restore and state
 
 ## 1. The Three Storage Mechanisms Compared
 
+```mermaid
+flowchart LR
+    subgraph C[Container filesystem]
+        P1["/var/lib/postgresql/data"]
+        P2["/app/config"]
+        P3["/tmp/cache"]
+    end
+    P1 --> V[(Named volume<br/>/var/lib/docker/volumes/...<br/>managed by Docker)]
+    P2 --> B[(Bind mount<br/>any host path, e.g. ./config)]
+    P3 --> T[(tmpfs<br/>RAM only, gone on stop)]
+```
+
 | Aspect | Volumes | Bind Mounts | tmpfs |
 |---|---|---|---|
 | Location | Managed by Docker under `/var/lib/docker/volumes/` | Any path on the host filesystem | In-memory only (never touches disk) |

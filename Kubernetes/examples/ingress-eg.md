@@ -83,6 +83,13 @@ The **Ingress Controller** is responsible for managing traffic and implementing 
 
 #### 4. **How it Works**
 
+```mermaid
+flowchart LR
+    C([Client]) -->|example.com| IC[Ingress Controller]
+    IC -->|/app1| S1[app1-service] --> P1[app1 Pods]
+    IC -->|/app2| S2[app2-service] --> P2[app2 Pods]
+```
+
 - **DNS Setup**: The domain `example.com` is resolved to the IP address of your **Ingress Controller** (this could be via a LoadBalancer or NodePort).
 - **Path Matching**:
   - Requests to `http://example.com/app1` are routed to `app1-service`.

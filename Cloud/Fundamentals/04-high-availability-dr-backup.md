@@ -5,6 +5,13 @@
 ---
 
 ## 1. Definitions
+
+```mermaid
+flowchart LR
+    LB[Last good backup] -->|"RPO = data you can lose"| X((Disaster))
+    X -->|"RTO = time to be back up"| UP[Service restored]
+```
+
 | Term | Meaning |
 |---|---|
 | **High availability (HA)** | System keeps serving through component failures (instance, AZ) — automatic, seconds to minutes |
@@ -31,6 +38,16 @@
 ---
 
 ## 3. DR strategies (cost ↔ RTO/RPO)
+
+The four strategies trade cost for faster recovery:
+
+```mermaid
+flowchart LR
+    BR["Backup & restore<br/>$ · RTO hours"] --> PL["Pilot light<br/>$$ · RTO 10s of min"]
+    PL --> WS["Warm standby<br/>$$$ · RTO minutes"]
+    WS --> AA["Multi-site active-active<br/>$$$$ · RTO ≈ 0"]
+```
+
 | Strategy | How | RTO | RPO | Cost |
 |---|---|---|---|---|
 | **Backup & restore** | Backups/snapshots copied to another region; rebuild infra with IaC when needed | Hours–day | Hours (last backup) | $ |

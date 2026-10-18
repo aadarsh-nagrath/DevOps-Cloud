@@ -35,6 +35,18 @@ In short: plan review shows you **what** will change, not whether that change is
 
 ## 2. Terratest — Real Infrastructure, Real Assertions
 
+```mermaid
+sequenceDiagram
+    participant T as Go test
+    participant TF as terraform
+    participant C as Cloud
+    T->>TF: init + apply (test module)
+    TF->>C: create real resources
+    T->>C: assert: HTTP 200, tags, encryption
+    T->>TF: defer destroy
+    TF->>C: delete everything
+```
+
 **Terratest** is a Go library (not a separate CLI/DSL) for writing tests that actually run `terraform apply` against real cloud infrastructure, make real assertions against the result, then run `terraform destroy` to clean up. It's the most thorough approach available and also the slowest and most expensive — it costs real cloud spend and real wall-clock time for every test run.
 
 ### 2.1 Worked conceptual example

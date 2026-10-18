@@ -84,6 +84,17 @@ The Jenkins pipeline automates the process of building, testing, and deploying s
 
 #### **Jenkins Architecture**
 
+```mermaid
+flowchart LR
+    DEV([git push]) -->|webhook| CTRL[Jenkins controller<br/>UI, scheduling, plugins,<br/>job config, build history]
+    CTRL -->|SSH / JNLP inbound| A1[Agent: linux + docker]
+    CTRL --> A2[Agent: windows]
+    CTRL -->|Kubernetes plugin| K8S[Ephemeral pod agents]
+    A1 --> ART[(Artifacts / registry)]
+    K8S --> ART
+    CTRL --- HOME[(JENKINS_HOME<br/>back this up)]
+```
+
 - **Master Node**: The central Jenkins server, responsible for managing jobs, scheduling builds, monitoring agents, and providing a web interface. The master node doesn’t usually run builds, although it can if needed.
   
 - **Agent Node**: A remote machine configured to execute jobs that are dispatched by the master node. Agents can be physical or virtual machines and may have specific configurations to meet certain requirements.
@@ -154,6 +165,15 @@ Jenkins allows the automation of processes through **pipelines**, which can be c
    ```
 
 #### **Pipeline Stages**
+
+```mermaid
+flowchart LR
+    CO[Checkout] --> B[Build] --> T[Test] --> Q[Quality gate<br/>SonarQube] --> D[Docker build + push]
+    D --> S[Deploy staging] --> AP{input: approve?}
+    AP -->|yes| P[Deploy prod]
+    AP -->|no| X[stop]
+    P --> POST[post: always notify, cleanWs]
+```
 
 1. **Build**: The process of compiling or packaging the code.
 2. **Test**: Unit testing, integration testing, and other test activities.
@@ -229,6 +249,15 @@ Jenkins can automate the deployment of applications to various environments (e.g
    - Jenkins can push build artifacts (like JAR, WAR, or Docker images) to artifact repositories like **Nexus**, **Artifactory**, or **S3**.
 
 #### **Scaling Jenkins**
+
+```mermaid
+flowchart TB
+    C[Controller<br/>0 executors - schedules only] --> L1[label: linux]
+    C --> L2[label: gpu]
+    C --> CLOUD[cloud agents: EC2 / Kubernetes<br/>spin up per build, terminate after]
+    L1 --> A1[agent 1] & A2[agent 2]
+    L2 --> A3[agent 3]
+```
 
 Jenkins can be scaled horizontally using multiple agents to handle a high volume of jobs. This is particularly useful in large teams or organizations with multiple projects running concurrently.
 

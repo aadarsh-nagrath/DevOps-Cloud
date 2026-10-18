@@ -18,6 +18,16 @@ Along with control plane components(ApiServer, ETCD, Controller Manager, Schedul
 
 ### Steps to set up the Kubernetes cluster
 
+```mermaid
+flowchart TB
+    ALL[All nodes: disable swap, load modules,<br/>sysctl, install containerd + kubeadm/kubelet/kubectl] --> INIT[master: kubeadm init<br/>--pod-network-cidr]
+    INIT --> CFG[copy admin.conf to ~/.kube/config]
+    CFG --> CNI[install CNI: Calico]
+    INIT -->|prints join command + token| JOIN[workers: kubeadm join]
+    CNI --> READY[kubectl get nodes → Ready]
+    JOIN --> READY
+```
+
 ![image](https://github.com/user-attachments/assets/e0943ad5-2d13-4128-8147-1ef644c62955)
 
 

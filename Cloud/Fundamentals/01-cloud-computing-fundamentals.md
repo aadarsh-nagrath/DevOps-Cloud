@@ -47,6 +47,27 @@ Vendor lock-in, cost sprawl (bill surprises), shared-responsibility misunderstan
 
 ## 2. Service models: IaaS, PaaS, SaaS (+ CaaS, FaaS)
 
+Who manages what: the higher the model, the more the provider runs for you.
+
+```mermaid
+flowchart LR
+    subgraph ONP[On-prem]
+        A1[App] --> A2[Data] --> A3[Runtime] --> A4[OS] --> A5[Virtualization] --> A6[Hardware]
+    end
+    subgraph IAAS[IaaS - EC2, Compute Engine]
+        B1[App] --> B2[Data] --> B3[Runtime] --> B4[OS]
+        B5[Virtualization + Hardware]:::prov
+    end
+    subgraph PAAS[PaaS - App Service, Cloud Run]
+        C1[App] --> C2[Data]
+        C3[Runtime + OS + infra]:::prov
+    end
+    subgraph SAAS[SaaS - M365, Salesforce]
+        D1[Everything]:::prov
+    end
+    classDef prov fill:#1565c0,color:#fff
+```
+
 **Pizza analogy:** make at home (on-prem) → take-and-bake (IaaS) → delivery (PaaS) → dine out (SaaS).
 
 | Layer you manage → | On-prem | **IaaS** | **CaaS** | **PaaS** | **FaaS** (serverless) | **SaaS** |
@@ -84,6 +105,17 @@ Hybrid tooling: **AWS Outposts / EKS Anywhere / Storage Gateway / Direct Connect
 
 ## 4. Global infrastructure: regions, zones, fault domains, edge
 
+```mermaid
+flowchart TB
+    G[Global network + edge locations / CDN PoPs] --> R1[Region: us-east-1]
+    G --> R2[Region: eu-west-1]
+    R1 --> AZ1[AZ a<br/>one or more data centres]
+    R1 --> AZ2[AZ b]
+    R1 --> AZ3[AZ c]
+    AZ1 <-->|low-latency private links| AZ2
+    AZ2 <--> AZ3
+```
+
 | Concept | Meaning | AWS | Azure | GCP |
 |---|---|---|---|---|
 | **Region** | Geographic area with multiple data centers | `us-east-1` | `eastus` (with **region pairs** for DR, + sovereign regions like Azure Government/China) | `us-central1` |
@@ -97,6 +129,13 @@ Hybrid tooling: **AWS Outposts / EKS Anywhere / Storage Gateway / Direct Connect
 ---
 
 ## 5. Scaling & elasticity
+
+```mermaid
+flowchart LR
+    V[Vertical scaling<br/>scale UP: bigger VM<br/>downtime, hard ceiling] --- H[Horizontal scaling<br/>scale OUT: more VMs<br/>behind a load balancer]
+    H --> ASG[Auto scaling group<br/>min 2 / desired 4 / max 10]
+    M[(CPU, requests, queue depth)] -->|policy| ASG
+```
 
 | | **Vertical scaling (scale up)** | **Horizontal scaling (scale out)** |
 |---|---|---|
@@ -150,6 +189,22 @@ You deploy code/containers; the provider handles servers, scaling (to zero), pat
 ---
 
 ## 7. Shared responsibility model
+
+```mermaid
+flowchart TB
+    subgraph CUST[Customer: security IN the cloud]
+        C1[Data + encryption choices]
+        C2[IAM users, roles, MFA]
+        C3[OS patching on IaaS, app code]
+        C4[Network config: SGs, NACLs, firewall rules]
+    end
+    subgraph PROV[Provider: security OF the cloud]
+        P1[Hypervisor + host OS]
+        P2[Physical data centres]
+        P3[Global network + hardware]
+    end
+    CUST --> PROV
+```
 
 "Security **of** the cloud" (provider) vs "security **in** the cloud" (customer). The split shifts with service model:
 

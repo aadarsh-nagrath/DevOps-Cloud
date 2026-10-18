@@ -3,6 +3,17 @@
 ## 1. Beginner
 
 ### The OSI Model (7 Layers)
+
+```mermaid
+flowchart TB
+    L7["7 Application - HTTP, DNS, SSH"] --> L6["6 Presentation - TLS, encoding"]
+    L6 --> L5["5 Session"]
+    L5 --> L4["4 Transport - TCP / UDP, ports"]
+    L4 --> L3["3 Network - IP, routing"]
+    L3 --> L2["2 Data link - Ethernet, MAC, ARP"]
+    L2 --> L1["1 Physical - cables, radio"]
+```
+
 | Layer | Name | Examples | DevOps-relevant tools |
 |---|---|---|---|
 | 7 | Application | HTTP, DNS, SMTP, gRPC | Nginx, app code |
@@ -114,11 +125,34 @@ Client                     Server
 - Cloud providers additionally reserve a handful of addresses per subnet (AWS reserves 5) for the gateway, DNS, and future use.
 
 ### NAT (Network Address Translation)
+
+```mermaid
+sequenceDiagram
+    participant H as Host 10.0.1.5
+    participant N as NAT gateway (public 52.1.2.3)
+    participant S as Server 93.184.216.34
+    H->>N: src 10.0.1.5:40000 → dst 93.184.216.34:443
+    N->>N: record mapping 52.1.2.3:61000 ↔ 10.0.1.5:40000
+    N->>S: src 52.1.2.3:61000 → dst 93.184.216.34:443
+    S-->>N: reply to 52.1.2.3:61000
+    N-->>H: translated back to 10.0.1.5:40000
+```
+
 - **SNAT (Source NAT)**: rewrites the *source* IP of outbound packets — how private instances reach the internet through a NAT Gateway while keeping no public IP themselves.
 - **DNAT (Destination NAT)**: rewrites the *destination* IP — how a load balancer/firewall forwards an inbound public request to a private backend IP. Also called **port forwarding** at the host level.
 - **PAT (Port Address Translation)**: many private IPs share one public IP by also remapping source ports — this is what most home routers and cloud NAT Gateways do.
 
 ### Routing Basics
+
+```mermaid
+flowchart LR
+    PKT[packet to 10.20.3.7] --> RT{route table:<br/>longest prefix match}
+    RT -->|"10.20.0.0/16 → tgw"| TGW[Transit gateway]
+    RT -->|"10.0.0.0/8 → vpn"| VPN[VPN]
+    RT -->|"0.0.0.0/0 → igw"| IGW[Internet]
+    RT ==>|/16 beats /8 and /0| TGW
+```
+
 - A **routing table** maps destination CIDR ranges to a "next hop" (an interface, gateway, or another router).
 - **Default route** (`0.0.0.0/0`): the catch-all — "if no more specific route matches, send it here" (typically the internet gateway or NAT gateway).
 - **Longest prefix match**: routers always pick the *most specific* matching route, not just the first one.

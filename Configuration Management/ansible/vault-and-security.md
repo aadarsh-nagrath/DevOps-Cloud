@@ -121,6 +121,15 @@ echo -n 'S3cr3tDbPass!' | ansible-vault encrypt_string --stdin-name 'db_password
 
 ## 5. Integrating Vault with CI/CD
 
+```mermaid
+flowchart LR
+    SM[(CI secret store)] -->|VAULT_PASS env| CI[CI job]
+    CI --> PF["--vault-password-file script<br/>prints password from env"]
+    PF --> ANS[ansible-playbook]
+    REPO[(Git: vault-encrypted vars)] --> ANS
+    ANS --> HOSTS[targets: secrets decrypted<br/>in memory only, no_log: true]
+```
+
 CI runners can't interactively type a vault password — provide it non-interactively:
 
 ```yaml

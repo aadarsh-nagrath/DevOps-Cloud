@@ -48,6 +48,13 @@ A monolith is a single, unified application/codebase handling all functionality,
 ## Mid Level (2–5 yrs)
 
 ### 11. Explain the CAP theorem, and why a distributed system can't have all three of Consistency, Availability, and Partition tolerance simultaneously.
+
+```mermaid
+flowchart TB
+    P{Network partition happens} -->|choose Consistency| CP["CP: reject / block some requests<br/>e.g. etcd, ZooKeeper, HBase"]
+    P -->|choose Availability| AP["AP: answer, maybe stale data<br/>e.g. Cassandra, DynamoDB default"]
+```
+
 CAP theorem states that in the presence of a **network partition** (P — some nodes can't communicate with others, which is unavoidable in any real distributed system given real networks eventually fail), a system must choose between **Consistency** (every read reflects the most recent write, seen identically everywhere) and **Availability** (every request gets a response, even if it might not reflect the latest write) — you cannot guarantee both simultaneously during a partition, because satisfying consistency requires refusing to answer (or waiting) on the side of the partition that can't confirm it has the latest data, which directly sacrifices availability, and vice versa. Since partitions are a "when," not "if," in real distributed systems, CAP is really a statement about which of Consistency or Availability a system prioritizes *during* a partition, not a permanent, static three-way tradeoff a system makes once — many systems tune this behavior per-operation (e.g. DynamoDB and Cassandra offer configurable consistency levels per read/write).
 
 ### 12. What's the practical difference between strong consistency and eventual consistency, and how do you decide which a given use case actually needs?
@@ -57,12 +64,37 @@ Strong consistency guarantees any read immediately reflects the most recent comp
 **At-most-once**: a message might be lost but is never redelivered/duplicated (fire-and-forget, no retry). **At-least-once**: a message is guaranteed to be delivered, but might be delivered more than once (a consumer processes it, but the acknowledgment back to the broker is lost, so the broker redelivers it) — the most common practical guarantee, since it just requires retry-until-acknowledged logic. **Exactly-once** — delivered precisely once, no loss and no duplication — is genuinely very hard to achieve end-to-end in a truly distributed system with independent failure modes (it's more accurate to describe most "exactly-once" systems as achieving effectively-exactly-once *processing* through at-least-once delivery combined with **idempotent** consumer-side processing — the consumer can safely handle a duplicate delivery without a duplicated effect, e.g. using each message's unique ID to detect and ignore already-processed duplicates — rather than claiming true delivery-layer exactly-once semantics).
 
 ### 14. What is a dead-letter queue (DLQ), and why is it an essential part of a production message-processing architecture, not an optional nice-to-have?
+
+```mermaid
+flowchart LR
+    PROD[producer] --> Q[(main queue)]
+    Q --> CON[consumer]
+    CON -->|fails| Q
+    Q -->|"after maxReceiveCount = 5"| DLQ[(dead-letter queue)]
+    DLQ --> ALERT[alert + inspect + redrive]
+```
+
 A dead-letter queue captures messages that repeatedly fail processing (after a defined retry limit) instead of either endlessly retrying them (blocking the queue/consumer on one poison message) or silently dropping them (losing them with no visibility at all). Without a DLQ, a single malformed or unexpectedly-problematic message can either cause an infinite retry loop that stalls processing of every message behind it in the queue, or simply vanish without anyone noticing — a DLQ, combined with actual monitoring/alerting on messages landing in it, is what turns "a message failed processing" from a silent data-loss/stuck-pipeline risk into a visible, investigable, and recoverable (messages can typically be inspected and manually replayed once the underlying issue is fixed) operational event.
 
 ### 15. How would you decide between using a message queue (RabbitMQ/SQS) versus an event streaming platform (Kafka) for a given integration?
 Reach for a traditional queue (RabbitMQ, SQS) when the pattern is genuinely "distribute discrete tasks to be processed, typically once, by one of several workers" (a task queue, a job processing pipeline) — simpler operationally, and message removal after successful processing matches the "each task done once" semantics naturally. Reach for Kafka (or a similar event-streaming platform) when you need very high sustained throughput, multiple independent consumers/systems needing to read the *same* stream of events (potentially at different times, or replaying historical events), or when the data itself is naturally an ordered log of events that has value beyond just "get this task done once" (event sourcing, analytics pipelines, feeding multiple downstream systems from one shared event stream) — Kafka's operational complexity (partition management, consumer group rebalancing, more involved cluster operations) is a real cost that should be justified by actually needing those capabilities, not adopted by default because it's the more prominent/popular technology.
 
 ### 16. What's the difference between a "cache-aside," "write-through," and "write-behind" caching strategy?
+
+```mermaid
+sequenceDiagram
+    participant App
+    participant Cache as Redis
+    participant DB
+    Note over App,DB: cache-aside (lazy loading)
+    App->>Cache: GET user:42
+    Cache-->>App: miss
+    App->>DB: SELECT user 42
+    DB-->>App: row
+    App->>Cache: SET user:42 (TTL 10m)
+    Note over App,DB: write-through: every write goes to cache AND DB together
+```
+
 **Cache-aside** (the most common pattern): the application checks the cache first; on a miss, it reads from the source of truth (database) and populates the cache for next time — the cache is populated lazily, only for data actually requested. **Write-through**: writes go to the cache and the underlying data store synchronously together, keeping the cache always current for written data, at the cost of added write latency. **Write-behind** (write-back): writes go to the cache immediately and are asynchronously flushed to the underlying store later — fastest writes, but with a real risk of data loss if the cache fails before the asynchronous flush completes, so it's only appropriate when that risk is acceptable for the specific data involved.
 
 ### 17. What is cache invalidation, and why is it famously described as "one of the two hard problems in computer science"?

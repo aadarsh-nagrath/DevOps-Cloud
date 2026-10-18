@@ -8,6 +8,13 @@ GitOps is a way to manage and deploy your infrastructure and application setups 
 - **Core Idea:** Infrastructure, configurations, and policies are stored in version-controlled repositories, ensuring a single source of truth.
 
 #### **2. Evolution from Infrastructure as Code (IaC)**
+
+```mermaid
+flowchart LR
+    A[Manual changes<br/>ssh + click-ops] --> B[Infrastructure as Code<br/>scripts / Terraform run by humans or CI]
+    B --> C[GitOps<br/>declarative state in Git,<br/>agents continuously reconcile]
+```
+
 - IaC defines infrastructure in code, making it reproducible and easier to manage.
 - Expanded to include:
   - **Network as Code**
@@ -28,6 +35,16 @@ GitOps is a way to manage and deploy your infrastructure and application setups 
   - Difficult to track who applied changes or debug issues.
 
 #### **4. How GitOps Works**
+
+```mermaid
+flowchart LR
+    DEV([Engineer]) -->|PR + review| GIT[(Git<br/>single source of truth)]
+    GIT -->|pull| AGENT[GitOps agent<br/>Argo CD / Flux]
+    AGENT -->|reconcile| CL[(Cluster live state)]
+    CL -->|drift detected| AGENT
+    GIT -->|git revert| RB[rollback = a commit]
+```
+
 - **Infrastructure Hosted in Git Repositories:**
   - Enables version control and team collaboration.
 - **Pull Request Workflow:**

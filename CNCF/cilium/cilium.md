@@ -123,6 +123,15 @@ This rule allows pods labeled `app: frontend` to make **only GET requests matchi
 Cilium also supports **DNS-based egress policy** — allow egress only to `*.example.com`, resolved and enforced dynamically as DNS responses come back, which is very hard to express in plain iptables/NetworkPolicy.
 
 ### Identity-Based Security
+
+```mermaid
+flowchart LR
+    P1["Pod app=frontend<br/>identity 1234"] -->|packet tagged 1234| BPF{eBPF policy map<br/>on the node}
+    BPF -->|"allow 1234 → 5678 :8080"| P2["Pod app=api<br/>identity 5678"]
+    BPF -.-x|"no rule for identity 9999"| P3["Pod app=batch"]
+    LBL[labels → identity<br/>not IP addresses] -.-> BPF
+```
+
 - Instead of writing rules against ever-changing pod IPs, Cilium assigns a **security identity** derived from a pod's labels. Policy is written against identities (via label selectors), and the identity-to-IP mapping is maintained by the agents — so a pod restart or IP change doesn't require any policy rewrite.
 - Identities are propagated cluster-wide (and cluster-to-cluster in Cluster Mesh) so enforcement stays consistent regardless of which node a pod lands on.
 

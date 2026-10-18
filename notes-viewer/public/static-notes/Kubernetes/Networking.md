@@ -440,6 +440,24 @@ This section dives deep into the details of how the Container Network Interface 
 
 ## Kubernetes Networking
 
+The four networking problems Kubernetes solves, and which component solves each:
+
+```mermaid
+flowchart TB
+    subgraph NodeA[Node A]
+        PA1[Pod 10.244.1.5] --- VETH1[veth] --- BR1[cni0 bridge]
+        PA2[Pod 10.244.1.6] --- BR1
+    end
+    subgraph NodeB[Node B]
+        PB1[Pod 10.244.2.9] --- BR2[cni0 bridge]
+    end
+    BR1 <-->|"pod-to-pod across nodes<br/>CNI: routes / VXLAN / eBPF"| BR2
+    PA1 -->|"pod-to-Service<br/>kube-proxy / eBPF"| SVC[Service ClusterIP]
+    SVC --> PB1
+    EXT([Internet]) -->|"external-to-Service<br/>NodePort / LoadBalancer / Ingress"| SVC
+    PA1 <-->|"container-to-container<br/>localhost inside a Pod"| PA1
+```
+
 Kubernetes networking ensures communication between Pods, Services, and external clients. Key concepts include:
 
 1. **Pod-to-Pod Communication:**
@@ -507,6 +525,17 @@ In Kubernetes, Pods can be grouped together by creating a **Service**, which act
   Example: A Service named `my-service` could route traffic to Pods with the label `app=my-app`.
 
 ### 3. **ClusterIP (Default Service Type)**
+
+Service types build on each other: LoadBalancer ⊃ NodePort ⊃ ClusterIP.
+
+```mermaid
+flowchart LR
+    LB[Cloud Load Balancer<br/>type: LoadBalancer] --> NP[NodePort 30000-32767<br/>on every node]
+    NP --> CIP[ClusterIP<br/>virtual IP, in-cluster only]
+    CIP --> P1[Pod]
+    CIP --> P2[Pod]
+```
+
 - The default type of service in Kubernetes is **ClusterIP**, which means the service is accessible only inside the cluster.
 - **External access** to the service is not possible using ClusterIP alone.
 

@@ -6,6 +6,15 @@ Why infrastructure code needs the same testing discipline as application code, t
 
 ## 1. Why IaC Needs Testing
 
+```mermaid
+flowchart LR
+    F[fmt + validate<br/>seconds] --> L[lint + static scan<br/>tflint, Checkov]
+    L --> POL[policy as code<br/>OPA / Conftest on plan]
+    POL --> U[unit / plan tests<br/>terraform test]
+    U --> INT[integration<br/>Terratest: real infra]
+    INT --> DRIFT[continuous drift<br/>detection in prod]
+```
+
 A bad `terraform apply` can take down production exactly as effectively as a bad application deploy — it can delete a database, open a security group to the world, or replace a load balancer with zero downtime tolerance. The blast radius of infrastructure code is often *larger* than application code, because one Terraform change can simultaneously affect networking, compute, IAM, and data storage across an entire environment.
 
 Despite this, IaC has historically been tested far less rigorously than application code. Common reasons this happens in practice:

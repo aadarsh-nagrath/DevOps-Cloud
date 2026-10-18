@@ -2,6 +2,18 @@
 
 Microsoft Azure is a cloud computing platform and service offering by Microsoft, providing a wide range of cloud services including compute, analytics, storage, and networking. Azure enables organizations to build, run, and manage applications across a global network of Microsoft-managed data centers.
 
+
+| Deep dive | Covers |
+|---|---|
+| [Core Architecture, Management & Governance](./azure-core-and-governance.md) | Regions/pairs/sovereign/AZs, MG→subscription→RG hierarchy, ARM/Bicep/Arc, Policy, locks, tags, Purview, cost management, Advisor, Service Health |
+| [Compute](./azure-compute.md) | VMs, availability sets vs zones, VMSS, AVD, App Service & slots, Functions plans, Container Apps, ACI, AKS, choosing compute, containerized SaaS deployment |
+| [Storage & Databases](./azure-storage-and-databases.md) | Storage accounts, Blob tiers, LRS/ZRS/GRS/GZRS, Files, ADLS Gen2, disks, AzCopy/Data Box/Migrate, Azure SQL/MI, PostgreSQL/MySQL, Cosmos DB, Fabric/Synapse |
+| [Networking](./azure-networking.md) | VNet, NSG/ASG, Azure Firewall, service vs private endpoints, peering/hub-spoke/Virtual WAN, VPN Gateway, ExpressRoute, Load Balancer vs App Gateway vs Front Door vs Traffic Manager, hybrid AD |
+| [Identity & Security](./azure-identity-and-security.md) | Entra ID, SSO/MFA/passwordless, Conditional Access, PIM, RBAC, managed identities vs service principals, Key Vault, Zero Trust, Defender for Cloud, Sentinel |
+| [Monitoring, DevOps & DR](./azure-monitoring-devops-and-dr.md) | Azure Monitor, Log Analytics/KQL, App Insights, alerts, Azure DevOps, Azure Backup, Site Recovery DR |
+
+Interview prep: [Azure & GCP Q&A (core)](../../Interview%20Questions/10-azure-and-gcp-qna.md) · [Azure Deep-Dive Q&A](../../Interview%20Questions/25-azure-deep-dive-qna.md) · [Architecture Scenarios](../../Interview%20Questions/27-cloud-architecture-scenarios-qna.md). Back to the [Cloud hub](../README.md).
+
 ---
 
 ## 🧱 Azure Core Concepts
@@ -261,7 +273,7 @@ Perf
 ---
 
 ## 🔗 Related Notes
-- [AWS Notes](aws.md)
-- [GCP Notes](gcp.md)
-- [Terraform & CloudFormation](Terraform%20and%20CF/terraform.md)
-- [Kubernetes on AKS](Kubernetes/kubernetes.md)
+- [AWS Notes](../AWS/aws.md)
+- [GCP Notes](../GCP/gcp.md)
+- [Terraform & CloudFormation](../../Terraform%20and%20CF/terraform.md)
+- [Kubernetes on AKS](../../Kubernetes/kubernetes.md)

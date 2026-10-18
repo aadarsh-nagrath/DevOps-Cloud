@@ -13,6 +13,14 @@ A **Virtual Private Network** creates an encrypted, authenticated tunnel over an
 - Multi-region/multi-cloud private connectivity between VPCs that don't otherwise share a network.
 
 ### Tunneling — The Core Concept
+
+```mermaid
+flowchart LR
+    A[Host 10.1.0.5<br/>site A] --> GA[VPN gateway A]
+    GA -->|"outer: public IP → public IP<br/>inner: 10.1.0.5 → 10.2.0.9, encrypted"| GB[VPN gateway B]
+    GB --> B[Host 10.2.0.9<br/>site B]
+```
+
 A VPN **encapsulates** one packet inside another: your original private-network packet becomes the *payload* of a new packet that travels across the public internet, then gets unwrapped at the other end. This is what makes a private `10.x` address reachable across a public network without ever actually routing that private address on the public internet.
 
 ### VPN Protocols at a Glance
@@ -72,6 +80,18 @@ wg show          # inspect active peers/handshakes
 - Increasingly the default choice for new remote-access and even site-to-site setups, and the underlying tunnel technology inside consumer-friendly zero-trust products like Tailscale/Netbird (see Advanced section).
 
 ### Split Tunneling vs Full Tunneling
+
+```mermaid
+flowchart TB
+    subgraph SPLIT[Split tunnel]
+        L1[laptop] -->|"10.0.0.0/8"| V1[VPN → corp]
+        L1 -->|everything else| I1((Internet direct))
+    end
+    subgraph FULL[Full tunnel]
+        L2[laptop] -->|"0.0.0.0/0"| V2[VPN → corp] --> I2((Internet via corp egress))
+    end
+```
+
 | | Split Tunneling | Full Tunneling |
 |---|---|---|
 | Behavior | Only traffic destined for the private network goes through the VPN; everything else (general internet browsing) goes direct | ALL traffic, including general internet browsing, routes through the VPN |
@@ -88,6 +108,16 @@ wg show          # inspect active peers/handshakes
 - On-prem side needs equivalent redundancy (dual firewalls/routers) or the cloud side's redundancy is wasted — HA has to be symmetric on both ends of the tunnel to actually deliver HA.
 
 ### Zero Trust Network Access (ZTNA) — The Evolution Beyond Traditional VPN
+
+```mermaid
+flowchart LR
+    U([User + device]) --> IDP{Identity provider<br/>MFA + device posture}
+    IDP -->|per-app, per-request decision| BROKER[ZTNA broker / access proxy]
+    BROKER --> APP1[app A]
+    BROKER -.-x|not authorised| APP2[app B]
+    NOTE[No network-level access to the whole subnet] -.-> BROKER
+```
+
 Traditional remote-access VPN grants broad network-level access once connected ("you're on the VPN, you can reach anything on that subnet"). ZTNA instead grants **per-application, identity-verified access** — closer to the [zero trust](index.md#zero-trust-the-thread-connecting-all-six-files) model:
 - **Tailscale / Netbird**: build a mesh overlay network on top of WireGuard, with identity-based (SSO-integrated) access control per-device/per-service instead of one flat private subnet — dramatically simpler to operate than traditional hub-and-spoke VPN infrastructure, no central VPN concentrator bottleneck.
 - **Cloudflare Access / Google BeyondCorp / similar ZTNA products**: broker access to individual internal applications through an identity-aware proxy — the user often never gets a routable IP on the internal network at all, just a proxied, authenticated connection to the one app they're authorized for.

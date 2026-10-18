@@ -19,6 +19,17 @@
 
 ### Where we use certs in control plane components
 
+```mermaid
+flowchart LR
+    CA[(Cluster CA<br/>/etc/kubernetes/pki)] -.->|signs all| API
+    ADM([kubectl: admin.conf client cert]) -->|mTLS| API[kube-apiserver<br/>server cert]
+    SCH[scheduler client cert] --> API
+    CM[controller-manager client cert] --> API
+    KL[kubelet client cert] --> API
+    API -->|apiserver-kubelet-client| KLS[kubelet server cert]
+    API -->|apiserver-etcd-client| ETCD[(etcd<br/>own CA + server cert)]
+```
+
 ![image](https://github.com/user-attachments/assets/ec9fd842-9a25-4138-afb4-930876adb8b8)
 
 

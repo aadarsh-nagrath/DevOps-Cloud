@@ -78,6 +78,14 @@ aws route53 change-resource-record-sets --hosted-zone-id Z123456 --change-batch 
 
 ## 4. Anycast — Solving the Propagation Delay Problem
 
+```mermaid
+flowchart LR
+    U1([User in Mumbai]) -->|"1.2.3.4 - BGP picks nearest"| P1[PoP Mumbai]
+    U2([User in Paris]) -->|same IP 1.2.3.4| P2[PoP Paris]
+    U3([User in Virginia]) --> P3[PoP Virginia]
+    P2 -.->|PoP down: route withdrawn,<br/>BGP reconverges| P3
+```
+
 Anycast routes traffic at the **network layer (BGP)**, not DNS — the same IP address is announced from multiple physical locations, and internet routing (BGP) naturally sends each client's traffic to the topologically nearest announcing location.
 
 ```

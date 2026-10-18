@@ -8,6 +8,15 @@ This is the feature most teams adopt a service mesh for first: fine-grained, dec
 
 ## 1. The Two Core Building Blocks: VirtualService and DestinationRule
 
+```mermaid
+flowchart LR
+    C([Client sidecar]) --> VS[VirtualService<br/>WHERE to route:<br/>match, weights, retries, timeouts]
+    VS -->|subset: v1| DR[DestinationRule<br/>HOW to talk to it:<br/>subsets by label, LB policy,<br/>circuit breaking, TLS]
+    VS -->|subset: v2| DR
+    DR --> P1[Pods version=v1]
+    DR --> P2[Pods version=v2]
+```
+
 Istio splits traffic management into two complementary resources — this split confuses people early on, so get it clear from the start:
 
 | Resource | Answers the question | Example |
@@ -158,6 +167,19 @@ spec:
 
 ## 6. Combining Retries + Timeouts Correctly
 
+```mermaid
+gantt
+    title Overall timeout 3s with 3 attempts of perTryTimeout 1s
+    dateFormat X
+    axisFormat %Ls
+    section Attempts
+    try 1 (times out)   :a1, 0, 1000
+    try 2 (times out)   :a2, 1000, 2000
+    try 3 (last chance) :a3, 2000, 3000
+    section Budget
+    overall timeout     :crit, 0, 3000
+```
+
 A subtle but important interaction: `perTryTimeout` (per retry attempt) should be shorter than the *overall* `timeout`, and you need to account for the fact that `attempts × perTryTimeout` could exceed what the caller upstream of *this* service is willing to wait.
 
 ```yaml
@@ -176,6 +198,13 @@ Getting this wrong (e.g., `perTryTimeout` too close to `timeout`, or too many `a
 ---
 
 ## 7. Traffic Mirroring (Shadow Traffic)
+
+```mermaid
+flowchart LR
+    U([Live request]) --> P[Envoy]
+    P -->|real response returned| V1[v1]
+    P -.->|"copy, fire-and-forget<br/>response discarded"| V2[v2 shadow]
+```
 
 ```yaml
 apiVersion: networking.istio.io/v1beta1

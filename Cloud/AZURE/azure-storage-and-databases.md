@@ -17,6 +17,14 @@ A **storage account** is a namespace (`https://<name>.blob.core.windows.net`) ho
 **Account types**: **Standard general-purpose v2** (most scenarios, all services, all redundancy options), **Premium block blobs** (low latency), **Premium file shares** (FileStorage), **Premium page blobs**.
 
 ### Redundancy options
+
+```mermaid
+flowchart LR
+    LRS[LRS<br/>3 copies, 1 datacentre] --> ZRS[ZRS<br/>3 AZs in region]
+    ZRS --> GRS[GRS<br/>LRS + async copy<br/>to paired region]
+    GRS --> GZRS[GZRS<br/>ZRS + paired region<br/>RA- variants: read secondary]
+```
+
 | Option | Copies | Survives |
 |---|---|---|
 | **LRS** | 3 in one datacenter | Disk/rack failure |

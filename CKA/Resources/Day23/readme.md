@@ -7,6 +7,14 @@
 
 ### Commands used in the demo
 
+```mermaid
+flowchart LR
+    U[User: krishna] --> RB[RoleBinding: read-pods<br/>namespace default]
+    RB --> R["Role: pod-reader<br/>verbs get, list, watch<br/>resources: pods"]
+    R --> NS[(pods in namespace default)]
+    CHK["kubectl auth can-i list pods --as krishna"] -.-> RB
+```
+
 **Generate the csr key and file**
 
 ```bash

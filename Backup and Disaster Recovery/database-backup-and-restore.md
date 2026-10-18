@@ -6,6 +6,16 @@ Database-specific backup strategy — where most of the hard, DR-relevant comple
 
 ## 1. Logical Backups vs Physical/Snapshot Backups
 
+```mermaid
+flowchart TB
+    subgraph LOG[Logical - pg_dump / mysqldump]
+        L1[SQL / custom dump] --> L2[portable across versions,<br/>table-level restore,<br/>slow on large DBs]
+    end
+    subgraph PHY[Physical / snapshot]
+        P1[data files / volume snapshot] --> P2[fast, whole cluster,<br/>same major version,<br/>basis for PITR]
+    end
+```
+
 ### Logical backups (`pg_dump`, `mysqldump`)
 Export the database's *logical* content — the SQL statements (or an equivalent portable format) needed to recreate the schema and data from scratch.
 

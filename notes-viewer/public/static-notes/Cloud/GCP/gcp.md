@@ -2,6 +2,17 @@
 
 Google Cloud Platform (GCP) is Google's suite of cloud computing services, offering infrastructure, data analytics, machine learning, and developer tools running on the same infrastructure that powers Google Search, YouTube, and Gmail.
 
+
+| Deep dive | Covers |
+|---|---|
+| [IAM, Security & Governance](./gcp-iam-and-security.md) | Resource hierarchy, IAM roles/conditions/deny, service accounts, Workload Identity Federation, Org Policies, VPC Service Controls, IAP, KMS, Secret Manager, SCC, audit logs |
+| [Compute](./gcp-compute.md) | Compute Engine (machine types, Spot, MIGs), App Engine, Cloud Run (services/jobs/worker pools), Cloud Run functions, GKE Autopilot vs Standard, choosing compute |
+| [Storage & Databases](./gcp-storage-and-databases.md) | Cloud Storage classes/lifecycle/signed URLs/versioning, Persistent Disk/Hyperdisk/Local SSD, Filestore, Cloud SQL, AlloyDB, Spanner, Firestore, Bigtable, Memorystore, BigQuery |
+| [Networking](./gcp-networking.md) | Global VPC, firewall rules/policies, Cloud NAT, Private Google Access, PSC, peering vs Shared VPC, VPN/Interconnect, load balancers, Cloud CDN, Cloud DNS, Cloud Armor, network tiers |
+| [Data, DevOps & Operations](./gcp-data-devops-and-operations.md) | Pub/Sub semantics, Dataflow/Dataproc/Composer, BigQuery cost & performance, Looker, Cloud Build/Artifact Registry/Cloud Deploy, Terraform/Infra Manager, Cloud Operations, cost optimization |
+
+Interview prep: [Azure & GCP Q&A (core)](../../Interview%20Questions/10-azure-and-gcp-qna.md) · [GCP Deep-Dive Q&A](../../Interview%20Questions/26-gcp-deep-dive-qna.md) · [Architecture Scenarios](../../Interview%20Questions/27-cloud-architecture-scenarios-qna.md). Back to the [Cloud hub](../README.md).
+
 ---
 
 ## 🧱 GCP Core Concepts
@@ -346,7 +357,7 @@ resource "google_compute_instance" "default" {
 ---
 
 ## 🔗 Related Notes
-- [AWS Notes](aws.md)
-- [Azure Notes](azure.md)
-- [Terraform Notes](Terraform%20and%20CF/terraform.md)
-- [Kubernetes Notes](Kubernetes/kubernetes.md)
+- [AWS Notes](../AWS/aws.md)
+- [Azure Notes](../AZURE/azure.md)
+- [Terraform Notes](../../Terraform%20and%20CF/terraform.md)
+- [Kubernetes Notes](../../Kubernetes/kubernetes.md)

@@ -47,6 +47,15 @@ Output:
 
 ## **2. Understanding Linux File Permissions**
 
+Reading `-rwxr-xr--` and turning it into the number `754`:
+
+```mermaid
+flowchart LR
+    T["-<br/>type: file"] --- U["rwx<br/>owner<br/>4+2+1 = 7"]
+    U --- G["r-x<br/>group<br/>4+0+1 = 5"]
+    G --- O["r--<br/>others<br/>4+0+0 = 4"]
+```
+
 ### Permission Types:
 1. **Read (`r`)**: Allows reading of the file.
 2. **Write (`w`)**: Allows modification of the file.
@@ -92,6 +101,13 @@ chgrp devs example.sh
 ---
 
 ## **5. Special Permissions: SUID, SGID, and Sticky Bit**
+
+```mermaid
+flowchart TB
+    SP[Special bits<br/>leading digit in chmod 4755 / 2775 / 1777] --> SUID["4 SUID<br/>run as the file OWNER<br/>e.g. /usr/bin/passwd"]
+    SP --> SGID["2 SGID<br/>files: run as group<br/>dirs: new files inherit group"]
+    SP --> STK["1 Sticky<br/>dirs: only the owner can delete<br/>e.g. /tmp"]
+```
 
 ### **SUID (Set User ID)**
 - Applies to executable files.

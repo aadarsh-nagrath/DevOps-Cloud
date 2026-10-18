@@ -62,6 +62,14 @@ An error budget reframes reliability from a binary pass/fail into something you 
 
 ### Error-budget-burn-rate alerting — a smarter, less noisy signal
 
+```mermaid
+flowchart LR
+    SLO["SLO 99.9% / 30d<br/>error budget 0.1%"] --> FAST{"burn rate > 14.4<br/>over 1h AND 5m?"}
+    SLO --> SLOW{"burn rate > 6<br/>over 6h AND 30m?"}
+    FAST -->|yes| PAGE[page on-call now]
+    SLOW -->|yes| TICKET[ticket / next business day]
+```
+
 Alerting on a raw SLO breach ("we're now below 99.9% over the last 30 days") is a *lagging* indicator — by the time the 30-day rolling average has actually dropped below target, a lot of damage is already done, and the alert doesn't distinguish between a severe fast-moving problem and something that's technically breaching but barely.
 
 **Burn rate** measures *how fast* you're consuming your error budget right now, relative to a sustainable pace. This lets you alert much faster on severe problems while staying quiet on minor, sustainable degradation.
@@ -76,6 +84,14 @@ Both scenarios can correspond to the exact same instantaneous error rate dependi
 ---
 
 ## 5. Routing and Escalation
+
+```mermaid
+flowchart LR
+    A[Alert] --> P1[Primary on-call]
+    P1 -->|no ack in 5 min| P2[Secondary on-call]
+    P2 -->|no ack in 10 min| M[Engineering manager]
+    P1 -->|ack| W[work the incident]
+```
 
 Detecting a problem and getting the right human's attention on it are two different steps — an alert that fires into a channel nobody's watching, or pages someone who's asleep with no follow-up, has effectively not been detected at all from a response standpoint.
 

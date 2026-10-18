@@ -18,6 +18,15 @@ A team can have a perfectly resilient system and still handle a real incident ba
 
 ## 2. How to Run One
 
+```mermaid
+flowchart LR
+    PLAN[Plan<br/>scenario, scope, date,<br/>abort criteria] --> ROLES[Roles<br/>facilitator, injector,<br/>responders, observers]
+    ROLES --> RUN[Run<br/>timeboxed, 1-2h]
+    RUN --> RETRO[Retrospective<br/>what surprised us?]
+    RETRO --> ACT[Action items<br/>runbooks, alerts, fixes]
+    ACT -.->|next quarter| PLAN
+```
+
 ### Planning
 - Pick a **realistic scenario** — something plausible given your actual architecture, ideally informed by a real near-miss or a genuine unknown ("we've never actually tested what happens if the read replica goes down" is a legitimate, common Game Day motivation).
 - Use the experiment design document format from [designing-chaos-experiments.md](designing-chaos-experiments.md) §4 — steady state, hypothesis, blast radius, abort conditions — a Game Day is not exempt from that discipline just because it's a scheduled team event.
@@ -74,6 +83,13 @@ The most common objection, and a legitimate one: **fear of causing a real outage
 None of these objections are unreasonable, and dismissing them doesn't build trust — addressing them concretely does.
 
 ### How mature organizations build trust
+
+```mermaid
+flowchart LR
+    T[Tabletop<br/>talk through it] --> S[Staging game day]
+    S --> P[Prod game day<br/>small blast radius, business hours]
+    P --> A[Automated chaos in CI / prod<br/>continuous, with auto-abort]
+```
 
 1. **Start in staging, with zero production risk**, and get genuinely good at running experiments there before ever touching production — the same "start small" progression as blast radius itself, but applied to organizational trust rather than technical scope.
 2. **Pick the first production experiment very deliberately** — something with a small, well-understood blast radius, a strong hypothesis you're fairly confident will hold, and clear abort conditions. The first production chaos experiment should be close to a guaranteed success, specifically to build a track record.

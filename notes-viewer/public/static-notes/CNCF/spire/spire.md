@@ -114,6 +114,22 @@ Both are deliberately **short-lived** (SPIRE's default is about 1 hour for X.509
 - **Workload**: the actual application. It never holds a long-lived credential. It calls the **Workload API** over a local Unix domain socket; SPIRE Agent identifies the caller by inspecting the OS-level connection (which process/PID/UID opened the socket), matches it against registration entries, and streams back a fresh SVID — no bearer token or password is exchanged in that call.
 
 ### Why Attestation Is the Key Mechanic
+
+```mermaid
+sequenceDiagram
+    participant W as Workload (pod)
+    participant A as SPIRE Agent (node)
+    participant K as kubelet / kernel
+    participant S as SPIRE Server
+    Note over A,S: Agent already proved its own node identity (node attestation)
+    W->>A: Workload API: "give me my SVID" (no identity claim)
+    A->>K: inspect caller: PID → cgroup → pod, namespace, ServiceAccount
+    K-->>A: selectors k8s:ns:prod, k8s:sa:payment
+    A->>A: match selectors against registration entries
+    A-->>W: X.509 SVID spiffe://example.org/ns/prod/sa/payment
+    W->>W: use SVID for mTLS, auto-rotated before expiry
+```
+
 This is the part that distinguishes SPIRE from "just handing out certs":
 
 SPIRE never trusts a workload's *self-declared* identity ("I am payment-service, please give me a cert for that"). Instead:

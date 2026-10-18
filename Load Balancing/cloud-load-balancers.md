@@ -17,6 +17,18 @@ Managed load balancing services from the three major cloud providers — no infr
 AWS offers **four** load balancer types under ELB, each built for a different OSI layer and use case. Picking the wrong one is a common mistake, because they aren't interchangeable.
 
 ### 1) Application Load Balancer (ALB) — Layer 7
+
+```mermaid
+flowchart LR
+    C([Client]) -->|HTTPS 443| L[ALB listener<br/>TLS cert from ACM]
+    L --> R1{rule: host api.example.com}
+    L --> R2{rule: path /static/*}
+    L --> DEF{default rule}
+    R1 --> TG1[Target group: api<br/>EC2 / IPs / Lambda]
+    R2 --> TG2[Target group: static]
+    DEF --> TG3[Target group: web]
+```
+
 - **Best for**: modern web applications, microservices, container-based apps (ECS/EKS via the AWS Load Balancer Controller).
 - **How it works**: operates at the **Application Layer (HTTP/HTTPS, plus HTTP/2, gRPC and WebSockets)**. It terminates the connection, **inspects the request** (URL path, host, headers, query string, cookies, source IP) and routes it according to listener rules. Because it opens a new connection to the backend, the client IP is passed in the `X-Forwarded-For` header.
 - **Key features**:

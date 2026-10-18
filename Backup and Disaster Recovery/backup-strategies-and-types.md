@@ -57,6 +57,13 @@ Frequency and retention are not chosen by gut feeling — they are derived direc
 
 ### Grandfather-Father-Son (GFS) rotation
 
+```mermaid
+flowchart LR
+    D["Son: daily<br/>keep 7"] --> W["Father: weekly<br/>keep 4"]
+    W --> M["Grandfather: monthly<br/>keep 12"]
+    M --> Y["Yearly<br/>keep 7 (compliance)"]
+```
+
 A classic retention scheme that keeps more granularity for recent backups and progressively less for older ones, keeping total storage bounded while still allowing recovery from far in the past:
 
 ```
@@ -114,6 +121,14 @@ Rules:
 ---
 
 ## 3. The 3-2-1 Backup Rule
+
+```mermaid
+flowchart LR
+    PROD[(Production data)] --> C1[(Copy 1: primary)]
+    PROD --> C2[(Copy 2: different media<br/>e.g. snapshot / NAS)]
+    PROD --> C3[(Copy 3: offsite<br/>other region / account)]
+    C3 --> IMM[immutable / object lock<br/>3-2-1-1-0: + air gap, 0 restore errors]
+```
 
 **3** copies of your data, on **2** different media/storage types, with **1** copy offsite.
 
@@ -194,6 +209,16 @@ A backup job can report success while still being useless for recovery:
 None of these are visible from a job-success log line. They are only visible by **actually restoring** the backup somewhere and verifying the result.
 
 ### Restore drills
+
+```mermaid
+flowchart LR
+    S[Schedule drill] --> R[Restore to isolated env]
+    R --> V{Verify<br/>row counts, checksums,<br/>app boots}
+    V -->|pass| T[Record actual RTO / RPO]
+    V -->|fail| FIX[Fix backup job, alert owners]
+    T --> S
+```
+
 The practice of periodically and routinely performing a real restore (to a scratch/staging environment, not production) and verifying the result is usable:
 
 ```bash

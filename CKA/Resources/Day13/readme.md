@@ -39,6 +39,14 @@ Annotations are similar to labels but attach non-identifying metadata to objects
 
 ## 🛠️ Static Pods
 
+```mermaid
+flowchart LR
+    MAN["/etc/kubernetes/manifests/*.yaml<br/>on the node"] -->|kubelet watches the dir| KL[kubelet]
+    KL --> POD[Static Pod<br/>kube-apiserver, etcd, scheduler ...]
+    KL -->|read-only mirror pod| API[API server]
+    API -.-x|kubectl delete only recreates it;<br/>edit / remove the file instead| POD
+```
+
 Static Pods are special types of pods managed directly by the `kubelet` on each node rather than through the Kubernetes API server.
 
 ### Key Characteristics of Static Pods:

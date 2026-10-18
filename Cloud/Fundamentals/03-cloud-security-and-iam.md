@@ -48,6 +48,19 @@ All three encrypt storage by default with provider-managed keys. Options:
 | Dedicated HSM | FIPS 140-3 L3 single-tenant | CloudHSM | Managed HSM / Dedicated HSM | Cloud HSM |
 
 ### Envelope encryption (how KMS works)
+
+```mermaid
+sequenceDiagram
+    participant App
+    participant KMS as KMS (KEK never leaves)
+    participant Store as Storage
+    App->>KMS: GenerateDataKey
+    KMS-->>App: DEK (plaintext) + DEK encrypted by KEK
+    App->>App: encrypt data with plaintext DEK, then discard it
+    App->>Store: save ciphertext + encrypted DEK
+    Note over App,Store: To read: send encrypted DEK to KMS → get DEK → decrypt data
+```
+
 1. Generate a **data encryption key (DEK)** → encrypt data with it locally.
 2. Encrypt the DEK with the **key encryption key (KEK)** stored in KMS (KEK never leaves KMS/HSM).
 3. Store encrypted DEK next to the data. To decrypt: KMS decrypts DEK → DEK decrypts data.
@@ -107,6 +120,16 @@ Users → DNS → CDN + WAF + DDoS → Public LB (TLS) → [Private subnet] App 
 ---
 
 ## 6. Cloud incident response (credential compromise playbook)
+
+```mermaid
+flowchart LR
+    D[Detect<br/>GuardDuty / Defender alert] --> C[Contain<br/>disable keys, revoke sessions,<br/>isolate instance]
+    C --> I[Investigate<br/>CloudTrail / activity logs]
+    I --> E[Eradicate<br/>remove backdoors, rotate secrets]
+    E --> R[Recover<br/>rebuild from IaC + clean images]
+    R --> L[Lessons learned<br/>postmortem + guardrails]
+```
+
 1. **Detect**: GuardDuty/Defender/SCC alert, billing anomaly, leaked key report (GitHub secret scanning).
 2. **Contain**: disable/rotate the credential, revoke sessions (AWS: deny policy with `aws:TokenIssueTime`; Azure: revoke sessions; GCP: disable SA key), isolate affected instances (quarantine SG), snapshot disks for forensics.
 3. **Investigate**: CloudTrail/Activity/Audit logs — what did the identity do, which regions, new users/roles/keys created, data accessed.

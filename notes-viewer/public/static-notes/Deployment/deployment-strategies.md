@@ -51,6 +51,17 @@ Every strategy needs a rollback plan *before* you roll forward. Key questions to
 - Can rollback happen automatically based on error-rate/latency metrics (automated rollback), or is it always a human decision?
 
 ### Database Migrations — the strategy that breaks all the others
+
+The expand/contract pattern keeps old and new code working during the rollout:
+
+```mermaid
+flowchart LR
+    E[1 Expand<br/>add new column / table,<br/>nullable, no removals] --> D1[2 Deploy code that<br/>writes BOTH, reads old]
+    D1 --> B[3 Backfill<br/>existing rows]
+    B --> D2[4 Deploy code that<br/>reads NEW]
+    D2 --> C[5 Contract<br/>drop old column<br/>in a later release]
+```
+
 Nearly every deployment strategy assumes the app version can change instantly, but the database schema usually can't (or you don't want it to, for zero downtime). The standard solution is the **expand/contract pattern**:
 1. **Expand**: deploy a schema change that is backward-compatible with both old and new app code (e.g., add a new nullable column, don't drop the old one yet).
 2. **Migrate**: deploy the new app version, which uses the new schema.
@@ -61,6 +72,19 @@ This is what makes blue-green/canary/rolling deployments safe with a shared data
 ---
 
 ## 3. Strategy Comparison
+
+Which strategy, at a glance:
+
+```mermaid
+flowchart TB
+    Q{Can both versions<br/>run at once?} -->|"no: schema / singleton"| RC[Recreate<br/>downtime, simplest]
+    Q -->|yes| R2{Need instant<br/>rollback?}
+    R2 -->|"yes, can afford 2x capacity"| BG[Blue-green]
+    R2 -->|no| R3{Need to limit<br/>blast radius by %?}
+    R3 -->|yes| CAN[Canary / progressive delivery]
+    R3 -->|no| ROL[Rolling update<br/>K8s default]
+    CAN -.-> SH[Add shadow traffic first<br/>for risky rewrites]
+```
 
 | Strategy | Downtime | Rollback speed | Infra cost during deploy | Blast radius if broken | Complexity |
 |---|---|---|---|---|---|

@@ -6,6 +6,17 @@ Run two (or more) versions of a feature simultaneously, split traffic between th
 
 ## 1. Canary vs A/B Testing — the Distinction That Matters
 
+```mermaid
+flowchart LR
+    subgraph CAN[Canary - is v2 SAFE?]
+        U1([random 5% of traffic]) --> V2[v2] --> OPS[(error rate, latency)]
+    end
+    subgraph AB[A/B test - is variant B BETTER?]
+        U2([users split by stable ID]) --> A[variant A] --> BIZ[(conversion, revenue)]
+        U2 --> B[variant B] --> BIZ
+    end
+```
+
 It's easy to conflate these because both split traffic between two versions. The difference is what question you're answering:
 
 | | Canary | A/B Test |
@@ -34,6 +45,15 @@ Technically running two versions is the easy part — running a *statistically v
 ---
 
 ## 3. Example: Feature-Flag-Based A/B Test
+
+```mermaid
+flowchart LR
+    REQ[Request user_id=42] --> H["hash(user_id + experiment) mod 100"]
+    H -->|"0-49"| A[variant A]
+    H -->|"50-99"| B[variant B]
+    A --> EV[(analytics event:<br/>user, variant, outcome)]
+    B --> EV
+```
 
 Most A/B tests today are implemented via a feature-flag/experimentation platform (LaunchDarkly, Split, Optimizely, GrowthBook, or a homegrown flag service) rather than infrastructure-level traffic splitting, because you need consistent per-user bucketing and rich analytics integration, not just raw request routing.
 

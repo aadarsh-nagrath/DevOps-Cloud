@@ -112,6 +112,15 @@ This is distinct from `store_artifacts`: `store_test_results` is specifically pa
 
 ## 4. `workflows:` — Orchestrating Jobs
 
+```mermaid
+flowchart TB
+    P[Pipeline<br/>one per push / trigger] --> W1[Workflow: build-test-deploy]
+    P --> W2[Workflow: nightly<br/>scheduled]
+    W1 --> J1[Job: build<br/>executor: docker]
+    W1 --> J2[Job: test]
+    J1 --> ST1[steps: checkout, run, save_cache]
+```
+
 A workflow ties jobs together with ordering and conditions.
 
 ```yaml

@@ -130,6 +130,27 @@ sdk.start();
 - Practical implication: any tutorial or codebase still importing `jaeger-client-*` packages is working against an unmaintained, EOL library — new instrumentation should always go through an OTel SDK regardless of the eventual backend.
 
 ### Context Propagation
+
+One trace ID follows the request across services; each hop adds a child span:
+
+```mermaid
+sequenceDiagram
+    participant U as Client
+    participant G as API gateway
+    participant O as orders
+    participant P as payments
+    U->>G: GET /checkout
+    Note over G: start span A (trace 4bf9...)
+    G->>O: traceparent: 00-4bf9...-A-01
+    Note over O: span B, parent A
+    O->>P: traceparent: 00-4bf9...-B-01
+    Note over P: span C, parent B
+    P-->>O: 200
+    O-->>G: 200
+    G-->>U: 200
+    Note over G,P: Each service exports its spans to the Collector separately
+```
+
 - Trace context (trace ID + span ID) must travel with the request across service boundaries — typically via the **W3C Trace Context** HTTP headers (`traceparent`, `tracestate`), which OTel sets automatically.
 - Jaeger also historically used its own propagation header format (`uber-trace-id: {trace-id}:{span-id}:{parent-id}:{flags}`) from its pre-OTel days — still supported for backward compatibility/interop with legacy instrumented services during a migration, but W3C Trace Context is the default and recommended format for anything instrumented today.
 - Without correct propagation, each service starts a *new* disconnected trace instead of continuing the existing one — the #1 cause of "broken" traces in practice (see [OpenTelemetry notes — Context Propagation](../open-telemetry/opentelemetry.md) for the mechanics of `inject()`/`extract()` at async boundaries like message queues).

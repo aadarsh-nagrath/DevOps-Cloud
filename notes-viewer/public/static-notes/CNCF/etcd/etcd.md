@@ -83,6 +83,28 @@ etcdctl watch /config/db-host
 ## 2. Intermediate
 
 ### Raft Consensus — How It Actually Works
+
+A write is committed only after a **majority** has persisted it:
+
+```mermaid
+sequenceDiagram
+    participant C as Client (kube-apiserver)
+    participant L as Leader
+    participant F1 as Follower 1
+    participant F2 as Follower 2
+    C->>L: PUT /registry/pods/web-1
+    L->>L: append to log (uncommitted)
+    par replicate
+        L->>F1: AppendEntries
+        L->>F2: AppendEntries
+    end
+    F1-->>L: ack (fsync done)
+    Note over L,F1: 2 of 3 = majority → committed
+    L->>L: apply to key-value store, bump revision
+    L-->>C: OK (revision 1042)
+    F2-->>L: ack (late, still fine)
+```
+
 Raft breaks consensus into three sub-problems: **leader election**, **log replication**, and **safety**.
 
 1. **Leader election**: nodes start as followers. If a follower doesn't hear from a leader within an election timeout, it becomes a candidate, increments its term, and requests votes. Whoever gets a majority becomes leader for that term.
@@ -90,6 +112,13 @@ Raft breaks consensus into three sub-problems: **leader election**, **log replic
 3. **Safety**: Raft guarantees that once an entry is committed, it will be present in the logs of all future leaders — no committed write is ever lost or silently overwritten.
 
 ### Why Odd Numbers of Nodes
+
+```mermaid
+flowchart LR
+    A["3 nodes<br/>quorum 2<br/>tolerates 1 failure"] --> B["4 nodes<br/>quorum 3<br/>STILL tolerates 1"]
+    B --> C["5 nodes<br/>quorum 3<br/>tolerates 2"]
+```
+
 Quorum = `floor(N/2) + 1`. Fault tolerance = `floor((N-1)/2)`.
 
 | Cluster size | Quorum needed | Nodes that can fail | Notes |

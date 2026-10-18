@@ -75,6 +75,28 @@
 
 ## 2. Architecture Overview
 
+```mermaid
+flowchart LR
+    subgraph CP[Control Plane - the brain]
+        API[kube-apiserver] <--> ETCD[(etcd)]
+        SCH[scheduler] <--> API
+        CM[controller-manager] <--> API
+    end
+    subgraph W1[Worker node]
+        KL1[kubelet] --> RT1[container runtime] --> P1[Pods]
+        KP1[kube-proxy]
+    end
+    subgraph W2[Worker node]
+        KL2[kubelet] --> RT2[container runtime] --> P2[Pods]
+        KP2[kube-proxy]
+    end
+    API <--> KL1
+    API <--> KL2
+    API <--> KP1
+    API <--> KP2
+    YOU([kubectl]) --> API
+```
+
 A cluster = **Control Plane** (the brain) + **Worker Nodes** (where workloads run).
 
 ### Control Plane components
@@ -96,6 +118,19 @@ A cluster = **Control Plane** (the brain) + **Worker Nodes** (where workloads ru
 **Mental model:** You `kubectl apply` a YAML → API server stores it in etcd → controllers notice a Deployment wants 3 pods → scheduler assigns nodes → kubelet on each node pulls the image and starts containers → kube-proxy wires up networking.
 
 ## 3. Core Objects: Pods, ReplicaSets, Deployments
+
+A Deployment rollout creates a new ReplicaSet and shifts Pods over to it:
+
+```mermaid
+flowchart LR
+    D[Deployment<br/>image: v2] --> RS1[ReplicaSet v1<br/>replicas 3 → 0]
+    D --> RS2[ReplicaSet v2<br/>replicas 0 → 3]
+    RS1 --> O1[Pod v1]
+    RS2 --> N1[Pod v2]
+    RS2 --> N2[Pod v2]
+    RS2 --> N3[Pod v2]
+    RS1 -. kept for rollback .-> H[(revision history)]
+```
 
 - **Pod**: smallest deployable unit. Wraps one or more tightly-coupled containers that share network namespace (same IP, can talk via `localhost`) and can share storage volumes. Pods are ephemeral — never rely on a pod's IP staying stable.
 - **ReplicaSet**: ensures a specified number of identical pod replicas are running at all times. You rarely create these directly.
@@ -214,6 +249,15 @@ Contexts & config: `kubectl config get-contexts`, `kubectl config use-context <c
 
 ## 8. Volumes & Persistent Storage
 
+```mermaid
+flowchart LR
+    POD[Pod] -->|volumes: claimName| PVC[PersistentVolumeClaim<br/>10Gi, RWO]
+    PVC -->|bound 1:1| PV[PersistentVolume]
+    SC[StorageClass<br/>provisioner: ebs.csi.aws.com] -->|dynamic provisioning| PV
+    PVC -.->|storageClassName| SC
+    PV --> DISK[(Real disk: EBS / PD / NFS)]
+```
+
 - Container filesystem is ephemeral — dies with the container. **Volumes** solve this.
 - **emptyDir**: scratch space, lives as long as the pod (shared between containers in the pod, e.g. sidecar log shipping).
 - **PersistentVolume (PV)**: a piece of storage provisioned in the cluster (could be backed by EBS, NFS, etc.) — cluster-scoped resource.
@@ -238,6 +282,15 @@ spec:
 **Reclaim policy**: `Retain` (keep data after PVC deletion — recommended for prod DBs) vs `Delete` (default for dynamic provisioning).
 
 ## 9. Ingress & External Access
+
+```mermaid
+flowchart LR
+    C([Browser]) -->|example.com| LB[Cloud LB]
+    LB --> IC[Ingress Controller pod<br/>nginx / traefik]
+    IC -->|"/api"| S1[Service api] --> P1[api Pods]
+    IC -->|"/"| S2[Service web] --> P2[web Pods]
+    ING[Ingress resource<br/>host + path rules] -. read by .-> IC
+```
 
 - **Ingress**: L7 HTTP(S) routing rules (host/path-based) into cluster Services — one entry point instead of a LoadBalancer per service. Requires an **Ingress Controller** (nginx-ingress, Traefik, AWS ALB Ingress Controller, etc.) actually running in the cluster to do anything.
 
@@ -331,6 +384,16 @@ resources:
 
 ## 13. Autoscaling (HPA/VPA/Cluster Autoscaler)
 
+```mermaid
+flowchart LR
+    MS[metrics-server] -->|CPU / memory| HPA[HPA]
+    HPA -->|replicas 3 → 8| DEP[Deployment]
+    DEP --> PODS[Pods]
+    PODS -->|Pending: no room| CA[Cluster Autoscaler / Karpenter]
+    CA -->|add node| NODES[(Node group)]
+    VPA[VPA] -.->|right-size requests| PODS
+```
+
 - **HPA (Horizontal Pod Autoscaler)**: scales *replica count* based on metrics (CPU%, memory, or custom/external metrics via Prometheus Adapter). Requires `metrics-server` installed.
 ```yaml
 apiVersion: autoscaling/v2
@@ -373,6 +436,17 @@ helm template .            # render locally without installing — great for deb
 - See [Helm vs Kustomize](../Helm/helm-vs-kustomize.md) for Helm vs Kustomize tradeoffs and the [Helm notes](../Helm/README.md) for more.
 
 ## 15. RBAC & Service Accounts
+
+```mermaid
+flowchart LR
+    SUBJ[Subject<br/>User / Group / ServiceAccount] --> RB[RoleBinding<br/>namespace-scoped]
+    SUBJ --> CRB[ClusterRoleBinding<br/>cluster-wide]
+    RB --> R[Role<br/>verbs on resources in a namespace]
+    RB --> CR[ClusterRole]
+    CRB --> CR
+    R --> RES[(pods, secrets, deployments ...)]
+    CR --> RES
+```
 
 - **ServiceAccount**: identity for processes running inside pods (distinct from user accounts). Every pod runs as some ServiceAccount (default: `default` in its namespace unless specified).
 - **Role / ClusterRole**: define *what actions* are allowed on *which resources* (verbs: get, list, watch, create, update, delete, on resources: pods, secrets, deployments...). Role = namespace-scoped, ClusterRole = cluster-wide.
@@ -473,6 +547,17 @@ initContainers:
 
 ## 21. Cluster Internals: etcd, API Server, Controller Manager
 
+Every controller runs the same reconcile loop:
+
+```mermaid
+flowchart LR
+    W[Watch API server<br/>for changes] --> DIFF{Desired state<br/>== actual state?}
+    DIFF -->|yes| W
+    DIFF -->|no| ACT[Act: create / update / delete<br/>child objects]
+    ACT --> STATUS[Write status back]
+    STATUS --> W
+```
+
 - **etcd**: Raft-consensus based, needs an odd number of members (3 or 5) for quorum/HA. Losing quorum = read-only or fully down cluster. Backups (`etcdctl snapshot save`) are non-negotiable for disaster recovery — see [Backup and Disaster Recovery/](../Backup%20and%20Disaster%20Recovery/).
 - **Watch mechanism**: controllers don't poll — they establish long-lived *watch* connections to the API server and react to change events, which is why K8s reconciliation is near-real-time.
 - **Reconciliation loop** (the core K8s philosophy): every controller runs `for {} { observe current state; compare to desired state; take action to reduce the diff }`. This is why declarative YAML + controllers is more robust than imperative scripts — self-correcting by design.
@@ -487,6 +572,15 @@ initContainers:
 - See [Monitoring and Loggin/](../Monitoring%20and%20Loggin/) folder for more.
 
 ## 23. Troubleshooting Playbook
+
+```mermaid
+flowchart TB
+    A{Pod status?} -->|Pending| B[describe pod → Events:<br/>insufficient CPU/mem, taints,<br/>PVC unbound, affinity]
+    A -->|ImagePullBackOff| C[Wrong image/tag,<br/>registry auth, imagePullSecrets]
+    A -->|CrashLoopBackOff| D[logs --previous,<br/>bad config, missing env, OOM]
+    A -->|"Running, not Ready"| E[readiness probe path/port,<br/>app dependencies]
+    A -->|"Running + Ready,<br/>still unreachable"| F[Service selector ↔ labels,<br/>targetPort, endpoints,<br/>NetworkPolicy, DNS]
+```
 
 Systematic order when a pod misbehaves:
 
@@ -522,7 +616,7 @@ More scenario-based Q&A in [k8-doubts.md](k8-doubts.md).
 - [ ] RBAC scoped to least privilege per team/namespace; avoid `cluster-admin` sprawl.
 - [ ] Pin image tags (never `:latest`) and scan images for vulnerabilities in CI.
 - [ ] Use **namespaces + ResourceQuotas** to prevent noisy-neighbor problems in shared clusters.
-- [ ] GitOps (Argo CD/Flux) for declarative, auditable deployments instead of manual `kubectl apply`. See [GitOps.md](../GitOps.md) and [argo-cd-integration-helm.md](../argo-cd-integration-helm.md).
+- [ ] GitOps (Argo CD/Flux) for declarative, auditable deployments instead of manual `kubectl apply`. See [GitOps.md](../GitOps.md) and [Argo CD + Helm integration](../Continuous%20Delivery/ArgoCD/argo-cd-integration-helm.md).
 
 ## 25. Quick-Revision Cheat Sheet
 

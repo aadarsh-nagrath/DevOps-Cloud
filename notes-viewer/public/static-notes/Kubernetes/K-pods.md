@@ -107,6 +107,22 @@ Now, two Pods (`postgres` and `postgres2`) are running, both on port `5432` with
 
 ## Pods with Multiple Containers
 
+Containers in one Pod share the network namespace (same IP, `localhost`) and can share volumes:
+
+```mermaid
+flowchart TB
+    subgraph POD[Pod: 10.244.1.7]
+        PAUSE[pause container<br/>holds network namespace]
+        APP[app container :8080]
+        SIDE[sidecar: log shipper]
+        VOL[(shared emptyDir volume)]
+        APP -->|writes logs| VOL
+        SIDE -->|reads logs| VOL
+        SIDE -.->|localhost:8080| APP
+    end
+    SIDE -->|ship| LOGS[(Log backend)]
+```
+
 While Pods usually run a single container, sometimes it is necessary to have multiple containers within the same Pod. These containers can serve as sidecar containers, helping with tasks like logging, backup, or syncing data.
 
 ### Use Case: Running Multiple Containers Inside a Pod
@@ -246,6 +262,20 @@ webapp-6f8d9c9b7d-vn4rt   1/1     Running   0          10s   10.244.1.6   node-1
 Notice: **pod names are auto-generated** (`webapp-<replicaset-hash>-<random-suffix>`), pods are spread across different nodes by the scheduler, and each has its own IP — exactly the networking model from the sections above, just now managed automatically instead of by hand.
 
 ### 2. Simulation: A Pod Crashes (self-healing in action)
+
+```mermaid
+stateDiagram-v2
+    [*] --> Pending: Pod created
+    Pending --> ContainerCreating: scheduled to a node
+    ContainerCreating --> Running: image pulled, started
+    Running --> Running: liveness OK
+    Running --> CrashLoopBackOff: container keeps exiting
+    CrashLoopBackOff --> Running: restart after back-off (10s, 20s, 40s ... 5m)
+    Running --> OOMKilled: memory > limit
+    OOMKilled --> Running: kubelet restarts container
+    Running --> Terminating: delete / rollout / drain
+    Terminating --> [*]
+```
 
 Kill one pod directly, the way a real crash (OOM, unhandled exception, node issue) would happen:
 ```bash

@@ -10,6 +10,15 @@ Chef merges attributes from multiple sources into a single node object at the st
 
 ### Precedence levels (lowest to highest)
 
+```mermaid
+flowchart LR
+    D[default] --> F[force_default]
+    F --> N[normal<br/>persists on the node]
+    N --> O[override]
+    O --> FO[force_override]
+    FO --> A[automatic<br/>Ohai facts, always win]
+```
+
 | Level | Set via | Typical use |
 |---|---|---|
 | `default` | `default['key'] = value` in attribute file/recipe; role/environment `default_attributes` | Cookbook-supplied sane defaults, safe to override |

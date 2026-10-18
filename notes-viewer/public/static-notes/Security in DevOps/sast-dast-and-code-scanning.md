@@ -154,6 +154,15 @@ jobs:
 
 ## 4. Where Each Fits in a CI Pipeline
 
+```mermaid
+flowchart LR
+    PC[pre-commit<br/>secret scan: gitleaks] --> PR[PR checks<br/>SAST: Semgrep / CodeQL<br/>SCA: Snyk / Dependabot]
+    PR --> BLD[build<br/>image scan: Trivy<br/>SBOM: Syft]
+    BLD --> STG[deploy staging]
+    STG --> DAST[DAST: OWASP ZAP<br/>against running app]
+    DAST --> PROD[prod]
+```
+
 ```yaml
 # .github/workflows/ci.yml — annotated placement of each scan type
 jobs:
@@ -224,6 +233,15 @@ git commit -m "add config"  # gitleaks now scans staged changes before the commi
 Pre-commit is the *cheapest possible place* to catch a secret — before it ever reaches a shared branch, a CI log, or a fork. CI-level secret scanning (as in the pipeline in §4) is the backstop for anyone who bypassed or doesn't have the pre-commit hook installed, not the primary control.
 
 ### If a secret DOES leak — rotate, don't just delete
+
+```mermaid
+flowchart LR
+    F[Secret found in git] --> R[1 Revoke / rotate NOW]
+    R --> A[2 Audit usage logs<br/>CloudTrail etc.]
+    A --> P[3 Purge from history<br/>git filter-repo, optional]
+    P --> PR[4 Prevent: pre-commit hook,<br/>secret manager]
+    F -.-x|deleting the commit alone does NOT help| R
+```
 
 A critical, frequently misunderstood point: **deleting a secret from git history does not undo the exposure.** Once a commit containing a secret has been pushed — even briefly, even if force-pushed over seconds later — that value may already have been:
 - Cloned by anyone who pulled in that window

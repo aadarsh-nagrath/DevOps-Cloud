@@ -49,6 +49,24 @@ DELETE /logs-2026.07.22
 ## 2. Intermediate
 
 ### Sharding & Replication
+
+```mermaid
+flowchart TB
+    IDX[index: logs-2026.10 - 3 primaries, 1 replica each] --> N1 & N2 & N3
+    subgraph N1[node 1]
+        P0[P0]
+        R2[R2]
+    end
+    subgraph N2[node 2]
+        P1[P1]
+        R0[R0]
+    end
+    subgraph N3[node 3]
+        P2[P2]
+        R1[R1]
+    end
+```
+
 - Each index is split into **primary shards** (for horizontal scaling) and each primary can have **replica shards** (for HA and read throughput).
 - Shard count set at index creation time and is hard to change later (reindex needed) — plan capacity up front.
 - Replicas live on different nodes than their primary, so losing a node doesn't lose data.
@@ -120,6 +138,14 @@ Beats/Fluentd/Logstash → Elasticsearch (Ingest Node / pipeline) → Index → 
 - Production clusters dedicate node roles rather than running everything on every node.
 
 ### Index Lifecycle Management (ILM)
+
+```mermaid
+flowchart LR
+    HOT[Hot<br/>new writes, fast SSD<br/>rollover at 50GB / 1d] --> WARM[Warm<br/>read-only, shrink,<br/>force-merge]
+    WARM --> COLD[Cold<br/>cheap disks /<br/>searchable snapshots]
+    COLD --> DEL[Delete<br/>after 90d]
+```
+
 - Automates moving indices through phases as they age:
   `Hot` (actively written, fast storage) → `Warm` (read-only, less resourced) → `Cold` (rarely accessed, cheap storage) → `Delete`.
 ```json

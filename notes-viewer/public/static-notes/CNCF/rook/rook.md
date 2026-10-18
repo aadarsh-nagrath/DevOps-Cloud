@@ -98,6 +98,18 @@ Apply this and the operator provisions MONs, MGRs, and one OSD per unused raw bl
 ## 2. Intermediate
 
 ### From CephCluster to a Usable PVC
+
+```mermaid
+flowchart LR
+    CC[CephCluster CR] --> OP[Rook operator]
+    OP --> MON[MONs] & OSD[OSDs on node disks] & MGR[MGR]
+    BP[CephBlockPool CR] --> OP
+    SC[StorageClass<br/>rook-ceph-block] --> CSI[Ceph CSI driver]
+    PVC[PVC] --> SC
+    CSI -->|creates RBD image in pool| OSD
+    CSI --> PV[PV bound to PVC]
+```
+
 Three CRDs chain together to turn a raw Ceph cluster into something an app can mount:
 
 **1. Define a pool (replication policy)**

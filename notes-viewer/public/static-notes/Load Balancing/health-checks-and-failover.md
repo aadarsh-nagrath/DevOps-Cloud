@@ -6,6 +6,18 @@ A load balancer is only as good as its ability to detect an unhealthy backend an
 
 ## 1. Active vs Passive Health Checks
 
+```mermaid
+flowchart TB
+    subgraph ACT[Active]
+        LB1[LB] -->|"GET /healthz every 10s"| B1[backend]
+        B1 -->|"2 fails → unhealthy<br/>3 passes → healthy"| LB1
+    end
+    subgraph PAS[Passive]
+        LB2[LB] -->|real traffic| B2[backend]
+        B2 -->|"5xx / resets observed"| EJ[eject for 30s]
+    end
+```
+
 ### Active Health Checks
 The load balancer proactively sends its own probe requests to each backend on a schedule, independent of real client traffic.
 
@@ -97,6 +109,19 @@ Region A goes down entirely:
 ```
 
 ### Active-Active vs Active-Passive Failover
+
+```mermaid
+flowchart LR
+    subgraph AA[Active-active]
+        T1([traffic]) --> R1[region A 50%]
+        T1 --> R2[region B 50%]
+    end
+    subgraph AP[Active-passive]
+        T2([traffic]) --> P[primary 100%]
+        T2 -.->|only on failover| S[standby 0%]
+    end
+```
+
 | | Active-Active | Active-Passive |
 |---|---|---|
 | Both regions serving traffic normally? | Yes, simultaneously | No — passive region is idle/standby until failover |

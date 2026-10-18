@@ -111,6 +111,23 @@ spec:
 The `aws-creds` Secret holds a standard AWS credentials file format (`[default]\naws_access_key_id = ...\naws_secret_access_key = ...`). In production, `source: IRSA` (EKS) or a cloud-native workload identity mechanism is preferred over static keys, exactly like KEDA's TriggerAuthentication pattern.
 
 ### XRDs and Compositions — Building a Self-Service "Database" API
+
+How a developer's small claim becomes real cloud resources:
+
+```mermaid
+flowchart LR
+    DEV([App team]) -->|"kind: PostgreSQLInstance<br/>size: small"| CLAIM[Claim<br/>namespaced]
+    XRD[XRD<br/>defines the API schema] -.-> CLAIM
+    CLAIM --> XR[Composite Resource]
+    COMP[Composition<br/>platform team's recipe] -.->|selects + patches| XR
+    XR --> MR1[Managed Resource<br/>RDS instance]
+    XR --> MR2[Managed Resource<br/>SubnetGroup]
+    XR --> MR3[Managed Resource<br/>SecurityGroup]
+    MR1 --> PROV[provider-aws] --> AWS[(AWS API)]
+    MR2 --> PROV
+    MR3 --> PROV
+```
+
 This is Crossplane's core value proposition for platform engineering: a platform team defines a simple, opinionated API (`Database`) that developers consume without ever seeing AWS-specific resource types.
 
 **1. Define the schema (XRD):**

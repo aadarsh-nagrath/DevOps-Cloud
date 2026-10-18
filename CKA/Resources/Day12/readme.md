@@ -18,6 +18,14 @@
 
 ### Daemonset for a 3 nodes cluster
 
+```mermaid
+flowchart TB
+    DS[DaemonSet: node-exporter] --> N1[node 1: 1 pod]
+    DS --> N2[node 2: 1 pod]
+    DS --> N3[node 3: 1 pod]
+    NEW[node 4 joins] -.->|pod added automatically| DS
+```
+
 ![image](https://github.com/piyushsachdeva/CKA-2024/assets/40286378/bb803dc2-f9ab-4fe3-a0bb-0eacdfcf3ce0)
 
 

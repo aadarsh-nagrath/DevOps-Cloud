@@ -111,4 +111,14 @@ def handler(event, context):
 - **AWS Batch**: managed batch job queues on EC2/Spot/Fargate.
 
 ## 6. Choosing compute (decision guide)
+
+```mermaid
+flowchart TB
+    Q{Workload?} -->|"event-driven, < 15 min"| L[Lambda]
+    Q -->|containers, no cluster ops| F[ECS on Fargate]
+    Q -->|"containers, need K8s ecosystem"| E[EKS]
+    Q -->|"full OS control, GPUs, licences"| EC2[EC2 + Auto Scaling]
+    Q -->|"just deploy a web app"| PAAS[App Runner / Elastic Beanstalk]
+```
+
 Full OS control/legacy → **EC2**; event-driven short tasks → **Lambda**; containers with low ops → **ECS on Fargate**; Kubernetes standard → **EKS**; quick web app → **Beanstalk/App Runner**; batch/HPC → **Batch / ParallelCluster**; ML → **SageMaker**.

@@ -34,6 +34,16 @@
 **Public vs private endpoints** (AZ-900): public endpoint = reachable over internet (IP/firewall restricted); private endpoint = only reachable via private IP in your network. **Private Link service** lets you expose *your own* service behind a Standard LB privately to consumers.
 
 ## 4. Connecting networks
+
+```mermaid
+flowchart TB
+    HUB[Hub VNet<br/>Azure Firewall, VPN / ExpressRoute GW, Bastion] <-->|peering| S1[Spoke VNet: prod]
+    HUB <-->|peering| S2[Spoke VNet: dev]
+    HUB <-->|peering| S3[Spoke VNet: shared]
+    ONP[(On-prem)] <-->|VPN / ExpressRoute| HUB
+    S1 -.->|UDR: 0.0.0.0/0 → firewall| HUB
+```
+
 | Option | What | Notes |
 |---|---|---|
 | **VNet peering** | Connect VNets (same region = regional; cross-region = global) over backbone, low latency | **Non-transitive**; no overlapping address spaces; **gateway transit** lets spokes use hub's VPN/ER gateway |
@@ -43,6 +53,15 @@
 | **ExpressRoute** | **Private dedicated connection** via connectivity provider, **does not traverse the public internet** — predictable latency, up to 100 Gbps (ExpressRoute Direct), SLA | Private peering (VNets) + Microsoft peering (M365/PaaS public endpoints); **Global Reach** (connect on-prem sites through Microsoft backbone); **FastPath**; not encrypted by default — **MACsec** (Direct) or IPsec over ER; HA = two circuits in two peering locations, VPN as backup |
 
 ## 5. Load balancing & traffic distribution (decision tree)
+
+```mermaid
+flowchart TB
+    Q{Traffic?} -->|"global HTTP(S)"| FD[Front Door]
+    Q -->|"global, any protocol, DNS-based"| TM[Traffic Manager]
+    Q -->|"regional HTTP(S), WAF"| AG[Application Gateway]
+    Q -->|"regional TCP/UDP, L4"| LB[Azure Load Balancer]
+```
+
 | Service | Layer | Scope | Use |
 |---|---|---|---|
 | **Azure Load Balancer** | L4 (TCP/UDP) | Regional (+ **cross-region/global tier**) | Internal or public; HA ports for NVAs; outbound rules; zone-redundant; ultra-low latency; non-HTTP (Basic SKU retired) |

@@ -296,3 +296,14 @@ spec:
           topologyKey: kubernetes.io/hostname   # "same node" = same domain; use topology.kubernetes.io/zone for zones
 ```
 **How it relates to taints/tolerations** (Q31): affinity **attracts** a Pod to nodes, while taints **repel** Pods from nodes. To dedicate nodes to a workload you need both: taint the nodes so others stay off, and add a toleration plus node affinity so your Pods go there. For simply spreading replicas evenly, `topologySpreadConstraints` is often simpler than pod anti-affinity and scales better in big clusters.
+
+### 64. What happens when a Kubernetes worker node goes down?
+1. The **kubelet stops sending heartbeats** (Lease objects in `kube-node-lease`). After `node-monitor-grace-period` (~40s by default) the **node controller** marks the node `NotReady` (condition `Unknown`).
+2. The node gets the taints `node.kubernetes.io/unreachable` / `not-ready` with `NoExecute`. Pods have a default toleration of **300 seconds** (`tolerationSeconds`), so after about **5 minutes** they are **evicted** (marked for deletion).
+3. Meanwhile the endpoints controller removes those Pods from **Service endpoints** as soon as they are not ready, so traffic stops going to them.
+4. **Deployment/ReplicaSet** Pods are **recreated on healthy nodes** by their controllers (if capacity exists; otherwise they sit `Pending` until the **Cluster Autoscaler/Karpenter** adds a node).
+5. **StatefulSet** Pods are **not** automatically recreated elsewhere: the API server can't confirm the old Pod is dead, and running two Pods with the same identity could corrupt data. They stay `Terminating`/`Unknown` until the node returns or you delete the Node object / force-delete the Pod. Attached **RWO volumes** (EBS) also need to detach from the dead node first, which can delay the move.
+6. **DaemonSet** Pods on that node simply go away; they aren't moved, because they're tied to that node.
+7. If the node comes back, the kubelet reconciles and cleans up Pods that were rescheduled. On EKS with managed node groups / an ASG, an unhealthy instance is usually replaced automatically.
+
+To limit impact: run **multiple replicas** spread across nodes/AZs (`topologySpreadConstraints`, anti-affinity), use **PodDisruptionBudgets**, lower `tolerationSeconds` for faster failover where it's safe, and enable node autoscaling.

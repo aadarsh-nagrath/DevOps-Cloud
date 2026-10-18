@@ -206,6 +206,16 @@ helm upgrade --install cert-manager oci://registry.corp/charts-mirror/cert-manag
 
 ## 8. Debug a failed upgrade end to end
 
+```mermaid
+flowchart TB
+    F[upgrade failed] --> S["helm status / history"]
+    S --> PEND{status pending-upgrade<br/>or failed?}
+    PEND -->|stuck pending| RB1["helm rollback REL LAST_GOOD"]
+    PEND -->|failed| WHY["kubectl get events,<br/>describe pod, logs"]
+    WHY --> DIFF["helm get values / manifest<br/>vs helm template with new values"]
+    DIFF --> FIX[fix values / chart] --> RETRY["upgrade --install --wait"]
+```
+
 ```bash
 $ helm upgrade payments ./chart -n prod -f values-prod.yaml --set-string image.tag=bad --wait --timeout 2m
 Error: UPGRADE FAILED: ...      # after 2m: the new pods never became ready (exact wording varies by Helm version)

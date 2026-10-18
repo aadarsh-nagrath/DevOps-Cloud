@@ -30,6 +30,19 @@ Because they share a network namespace, the sidecar can transparently intercept 
 
 ## 2. How Sidecar Injection Works (Istio Example)
 
+```mermaid
+sequenceDiagram
+    participant U as kubectl / Deployment controller
+    participant API as API server
+    participant WH as istiod mutating webhook
+    participant K as kubelet
+    U->>API: create Pod (namespace has istio-injection=enabled)
+    API->>WH: AdmissionReview
+    WH-->>API: JSON patch: add istio-init + istio-proxy containers
+    API->>API: store mutated Pod
+    K->>K: run istio-init (iptables), then app + Envoy
+```
+
 ### Step 1: Enable injection on a namespace
 ```bash
 kubectl label namespace default istio-injection=enabled
@@ -77,6 +90,14 @@ Useful for CI pipelines that want deterministic, explicit control over what gets
 ---
 
 ## 3. How Traffic Interception Actually Works: `iptables`
+
+```mermaid
+flowchart LR
+    IN([Inbound :8080]) -->|"iptables PREROUTING → 15006"| ENV[Envoy sidecar]
+    ENV -->|localhost:8080| APP[App container]
+    APP -->|"outbound to backend:80<br/>iptables OUTPUT → 15001"| ENV
+    ENV -->|mTLS| OUT([Destination pod])
+```
 
 This is the part most tutorials skip, and it's the key to understanding why the sidecar pattern is "transparent" — the application genuinely does not know the sidecar exists.
 
@@ -167,6 +188,18 @@ For every single request passing through it, an Envoy sidecar can:
 ---
 
 ## 6. Sidecar-Based vs "Sidecar-less" (Ambient) Mesh — a Newer Alternative
+
+```mermaid
+flowchart TB
+    subgraph SC[Sidecar mode]
+        P1[app + Envoy] --- P2[app + Envoy]
+    end
+    subgraph AM[Ambient mode]
+        Z1[ztunnel per node<br/>L4: mTLS, identity] --> W[waypoint proxy<br/>optional, L7 per namespace / SA]
+        A1[app pod - no sidecar] --> Z1
+        A2[app pod - no sidecar] --> Z1
+    end
+```
 
 Recent versions of Istio (and other projects) introduced an alternative called **Ambient Mesh** that removes the per-Pod sidecar requirement, addressing the resource-overhead concern raised in [service-mesh-overview.md](service-mesh-overview.md):
 

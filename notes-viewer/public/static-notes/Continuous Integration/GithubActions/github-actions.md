@@ -22,6 +22,19 @@ The practical upshot: with GitHub Actions there is nothing to "stand up" — you
 
 ## 2. Core Concepts Glossary
 
+How the pieces nest:
+
+```mermaid
+flowchart LR
+    EV[Event<br/>push, pull_request,<br/>schedule, dispatch] --> WF[Workflow<br/>.github/workflows/ci.yml]
+    WF --> J1[Job: build<br/>runs-on: ubuntu-latest]
+    WF --> J2[Job: deploy<br/>needs: build]
+    J1 --> S1[step: uses actions/checkout]
+    J1 --> S2[step: run: npm test]
+    J1 -->|artifact| J2
+    J1 -.-> RUN[(Runner VM<br/>fresh per job)]
+```
+
 | Term | Meaning |
 |---|---|
 | **Workflow** | The top-level automated process, defined by one YAML file. A repo can have many workflows (e.g., `ci.yml`, `release.yml`, `nightly-scan.yml`), each independently triggered. |

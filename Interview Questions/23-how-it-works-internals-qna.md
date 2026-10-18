@@ -26,6 +26,23 @@ The **kube-scheduler** watches the API server for Pods with an empty `spec.nodeN
 If no node fits, **PostFilter** runs **preemption**, which evicts lower-priority Pods to make room. If that doesn't help either, the Pod stays `Pending` with a `FailedScheduling` event such as `0/5 nodes are available: 3 Insufficient cpu, 2 node(s) had untolerated taint`. That event message is the first thing to read when debugging. *(Basics: [04 Q44](./04-kubernetes-qna.md))*
 
 ### 2. What happens internally when you run `kubectl apply`?
+
+```mermaid
+sequenceDiagram
+    participant K as kubectl
+    participant A as API server
+    participant E as etcd
+    participant C as Deployment / RS controllers
+    participant S as scheduler
+    participant L as kubelet
+    K->>A: PATCH (server-side apply), authn → authz → admission
+    A->>E: persist object
+    C->>A: watch → create ReplicaSet → create Pods
+    S->>A: bind Pods to nodes
+    L->>A: watch → start containers via CRI
+    L->>A: update status: Running / Ready
+```
+
 1. **Client side**: kubectl reads the manifest, loads credentials from kubeconfig, and uses **discovery** to map `kind` to the right API group/version/resource (e.g. `apps/v1 deployments`).
 2. **Diff/merge**: with classic client-side apply, kubectl GETs the live object and computes a **three-way merge** between the last-applied config (stored in the `kubectl.kubernetes.io/last-applied-configuration` annotation), your new manifest, and the live state. This is how it knows to *delete* a field you removed without touching fields other controllers set. With `--server-side`, the API server does this using **managedFields** (field ownership) and reports conflicts when two managers own the same field.
 3. **API server pipeline**: authentication → authorization (RBAC) → **mutating admission** (defaults, sidecar injection, webhooks) → schema validation → **validating admission** (OPA/Kyverno, PodSecurity) → persisted to **etcd** with a new `resourceVersion`.
@@ -82,6 +99,17 @@ During the rollout, both versions serve traffic at the same time, so the app mus
 ## Containers
 
 ### 6. What happens internally when you run `docker run`?
+
+```mermaid
+flowchart LR
+    CLI[docker run nginx] --> D[dockerd]
+    D -->|image missing| REG[(registry pull)]
+    D --> CD[containerd: create container,<br/>snapshot rootfs]
+    CD --> SH[shim] --> RC[runc: namespaces,<br/>cgroups, mounts]
+    RC --> P((nginx PID 1))
+    D --> NET[connect to bridge network,<br/>set up port NAT]
+```
+
 1. The **docker CLI** sends a REST call over `/var/run/docker.sock` to **dockerd**.
 2. dockerd resolves the image. If it isn't local, it **pulls** it: it resolves the tag to a manifest digest from the registry, picks the platform, and downloads and verifies each **layer** blob by digest.
 3. It creates the container: prepares an **overlay2** filesystem (read-only image layers as `lowerdir` plus a fresh writable `upperdir`), sets up networking (a **veth pair**, one end in a new network namespace and the other attached to the `docker0` bridge, an IP from IPAM, and iptables NAT rules for `-p` port mappings), and mounts volumes.
@@ -110,6 +138,17 @@ Other tools: `.dockerignore` (so `.git` or logs don't bust the `COPY . .` hash),
 ## Terraform
 
 ### 8. How does Terraform dependency graph (DAG) work internally?
+
+```mermaid
+flowchart LR
+    VPC[aws_vpc.main] --> SUB[aws_subnet.a]
+    VPC --> SG[aws_security_group.web]
+    SUB --> EC2[aws_instance.web]
+    SG --> EC2
+    EC2 --> EIP[aws_eip.web]
+    NOTE["independent nodes (subnet, SG) are created in parallel,<br/>up to -parallelism=10"] -.-> SUB
+```
+
 On `plan`/`apply`, Terraform builds a **directed acyclic graph**: nodes are resources, data sources, providers, modules, variables, locals, and outputs. Edges come from:
 - **Implicit references**: `subnet_id = aws_subnet.a.id` adds an edge from the instance to the subnet.
 - **Explicit `depends_on`**, for ordering that no attribute reference shows.
@@ -160,6 +199,28 @@ Parallelism is good for independent work (lint, unit tests, scans, test sharding
 GWLB (Layer 3, GENEVE) is for inserting firewall/inspection appliances. *(See [07 Q12](./07-aws-cloud-qna.md))*
 
 ### 13. What happens internally when you hit a CloudFront URL?
+
+```mermaid
+sequenceDiagram
+    participant U as Browser
+    participant DNS as Route 53 / DNS
+    participant E as Edge location
+    participant R as Regional edge cache
+    participant O as Origin (S3 / ALB)
+    U->>DNS: d123.cloudfront.net?
+    DNS-->>U: IP of nearest edge
+    U->>E: GET /logo.png (TLS at edge)
+    alt cache hit
+        E-->>U: cached object
+    else miss
+        E->>R: check regional cache
+        R->>O: fetch on miss
+        O-->>R: object + Cache-Control
+        R-->>E: object
+        E-->>U: object (now cached for TTL)
+    end
+```
+
 1. **DNS**: `d123.cloudfront.net` (or your CNAME/Alias) resolves through CloudFront's DNS, which returns IPs of the **nearest edge location** based on latency and geography (anycast-like routing).
 2. **TLS** terminates at the edge (certificate from ACM in `us-east-1`, chosen by SNI). HTTP/2 or HTTP/3 to the viewer.
 3. **Edge logic**: **AWS WAF** rules, geo restriction, then **viewer-request** functions (CloudFront Functions or Lambda@Edge for header rewrites, auth, redirects). The request is matched to a **cache behavior** by path pattern.
@@ -170,6 +231,24 @@ GWLB (Layer 3, GENEVE) is for inserting firewall/inspection appliances. *(See [0
 `X-Cache: Hit from cloudfront` / `Miss from cloudfront` in the response headers tells you which path it took.
 
 ### 14. How does DNS resolution work step by step?
+
+```mermaid
+sequenceDiagram
+    participant C as Client stub resolver
+    participant R as Recursive resolver
+    participant Root as Root server
+    participant TLD as .com TLD
+    participant A as Authoritative NS
+    C->>R: www.example.com?
+    R->>Root: www.example.com?
+    Root-->>R: ask .com servers
+    R->>TLD: www.example.com?
+    TLD-->>R: ask ns1.example.com
+    R->>A: www.example.com?
+    A-->>R: A 93.184.216.34 (TTL 300)
+    R-->>C: answer (cached for TTL)
+```
+
 Taking `www.example.com` from a Linux host:
 1. **Local**: the app calls `getaddrinfo()` → `/etc/nsswitch.conf` decides the order (usually `files dns`) → `/etc/hosts` → the local stub/cache (`systemd-resolved`, nscd) → `/etc/resolv.conf` gives the **recursive resolver** IP (ISP, `8.8.8.8`, VPC `.2` resolver, CoreDNS in K8s). The browser also has its own cache.
 2. **Recursive resolver**: if `www.example.com` is in its cache and the TTL hasn't expired, it answers immediately. Otherwise it walks the tree **iteratively**:

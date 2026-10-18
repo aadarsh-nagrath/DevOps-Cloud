@@ -46,6 +46,16 @@ Authorization is like granting access levels within the fortress. Kubernetes off
 
 ### Authorization Modes:
 
+```mermaid
+flowchart LR
+    REQ[API request] --> AN{Authentication<br/>certs, tokens, OIDC}
+    AN -->|unknown| E401[401]
+    AN -->|user + groups| AZ{Authorization<br/>Node → RBAC → Webhook}
+    AZ -->|no mode allows| E403[403]
+    AZ -->|allowed| ADM{Admission<br/>mutate + validate}
+    ADM --> ETCD[(stored in etcd)]
+```
+
 The API server can be configured with different authorization modes (like "always allow" or "always deny"), but these are for testing only.  In practice, a priority sequence is used as below:-
 
 - Node Authorizer: Checks node communication.

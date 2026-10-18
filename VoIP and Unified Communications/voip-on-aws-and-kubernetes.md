@@ -16,6 +16,15 @@ So the usual web tools (ALB, Ingress, quick rolling restarts, aggressive autosca
 
 ## 2. Intermediate: AWS building blocks
 
+```mermaid
+flowchart LR
+    CAR[(SIP trunk / carrier)] -->|"SIP 5060/5061"| K[Kamailio<br/>EIP, SIP proxy / LB]
+    PH([Phones / WebRTC]) --> K
+    K --> AST[Asterisk / FreeSWITCH<br/>media apps]
+    PH <-->|"RTP UDP 10000-20000"| RTPE[rtpengine<br/>media relay, public IP]
+    RTPE <--> AST
+```
+
 ### EC2
 - Use **Elastic IPs** for SIP/RTP-facing instances. Carriers whitelist your IPs, and the IP must not change.
 - An Elastic IP is **1:1 NAT**: the instance only sees its *private* IP. You **must** configure the PBX with the public IP (`external_media_address` / `ext-rtp-ip`) or SDP will advertise the private one.

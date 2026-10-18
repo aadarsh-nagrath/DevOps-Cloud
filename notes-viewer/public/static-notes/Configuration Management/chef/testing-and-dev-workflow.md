@@ -6,6 +6,13 @@ Test Kitchen, ChefSpec, InSpec, dependency management, linting, and the full loc
 
 ## 1. The Testing Pyramid for Chef
 
+```mermaid
+flowchart TB
+    LINT[Cookstyle<br/>lint, seconds] --> SPEC[ChefSpec<br/>unit: in-memory converge]
+    SPEC --> KIT[Test Kitchen<br/>real VM / container converge]
+    KIT --> INS[InSpec<br/>verify the machine state]
+```
+
 | Layer | Tool | Tests | Speed |
 |---|---|---|---|
 | Lint | Cookstyle (Foodcritic's successor) | Ruby style, deprecated Chef patterns | Fastest (seconds) |
@@ -203,6 +210,14 @@ Example finding: `ChefDeprecations/ResourceWithoutUnifiedMode` flags a custom re
 ---
 
 ## 7. The Full Local Dev Loop
+
+```mermaid
+flowchart LR
+    E[edit recipe] --> L[cookstyle] --> U[chef exec rspec]
+    U --> C[kitchen converge] --> V[kitchen verify]
+    V -->|fail| E
+    V -->|pass| P[push Policyfile / upload]
+```
 
 ```bash
 # 1. Scaffold

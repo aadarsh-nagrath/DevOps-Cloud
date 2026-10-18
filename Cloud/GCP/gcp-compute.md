@@ -87,6 +87,16 @@ gcloud container clusters get-credentials prod-auto --region=asia-south1
 - **Microservices on GKE steps**: containerize each service → Artifact Registry → Kubernetes manifests/Helm per service → namespaces & quotas → service discovery via Services, Gateway API for ingress → Workload Identity for GCP access → Cloud Service Mesh for mTLS/traffic policy → CI/CD with Cloud Build + Cloud Deploy (or Argo CD) → observability (Managed Prometheus, Cloud Trace) → autoscaling + PDBs.
 
 ## 7. Choosing compute (Cloud Run vs GKE vs Compute Engine vs App Engine vs Functions)
+
+```mermaid
+flowchart TB
+    Q{Workload?} -->|"stateless container, scale to zero"| CR[Cloud Run]
+    Q -->|"single-purpose event handler"| FN[Cloud Run functions]
+    Q -->|"many services, K8s features"| GKE[GKE Autopilot / Standard]
+    Q -->|"VM control, special OS, GPUs"| GCE[Compute Engine + MIG]
+    Q -->|"simple web app, legacy"| GAE[App Engine]
+```
+
 **Pick the most managed option that fits:**
 - Stateless HTTP/event service, containers, spiky traffic, small team → **Cloud Run** (jobs for batch, worker pools for pull consumers).
 - Single event handler / glue code → **Cloud Run functions**.

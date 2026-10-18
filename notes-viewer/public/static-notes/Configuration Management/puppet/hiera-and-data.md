@@ -14,6 +14,16 @@ Without Hiera, environment differences end up as `if`/`case` branches scattered 
 
 ## 2. `hiera.yaml` — Hierarchy Levels
 
+```mermaid
+flowchart TB
+    Q["lookup('ntp::servers')"] --> N["nodes/web01.example.com.yaml"]
+    N -->|not found| R["roles/%{facts.role}.yaml"]
+    R -->|not found| E["environments/%{environment}.yaml"]
+    E -->|not found| OS["os/%{facts.os.family}.yaml"]
+    OS -->|not found| C[common.yaml]
+    N ==>|first match wins| V[(value)]
+```
+
 `hiera.yaml` lives at the environment root (`environments/production/hiera.yaml`) and defines the search order.
 
 ```yaml

@@ -26,6 +26,13 @@ Complete notes on the Monitoring & Logging pillar of DevOps/SRE. Structured begi
 
 ### Metrics vs Logs vs Traces
 
+```mermaid
+flowchart LR
+    M[Metrics<br/>numbers over time<br/>cheap, aggregatable] -->|"WHAT is wrong?<br/>error rate spiked"| T[Traces<br/>one request across services]
+    T -->|"WHERE?<br/>payments span slow"| L[Logs<br/>detailed events]
+    L -->|"WHY?<br/>DB timeout stack trace"| FIX([Root cause])
+```
+
 | Aspect | Metrics | Logs | Traces |
 |---|---|---|---|
 | Shape | Numeric time series | Text/structured events | Spans with parent/child relationships |
@@ -49,6 +56,19 @@ Complete notes on the Monitoring & Logging pillar of DevOps/SRE. Structured begi
 - **USE** (for resources): **U**tilization, **S**aturation, **E**rrors.
 
 ### Push vs Pull Metrics Collection
+
+```mermaid
+flowchart LR
+    subgraph PULL[Pull - Prometheus]
+        P[Prometheus] -->|"GET /metrics every 15s"| A1[app]
+        P -->|scrape| A2[node_exporter]
+    end
+    subgraph PUSH[Push - Datadog, StatsD, OTLP]
+        B1[app / agent] -->|send| COL[collector / SaaS]
+        B2[short-lived job] -->|Pushgateway| COL
+    end
+```
+
 - **Pull**: monitoring system scrapes targets on an interval (Prometheus default). Simpler service discovery, natural health-check (missed scrape = target down).
 - **Push**: application/agent sends metrics to a collector (StatsD, Datadog agent, Prometheus Pushgateway for batch jobs). Needed when targets are short-lived or behind NAT/firewalls.
 
@@ -83,6 +103,17 @@ App exposes /metrics (Prometheus client lib)
 ```
 
 ### Sidecar / DaemonSet Patterns in Kubernetes
+
+```mermaid
+flowchart TB
+    subgraph DS[DaemonSet - one agent per node, the default]
+        N1[node] --- AG1[Fluent Bit pod<br/>reads /var/log/containers]
+    end
+    subgraph SC[Sidecar - one agent per pod]
+        APPC[app writes to file] --> VOL[(shared emptyDir)] --> SIDE[shipper sidecar]
+    end
+```
+
 - **DaemonSet log collector** (Fluentd/Filebeat/Fluent Bit) runs one pod per node, tails container log files from `/var/log/containers`, ships centrally. Most common, low overhead.
 - **Sidecar container** ships logs from a single pod (useful when app can't log to stdout, or needs custom processing per-pod).
 - **Node exporter DaemonSet** (Prometheus) exposes node-level hardware/OS metrics.
@@ -93,6 +124,17 @@ App exposes /metrics (Prometheus client lib)
 - Rule of thumb: keep labels bounded (env, service, region, status_code) — not unbounded IDs.
 
 ### Alerting Concepts
+
+```mermaid
+flowchart LR
+    R[Alert rule<br/>expr for: 5m] -->|pending → firing| AM[Alertmanager]
+    AM --> G[group by<br/>alertname, cluster]
+    G --> I{inhibited or<br/>silenced?}
+    I -->|no| RT[route by labels<br/>severity, team]
+    RT --> P[PagerDuty: critical]
+    RT --> S[Slack: warning]
+```
+
 - **Alert fatigue**: too many low-value alerts → real ones get ignored. Fix with proper thresholds + severity tiers.
 - **Symptom-based alerting > cause-based alerting**: alert on user-facing SLO breaches, not on every internal metric wiggle.
 - **SLI / SLO / SLA**:
@@ -112,6 +154,22 @@ App exposes /metrics (Prometheus client lib)
 ## 3. Advanced Concepts
 
 ### Distributed Tracing Fundamentals
+
+```mermaid
+gantt
+    title One trace - spans share a trace ID, children nest inside parents
+    dateFormat X
+    axisFormat %Lms
+    section gateway
+    GET /checkout       :0, 420
+    section orders
+    create order        :20, 400
+    section payments
+    charge card         :60, 330
+    section database
+    INSERT orders       :340, 390
+```
+
 - **Span**: single unit of work (e.g., one DB call) with start/end time.
 - **Trace**: tree of spans representing one end-to-end request.
 - **Context propagation**: trace ID + span ID passed via headers (`traceparent` in W3C Trace Context) across service boundaries.

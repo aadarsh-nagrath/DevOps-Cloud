@@ -42,6 +42,14 @@ Contexts are managed in the CircleCI **Organization Settings** UI (not in `confi
 
 ## 2. Project-Level vs Context-Level Environment Variables — Precedence
 
+```mermaid
+flowchart TB
+    A[Variables set in config<br/>environment: key] -->|highest| WIN((value used))
+    B[Context variables] --> WIN
+    C[Project environment variables] --> WIN
+    D[Built-in CIRCLE_* variables] -->|lowest| WIN
+```
+
 | Scope | Where it's set | Visibility |
 |---|---|---|
 | **Project environment variables** | Project Settings → Environment Variables (per-repo) | Only jobs within that specific project |

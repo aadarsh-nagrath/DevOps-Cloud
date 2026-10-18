@@ -103,6 +103,19 @@ Apply both, mount the PVC in a pod — Longhorn provisions a 3-way-replicated vo
 ## 2. Intermediate
 
 ### The Write Path
+
+```mermaid
+flowchart LR
+    APP[App pod] -->|block write| ENG[Longhorn Engine<br/>one per volume]
+    ENG -->|sync| R1[(Replica<br/>node A)]
+    ENG -->|sync| R2[(Replica<br/>node B)]
+    ENG -->|sync| R3[(Replica<br/>node C)]
+    R1 --> ACK{enough replicas<br/>confirmed?}
+    R2 --> ACK
+    R3 --> ACK
+    ACK -->|yes| APP
+```
+
 1. App writes to the block device the Engine presents (via iSCSI internally, abstracted away from the pod).
 2. Engine fans the write out to all replicas synchronously.
 3. Write is acknowledged back to the app only once enough replicas confirm (governed by replica count/quorum settings) — this is what gives Longhorn its durability guarantee, at the cost of write latency versus a single local disk.

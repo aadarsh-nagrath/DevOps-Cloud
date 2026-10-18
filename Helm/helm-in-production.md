@@ -1,6 +1,6 @@
 # Helm in Production: CI/CD, GitOps, Security, Troubleshooting & Best Practices
 
-> Part of the [Helm notes](./README.md). Previous: [Advanced Helm](./advanced-helm.md). See also [Argo CD + Helm Integration](../argo-cd-integration-helm.md) and the Helm interview questions in [33 Q37–42](../Interview%20Questions/33-platform-engineering-deep-dive-qna.md#helm-advanced).
+> Part of the [Helm notes](./README.md). Previous: [Advanced Helm](./advanced-helm.md). See also [Argo CD + Helm Integration](../Continuous%20Delivery/ArgoCD/argo-cd-integration-helm.md) and the Helm interview questions in [33 Q37–42](../Interview%20Questions/33-platform-engineering-deep-dive-qna.md#helm-advanced).
 
 ---
 
@@ -131,7 +131,7 @@ spec:
     automated: { prune: true, selfHeal: true }
     syncOptions: [CreateNamespace=true, ServerSideApply=true]
 ```
-More in [Argo CD + Helm Integration](../argo-cd-integration-helm.md) and [33 Q29–36](../Interview%20Questions/33-platform-engineering-deep-dive-qna.md#argo-cd--gitops-internals).
+More in [Argo CD + Helm Integration](../Continuous%20Delivery/ArgoCD/argo-cd-integration-helm.md) and [33 Q29–36](../Interview%20Questions/33-platform-engineering-deep-dive-qna.md#argo-cd--gitops-internals).
 
 ### Flux
 

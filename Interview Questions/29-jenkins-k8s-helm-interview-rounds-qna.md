@@ -423,7 +423,7 @@ helm repo add bitnami https://charts.bitnami.com/bitnami && helm repo update  # 
 ```
 Values precedence (lowest to highest): chart `values.yaml`, then parent chart values, then each `-f` file in order, then `--set`. In CI, use `upgrade --install` (idempotent) plus `--atomic`.
 
-**See also:** [28](./28-production-scenarios-rapid-round-qna.md) Q07 (releases/rollback/config management) · [`../argo-cd-integration-helm.md`](../argo-cd-integration-helm.md).
+**See also:** [28](./28-production-scenarios-rapid-round-qna.md) Q07 (releases/rollback/config management) · [Argo CD + Helm integration](../Continuous%20Delivery/ArgoCD/argo-cd-integration-helm.md).
 
 ---
 

@@ -159,6 +159,18 @@ http_output:
 | **HTTP/webhook (Falcosidekick)** | Fan-out to dozens of destinations: Slack, Teams, PagerDuty, Elasticsearch, Loki, S3, SIEM tools — the standard way to operationalize Falco alerts beyond "look at logs" |
 
 ### Falco in Kubernetes — DaemonSet Deployment
+
+```mermaid
+flowchart LR
+    SYS[syscalls on each node] -->|eBPF probe| F[Falco DaemonSet pod]
+    K8S[Kubernetes metadata<br/>pod, namespace, image] --> F
+    F --> RULES{rules engine<br/>condition matched?}
+    RULES -->|yes| SK[Falcosidekick]
+    SK --> SL[Slack / PagerDuty]
+    SK --> SIEM[(SIEM / Loki)]
+    SK --> RESP[Response: kill pod,<br/>label node]
+```
+
 Falco must run on **every node** because syscalls are host-level events — there's no way to observe them from a central place. Helm install:
 ```bash
 helm repo add falcosecurity https://falcosecurity.github.io/charts

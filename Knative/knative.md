@@ -70,6 +70,17 @@ Knative replaces that with **one ~10-line object**, and you get:
 ## 2. Knative Serving
 
 ### The 4 Serving CRDs (`serving.knative.dev/v1`)
+
+```mermaid
+flowchart TB
+    SVC[Service<br/>what you write] --> CFG[Configuration<br/>latest desired template]
+    SVC --> RT[Route<br/>traffic split by %]
+    CFG -->|every change creates| R1[Revision 1<br/>immutable]
+    CFG --> R2[Revision 2]
+    RT -->|90%| R1
+    RT -->|10%| R2
+```
+
 | Resource | Short | What it is |
 |---|---|---|
 | **Service** | `ksvc` | Top-level object you write. Owns a Configuration + Route and manages them for you |

@@ -6,6 +6,15 @@ Pulling every control from this folder into one realistic, annotated pipeline �
 
 ## 1. Where Each Control Fits
 
+```mermaid
+flowchart LR
+    C[Code] -->|SAST, secrets| B[Build]
+    B -->|SCA, SBOM| I[Image]
+    I -->|scan, sign| R[(Registry)]
+    R -->|verify signature,<br/>policy| D[Deploy]
+    D -->|runtime: Falco,<br/>least-privilege IAM| P[Production]
+```
+
 | Control | Covered in | Pipeline stage | Needs a running app? |
 |---|---|---|---|
 | Secret scanning | [sast-dast-and-code-scanning.md §5](sast-dast-and-code-scanning.md) | Pre-commit, then every push/PR | No |
@@ -138,6 +147,13 @@ Not every finding should block a merge. A pipeline that blocks on every LOW-seve
 ---
 
 ## 4. Rollout Strategy — Introducing Gates Without Breaking Everything
+
+```mermaid
+flowchart LR
+    W1[Week 1-2<br/>scan, report only] --> W2[Week 3-4<br/>warn on PRs]
+    W2 --> W3[Fail on CRITICAL<br/>new findings only]
+    W3 --> W4[Fail on HIGH +<br/>burn down backlog]
+```
 
 Turning on `--exit-code 1`-style hard gates against an **existing** codebase on day one almost always fails badly: the first scan surfaces months or years of accumulated findings, every open PR is suddenly blocked, and the team's response is usually to disable the check entirely rather than fix the backlog — which is a worse long-term outcome than rolling out gradually.
 

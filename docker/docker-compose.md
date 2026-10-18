@@ -126,6 +126,17 @@ volumes:
 
 ## 4. Multi-Service Example — Node + Postgres + Redis
 
+```mermaid
+flowchart LR
+    U([Browser]) -->|localhost:3000| APP[app<br/>Node.js]
+    subgraph CNET[Compose project network]
+        APP -->|postgres:5432| PG[(postgres)]
+        APP -->|redis:6379| RD[(redis)]
+    end
+    PG --- PGV[(volume: pgdata)]
+    APP -. depends_on: condition service_healthy .-> PG
+```
+
 ```yaml
 # compose.yaml
 services:
@@ -226,6 +237,14 @@ COMPOSE_PROFILES=debug docker compose up -d   # same effect, via env var instead
 ---
 
 ## 7. Override Files & Layering
+
+```mermaid
+flowchart LR
+    BASE[compose.yaml<br/>shared base] --> M{merge}
+    OV[compose.override.yaml<br/>auto-loaded: dev mounts, ports] --> M
+    PROD["compose.prod.yaml<br/>via -f"] -.->|instead of override| M
+    M --> EFF[Effective config<br/>docker compose config]
+```
 
 Compose merges multiple files in the order given, with later files overriding/extending earlier ones. This is the standard way to keep dev/prod differences out of a single monolithic file.
 

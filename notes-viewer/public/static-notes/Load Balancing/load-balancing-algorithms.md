@@ -47,6 +47,14 @@ This same mechanism (weighted routing) is exactly how [canary deployments](../De
 
 ## 3. Least Connections
 
+```mermaid
+flowchart LR
+    NEW([New request]) --> LB{pick backend with<br/>fewest active connections}
+    LB -.-> A["A: 12 active"]
+    LB -.-> B["B: 30 active"]
+    LB ==>|chosen| C["C: 4 active"]
+```
+
 Route each new request to whichever backend currently has the *fewest active connections*.
 
 ```
@@ -80,6 +88,15 @@ backend web_servers
 ```
 
 ## 5. IP Hash
+
+```mermaid
+flowchart LR
+    C1([client 203.0.113.9]) --> H["hash(client IP) mod N"]
+    C2([client 198.51.100.4]) --> H
+    H -->|always 1| B1[backend 1]
+    H -->|always 2| B2[backend 2]
+    H -.->|"N changes → most clients remap"| WARN[weakness: use consistent hashing]
+```
 
 The client's IP address is hashed to consistently determine which backend they're routed to — the same client IP always lands on the same backend (as long as the backend pool doesn't change).
 

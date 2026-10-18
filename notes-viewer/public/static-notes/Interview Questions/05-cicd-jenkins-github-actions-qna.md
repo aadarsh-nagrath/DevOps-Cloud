@@ -205,3 +205,81 @@ jobs:
       - run: helm upgrade --install myapp ./chart -n myapp --set image=${{ needs.build.outputs.image }} --wait --atomic
 ```
 Things worth saying out loud: `needs:` creates the stage order (jobs otherwise run in parallel), **build once and promote the same image** through environments, `--atomic` gives automatic Helm rollback, use **`concurrency:`** groups so two deploys to the same environment don't overlap, pin third-party actions to a commit SHA (Q19), and use self-hosted runners only when you need private network access.
+
+### 35. How do you design an end-to-end CI/CD pipeline (Jenkins)?
+Walk through it as a flow from commit to production, and name the gate at each step:
+1. **Trigger**: a webhook from GitHub/GitLab fires on PR and on merge to `main`. Use a **Multibranch Pipeline** so every branch/PR gets its own `Jenkinsfile`-driven job.
+2. **Checkout + build**: compile, resolve dependencies with caching, run **lint + unit tests** (fail fast, publish JUnit/coverage reports).
+3. **Code quality / SAST**: **SonarQube** scan + **Quality Gate** (pipeline fails if the gate fails).
+4. **Package**: build the **Docker image**, tag with the **git SHA** (and semver on release), never only `latest`.
+5. **Security scan**: **Trivy** on the image (fail on HIGH/CRITICAL), plus dependency/secret scans.
+6. **Push** to a registry (ECR/Nexus/Artifactory). Build once, promote the **same artifact** through every environment.
+7. **Deploy to dev/staging** (Helm/kubectl, or bump the image tag in a GitOps repo for Argo CD) → **smoke + integration tests**.
+8. **Manual approval** (`input` step, restricted `submitter`) → **deploy to prod** with rolling/canary/blue-green → health checks → **automatic rollback** on failure.
+9. **Notify** (Slack/email) and record the deployment. Agents run as ephemeral containers/pods (Kubernetes plugin), credentials come from the Jenkins credentials store or Vault, and the whole job is code in Git.
+
+```groovy
+pipeline {
+  agent { kubernetes { yamlFile 'ci/pod.yaml' } }
+  environment { IMAGE = "123456789012.dkr.ecr.ap-south-1.amazonaws.com/app:${GIT_COMMIT.take(7)}" }
+  stages {
+    stage('Test')    { steps { sh 'mvn -B verify' } post { always { junit 'target/surefire-reports/*.xml' } } }
+    stage('Sonar')   { steps { withSonarQubeEnv('sonar') { sh 'mvn sonar:sonar' } } }
+    stage('Gate')    { steps { timeout(time: 10, unit: 'MINUTES') { waitForQualityGate abortPipeline: true } } }
+    stage('Build')   { steps { sh 'docker build -t $IMAGE .' } }
+    stage('Trivy')   { steps { sh 'trivy image --exit-code 1 --severity HIGH,CRITICAL $IMAGE' } }
+    stage('Push')    { steps { sh 'aws ecr get-login-password | docker login --username AWS --password-stdin ${IMAGE%%/*} && docker push $IMAGE' } }
+    stage('Staging') { steps { sh 'helm upgrade --install app ./chart -n staging --set image=$IMAGE --atomic' } }
+    stage('Approve') { when { branch 'main' } steps { input message: 'Deploy to prod?', submitter: 'release-managers' } }
+    stage('Prod')    { when { branch 'main' } steps { sh 'helm upgrade --install app ./chart -n prod --set image=$IMAGE --atomic' } }
+  }
+  post { failure { slackSend color: 'danger', message: "FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}" } }
+}
+```
+
+### 36. How do you store and manage credentials in Jenkins?
+- **Jenkins Credentials store** (Manage Jenkins → Credentials): types include *Username with password*, *Secret text*, *Secret file*, *SSH username with private key*, *Certificate*, and *AWS credentials*. They are encrypted on disk with the controller's master key (`$JENKINS_HOME/secrets/`), so back that directory up and restrict access to it.
+- **Scope them**: *System* (Jenkins itself only) vs *Global* (all jobs), and better still **folder-level** credentials so one team's jobs can't read another team's secrets. Pair with **Role-Based Strategy / Matrix auth** so only admins can create or view them.
+- **Use them in pipelines** through `withCredentials` or `credentials()` in `environment`. Jenkins **masks** the value in console output:
+  ```groovy
+  withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'U', passwordVariable: 'P')]) {
+    sh 'echo "$P" | docker login -u "$U" --password-stdin'   // single quotes: let the shell expand it, not Groovy
+  }
+  sshagent(['deploy-key']) { sh 'ssh ubuntu@host "./deploy.sh"' }
+  ```
+  Use single-quoted `sh` strings so Groovy string interpolation doesn't leak the secret into the build log or process list.
+- **Better: don't store long-lived secrets at all.** Fetch at runtime from **HashiCorp Vault / AWS Secrets Manager** (Vault plugin, AWS Secrets Manager Credentials Provider), and give agents on AWS an **IAM role** (instance profile / IRSA on EKS) instead of access keys.
+- **Hygiene**: rotate regularly, never `echo` secrets, never put them in the `Jenkinsfile` or job params, audit plugin use, and manage credentials as code with **JCasC** (referencing secrets from Vault/env, not plaintext).
+
+### 37. How do you integrate SonarQube and Trivy into Jenkins?
+**SonarQube** (code quality + SAST):
+1. Install the **SonarQube Scanner** plugin. In SonarQube, create a project and generate a **token**; store it in Jenkins as a *Secret text* credential.
+2. *Manage Jenkins → System → SonarQube servers*: add the server URL + token (name it e.g. `sonar`). *Tools*: add a SonarScanner installation.
+3. In SonarQube, add a **webhook** back to `https://<jenkins>/sonarqube-webhook/` so Jenkins learns the Quality Gate result.
+4. Pipeline: run the analysis inside `withSonarQubeEnv`, then block on `waitForQualityGate abortPipeline: true` so a failed gate fails the build.
+
+**Trivy** (image/filesystem/IaC vulnerability + secret scanning):
+1. Install Trivy on the agent, or run it as a container (`aquasec/trivy`), and cache its vulnerability DB to keep scans fast.
+2. Scan the source tree (`trivy fs .`) early and the built image (`trivy image`) before pushing. Fail on `HIGH,CRITICAL` with `--exit-code 1`, use `--ignore-unfixed` to cut noise, and keep accepted risks in a reviewed `.trivyignore`.
+3. Publish the report (JSON/SARIF/HTML) as a build artifact.
+
+```groovy
+stage('SonarQube') {
+  steps {
+    withSonarQubeEnv('sonar') {
+      sh 'sonar-scanner -Dsonar.projectKey=app -Dsonar.sources=.'
+    }
+  }
+}
+stage('Quality Gate') {
+  steps { timeout(time: 10, unit: 'MINUTES') { waitForQualityGate abortPipeline: true } }
+}
+stage('Trivy Scan') {
+  steps {
+    sh 'trivy fs --exit-code 1 --severity HIGH,CRITICAL .'
+    sh 'trivy image --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed --format json -o trivy.json $IMAGE'
+  }
+  post { always { archiveArtifacts artifacts: 'trivy.json' } }
+}
+```
+Order matters: Sonar + `trivy fs` before the build (cheap, fail fast), `trivy image` after the build and **before** the push, so a vulnerable image never reaches the registry.

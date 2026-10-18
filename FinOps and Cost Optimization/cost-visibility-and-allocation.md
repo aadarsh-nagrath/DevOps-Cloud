@@ -19,6 +19,16 @@ Without attribution, cost optimization becomes a guessing game, or worse, a blan
 
 ## 2. Cost Allocation Tagging Strategy
 
+```mermaid
+flowchart LR
+    RES[Resources tagged<br/>team, env, service, cost-center] --> CUR[(Cost & usage report)]
+    K8S[K8s namespaces / labels] --> KC[Kubecost / OpenCost<br/>splits shared nodes]
+    KC --> CUR
+    CUR --> DASH[Per-team dashboards]
+    DASH --> SB[Showback: visibility]
+    DASH --> CB[Chargeback: invoice to team budget]
+```
+
 Tagging is the mechanism that turns an opaque bill into a queryable, attributable dataset. Every resource should carry a minimum consistent set of tags:
 
 | Tag key | Example value | Purpose |
@@ -134,6 +144,15 @@ Use a Kubernetes-cost tool whenever a meaningful share of your cloud spend runs 
 ---
 
 ## 6. Budgets and Anomaly Alerts
+
+```mermaid
+flowchart LR
+    SPEND[Daily spend] --> BUD{Budget<br/>50 / 80 / 100%?}
+    SPEND --> AN{Anomaly detection<br/>vs learned baseline}
+    BUD -->|threshold crossed| N[Notify owner channel]
+    AN -->|spike| N
+    N --> INV[Investigate: new resource?<br/>runaway job? egress?]
+```
 
 The entire point of proactive budgeting is catching a runaway cost **before** it shows up as a surprise line on next month's invoice, not after.
 
