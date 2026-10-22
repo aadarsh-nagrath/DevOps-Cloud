@@ -151,8 +151,15 @@ function setupEventListeners() {
   themeToggleEl.addEventListener('click', toggleTheme);
 
   // Toggle Sidebar on small devices
-  toggleSidebarEl.addEventListener('click', () => {
+  toggleSidebarEl.addEventListener('click', (e) => {
+    e.stopPropagation();
     sidebarEl.classList.toggle('hidden');
+  });
+
+  // Mobile: start with sidebar closed, close it when tapping the content
+  if (isMobile()) sidebarEl.classList.add('hidden');
+  document.querySelector('.main-content').addEventListener('click', () => {
+    if (isMobile()) sidebarEl.classList.add('hidden');
   });
 
   // Handle browser back/forward buttons
@@ -533,7 +540,10 @@ function getYouTubeEmbedUrl(url) {
 }
 
 // Fetch and load notes content
+const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+
 async function loadNote(notePath) {
+  if (isMobile()) sidebarEl.classList.add('hidden');
   // Highlight folder in list
   currentPath = notePath;
   indexPinEl.classList.toggle('active', indexPinEl.dataset.path === notePath);

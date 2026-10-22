@@ -714,16 +714,94 @@ body {
 
 /* Responsive adjustment */
 @media (max-width: 768px) {
+  /* dvh avoids the address bar hiding the bottom of the page */
+  body, .app-container {
+    height: 100dvh;
+    width: 100%;
+  }
+
   .sidebar {
     position: absolute;
     left: 0;
     top: 0;
     bottom: 0;
+    width: min(var(--sidebar-width), 85vw);
     transform: translateX(0);
     box-shadow: 10px 0 30px rgba(0,0,0,0.5);
+    z-index: 20;
   }
-  
+
   .sidebar.hidden {
     transform: translateX(-100%);
+    box-shadow: none;
+  }
+
+  .content-header {
+    height: 56px;
+    padding: 0 12px;
+    gap: 8px;
+  }
+
+  .header-left {
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .header-right {
+    gap: 8px !important;
+    flex-shrink: 0;
+  }
+
+  .breadcrumbs {
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
+
+  .icon-btn {
+    flex-shrink: 0;
+  }
+
+  .welcome-screen {
+    padding: 16px;
+  }
+
+  .welcome-card {
+    padding: 28px 20px;
+  }
+
+  .markdown-container {
+    padding: 20px 16px 40px;
+  }
+
+  .markdown-body {
+    font-size: 15px;
+    overflow-wrap: break-word;
+  }
+
+  .markdown-body h1 { font-size: 1.7em; margin-top: 16px; }
+  .markdown-body h2 { font-size: 1.4em; margin-top: 28px; }
+  .markdown-body h3 { font-size: 1.2em; }
+
+  .markdown-body pre code {
+    font-size: 12.5px;
+  }
+
+  /* Wide tables scroll sideways instead of stretching the page */
+  .markdown-body table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .markdown-body th,
+  .markdown-body td {
+    padding: 10px 12px;
+  }
+
+  .markdown-body svg {
+    max-width: 100%;
+    height: auto;
   }
 }
