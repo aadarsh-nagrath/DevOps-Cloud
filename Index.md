@@ -48,6 +48,7 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | [AWS Networking Deep Dive Q&A](Interview%20Questions/36-aws-networking-deep-dive-qna.md) | VPC, subnets, route tables, gateways, endpoints, Transit Gateway, hybrid, DNS, troubleshooting |
 | [DevOps Fundamentals Screening Round Q&A](Interview%20Questions/37-devops-fundamentals-screening-round-qna.md) | First-round screen: web servers, Linux, Git, Jenkins, Docker, AWS, K8s, IaC |
 | [VPC, Terraform, Grafana & Linux Scenarios Q&A](Interview%20Questions/38-vpc-terraform-grafana-linux-scenarios-qna.md) | VPC/Terraform/Grafana basics, Linux production scenarios, three-round senior loop |
+| [Ansible, AWS Ops, Fintech Payments & Production Scenarios Q&A](Interview%20Questions/39-ansible-aws-fintech-production-scenarios-qna.md) | Full Ansible set, EC2/EBS/S3/DB ops, Docker & K8s production, Terraform drift/migration, UPI payments SRE loop, Git recovery |
 
 ---
 
