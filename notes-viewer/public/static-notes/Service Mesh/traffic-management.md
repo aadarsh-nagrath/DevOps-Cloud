@@ -71,7 +71,7 @@ spec:
 
 ## 2. Traffic Splitting (Weighted Routing)
 
-This is the exact mechanism behind [Canary Deployments](../Deployment/Canary%20Deployment/canary-deployment.md) at the infrastructure level.
+This is the exact mechanism behind [Canary Deployments](../Deployment/canary-deployment.md) at the infrastructure level.
 
 ```yaml
 apiVersion: networking.istio.io/v1beta1

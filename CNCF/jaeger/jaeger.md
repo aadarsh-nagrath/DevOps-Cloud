@@ -280,7 +280,7 @@ spec:
 
 ### Correlating Traces with Metrics and Logs (The "Three Pillars")
 - Traces alone don't tell you *system-wide* health (that's metrics' job) or give arbitrary free-text detail (that's logs' job) — the three are complementary, not substitutes.
-- Common pattern: **exemplars** — a Prometheus histogram metric (e.g., request duration) carries a linked trace ID for a sample that fell in a given bucket, letting you jump from "this latency spike in Grafana" directly to "the exact trace that caused it." See [prometheus.md](../../Monitoring%20and%20Loggin/prometheous/prometheus.md).
+- Common pattern: **exemplars** — a Prometheus histogram metric (e.g., request duration) carries a linked trace ID for a sample that fell in a given bucket, letting you jump from "this latency spike in Grafana" directly to "the exact trace that caused it." See [prometheus.md](../../Monitoring%20and%20Logging/prometheus/prometheus.md).
 - Logs correlated via trace ID injected into structured log lines (`trace_id=abc123`) so you can pivot from a log line to the full trace in Jaeger — this is exactly what OTel's Log Bridge API automates (see [opentelemetry.md](../open-telemetry/opentelemetry.md)).
 - **Jaeger's Monitor tab**: when Jaeger is configured with a Prometheus/metrics-storage backend for span-derived RED metrics (Rate/Errors/Duration — computed by the `spanmetrics` connector in an OTel Collector pipeline sitting in front of Jaeger), the Jaeger UI itself can render latency/error-rate graphs per service directly, without leaving the tracing UI — bridging metrics into the tracing tool's own interface rather than only the other direction (traces linked from Grafana).
 

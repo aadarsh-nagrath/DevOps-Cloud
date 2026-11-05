@@ -124,7 +124,7 @@ spec:
         - protocol: TCP
           port: 8080
 ```
-See [Kubernetes Networking](../Kubernetes/Networking.md) and [Good Practice Networking](../Kubernetes/good-practice-networking.md) for the broader pod networking model this sits inside.
+See [Kubernetes Networking](../Kubernetes/networking/Networking.md) and [Good Practice Networking](../Kubernetes/networking/good-practice-networking.md) for the broader pod networking model this sits inside.
 
 ### WAF (Web Application Firewall)
 An L7 firewall specifically for HTTP(S) traffic — inspects request content (not just IP/port) to block SQLi, XSS, known bad bot patterns, OWASP Top 10-style attacks. Cloud-native options: AWS WAF, Cloudflare, Azure Front Door WAF, GCP Cloud Armor — typically attached directly to a load balancer/CDN/API Gateway. Complements, doesn't replace, network-layer firewalls — see [SAST, DAST & Code Scanning](../Security%20in%20DevOps/sast-dast-and-code-scanning.md) for the application-security side WAF backstops.
@@ -185,7 +185,7 @@ Modern approach: instead of iptables' linear rule-list evaluation (which degrade
 
 ## Related Notes
 - [Networking & Security Fundamentals — Index](index.md)
-- [Kubernetes Networking](../Kubernetes/Networking.md)
+- [Kubernetes Networking](../Kubernetes/networking/Networking.md)
 - [Service Mesh Security & mTLS](../Service%20Mesh/security-and-mtls.md)
 - [Supply Chain Security](../Security%20in%20DevOps/supply-chain-security.md)
 - [Policy as Code with OPA & Conftest](../IaC%20Testing%20and%20Policy%20as%20Code/policy-as-code-with-opa-and-conftest.md)

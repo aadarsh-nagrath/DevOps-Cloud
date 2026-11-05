@@ -55,7 +55,7 @@ sum(rate(istio_requests_total{
   destination_app="payment-service"
 }[5m]))
 ```
-This exact query pattern is what powers automated canary analysis — recall the `AnalysisTemplate` example in [Canary Deployment](../Deployment/Canary%20Deployment/canary-deployment.md), which used a nearly identical success-rate query to automatically decide whether to promote or roll back a canary release. The mesh's automatic metrics are what make that kind of automated, metrics-gated deployment pipeline possible without custom instrumentation work.
+This exact query pattern is what powers automated canary analysis — recall the `AnalysisTemplate` example in [Canary Deployment](../Deployment/canary-deployment.md), which used a nearly identical success-rate query to automatically decide whether to promote or roll back a canary release. The mesh's automatic metrics are what make that kind of automated, metrics-gated deployment pipeline possible without custom instrumentation work.
 
 ---
 
@@ -139,7 +139,7 @@ See [istio.md](../istio.md) at the repo root for the hands-on installation steps
 
 Important to be clear-eyed about the boundary here:
 - **Application-level/business logic errors**: if `payment-service` charges the wrong amount but still returns `HTTP 200`, the mesh sees a perfectly healthy, successful request — it has no idea anything is wrong. Mesh observability is about *network-level* health (did the request succeed, how long did it take), not business correctness.
-- **Structured application logs**: the mesh gives you metrics and traces, not your application's actual log lines (`"processing order #4521"`) — that's still a separate logging pipeline (see [Monitoring and Logging](../Monitoring%20and%20Loggin/) notes elsewhere in this repo).
+- **Structured application logs**: the mesh gives you metrics and traces, not your application's actual log lines (`"processing order #4521"`) — that's still a separate logging pipeline (see [Monitoring and Logging](../Monitoring%20and%20Logging/) notes elsewhere in this repo).
 - **Database/cache-internal performance**: the mesh sees the network call *to* a database, but not what's happening inside the database engine itself (slow queries, lock contention) — that needs database-specific monitoring.
 
 Mesh observability is a powerful, broad, low-effort layer — but it complements application-level logging/APM, it doesn't replace it.

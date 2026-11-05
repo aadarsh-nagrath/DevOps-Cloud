@@ -164,7 +164,7 @@ def get_queue_depth(options):
 
 meter.create_observable_gauge("orders.queue_depth", callbacks=[get_queue_depth])
 ```
-OTel metrics use a **push model with a pull-compatible bridge**: the SDK aggregates in-process and pushes via OTLP on an interval (`OTEL_METRIC_EXPORT_INTERVAL`, default 60s) — but the Collector's `prometheus` receiver/exporter can bridge this to Prometheus's native pull model on either side, so OTel metrics interoperate cleanly with an existing Prometheus/Grafana stack. See [prometheus.md](../../Monitoring%20and%20Loggin/prometheous/prometheus.md) for the pull-model/PromQL side of that bridge.
+OTel metrics use a **push model with a pull-compatible bridge**: the SDK aggregates in-process and pushes via OTLP on an interval (`OTEL_METRIC_EXPORT_INTERVAL`, default 60s) — but the Collector's `prometheus` receiver/exporter can bridge this to Prometheus's native pull model on either side, so OTel metrics interoperate cleanly with an existing Prometheus/Grafana stack. See [prometheus.md](../../Monitoring%20and%20Logging/prometheus/prometheus.md) for the pull-model/PromQL side of that bridge.
 
 ### Logs API In Depth
 - The newest signal, and unlike traces/metrics, OTel deliberately does **not** try to replace existing logging libraries (`logging` in Python, `slf4j`/`logback` in Java, `winston` in Node). Instead, it provides a **Log Bridge API**: an appender/handler that plugs into your existing logger and forwards records through the OTel Logs SDK, automatically attaching the active trace/span ID to every log line.
@@ -406,7 +406,7 @@ The Operator's injection mechanism works by adding an init container that copies
 
 ### Integration with the Wider CNCF Observability Stack
 - **Traces** → export to [Jaeger](../jaeger/jaeger.md), which as of Jaeger 1.35+ speaks OTLP natively and has deprecated its own client libraries in favor of OTel SDKs — Jaeger is now effectively an OTel-native tracing backend.
-- **Metrics** → the `prometheus` exporter/receiver lets the Collector act as either a scrape target or a scraper, bridging OTel metrics into a Prometheus/Grafana stack — see [prometheus.md](../../Monitoring%20and%20Loggin/prometheous/prometheus.md) for the PromQL/alerting side.
+- **Metrics** → the `prometheus` exporter/receiver lets the Collector act as either a scrape target or a scraper, bridging OTel metrics into a Prometheus/Grafana stack — see [prometheus.md](../../Monitoring%20and%20Logging/prometheus/prometheus.md) for the PromQL/alerting side.
 - **Logs** → the `filelog` receiver tails log files and can attach trace context for correlation, exporting to Loki or an ELK stack; the Log Bridge API pattern above is the app-side complement to this Collector-side tailing approach.
 - In a service mesh, Envoy-generated access logs and stats can also be piped through an OTel Collector alongside app-level telemetry for a single unified pipeline — see [envoy.md](../envoy/envoy.md) and [observability-in-service-mesh.md](../../Service%20Mesh/observability-in-service-mesh.md).
 - **Exemplars**: OTel metrics can attach a linked `trace_id` to individual histogram data points, so a Grafana panel showing a latency spike can jump straight to the exact trace responsible — this is the mechanical link between the metrics and traces pillars, implemented at the SDK/Collector level, not bolted on after the fact in the backend.

@@ -3,7 +3,7 @@
     "name": "backup-and-dr-overview.md",
     "path": "Backup and Disaster Recovery/backup-and-dr-overview.md",
     "size": 10088,
-    "mtime": "2026-10-18T11:40:09.913Z"
+    "mtime": "2026-11-05T11:12:34.948Z"
   },
   {
     "name": "backup-strategies-and-types.md",
@@ -15,7 +15,7 @@
     "name": "database-backup-and-restore.md",
     "path": "Backup and Disaster Recovery/database-backup-and-restore.md",
     "size": 14412,
-    "mtime": "2026-10-18T11:40:09.915Z"
+    "mtime": "2026-11-05T11:12:34.948Z"
   },
   {
     "name": "disaster-recovery-strategies.md",
@@ -548,8 +548,8 @@
   {
     "name": "Readme.md",
     "path": "CNCF/Readme.md",
-    "size": 4836,
-    "mtime": "2026-09-28T10:46:38.099Z"
+    "size": 4837,
+    "mtime": "2026-11-05T11:12:34.949Z"
   },
   {
     "name": "argo-workflows.md",
@@ -687,7 +687,7 @@
     "name": "jaeger.md",
     "path": "CNCF/jaeger/jaeger.md",
     "size": 24878,
-    "mtime": "2026-10-18T11:40:09.677Z"
+    "mtime": "2026-11-05T11:12:34.949Z"
   },
   {
     "name": "local-setup.md",
@@ -706,6 +706,12 @@
     "path": "CNCF/keda/tutorial/local-setup.md",
     "size": 6869,
     "mtime": "2026-09-28T10:43:53.798Z"
+  },
+  {
+    "name": "knative.md",
+    "path": "CNCF/knative/knative.md",
+    "size": 43535,
+    "mtime": "2026-10-18T11:40:09.921Z"
   },
   {
     "name": "longhorn.md",
@@ -735,7 +741,7 @@
     "name": "opentelemetry.md",
     "path": "CNCF/open-telemetry/opentelemetry.md",
     "size": 36202,
-    "mtime": "2026-09-28T11:32:52.825Z"
+    "mtime": "2026-11-05T11:12:34.950Z"
   },
   {
     "name": "local-setup.md",
@@ -747,7 +753,7 @@
     "name": "rook.md",
     "path": "CNCF/rook/rook.md",
     "size": 14354,
-    "mtime": "2026-10-18T11:40:09.678Z"
+    "mtime": "2026-11-05T11:12:34.950Z"
   },
   {
     "name": "local-setup.md",
@@ -842,8 +848,8 @@
   {
     "name": "aws-networking.md",
     "path": "Cloud/AWS/aws-networking.md",
-    "size": 9709,
-    "mtime": "2026-10-18T11:40:09.712Z"
+    "size": 9725,
+    "mtime": "2026-11-05T11:12:34.950Z"
   },
   {
     "name": "aws-storage.md",
@@ -854,8 +860,8 @@
   {
     "name": "aws.md",
     "path": "Cloud/AWS/aws.md",
-    "size": 6701,
-    "mtime": "2026-10-18T11:40:09.714Z"
+    "size": 6717,
+    "mtime": "2026-11-05T11:12:34.950Z"
   },
   {
     "name": "azure-compute.md",
@@ -896,14 +902,8 @@
   {
     "name": "azure.md",
     "path": "Cloud/AZURE/azure.md",
-    "size": 10290,
-    "mtime": "2026-10-14T06:10:20.366Z"
-  },
-  {
-    "name": "Cloud-Networking-for-DevOps.md",
-    "path": "Cloud/Cloud-Networking-for-DevOps.md",
-    "size": 61826,
-    "mtime": "2026-08-18T09:49:14.282Z"
+    "size": 10300,
+    "mtime": "2026-11-05T11:12:34.951Z"
   },
   {
     "name": "01-cloud-computing-fundamentals.md",
@@ -944,14 +944,20 @@
   {
     "name": "07-cloud-observability.md",
     "path": "Cloud/Fundamentals/07-cloud-observability.md",
-    "size": 3811,
-    "mtime": "2026-10-14T06:01:43.291Z"
+    "size": 3812,
+    "mtime": "2026-11-05T11:12:34.951Z"
   },
   {
     "name": "08-cloud-architecture-patterns.md",
     "path": "Cloud/Fundamentals/08-cloud-architecture-patterns.md",
     "size": 7240,
     "mtime": "2026-10-18T11:40:09.711Z"
+  },
+  {
+    "name": "09-cloud-networking-for-devops.md",
+    "path": "Cloud/Fundamentals/09-cloud-networking-for-devops.md",
+    "size": 61826,
+    "mtime": "2026-08-18T09:49:14.282Z"
   },
   {
     "name": "gcp-compute.md",
@@ -986,14 +992,14 @@
   {
     "name": "gcp.md",
     "path": "Cloud/GCP/gcp.md",
-    "size": 12048,
-    "mtime": "2026-10-14T06:10:20.366Z"
+    "size": 12058,
+    "mtime": "2026-11-05T11:12:34.951Z"
   },
   {
     "name": "README.md",
     "path": "Cloud/README.md",
-    "size": 14933,
-    "mtime": "2026-10-14T06:15:00.390Z"
+    "size": 14949,
+    "mtime": "2026-11-05T11:12:34.951Z"
   },
   {
     "name": "advanced-and-production-patterns.md",
@@ -1130,14 +1136,20 @@
   {
     "name": "argo-cd-integration-helm.md",
     "path": "Continuous Delivery/ArgoCD/argo-cd-integration-helm.md",
-    "size": 9045,
-    "mtime": "2026-10-18T11:40:09.755Z"
+    "size": 9042,
+    "mtime": "2026-11-05T11:12:34.952Z"
   },
   {
     "name": "local-setup.md",
     "path": "Continuous Delivery/ArgoCD/tutorial/local-setup.md",
     "size": 7937,
     "mtime": "2026-09-28T10:44:34.602Z"
+  },
+  {
+    "name": "GitOps.md",
+    "path": "Continuous Delivery/GitOps.md",
+    "size": 38246,
+    "mtime": "2026-11-05T11:12:34.953Z"
   },
   {
     "name": "caching-parallelism-and-workflows.md",
@@ -1224,22 +1236,22 @@
     "mtime": "2026-11-05T06:43:20.694Z"
   },
   {
-    "name": "blue-green-deployment.md",
-    "path": "Deployment/Blue-Green Deployment/blue-green-deployment.md",
-    "size": 8131,
-    "mtime": "2026-08-18T09:49:14.291Z"
-  },
-  {
-    "name": "canary-deployment.md",
-    "path": "Deployment/Canary Deployment/canary-deployment.md",
-    "size": 9169,
-    "mtime": "2026-10-18T11:40:09.786Z"
-  },
-  {
     "name": "ab-testing-deployment.md",
     "path": "Deployment/ab-testing-deployment.md",
     "size": 6388,
     "mtime": "2026-10-18T11:40:09.787Z"
+  },
+  {
+    "name": "blue-green-deployment.md",
+    "path": "Deployment/blue-green-deployment.md",
+    "size": 8105,
+    "mtime": "2026-11-05T11:12:34.952Z"
+  },
+  {
+    "name": "canary-deployment.md",
+    "path": "Deployment/canary-deployment.md",
+    "size": 9166,
+    "mtime": "2026-11-05T11:12:34.952Z"
   },
   {
     "name": "deployment-anti-patterns-and-checklist.md",
@@ -1250,8 +1262,8 @@
   {
     "name": "deployment-strategies.md",
     "path": "Deployment/deployment-strategies.md",
-    "size": 7719,
-    "mtime": "2026-10-18T11:40:09.786Z"
+    "size": 7631,
+    "mtime": "2026-11-05T11:12:34.952Z"
   },
   {
     "name": "feature-flags-and-progressive-delivery.md",
@@ -1268,8 +1280,8 @@
   {
     "name": "rolling-deployment.md",
     "path": "Deployment/rolling-deployment.md",
-    "size": 6275,
-    "mtime": "2026-08-18T09:49:14.292Z"
+    "size": 6231,
+    "mtime": "2026-11-05T11:12:34.952Z"
   },
   {
     "name": "shadow-deployment.md",
@@ -1374,12 +1386,6 @@
     "mtime": "2026-10-18T11:40:09.918Z"
   },
   {
-    "name": "GitOps.md",
-    "path": "GitOps.md",
-    "size": 38270,
-    "mtime": "2026-10-18T22:11:13.845Z"
-  },
-  {
     "name": "README.md",
     "path": "Helm/README.md",
     "size": 4051,
@@ -1448,8 +1454,8 @@
   {
     "name": "iac-testing-overview.md",
     "path": "IaC Testing and Policy as Code/iac-testing-overview.md",
-    "size": 7557,
-    "mtime": "2026-10-18T11:40:09.874Z"
+    "size": 7567,
+    "mtime": "2026-11-05T11:12:34.953Z"
   },
   {
     "name": "kyverno.md",
@@ -1508,8 +1514,8 @@
   {
     "name": "Index.md",
     "path": "Index.md",
-    "size": 50393,
-    "mtime": "2026-11-05T06:52:31.536Z"
+    "size": 51414,
+    "mtime": "2026-11-05T11:12:34.953Z"
   },
   {
     "name": "01-linux-and-scripting-qna.md",
@@ -1527,7 +1533,7 @@
     "name": "03-docker-qna.md",
     "path": "Interview Questions/03-docker-qna.md",
     "size": 31513,
-    "mtime": "2026-10-13T10:03:48.688Z"
+    "mtime": "2026-11-05T11:12:34.954Z"
   },
   {
     "name": "04-kubernetes-qna.md",
@@ -1574,8 +1580,8 @@
   {
     "name": "11-monitoring-logging-observability-qna.md",
     "path": "Interview Questions/11-monitoring-logging-observability-qna.md",
-    "size": 27328,
-    "mtime": "2026-11-05T06:43:20.713Z"
+    "size": 27331,
+    "mtime": "2026-11-05T11:12:34.954Z"
   },
   {
     "name": "12-security-devsecops-qna.md",
@@ -1622,14 +1628,14 @@
   {
     "name": "19-company-specific-and-behavioral-plus-qna.md",
     "path": "Interview Questions/19-company-specific-and-behavioral-plus-qna.md",
-    "size": 20985,
-    "mtime": "2026-10-18T08:08:45.314Z"
+    "size": 21007,
+    "mtime": "2026-11-05T11:12:34.954Z"
   },
   {
     "name": "20-devops-roadmap-gap-fill-qna.md",
     "path": "Interview Questions/20-devops-roadmap-gap-fill-qna.md",
-    "size": 29516,
-    "mtime": "2026-10-06T19:36:05.336Z"
+    "size": 29538,
+    "mtime": "2026-11-05T11:12:34.955Z"
   },
   {
     "name": "21-voip-sip-unified-communications-qna.md",
@@ -1755,13 +1761,13 @@
     "name": "40-aws-eks-linux-troubleshooting-scenarios-qna.md",
     "path": "Interview Questions/40-aws-eks-linux-troubleshooting-scenarios-qna.md",
     "size": 24975,
-    "mtime": "2026-11-05T06:33:43.303Z"
+    "mtime": "2026-11-05T11:12:34.955Z"
   },
   {
     "name": "41-linux-programming-dsa-gap-fill-qna.md",
     "path": "Interview Questions/41-linux-programming-dsa-gap-fill-qna.md",
     "size": 32510,
-    "mtime": "2026-11-05T06:52:31.534Z"
+    "mtime": "2026-11-05T11:12:34.955Z"
   },
   {
     "name": "42-system-design-staff-sre-qna.md",
@@ -1770,16 +1776,28 @@
     "mtime": "2026-11-05T06:51:24.377Z"
   },
   {
-    "name": "README.md",
-    "path": "Interview Questions/README.md",
-    "size": 28935,
-    "mtime": "2026-11-05T06:52:31.535Z"
+    "name": "43-k8s-health-checks-mid-level-sre-qna.md",
+    "path": "Interview Questions/43-k8s-health-checks-mid-level-sre-qna.md",
+    "size": 60326,
+    "mtime": "2026-11-05T09:38:32.385Z"
   },
   {
-    "name": "knative.md",
-    "path": "Knative/knative.md",
-    "size": 43535,
-    "mtime": "2026-10-18T11:40:09.921Z"
+    "name": "44-senior-platform-design-scenarios-qna.md",
+    "path": "Interview Questions/44-senior-platform-design-scenarios-qna.md",
+    "size": 36321,
+    "mtime": "2026-11-05T09:51:17.323Z"
+  },
+  {
+    "name": "45-helm-fundamentals-qna.md",
+    "path": "Interview Questions/45-helm-fundamentals-qna.md",
+    "size": 16476,
+    "mtime": "2026-11-05T09:55:19.380Z"
+  },
+  {
+    "name": "README.md",
+    "path": "Interview Questions/README.md",
+    "size": 31477,
+    "mtime": "2026-11-05T11:12:34.955Z"
   },
   {
     "name": "K-pods.md",
@@ -1788,22 +1806,16 @@
     "mtime": "2026-10-18T11:40:09.553Z"
   },
   {
-    "name": "Networking.md",
-    "path": "Kubernetes/Networking.md",
-    "size": 37518,
-    "mtime": "2026-10-18T14:44:42.262Z"
-  },
-  {
     "name": "README.md",
     "path": "Kubernetes/README.md",
-    "size": 7183,
-    "mtime": "2026-10-18T21:20:27.998Z"
+    "size": 7265,
+    "mtime": "2026-11-05T11:12:34.956Z"
   },
   {
     "name": "01-services-endpoints-ports.md",
     "path": "Kubernetes/deep-dive/01-services-endpoints-ports.md",
-    "size": 11319,
-    "mtime": "2026-10-08T14:12:41.765Z"
+    "size": 11330,
+    "mtime": "2026-11-05T11:12:34.956Z"
   },
   {
     "name": "02-yaml-fields-explained.md",
@@ -1868,38 +1880,32 @@
   {
     "name": "12-security-hardening.md",
     "path": "Kubernetes/deep-dive/12-security-hardening.md",
-    "size": 21177,
-    "mtime": "2026-10-18T21:10:37.719Z"
+    "size": 21188,
+    "mtime": "2026-11-05T11:12:34.956Z"
   },
   {
     "name": "13-observability-and-troubleshooting.md",
     "path": "Kubernetes/deep-dive/13-observability-and-troubleshooting.md",
-    "size": 17806,
-    "mtime": "2026-10-18T21:15:30.219Z"
+    "size": 17817,
+    "mtime": "2026-11-05T11:12:34.956Z"
   },
   {
     "name": "14-advanced-workloads-and-multitenancy.md",
     "path": "Kubernetes/deep-dive/14-advanced-workloads-and-multitenancy.md",
-    "size": 22048,
-    "mtime": "2026-10-18T21:19:15.774Z"
+    "size": 22080,
+    "mtime": "2026-11-05T11:12:34.957Z"
   },
   {
     "name": "README.md",
     "path": "Kubernetes/deep-dive/README.md",
-    "size": 3786,
-    "mtime": "2026-10-18T21:19:53.354Z"
+    "size": 3797,
+    "mtime": "2026-11-05T11:12:34.957Z"
   },
   {
     "name": "ingress-eg.md",
     "path": "Kubernetes/examples/ingress-eg.md",
     "size": 3677,
     "mtime": "2026-10-18T11:40:37.512Z"
-  },
-  {
-    "name": "good-practice-networking.md",
-    "path": "Kubernetes/good-practice-networking.md",
-    "size": 5657,
-    "mtime": "2026-10-18T11:40:09.559Z"
   },
   {
     "name": "k8-doubts.md",
@@ -1910,20 +1916,32 @@
   {
     "name": "k8s-learning-path.md",
     "path": "Kubernetes/k8s-learning-path.md",
-    "size": 52147,
-    "mtime": "2026-10-18T11:40:09.559Z"
-  },
-  {
-    "name": "kubernetes-networking-deep-dive.md",
-    "path": "Kubernetes/kubernetes-networking-deep-dive.md",
-    "size": 54156,
-    "mtime": "2026-10-18T14:44:17.654Z"
+    "size": 52225,
+    "mtime": "2026-11-05T11:12:34.957Z"
   },
   {
     "name": "kubernetes.md",
     "path": "Kubernetes/kubernetes.md",
     "size": 40729,
     "mtime": "2026-10-18T11:40:09.552Z"
+  },
+  {
+    "name": "Networking.md",
+    "path": "Kubernetes/networking/Networking.md",
+    "size": 37518,
+    "mtime": "2026-10-18T14:44:42.262Z"
+  },
+  {
+    "name": "good-practice-networking.md",
+    "path": "Kubernetes/networking/good-practice-networking.md",
+    "size": 5657,
+    "mtime": "2026-10-18T11:40:09.559Z"
+  },
+  {
+    "name": "kubernetes-networking-deep-dive.md",
+    "path": "Kubernetes/networking/kubernetes-networking-deep-dive.md",
+    "size": 54176,
+    "mtime": "2026-11-05T11:12:34.958Z"
   },
   {
     "name": "cloud-load-balancers.md",
@@ -1946,8 +1964,8 @@
   {
     "name": "kubernetes-load-balancing.md",
     "path": "Load Balancing/kubernetes-load-balancing.md",
-    "size": 11079,
-    "mtime": "2026-08-18T09:49:14.299Z"
+    "size": 11059,
+    "mtime": "2026-11-05T11:12:34.958Z"
   },
   {
     "name": "l4-vs-l7-load-balancing.md",
@@ -1958,8 +1976,8 @@
   {
     "name": "load-balancing-algorithms.md",
     "path": "Load Balancing/load-balancing-algorithms.md",
-    "size": 8370,
-    "mtime": "2026-10-18T11:40:09.792Z"
+    "size": 8350,
+    "mtime": "2026-11-05T11:12:34.958Z"
   },
   {
     "name": "load-balancing-overview.md",
@@ -1970,8 +1988,8 @@
   {
     "name": "load-balancing-production-simulation.md",
     "path": "Load Balancing/load-balancing-production-simulation.md",
-    "size": 9843,
-    "mtime": "2026-10-18T11:40:09.795Z"
+    "size": 9823,
+    "mtime": "2026-11-05T11:12:34.958Z"
   },
   {
     "name": "software-load-balancers.md",
@@ -1986,106 +2004,106 @@
     "mtime": "2026-08-18T09:49:14.301Z"
   },
   {
-    "name": "ELK.md",
-    "path": "Monitoring and Loggin/ELK.md",
-    "size": 139,
-    "mtime": "2026-08-18T09:49:14.301Z"
-  },
-  {
     "name": "datadog.md",
-    "path": "Monitoring and Loggin/datadog/datadog.md",
+    "path": "Monitoring and Logging/datadog/datadog.md",
     "size": 8756,
     "mtime": "2026-10-18T11:40:09.833Z"
   },
   {
     "name": "dynatrace.md",
-    "path": "Monitoring and Loggin/dynatrace/dynatrace.md",
-    "size": 10830,
-    "mtime": "2026-11-05T06:42:51.477Z"
+    "path": "Monitoring and Logging/dynatrace/dynatrace.md",
+    "size": 10829,
+    "mtime": "2026-11-05T11:12:34.959Z"
+  },
+  {
+    "name": "ELK.md",
+    "path": "Monitoring and Logging/elk/ELK.md",
+    "size": 138,
+    "mtime": "2026-11-05T11:12:34.958Z"
   },
   {
     "name": "elasticsearch.md",
-    "path": "Monitoring and Loggin/elasticsearch/elasticsearch.md",
+    "path": "Monitoring and Logging/elk/elasticsearch.md",
     "size": 7848,
     "mtime": "2026-10-18T11:40:09.831Z"
   },
   {
+    "name": "kibana.md",
+    "path": "Monitoring and Logging/elk/kibana.md",
+    "size": 5608,
+    "mtime": "2026-10-18T11:40:09.833Z"
+  },
+  {
     "name": "logstash.md",
-    "path": "Monitoring and Loggin/elk/logstash.md",
+    "path": "Monitoring and Logging/elk/logstash.md",
     "size": 6638,
     "mtime": "2026-08-18T09:49:14.302Z"
   },
   {
     "name": "fluentd.md",
-    "path": "Monitoring and Loggin/fluentid/fluentd.md",
+    "path": "Monitoring and Logging/fluentd/fluentd.md",
     "size": 7244,
     "mtime": "2026-10-18T11:40:09.832Z"
   },
   {
     "name": "grafana.md",
-    "path": "Monitoring and Loggin/grafana/grafana.md",
+    "path": "Monitoring and Logging/grafana/grafana.md",
     "size": 6334,
     "mtime": "2026-10-18T11:40:09.832Z"
   },
   {
     "name": "index.md",
-    "path": "Monitoring and Loggin/index.md",
-    "size": 11435,
-    "mtime": "2026-11-05T06:43:20.793Z"
-  },
-  {
-    "name": "kibana.md",
-    "path": "Monitoring and Loggin/kibana/kibana.md",
-    "size": 5608,
-    "mtime": "2026-10-18T11:40:09.833Z"
+    "path": "Monitoring and Logging/index.md",
+    "size": 11424,
+    "mtime": "2026-11-05T11:12:34.959Z"
   },
   {
     "name": "loki.md",
-    "path": "Monitoring and Loggin/loki/loki.md",
-    "size": 14321,
-    "mtime": "2026-08-18T10:02:37.519Z"
+    "path": "Monitoring and Logging/loki/loki.md",
+    "size": 14318,
+    "mtime": "2026-11-05T11:12:34.959Z"
   },
   {
     "name": "prometheus.md",
-    "path": "Monitoring and Loggin/prometheous/prometheus.md",
+    "path": "Monitoring and Logging/prometheus/prometheus.md",
     "size": 9563,
     "mtime": "2026-10-18T11:40:09.830Z"
   },
   {
     "name": "splunk.md",
-    "path": "Monitoring and Loggin/splunk/splunk.md",
+    "path": "Monitoring and Logging/splunk/splunk.md",
     "size": 50893,
     "mtime": "2026-10-13T01:47:47.416Z"
   },
   {
     "name": "dns-deep-dive.md",
     "path": "Networking and Security Fundamentals/dns-deep-dive.md",
-    "size": 12176,
-    "mtime": "2026-08-18T10:08:20.304Z"
+    "size": 12198,
+    "mtime": "2026-11-05T11:12:34.959Z"
   },
   {
     "name": "firewalls.md",
     "path": "Networking and Security Fundamentals/firewalls.md",
-    "size": 13269,
-    "mtime": "2026-10-18T11:40:09.835Z"
+    "size": 13302,
+    "mtime": "2026-11-05T11:12:34.960Z"
   },
   {
     "name": "hardening-practices.md",
     "path": "Networking and Security Fundamentals/hardening-practices.md",
-    "size": 13555,
-    "mtime": "2026-10-18T11:40:09.836Z"
+    "size": 13532,
+    "mtime": "2026-11-05T11:12:34.960Z"
   },
   {
     "name": "index.md",
     "path": "Networking and Security Fundamentals/index.md",
-    "size": 7857,
-    "mtime": "2026-10-18T11:40:09.839Z"
+    "size": 7874,
+    "mtime": "2026-11-05T11:12:34.960Z"
   },
   {
     "name": "networking-fundamentals.md",
     "path": "Networking and Security Fundamentals/networking-fundamentals.md",
-    "size": 17027,
-    "mtime": "2026-11-05T06:47:25.650Z"
+    "size": 17081,
+    "mtime": "2026-11-05T11:12:34.960Z"
   },
   {
     "name": "proxy-servers.md",
@@ -2096,14 +2114,14 @@
   {
     "name": "tls-and-certificates.md",
     "path": "Networking and Security Fundamentals/tls-and-certificates.md",
-    "size": 13743,
-    "mtime": "2026-10-18T11:40:09.837Z"
+    "size": 13744,
+    "mtime": "2026-11-05T11:12:34.960Z"
   },
   {
     "name": "vpns.md",
     "path": "Networking and Security Fundamentals/vpns.md",
-    "size": 12785,
-    "mtime": "2026-10-18T11:40:09.838Z"
+    "size": 12801,
+    "mtime": "2026-11-05T11:12:34.960Z"
   },
   {
     "name": "cicd-pipeline.md",
@@ -2114,8 +2132,8 @@
   {
     "name": "README.md",
     "path": "README.md",
-    "size": 3861,
-    "mtime": "2026-10-18T21:47:27.710Z"
+    "size": 3893,
+    "mtime": "2026-11-05T11:12:34.961Z"
   },
   {
     "name": "awk-mastery.md",
@@ -2175,13 +2193,13 @@
     "name": "container-and-image-security.md",
     "path": "Security in DevOps/container-and-image-security.md",
     "size": 13433,
-    "mtime": "2026-10-18T11:40:09.867Z"
+    "mtime": "2026-11-05T11:12:34.961Z"
   },
   {
     "name": "devsecops-overview.md",
     "path": "Security in DevOps/devsecops-overview.md",
     "size": 11847,
-    "mtime": "2026-10-18T11:40:09.866Z"
+    "mtime": "2026-11-05T11:12:34.961Z"
   },
   {
     "name": "iam-and-least-privilege.md",
@@ -2246,8 +2264,8 @@
   {
     "name": "observability-in-service-mesh.md",
     "path": "Service Mesh/observability-in-service-mesh.md",
-    "size": 9185,
-    "mtime": "2026-10-18T11:40:09.791Z"
+    "size": 9166,
+    "mtime": "2026-11-05T11:12:34.961Z"
   },
   {
     "name": "resilience-patterns.md",
@@ -2270,242 +2288,242 @@
   {
     "name": "service-mesh-overview.md",
     "path": "Service Mesh/service-mesh-overview.md",
-    "size": 10568,
-    "mtime": "2026-08-18T09:49:14.305Z"
+    "size": 10548,
+    "mtime": "2026-11-05T11:12:34.961Z"
   },
   {
     "name": "service-mesh-production-simulation.md",
     "path": "Service Mesh/service-mesh-production-simulation.md",
-    "size": 11112,
-    "mtime": "2026-08-18T09:49:14.306Z"
+    "size": 11072,
+    "mtime": "2026-11-05T11:12:34.961Z"
   },
   {
     "name": "traffic-management.md",
     "path": "Service Mesh/traffic-management.md",
-    "size": 12711,
-    "mtime": "2026-10-18T11:40:09.788Z"
+    "size": 12691,
+    "mtime": "2026-11-05T11:12:34.961Z"
   },
   {
     "name": "cloud-formation.md",
-    "path": "Terraform and CF/cloud-formation.md",
-    "size": 24358,
-    "mtime": "2026-10-18T21:38:10.750Z"
+    "path": "Terraform and CF/CloudFormation/cloud-formation.md",
+    "size": 24383,
+    "mtime": "2026-11-05T11:12:34.961Z"
   },
   {
     "name": "cloudformation-composition-and-extensibility.md",
-    "path": "Terraform and CF/cloudformation-composition-and-extensibility.md",
+    "path": "Terraform and CF/CloudFormation/cloudformation-composition-and-extensibility.md",
     "size": 23252,
     "mtime": "2026-10-18T21:41:32.695Z"
   },
   {
     "name": "cloudformation-hands-on-labs.md",
-    "path": "Terraform and CF/cloudformation-hands-on-labs.md",
+    "path": "Terraform and CF/CloudFormation/cloudformation-hands-on-labs.md",
     "size": 14931,
     "mtime": "2026-10-18T21:46:54.215Z"
   },
   {
     "name": "cloudformation-tooling-cicd-and-troubleshooting.md",
-    "path": "Terraform and CF/cloudformation-tooling-cicd-and-troubleshooting.md",
-    "size": 23274,
-    "mtime": "2026-10-18T21:45:34.286Z"
+    "path": "Terraform and CF/CloudFormation/cloudformation-tooling-cicd-and-troubleshooting.md",
+    "size": 23296,
+    "mtime": "2026-11-05T11:12:34.962Z"
   },
   {
     "name": "cloudformation-updates-rollbacks-and-safety.md",
-    "path": "Terraform and CF/cloudformation-updates-rollbacks-and-safety.md",
+    "path": "Terraform and CF/CloudFormation/cloudformation-updates-rollbacks-and-safety.md",
     "size": 19845,
     "mtime": "2026-10-18T21:40:23.977Z"
   },
   {
+    "name": "pulumi.md",
+    "path": "Terraform and CF/Pulumi/pulumi.md",
+    "size": 16080,
+    "mtime": "2026-11-05T11:12:34.962Z"
+  },
+  {
     "name": "README.md",
-    "path": "Terraform and CF/course-files/01-cloud-and-iac/README.md",
+    "path": "Terraform and CF/Terraform/course-files/01-cloud-and-iac/README.md",
     "size": 100,
     "mtime": "2026-08-18T09:49:14.306Z"
   },
   {
     "name": "README.md",
-    "path": "Terraform and CF/course-files/02-overview/README.md",
+    "path": "Terraform and CF/Terraform/course-files/02-overview/README.md",
     "size": 695,
     "mtime": "2026-08-18T09:49:14.306Z"
   },
   {
     "name": "README.md",
-    "path": "Terraform and CF/course-files/03-basics/README.md",
+    "path": "Terraform and CF/Terraform/course-files/03-basics/README.md",
     "size": 1245,
     "mtime": "2026-08-18T09:49:14.307Z"
   },
   {
     "name": "README.md",
-    "path": "Terraform and CF/course-files/03-basics/web-app/README.md",
+    "path": "Terraform and CF/Terraform/course-files/03-basics/web-app/README.md",
     "size": 473,
     "mtime": "2026-08-18T09:49:14.307Z"
   },
   {
     "name": "README.md",
-    "path": "Terraform and CF/course-files/04-variables-and-outputs/examples/README.md",
+    "path": "Terraform and CF/Terraform/course-files/04-variables-and-outputs/examples/README.md",
     "size": 1440,
     "mtime": "2026-08-18T09:49:14.308Z"
   },
   {
     "name": "README.md",
-    "path": "Terraform and CF/course-files/05-language-features/README.md",
+    "path": "Terraform and CF/Terraform/course-files/05-language-features/README.md",
     "size": 3457,
     "mtime": "2026-08-18T09:49:14.309Z"
   },
   {
     "name": "README.md",
-    "path": "Terraform and CF/course-files/06-organization-and-modules/README.md",
+    "path": "Terraform and CF/Terraform/course-files/06-organization-and-modules/README.md",
     "size": 75,
     "mtime": "2026-08-18T09:49:14.309Z"
   },
   {
     "name": "README.md",
-    "path": "Terraform and CF/course-files/06-organization-and-modules/consul/README.md",
+    "path": "Terraform and CF/Terraform/course-files/06-organization-and-modules/consul/README.md",
     "size": 93,
     "mtime": "2026-08-18T09:49:14.309Z"
   },
   {
     "name": "README.md",
-    "path": "Terraform and CF/course-files/07-managing-multiple-environments/file-structure/README.md",
+    "path": "Terraform and CF/Terraform/course-files/07-managing-multiple-environments/file-structure/README.md",
     "size": 258,
     "mtime": "2026-08-18T09:49:14.310Z"
   },
   {
     "name": "README.md",
-    "path": "Terraform and CF/course-files/07-managing-multiple-environments/workspaces/README.md",
+    "path": "Terraform and CF/Terraform/course-files/07-managing-multiple-environments/workspaces/README.md",
     "size": 148,
     "mtime": "2026-08-18T09:49:14.310Z"
   },
   {
     "name": "README.md",
-    "path": "Terraform and CF/course-files/08-testing/deployed/README.md",
+    "path": "Terraform and CF/Terraform/course-files/08-testing/deployed/README.md",
     "size": 59,
     "mtime": "2026-08-18T09:49:14.311Z"
   },
   {
     "name": "README.md",
-    "path": "Terraform and CF/course-files/08-testing/examples/README.md",
+    "path": "Terraform and CF/Terraform/course-files/08-testing/examples/README.md",
     "size": 49,
     "mtime": "2026-08-18T09:49:14.311Z"
   },
   {
     "name": "README.md",
-    "path": "Terraform and CF/course-files/08-testing/modules/README.md",
+    "path": "Terraform and CF/Terraform/course-files/08-testing/modules/README.md",
     "size": 41,
     "mtime": "2026-08-18T09:49:14.311Z"
   },
   {
     "name": "README.md",
-    "path": "Terraform and CF/course-files/08-testing/modules/hello-world/README.md",
+    "path": "Terraform and CF/Terraform/course-files/08-testing/modules/hello-world/README.md",
     "size": 107,
     "mtime": "2026-08-18T09:49:14.311Z"
   },
   {
     "name": "README.md",
-    "path": "Terraform and CF/course-files/08-testing/tests/README.md",
+    "path": "Terraform and CF/Terraform/course-files/08-testing/tests/README.md",
     "size": 24,
     "mtime": "2026-08-18T09:49:14.311Z"
   },
   {
     "name": "README.md",
-    "path": "Terraform and CF/course-files/08-testing/tests/static/README.md",
+    "path": "Terraform and CF/Terraform/course-files/08-testing/tests/static/README.md",
     "size": 1333,
     "mtime": "2026-08-18T09:49:14.312Z"
   },
   {
     "name": "README.md",
-    "path": "Terraform and CF/course-files/08-testing/tests/terratest/README.md",
+    "path": "Terraform and CF/Terraform/course-files/08-testing/tests/terratest/README.md",
     "size": 117,
     "mtime": "2026-08-18T09:49:14.312Z"
   },
   {
     "name": "README.md",
-    "path": "Terraform and CF/course-files/09-developer-workflows/README.md",
+    "path": "Terraform and CF/Terraform/course-files/09-developer-workflows/README.md",
     "size": 227,
     "mtime": "2026-08-18T09:49:14.312Z"
   },
   {
     "name": "README.md",
-    "path": "Terraform and CF/course-files/README.md",
+    "path": "Terraform and CF/Terraform/course-files/README.md",
     "size": 1780,
     "mtime": "2026-08-18T09:49:14.312Z"
   },
   {
     "name": "learnlog.md",
-    "path": "Terraform and CF/learnlog.md",
+    "path": "Terraform and CF/Terraform/learnlog.md",
     "size": 14815,
     "mtime": "2026-08-18T09:49:14.312Z"
   },
   {
-    "name": "pulumi.md",
-    "path": "Terraform and CF/pulumi.md",
-    "size": 16006,
-    "mtime": "2026-10-18T11:40:09.873Z"
-  },
-  {
     "name": "sample-project.md",
-    "path": "Terraform and CF/sample-project.md",
+    "path": "Terraform and CF/Terraform/sample-project.md",
     "size": 6312,
     "mtime": "2026-10-18T11:45:11.472Z"
   },
   {
     "name": "terraform-cli-reference.md",
-    "path": "Terraform and CF/terraform-cli-reference.md",
+    "path": "Terraform and CF/Terraform/terraform-cli-reference.md",
     "size": 10559,
     "mtime": "2026-10-18T14:19:44.471Z"
   },
   {
     "name": "terraform-environments-and-cicd.md",
-    "path": "Terraform and CF/terraform-environments-and-cicd.md",
-    "size": 16358,
-    "mtime": "2026-11-05T07:39:17.556Z"
+    "path": "Terraform and CF/Terraform/terraform-environments-and-cicd.md",
+    "size": 16361,
+    "mtime": "2026-11-05T11:12:34.962Z"
   },
   {
     "name": "terraform-hands-on-labs.md",
-    "path": "Terraform and CF/terraform-hands-on-labs.md",
-    "size": 15594,
-    "mtime": "2026-10-18T14:25:19.387Z"
+    "path": "Terraform and CF/Terraform/terraform-hands-on-labs.md",
+    "size": 15597,
+    "mtime": "2026-11-05T11:12:34.962Z"
   },
   {
     "name": "terraform-hcl-language.md",
-    "path": "Terraform and CF/terraform-hcl-language.md",
+    "path": "Terraform and CF/Terraform/terraform-hcl-language.md",
     "size": 23788,
     "mtime": "2026-10-18T14:25:55.758Z"
   },
   {
     "name": "terraform-meta-arguments-and-lifecycle.md",
-    "path": "Terraform and CF/terraform-meta-arguments-and-lifecycle.md",
+    "path": "Terraform and CF/Terraform/terraform-meta-arguments-and-lifecycle.md",
     "size": 14292,
     "mtime": "2026-10-18T14:12:54.011Z"
   },
   {
     "name": "terraform-modules.md",
-    "path": "Terraform and CF/terraform-modules.md",
-    "size": 18889,
-    "mtime": "2026-10-18T14:18:53.670Z"
+    "path": "Terraform and CF/Terraform/terraform-modules.md",
+    "size": 18898,
+    "mtime": "2026-11-05T11:12:34.963Z"
   },
   {
     "name": "terraform-production-and-troubleshooting.md",
-    "path": "Terraform and CF/terraform-production-and-troubleshooting.md",
+    "path": "Terraform and CF/Terraform/terraform-production-and-troubleshooting.md",
     "size": 16104,
     "mtime": "2026-10-18T14:25:24.088Z"
   },
   {
     "name": "terraform-providers-and-internals.md",
-    "path": "Terraform and CF/terraform-providers-and-internals.md",
+    "path": "Terraform and CF/Terraform/terraform-providers-and-internals.md",
     "size": 15095,
     "mtime": "2026-10-18T14:15:31.742Z"
   },
   {
     "name": "terraform-state-deep-dive.md",
-    "path": "Terraform and CF/terraform-state-deep-dive.md",
-    "size": 22015,
-    "mtime": "2026-10-18T14:14:24.436Z"
+    "path": "Terraform and CF/Terraform/terraform-state-deep-dive.md",
+    "size": 22018,
+    "mtime": "2026-11-05T11:12:34.963Z"
   },
   {
     "name": "terraform.md",
-    "path": "Terraform and CF/terraform.md",
-    "size": 22488,
-    "mtime": "2026-10-18T21:47:27.711Z"
+    "path": "Terraform and CF/Terraform/terraform.md",
+    "size": 22527,
+    "mtime": "2026-11-05T11:12:34.963Z"
   },
   {
     "name": "asterisk-freeswitch-kamailio.md",
@@ -2535,7 +2553,7 @@
     "name": "windows-administration-for-devops.md",
     "path": "Windows Administration/windows-administration-for-devops.md",
     "size": 9992,
-    "mtime": "2026-10-18T11:40:09.920Z"
+    "mtime": "2026-11-05T11:12:34.963Z"
   },
   {
     "name": "imp_concepts.md",

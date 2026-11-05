@@ -126,7 +126,7 @@ Work the derivation in this order, every time:
 | [dr-planning-testing-and-runbooks.md](dr-planning-testing-and-runbooks.md) | The DR plan as a document, testing/drills, runbook design, worked failover runbook, compliance, anti-patterns |
 
 Related, outside this folder:
-- [Shell Scripting for DevOps § 6 — Backup & Restore](../scripting/shell-scripting-devops.md#6-backup--restore) — raw shell-script-level backup examples (`pg_dump`, S3 sync).
+- [Shell Scripting for DevOps § 6 — Backup & Restore](../Scripting/shell-scripting-devops.md#6-backup--restore) — raw shell-script-level backup examples (`pg_dump`, S3 sync).
 - [DNS & Global Load Balancing](../Load%20Balancing/dns-and-global-load-balancing.md) — the traffic-routing mechanics of multi-region failover (DNS failover, anycast, active-active routing).
 
 ---

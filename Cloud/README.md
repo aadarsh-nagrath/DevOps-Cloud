@@ -31,7 +31,7 @@ Everything cloud in one place: **cross-cloud fundamentals first**, then **provid
 | [DevOps, IaC & Monitoring](./AWS/aws-devops-iac-monitoring.md) — CFN/CDK/Terraform, Code*, SSM, CloudWatch | [Monitoring, DevOps & DR](./AZURE/azure-monitoring-devops-and-dr.md) — Azure Monitor, KQL, Azure DevOps, Backup, Site Recovery | |
 | [Integration, Analytics & AI](./AWS/aws-integration-analytics-ai.md) — SQS/SNS/EventBridge, Kinesis, Bedrock | | |
 
-Also: [Cloud Networking for DevOps (long-form, AWS Terraform example)](./Cloud-Networking-for-DevOps.md).
+Also: [Cloud Networking for DevOps (long-form, AWS Terraform example)](./Fundamentals/09-cloud-networking-for-devops.md).
 
 ### 3. Interview Q&A
 | File | Focus |

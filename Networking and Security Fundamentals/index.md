@@ -27,7 +27,7 @@ A single `https://api.example.com/users` request touches nearly every topic in t
 ```
 
 ### Why This Belongs in a DevOps Repo
-- [Load Balancing](../Load%20Balancing/load-balancing-overview.md), [Service Mesh](../Service%20Mesh/service-mesh-overview.md), and [Cloud Networking](../Cloud/Cloud-Networking-for-DevOps.md) notes all assume the reader already knows TCP/UDP, DNS, TLS, and firewall concepts — this folder is the prerequisite layer underneath them.
+- [Load Balancing](../Load%20Balancing/load-balancing-overview.md), [Service Mesh](../Service%20Mesh/service-mesh-overview.md), and [Cloud Networking](../Cloud/Fundamentals/09-cloud-networking-for-devops.md) notes all assume the reader already knows TCP/UDP, DNS, TLS, and firewall concepts — this folder is the prerequisite layer underneath them.
 - [Security in DevOps](../Security%20in%20DevOps/devsecops-overview.md) covers pipeline/supply-chain/IAM security; this folder covers **network and host** security specifically — they're complementary, not overlapping.
 
 ### Layered Defense — The Big Picture
@@ -72,7 +72,7 @@ Traditional model: "inside the firewall = trusted." Zero trust model: **never tr
 ## 3. Advanced — Where This Shows Up in Production
 
 ### Incident Scenarios That Require All Six
-- **Cert expiry outage**: TLS cert silently expired → sudden 100% error rate → root cause is in `tls-and-certificates.md`, but detection ties to [monitoring/alerting](../Monitoring%20and%20Loggin/index.md) and the fix ties to automated renewal (ACME).
+- **Cert expiry outage**: TLS cert silently expired → sudden 100% error rate → root cause is in `tls-and-certificates.md`, but detection ties to [monitoring/alerting](../Monitoring%20and%20Logging/index.md) and the fix ties to automated renewal (ACME).
 - **DNS TTL propagation delay during failover**: a region fails over but clients keep hitting the dead IP for minutes — ties `dns-deep-dive.md` to [DR planning](../Backup%20and%20Disaster%20Recovery/disaster-recovery-strategies.md).
 - **Overly-permissive security group found in audit**: `0.0.0.0/0` on port 22 — ties `firewalls.md` to [IaC policy-as-code](../IaC%20Testing%20and%20Policy%20as%20Code/policy-as-code-with-opa-and-conftest.md) that should have blocked it before merge.
 - **Lateral movement after a single pod compromise**: no NetworkPolicy + no mTLS = attacker moves freely — ties `firewalls.md` + [service mesh security](../Service%20Mesh/security-and-mtls.md) together.

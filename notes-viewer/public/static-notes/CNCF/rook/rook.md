@@ -243,7 +243,7 @@ ceph df
 
 ### Integration with the Wider Ecosystem
 - **Kubernetes CSI**: Rook's entire value delivery to applications flows through CSI — any tool that consumes standard `StorageClass`/PVC (Helm charts, operators for databases, etc.) works unmodified against Rook-Ceph storage.
-- **Prometheus**: Ceph's MGR ships a Prometheus exporter module Rook enables by default — `ServiceMonitor` CRs plug straight into an existing kube-prometheus-stack (see [prometheus.md](../../Monitoring%20and%20Loggin/prometheous/prometheus.md)).
+- **Prometheus**: Ceph's MGR ships a Prometheus exporter module Rook enables by default — `ServiceMonitor` CRs plug straight into an existing kube-prometheus-stack (see [prometheus.md](../../Monitoring%20and%20Logging/prometheus/prometheus.md)).
 - **Velero / backup tooling**: CephFS/RBD snapshots (via `VolumeSnapshotClass`, another CSI-standard resource Rook implements) integrate with Kubernetes-native backup tools for PV-level backup/restore.
 
 ---

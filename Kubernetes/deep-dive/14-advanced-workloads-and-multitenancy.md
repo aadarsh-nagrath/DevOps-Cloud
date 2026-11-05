@@ -260,7 +260,7 @@ Typical uses: OTel resource attributes (pod, node), JVM heap sizing from the lim
 ### Namespace tenant baseline (each item enforced by something)
 - RBAC: a team role bound in its namespaces only ([page 12 §3](./12-security-hardening.md#3-rbac-the-escalation-paths-people-miss))
 - PSA `restricted` ([page 12 §1](./12-security-hardening.md#1-pod-security-admission-psa))
-- NetworkPolicy default-deny plus explicit allows ([networking §12](../kubernetes-networking-deep-dive.md#12-networkpolicy-in-depth))
+- NetworkPolicy default-deny plus explicit allows ([networking §12](../networking/kubernetes-networking-deep-dive.md#12-networkpolicy-in-depth))
 - **ResourceQuota + LimitRange** (below)
 - Policy: allowed registries, required labels, no LoadBalancer/NodePort without approval
 - Cost allocation by namespace and labels (OpenCost/Kubecost)
@@ -405,10 +405,10 @@ velero backup describe orders-2026-10-18 --details
 | Same app in many clusters/regions | GitOps fleet: **Argo CD ApplicationSets** (cluster generator), Flux with Kustomize overlays, Rancher Fleet |
 | Cross-cluster service discovery and traffic | Multi-cluster Services API (`ServiceExport`/`ServiceImport`), Cilium ClusterMesh, Istio multi-primary, Submariner, Skupper |
 | Global ingress / failover | DNS-based (Route 53 latency/failover, external-dns), global LBs (GCP, AWS Global Accelerator), Gateway API multi-cluster gateways (GKE) |
-| Cluster lifecycle | **Cluster API** (declarative clusters as CRDs), Crossplane, Terraform ([Terraform notes](../../Terraform%20and%20CF/terraform.md)), managed fleets (GKE Fleet, EKS Anywhere, Azure Fleet) |
+| Cluster lifecycle | **Cluster API** (declarative clusters as CRDs), Crossplane, Terraform ([Terraform notes](../../Terraform%20and%20CF/Terraform/terraform.md)), managed fleets (GKE Fleet, EKS Anywhere, Azure Fleet) |
 | Policy and identity everywhere | Kyverno/Gatekeeper through GitOps, a central OIDC provider, a shared trust domain (SPIFFE/SPIRE) |
 
-Rules: non-overlapping Pod and Service CIDRs if you'll ever connect clusters ([networking §15](../kubernetes-networking-deep-dive.md#15-ip-planning-dual-stack-and-mtu)). Treat clusters as **cattle** (re-creatable from Git). Keep data in managed services or replicate it explicitly, because the cluster is not where data lives safely.
+Rules: non-overlapping Pod and Service CIDRs if you'll ever connect clusters ([networking §15](../networking/kubernetes-networking-deep-dive.md#15-ip-planning-dual-stack-and-mtu)). Treat clusters as **cattle** (re-creatable from Git). Keep data in managed services or replicate it explicitly, because the cluster is not where data lives safely.
 
 ---
 

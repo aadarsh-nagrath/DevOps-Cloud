@@ -161,7 +161,7 @@ When something goes wrong (a check errors out, a service is unreachable), the sy
 | [security-in-cicd-pipelines.md](security-in-cicd-pipelines.md) | Pulling every control into one annotated pipeline, fail-vs-warn policy, rollout strategy |
 
 Related security content that already exists elsewhere in this repo and is *not* duplicated here:
-- [Docker Security](../docker/docker-security.md) — Dockerfile-level hardening (non-root, capabilities, seccomp, AppArmor)
+- [Docker Security](../Docker/docker-security.md) — Dockerfile-level hardening (non-root, capabilities, seccomp, AppArmor)
 - [Service Mesh security-and-mtls.md](../Service%20Mesh/security-and-mtls.md) — mTLS, SPIFFE identity, zero-trust service-to-service networking
 - [GitHub Actions secrets-and-security.md](../Continuous%20Integration/GithubActions/secrets-and-security.md) — CI-pipeline-specific secrets scoping and OIDC
 

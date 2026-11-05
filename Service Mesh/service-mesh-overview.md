@@ -98,7 +98,7 @@ This is important and often skipped in service mesh tutorials: **a service mesh 
 ### When a service mesh is genuinely worth it
 - You have **many microservices** (dozens+) written in **multiple languages**, where a shared client library approach doesn't scale across language ecosystems.
 - You have **real mTLS/zero-trust security requirements** between services (compliance, regulated industries) and want it enforced centrally rather than hoping every team implements it correctly.
-- You need **fine-grained traffic control** (canary releases, A/B testing at the infrastructure level — see [Canary Deployment](../Deployment/Canary%20Deployment/canary-deployment.md)) across many services, not just one or two.
+- You need **fine-grained traffic control** (canary releases, A/B testing at the infrastructure level — see [Canary Deployment](../Deployment/canary-deployment.md)) across many services, not just one or two.
 - You need **consistent, mesh-wide observability** without instrumenting every service by hand.
 
 ### When it's probably overkill

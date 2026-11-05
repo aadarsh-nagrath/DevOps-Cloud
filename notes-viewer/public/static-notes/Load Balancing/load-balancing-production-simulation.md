@@ -185,7 +185,7 @@ for i in {1..20}; do curl -s http://localhost:8080/ | grep -o "I am backend-[0-9
      18 I am backend-1
       2 I am backend-3
 ```
-Roughly 90/10, matching the configured weights — this is mechanically the exact same technique used to implement the gradual traffic percentages in [Canary Deployment](../Deployment/Canary%20Deployment/canary-deployment.md), just demonstrated here at the load balancer config level instead of via Argo Rollouts/Istio automation. Bumping `weight 10` up to `weight 50`, then `weight 100` (and dropping `backend1` to 0), is literally what a canary promotion pipeline does under the hood, one config change (or API call) at a time.
+Roughly 90/10, matching the configured weights — this is mechanically the exact same technique used to implement the gradual traffic percentages in [Canary Deployment](../Deployment/canary-deployment.md), just demonstrated here at the load balancer config level instead of via Argo Rollouts/Istio automation. Bumping `weight 10` up to `weight 50`, then `weight 100` (and dropping `backend1` to 0), is literally what a canary promotion pipeline does under the hood, one config change (or API call) at a time.
 
 ---
 

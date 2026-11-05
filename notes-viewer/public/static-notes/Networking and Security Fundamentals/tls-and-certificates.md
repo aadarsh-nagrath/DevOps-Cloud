@@ -159,7 +159,7 @@ The `ClientHello` includes the target hostname **in plaintext** so the server ca
 
 ### Rotation Automation Checklist
 - Automate renewal (ACME/cert-manager) well before expiry — never rely on a human remembering a calendar date.
-- Alert on certs approaching expiry (e.g., 30/14/7 days out) as a safety net even with automation — see [Monitoring & Logging](../Monitoring%20and%20Loggin/index.md).
+- Alert on certs approaching expiry (e.g., 30/14/7 days out) as a safety net even with automation — see [Monitoring & Logging](../Monitoring%20and%20Logging/index.md).
 - Use short-lived certs (Let's Encrypt's 90-day default, or even shorter in service-mesh mTLS via SPIFFE, often hours) — shorter lifetime shrinks the blast radius of a leaked key and forces automation (a human can't manually renew hourly, so it *has* to be automated correctly).
 
 ---

@@ -1,6 +1,6 @@
 # Cloud Monitoring, Logging, Tracing & Alerting — Complete Notes
 
-> Part of the [Cloud hub](../README.md). Deep dives: [`Monitoring and Loggin/`](../../Monitoring%20and%20Loggin), [Observability Q&A](../../Interview%20Questions/11-monitoring-logging-observability-qna.md).
+> Part of the [Cloud hub](../README.md). Deep dives: [`Monitoring and Loggin/`](../../Monitoring%20and%20Logging), [Observability Q&A](../../Interview%20Questions/11-monitoring-logging-observability-qna.md).
 
 ---
 

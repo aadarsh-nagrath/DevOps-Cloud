@@ -1,6 +1,6 @@
 # Docker — Interview Questions & Answers
 
-> Part of the [Interview Questions](./README.md) hub. See also [`docker/`](../docker) in this repo for the deep-dive reference notes this file's answers are distilled from. Grouped **Junior → Mid → Senior**.
+> Part of the [Interview Questions](./README.md) hub. See also [`docker/`](../Docker) in this repo for the deep-dive reference notes this file's answers are distilled from. Grouped **Junior → Mid → Senior**.
 
 ---
 

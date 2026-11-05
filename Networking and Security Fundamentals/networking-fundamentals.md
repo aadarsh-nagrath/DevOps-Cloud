@@ -119,7 +119,7 @@ Client                     Server
 - Connection teardown uses a similar `FIN`/`ACK` exchange (4-way) — a socket that finishes but lingers in `TIME_WAIT` is normal, not a leak.
 
 ### Subnetting in Practice
-- A VPC `10.0.0.0/16` (65,536 IPs) is commonly split into subnets like `10.0.1.0/24` (public), `10.0.2.0/24` (private-app), `10.0.3.0/24` (private-data) — see [VPC Fundamentals](../Cloud/Cloud-Networking-for-DevOps.md) for the full cloud picture.
+- A VPC `10.0.0.0/16` (65,536 IPs) is commonly split into subnets like `10.0.1.0/24` (public), `10.0.2.0/24` (private-app), `10.0.3.0/24` (private-data) — see [VPC Fundamentals](../Cloud/Fundamentals/09-cloud-networking-for-devops.md) for the full cloud picture.
 - **Broadcast address**: last address in a subnet (`10.0.1.255` for a `/24`), reserved.
 - **Network address**: first address (`10.0.1.0`), reserved — identifies the subnet itself, not a host.
 - Cloud providers additionally reserve a handful of addresses per subnet (AWS reserves 5) for the gateway, DNS, and future use.
@@ -223,7 +223,7 @@ tcpdump -i eth0 host <ip> -w cap.pcap   # then look for retransmissions/zero win
 ```
 Common causes: cross-AZ or cross-region hops (about 1–2 ms between AZs, tens of ms between regions), routing through a NAT gateway, proxy or inspection firewall, MTU/fragmentation black holes (large requests hang, small ones work), a saturated instance network limit (check `ethtool -S` for `bw_in_allowance_exceeded` on AWS ENA), and conntrack table full (`dmesg | grep conntrack`).
 
-**3. If it's the server:** compare the app's own latency metric with the load balancer's (`TargetResponseTime`). Look at p95/p99, not just averages. Use traces to find the slow span (DB, external API). Check saturation: CPU, `wa`, connection pools, thread pools, GC pauses. See [Processes & Performance](../scripting/processes-and-performance.md).
+**3. If it's the server:** compare the app's own latency metric with the load balancer's (`TargetResponseTime`). Look at p95/p99, not just averages. Use traces to find the slow span (DB, external API). Check saturation: CPU, `wa`, connection pools, thread pools, GC pauses. See [Processes & Performance](../Scripting/processes-and-performance.md).
 
 **4. Narrow it down by asking:** is it every client or only some (one region or ISP means network/CDN)? Every endpoint or one (one endpoint means the code or a query)? Did it start after a deploy, a config change or a traffic spike? Does it happen from inside the VPC (with the LB and internet path removed)?
 
@@ -243,7 +243,7 @@ Common causes: cross-AZ or cross-region hops (about 1–2 ms between AZs, tens o
 ### Overlay Networking (Kubernetes/Container Context)
 - **VXLAN**: encapsulates L2 Ethernet frames inside UDP packets (port 4789) to create virtual L2 networks across L3 infrastructure — how many Kubernetes CNI plugins (Flannel, Calico in overlay mode) connect pods across nodes.
 - **BGP-mode CNI** (Calico): instead of encapsulating, advertises pod CIDRs via BGP between nodes — lower overhead, no encapsulation MTU tax, but requires L3 network cooperation.
-- See [Kubernetes Networking](../Kubernetes/Networking.md) for the full CNI/Service/Ingress picture built on top of these primitives.
+- See [Kubernetes Networking](../Kubernetes/networking/Networking.md) for the full CNI/Service/Ingress picture built on top of these primitives.
 
 ### Connection Scaling Concepts
 - **Ephemeral port exhaustion**: a server or NAT gateway making huge numbers of outbound connections can run out of source ports (~28K-64K usable range per IP) — mitigated via connection pooling, keep-alive reuse, or multiple NAT IPs.
@@ -273,7 +273,7 @@ net.core.rmem_max / wmem_max           # socket buffer size ceilings for high-th
 ## Related Notes
 - [Networking & Security Fundamentals — Index](index.md)
 - [L4 vs L7 Load Balancing](../Load%20Balancing/l4-vs-l7-load-balancing.md)
-- [Kubernetes Networking](../Kubernetes/Networking.md)
-- [Cloud Networking for DevOps](../Cloud/Cloud-Networking-for-DevOps.md)
+- [Kubernetes Networking](../Kubernetes/networking/Networking.md)
+- [Cloud Networking for DevOps](../Cloud/Fundamentals/09-cloud-networking-for-devops.md)
 - [DNS Deep Dive](dns-deep-dive.md)
 - [Firewalls](firewalls.md)

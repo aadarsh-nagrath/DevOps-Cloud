@@ -1,6 +1,6 @@
 # Database Backup & Restore
 
-Database-specific backup strategy — where most of the hard, DR-relevant complexity actually lives. For generic backup theory (types, retention, 3-2-1) see [Backup Strategies & Types](backup-strategies-and-types.md); for raw `pg_dump`/S3 shell examples see [Shell Scripting for DevOps § 6](../scripting/shell-scripting-devops.md#6-backup--restore).
+Database-specific backup strategy — where most of the hard, DR-relevant complexity actually lives. For generic backup theory (types, retention, 3-2-1) see [Backup Strategies & Types](backup-strategies-and-types.md); for raw `pg_dump`/S3 shell examples see [Shell Scripting for DevOps § 6](../Scripting/shell-scripting-devops.md#6-backup--restore).
 
 ---
 

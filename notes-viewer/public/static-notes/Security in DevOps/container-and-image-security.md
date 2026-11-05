@@ -1,6 +1,6 @@
 # Container and Image Security
 
-Image vulnerability scanning, base image strategy, SBOMs, signing/verification, and Kubernetes admission control to enforce it all. For Dockerfile-level hardening (non-root, capabilities, seccomp, AppArmor, `--privileged`), see [Docker Security](../docker/docker-security.md) — this file goes broader, covering the image supply chain rather than the container runtime.
+Image vulnerability scanning, base image strategy, SBOMs, signing/verification, and Kubernetes admission control to enforce it all. For Dockerfile-level hardening (non-root, capabilities, seccomp, AppArmor, `--privileged`), see [Docker Security](../Docker/docker-security.md) — this file goes broader, covering the image supply chain rather than the container runtime.
 
 ---
 
@@ -171,7 +171,7 @@ cosign verify \
   myregistry/myapp:1.4.0
 ```
 
-If someone swaps `myapp:1.4.0` in the registry for a tampered image, `cosign verify` fails — the new image's digest doesn't match what was signed, and there's no valid signature for it under the trusted identity. This is exactly the scenario described in [Docker Security §8](../docker/docker-security.md) — this file adds the Kubernetes-side enforcement in §5 below so an unsigned/tampered image can't just be deployed anyway even if someone forgets to check manually.
+If someone swaps `myapp:1.4.0` in the registry for a tampered image, `cosign verify` fails — the new image's digest doesn't match what was signed, and there's no valid signature for it under the trusted identity. This is exactly the scenario described in [Docker Security §8](../Docker/docker-security.md) — this file adds the Kubernetes-side enforcement in §5 below so an unsigned/tampered image can't just be deployed anyway even if someone forgets to check manually.
 
 ---
 

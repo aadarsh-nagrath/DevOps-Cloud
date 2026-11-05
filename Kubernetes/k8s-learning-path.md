@@ -1,6 +1,6 @@
 # Kubernetes: Beginner → Intermediate → Advanced (Learning & Revision Notes)
 
-> **Field-level deep dives: [deep-dive/](deep-dive/README.md).** This file is structured as a progressive learning path. For deep dives on specific topics already covered elsewhere in this folder, see: [kubernetes.md](kubernetes.md) (core concepts), [K-pods.md](K-pods.md) (pod internals), [Networking.md](Networking.md) (networking deep dive), [k8-doubts.md](k8-doubts.md) (Q&A style clarifications), [Helm vs Kustomize](../Helm/helm-vs-kustomize.md), [good-practice-networking.md](good-practice-networking.md).
+> **Field-level deep dives: [deep-dive/](deep-dive/README.md).** This file is structured as a progressive learning path. For deep dives on specific topics already covered elsewhere in this folder, see: [kubernetes.md](kubernetes.md) (core concepts), [K-pods.md](K-pods.md) (pod internals), [Networking.md](networking/Networking.md) (networking deep dive), [k8-doubts.md](k8-doubts.md) (Q&A style clarifications), [Helm vs Kustomize](../Helm/helm-vs-kustomize.md), [good-practice-networking.md](networking/good-practice-networking.md).
 
 ---
 
@@ -503,7 +503,7 @@ roleRef:
 - **CoreDNS**: cluster DNS server; every Service gets `<svc>.<namespace>.svc.cluster.local`; pods get DNS search suffixes appended automatically so `curl backend-service` works from within the same namespace.
 - **Service mesh** (Istio/Linkerd): adds a sidecar proxy (Envoy) per pod for mTLS, fine-grained traffic management (canary, retries, circuit breaking), and rich observability — operates above the base CNI layer. See [istio.md](../istio.md).
 
-For a much deeper treatment, see [Networking.md](Networking.md) and [good-practice-networking.md](good-practice-networking.md).
+For a much deeper treatment, see [Networking.md](networking/Networking.md) and [good-practice-networking.md](networking/good-practice-networking.md).
 
 ## 18. Network Policies & Security
 
@@ -569,7 +569,7 @@ flowchart LR
 - **Logging**: containers log to stdout/stderr → captured by container runtime → shipped by a node-level DaemonSet (Fluent Bit/Fluentd) to a central store (Loki, Elasticsearch, CloudWatch). Never rely on `kubectl logs` alone in prod — logs vanish when pods are deleted.
 - **Metrics**: `metrics-server` for basic CPU/mem (powers `kubectl top`, HPA). For real observability: **Prometheus** scrapes metrics endpoints, **Grafana** visualizes, **Alertmanager** fires alerts. `kube-state-metrics` exposes cluster object state (pod status, deployment replicas, etc.) as Prometheus metrics — distinct from node/container resource metrics.
 - **Tracing**: distributed tracing (Jaeger/Tempo + OpenTelemetry) to follow a request across microservices — essential once you have more than a few services calling each other.
-- See [Monitoring and Loggin/](../Monitoring%20and%20Loggin/) folder for more.
+- See [Monitoring and Loggin/](../Monitoring%20and%20Logging/) folder for more.
 
 ## 23. Troubleshooting Playbook
 
@@ -616,7 +616,7 @@ More scenario-based Q&A in [k8-doubts.md](k8-doubts.md).
 - [ ] RBAC scoped to least privilege per team/namespace; avoid `cluster-admin` sprawl.
 - [ ] Pin image tags (never `:latest`) and scan images for vulnerabilities in CI.
 - [ ] Use **namespaces + ResourceQuotas** to prevent noisy-neighbor problems in shared clusters.
-- [ ] GitOps (Argo CD/Flux) for declarative, auditable deployments instead of manual `kubectl apply`. See [GitOps.md](../GitOps.md) and [Argo CD + Helm integration](../Continuous%20Delivery/ArgoCD/argo-cd-integration-helm.md).
+- [ ] GitOps (Argo CD/Flux) for declarative, auditable deployments instead of manual `kubectl apply`. See [GitOps.md](../Continuous%20Delivery/GitOps.md) and [Argo CD + Helm integration](../Continuous%20Delivery/ArgoCD/argo-cd-integration-helm.md).
 
 ## 25. Quick-Revision Cheat Sheet
 
@@ -816,5 +816,5 @@ overlays/
 2. Deploy a simple app: write a Deployment + Service, `kubectl apply`, `kubectl port-forward` to see it.
 3. Break things on purpose: delete a pod, scale to 0, set a bad image tag — watch how K8s reacts. This builds intuition fast.
 4. Move to sections 8–15: add a PVC-backed database, an Ingress, an HPA, wrap it all in a Helm chart.
-5. Sections 16–24: once comfortable, study scheduling constraints, NetworkPolicies, and read through [K-pods.md](K-pods.md) and [Networking.md](Networking.md) for depth.
+5. Sections 16–24: once comfortable, study scheduling constraints, NetworkPolicies, and read through [K-pods.md](K-pods.md) and [Networking.md](networking/Networking.md) for depth.
 6. For certification-style structured practice, see the [CKA/](../CKA/) folder.

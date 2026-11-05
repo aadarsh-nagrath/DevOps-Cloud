@@ -2,7 +2,7 @@
 
 > Part of the [Kubernetes deep dives](./README.md). Previous: [Security Hardening](./12-security-hardening.md). Next: [Advanced Workloads & Multi-tenancy](./14-advanced-workloads-and-multitenancy.md).
 >
-> Every status, exit code, event and message in the failure zoo below was produced on a v1.37 cluster. Networking failures have their own playbook in the [networking deep dive §17](../kubernetes-networking-deep-dive.md#17-troubleshooting-playbook), and Pending Pods are covered in [Scheduling §13](./08-scheduling-in-depth.md#13-troubleshooting-pending).
+> Every status, exit code, event and message in the failure zoo below was produced on a v1.37 cluster. Networking failures have their own playbook in the [networking deep dive §17](../networking/kubernetes-networking-deep-dive.md#17-troubleshooting-playbook), and Pending Pods are covered in [Scheduling §13](./08-scheduling-in-depth.md#13-troubleshooting-pending).
 
 ---
 

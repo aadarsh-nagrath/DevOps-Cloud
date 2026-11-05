@@ -314,7 +314,7 @@ spec:
 - **Kubelet:** `anonymous-auth=false`, `authorization-mode=Webhook`, no read-only port 10255, and the NodeRestriction admission plugin (on by default with kubeadm) so a compromised node can only change its own objects.
 - **etcd:** mTLS only, not reachable from Pod networks, encrypted backups.
 - **Audit logs** on and shipped ([page 11](./11-cluster-operations.md#7-audit-logging)).
-- **NetworkPolicy default-deny**, and block the metadata API ([networking deep dive §12](../kubernetes-networking-deep-dive.md#12-networkpolicy-in-depth)).
+- **NetworkPolicy default-deny**, and block the metadata API ([networking deep dive §12](../networking/kubernetes-networking-deep-dive.md#12-networkpolicy-in-depth)).
 - **Benchmarks:** `kube-bench` (CIS Kubernetes Benchmark) for node and control-plane config, `kubescape` / `trivy k8s` / Polaris for workload posture, `kube-hunter`-style probing from outside.
 - **Human access:** SSO (OIDC) to the cluster, short-lived credentials, `system:masters` only for break-glass, `kubectl` access through a bastion or zero-trust proxy (Teleport, Pomerium, cloud IAP).
 

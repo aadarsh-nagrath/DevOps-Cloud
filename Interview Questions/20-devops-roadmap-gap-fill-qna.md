@@ -1,6 +1,6 @@
 # DevOps Roadmap Gap-Fill (GitOps, Production K8s, DR, Cost, Observability at Scale, Supply Chain) — Interview Questions & Answers
 
-> Part of the [Interview Questions](./README.md) hub. This file fills the gaps left by the other topic files against the common **Junior → Mid → Senior DevOps roadmap** (see the coverage map in the [README](./README.md#-roadmap-coverage-map)). See also [`GitOps.md`](../GitOps.md), [`Backup and Disaster Recovery/`](../Backup%20and%20Disaster%20Recovery), [`FinOps and Cost Optimization/`](../FinOps%20and%20Cost%20Optimization), and [`Security in DevOps/`](../Security%20in%20DevOps) in this repo. Grouped **Junior → Mid → Senior**.
+> Part of the [Interview Questions](./README.md) hub. This file fills the gaps left by the other topic files against the common **Junior → Mid → Senior DevOps roadmap** (see the coverage map in the [README](./README.md#-roadmap-coverage-map)). See also [`GitOps.md`](../Continuous%20Delivery/GitOps.md), [`Backup and Disaster Recovery/`](../Backup%20and%20Disaster%20Recovery), [`FinOps and Cost Optimization/`](../FinOps%20and%20Cost%20Optimization), and [`Security in DevOps/`](../Security%20in%20DevOps) in this repo. Grouped **Junior → Mid → Senior**.
 
 ---
 

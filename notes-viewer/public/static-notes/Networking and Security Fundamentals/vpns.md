@@ -156,5 +156,5 @@ Traditional remote-access VPN grants broad network-level access once connected (
 - [Networking & Security Fundamentals — Index](index.md)
 - [Firewalls](firewalls.md)
 - [Service Mesh Security & mTLS](../Service%20Mesh/security-and-mtls.md)
-- [Cloud Networking for DevOps](../Cloud/Cloud-Networking-for-DevOps.md)
+- [Cloud Networking for DevOps](../Cloud/Fundamentals/09-cloud-networking-for-devops.md)
 - [Networking Fundamentals](networking-fundamentals.md) — MTU/fragmentation background referenced above

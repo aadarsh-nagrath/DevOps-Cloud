@@ -1,6 +1,6 @@
 # Windows Administration for DevOps — Complete Notes
 
-> Linux equivalents live in [`scripting/linux-cmds.md`](../scripting/linux-cmds.md). Interview prep: [Windows, Proxy, VAPT & Jira Q&A](../Interview%20Questions/22-windows-proxy-vapt-jira-qna.md).
+> Linux equivalents live in [`scripting/linux-cmds.md`](../Scripting/linux-cmds.md). Interview prep: [Windows, Proxy, VAPT & Jira Q&A](../Interview%20Questions/22-windows-proxy-vapt-jira-qna.md).
 
 ## 1. Beginner
 

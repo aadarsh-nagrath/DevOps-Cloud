@@ -275,5 +275,5 @@ Perf
 ## 🔗 Related Notes
 - [AWS Notes](../AWS/aws.md)
 - [GCP Notes](../GCP/gcp.md)
-- [Terraform & CloudFormation](../../Terraform%20and%20CF/terraform.md)
+- [Terraform & CloudFormation](../../Terraform%20and%20CF/Terraform/terraform.md)
 - [Kubernetes on AKS](../../Kubernetes/kubernetes.md)

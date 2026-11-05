@@ -84,7 +84,7 @@ The pyramid shape matters: run many cheap static/policy checks on every single c
 | [`terraform-testing-frameworks.md`](terraform-testing-frameworks.md) | `terraform plan` review, Terratest, native `terraform test`, module testing strategy |
 | [`drift-detection-and-continuous-validation.md`](drift-detection-and-continuous-validation.md) | What drift is, detecting and preventing it, full combined pipeline example |
 
-Related notes elsewhere in this repo: [`../Terraform and CF/terraform.md`](../Terraform%20and%20CF/terraform.md) for core Terraform syntax/workflow, [`../Continuous Integration/ci-fundamentals.md`](../Continuous%20Integration/ci-fundamentals.md) for general CI pipeline structure, [`../Kubernetes/K-pods.md`](../Kubernetes/K-pods.md) for pod resource concepts referenced by the Gatekeeper/Kyverno examples.
+Related notes elsewhere in this repo: [`../Terraform and CF/terraform.md`](../Terraform%20and%20CF/Terraform/terraform.md) for core Terraform syntax/workflow, [`../Continuous Integration/ci-fundamentals.md`](../Continuous%20Integration/ci-fundamentals.md) for general CI pipeline structure, [`../Kubernetes/K-pods.md`](../Kubernetes/K-pods.md) for pod resource concepts referenced by the Gatekeeper/Kyverno examples.
 
 ---
 

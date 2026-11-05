@@ -1,6 +1,6 @@
 # Argo CD: Helm & Kustomize Integration, RBAC and Multi-Cluster
 
-> Part of the [Argo CD notes](./Argo-cd.md). Start there for installation, Applications and sync policies; this note covers what comes next. Related: [Helm](../../Helm/README.md) · [Helm vs Kustomize](../../Helm/helm-vs-kustomize.md) · [GitOps](../../GitOps.md)
+> Part of the [Argo CD notes](./Argo-cd.md). Start there for installation, Applications and sync policies; this note covers what comes next. Related: [Helm](../../Helm/README.md) · [Helm vs Kustomize](../../Helm/helm-vs-kustomize.md) · [GitOps](../GitOps.md)
 
 ## 1. **Argo CD Integration with Helm and Kustomize**
 

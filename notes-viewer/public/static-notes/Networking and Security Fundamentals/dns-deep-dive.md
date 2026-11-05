@@ -83,7 +83,7 @@ dig -x 203.0.113.10              # reverse lookup (PTR)
 - Every Service gets a DNS name automatically: `<service>.<namespace>.svc.cluster.local`.
 - **CoreDNS** runs as a cluster addon, watches the Kubernetes API for Services/Endpoints, and serves records dynamically — no manual record management.
 - Pods' `/etc/resolv.conf` points at the CoreDNS ClusterIP with a search-domain list (`<namespace>.svc.cluster.local`, `svc.cluster.local`, `cluster.local`), which is why a short name like `my-service` resolves from within the same namespace.
-- See [Kubernetes Networking](../Kubernetes/Networking.md) and [Kubernetes Doubts](../Kubernetes/k8-doubts.md) for the practical Service/DNS interaction.
+- See [Kubernetes Networking](../Kubernetes/networking/Networking.md) and [Kubernetes Doubts](../Kubernetes/k8-doubts.md) for the practical Service/DNS interaction.
 
 ### DNS-Based Service Discovery vs SRV Records
 Some ecosystems (Consul, older SIP/XMPP systems) encode both host *and port* in DNS via **SRV records**, enabling dynamic service discovery without a separate registry — largely superseded in cloud-native stacks by Kubernetes Services + a control plane, but still relevant when integrating with legacy or VM-based service discovery.
@@ -138,6 +138,6 @@ Large-scale authoritative DNS (root servers, major providers, CDNs) is served vi
 ## Related Notes
 - [Networking & Security Fundamentals — Index](index.md)
 - [DNS & Global Load Balancing](../Load%20Balancing/dns-and-global-load-balancing.md)
-- [Kubernetes Networking](../Kubernetes/Networking.md)
+- [Kubernetes Networking](../Kubernetes/networking/Networking.md)
 - [TLS & Certificates](tls-and-certificates.md)
 - [DR Planning, Testing & Runbooks](../Backup%20and%20Disaster%20Recovery/dr-planning-testing-and-runbooks.md)

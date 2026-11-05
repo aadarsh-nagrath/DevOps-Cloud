@@ -52,7 +52,7 @@ Each process gets its own **virtual address space**. The kernel maps virtual pag
 
 When the kernel can't reclaim enough memory (page cache dropped, swap full or absent), the **OOM killer** chooses a victim by **`oom_score`**, roughly the process's share of RAM plus swap, adjusted by **`oom_score_adj`** (−1000 to +1000). It sends SIGKILL and logs `Out of memory: Killed process 1234 (java)` (see `dmesg -T`). In containers, the **cgroup limit** triggers its own OOM even when the host has free memory: K8s shows `OOMKilled`, exit code **137**. Under node pressure, kubelet's QoS-based `oom_score_adj` means **BestEffort pods die first and Guaranteed pods last**.
 
-Before an OOM you usually see swapping (`vmstat` `si/so`), major faults, `available` near zero, and PSI memory pressure rising (`/proc/pressure/memory`). Fixes: fix leaks, right-size limits, cap runtimes so they fit (`-XX:MaxRAMPercentage`), protect critical daemons with a negative `oom_score_adj`, and alert on memory working set against the limit. Notes: [Processes & Performance §4](../scripting/processes-and-performance.md#4-virtual-memory-oom-killer-disk-io-zombies--orphans).
+Before an OOM you usually see swapping (`vmstat` `si/so`), major faults, `available` near zero, and PSI memory pressure rising (`/proc/pressure/memory`). Fixes: fix leaks, right-size limits, cap runtimes so they fit (`-XX:MaxRAMPercentage`), protect critical daemons with a negative `oom_score_adj`, and alert on memory working set against the limit. Notes: [Processes & Performance §4](../Scripting/processes-and-performance.md#4-virtual-memory-oom-killer-disk-io-zombies--orphans).
 
 ### 02. How do you debug a disk I/O bottleneck?
 1. **Confirm it's I/O:** `top`/`vmstat 1` shows high `wa` and `b` > 0, load average high while CPU is mostly idle, tasks in `D` state (`ps -eo state,pid,cmd | awk '$1=="D"'`), and rising `/proc/pressure/io`.
@@ -332,7 +332,7 @@ Talking points:
 - For huge files: `zcat`/`gzip.open` for rotated logs, multiprocessing over files, or push the logs to Loki/Athena instead.
 - Make it useful operationally: run it from cron and alert when the 5xx rate crosses a threshold.
 
-Bash/awk versions: [35 Q24](./35-observability-rca-scripting-go-qna.md), [18 Q5](./18-practical-scripting-challenges-qna.md), [awk-mastery](../scripting/awk-mastery.md).
+Bash/awk versions: [35 Q24](./35-observability-rca-scripting-go-qna.md), [18 Q5](./18-practical-scripting-challenges-qna.md), [awk-mastery](../Scripting/awk-mastery.md).
 
 ---
 

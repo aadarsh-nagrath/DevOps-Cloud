@@ -8,10 +8,10 @@
 
 # CNCF Landscape Notes
 
-Deep-dive notes for CNCF (Cloud Native Computing Foundation) projects not already covered elsewhere in this repo (Istio/Linkerd live in [Service Mesh/](../Service%20Mesh/), Helm/ArgoCD in their own folders, Fluentd in [Monitoring and Loggin/](../Monitoring%20and%20Loggin/), Kyverno/OPA in [IaC Testing and Policy as Code/](../IaC%20Testing%20and%20Policy%20as%20Code/)).
+Deep-dive notes for CNCF (Cloud Native Computing Foundation) projects not already covered elsewhere in this repo (Istio/Linkerd live in [Service Mesh/](../Service%20Mesh/), Helm/ArgoCD in their own folders, Fluentd in [Monitoring and Loggin/](../Monitoring%20and%20Logging/), Kyverno/OPA in [IaC Testing and Policy as Code/](../IaC%20Testing%20and%20Policy%20as%20Code/)).
 
 Every tool folder has the same two-file layout:
-- **`<tool>.md`** — full notes (Beginner / Intermediate / Advanced / Quick Revision), same format as [prometheus.md](../Monitoring%20and%20Loggin/prometheous/prometheus.md).
+- **`<tool>.md`** — full notes (Beginner / Intermediate / Advanced / Quick Revision), same format as [prometheus.md](../Monitoring%20and%20Logging/prometheus/prometheus.md).
 - **`tutorial/local-setup.md`** — a hands-on, copy-pasteable walkthrough to run the tool locally (Docker and/or `kind`) and actually see it work.
 
 | Tool | Category | Notes | Tutorial |

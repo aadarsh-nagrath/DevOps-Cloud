@@ -120,8 +120,8 @@ spec:
 ## 6. Rolling vs Blue-Green vs Canary — Quick Distinction
 
 - **Rolling**: replaces instances gradually *in place*, within one environment/fleet. No separate environment, no traffic-splitting rules — the orchestrator itself is doing the gradual replacement.
-- **Blue-Green**: two *entirely separate* environments; traffic moves all-at-once via a switch, not gradually per-instance. See [Blue-Green Deployment/blue-green-deployment.md](Blue-Green%20Deployment/blue-green-deployment.md).
-- **Canary**: traffic is deliberately and controllably split by *percentage* (not just "however many instances have been swapped so far"), usually with automated metric analysis gating each traffic-percentage increase. See [Canary Deployment/canary-deployment.md](Canary%20Deployment/canary-deployment.md).
+- **Blue-Green**: two *entirely separate* environments; traffic moves all-at-once via a switch, not gradually per-instance. See [Blue-Green Deployment/blue-green-deployment.md](blue-green-deployment.md).
+- **Canary**: traffic is deliberately and controllably split by *percentage* (not just "however many instances have been swapped so far"), usually with automated metric analysis gating each traffic-percentage increase. See [Canary Deployment/canary-deployment.md](canary-deployment.md).
 
 Rolling updates are "good enough" risk mitigation for most services; reach for Canary when you need tighter, metrics-gated control over exactly how much traffic sees the new version at each step.
 

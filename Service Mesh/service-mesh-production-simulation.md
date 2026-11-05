@@ -163,7 +163,7 @@ done | sort | uniq -c
      16 Hello from v1
       4 Hello from v2
 ```
-Roughly 80/20, matching the configured weights — live, with zero redeploys of either `echo-v1` or `echo-v2`, and no changes to `curl-client` either. This is precisely the mechanism behind [Canary Deployment](../Deployment/Canary%20Deployment/canary-deployment.md), demonstrated directly at the `VirtualService` level. Try bumping `v2`'s weight to 100 and `v1`'s to 0, reapply, and rerun the loop — full promotion, no pod restarts required.
+Roughly 80/20, matching the configured weights — live, with zero redeploys of either `echo-v1` or `echo-v2`, and no changes to `curl-client` either. This is precisely the mechanism behind [Canary Deployment](../Deployment/canary-deployment.md), demonstrated directly at the `VirtualService` level. Try bumping `v2`'s weight to 100 and `v1`'s to 0, reapply, and rerun the loop — full promotion, no pod restarts required.
 
 ---
 
@@ -313,7 +313,7 @@ You'll see the `curl-client -> echo` edge appear with a live request rate, the p
 |---|---|
 | Pods show `2/2 Ready`, confirming automatic sidecar injection | Verifies the mesh is actually intercepting traffic, not just installed |
 | A plain `curl` call was transparently mTLS-encrypted | Zero-trust security applied with zero application code changes — see [security-and-mtls.md](security-and-mtls.md) |
-| Traffic split roughly matched the configured weight, live, with no redeploys | The exact mechanism behind canary rollouts — see [Canary Deployment](../Deployment/Canary%20Deployment/canary-deployment.md) |
+| Traffic split roughly matched the configured weight, live, with no redeploys | The exact mechanism behind canary rollouts — see [Canary Deployment](../Deployment/canary-deployment.md) |
 | Retries turned a 50%-failing backend into a near-100%-succeeding one, transparently | Resilience applied uniformly at the mesh layer, not duplicated in every caller's code |
 | Fault injection proved a timeout policy works without waiting for a real incident | Safe, repeatable resilience testing — verify your safety nets before you need them |
 | Kiali's graph updated live to reflect real observed traffic | Mesh observability requires zero app instrumentation — see [observability-in-service-mesh.md](observability-in-service-mesh.md) |

@@ -359,5 +359,5 @@ resource "google_compute_instance" "default" {
 ## 🔗 Related Notes
 - [AWS Notes](../AWS/aws.md)
 - [Azure Notes](../AZURE/azure.md)
-- [Terraform Notes](../../Terraform%20and%20CF/terraform.md)
+- [Terraform Notes](../../Terraform%20and%20CF/Terraform/terraform.md)
 - [Kubernetes Notes](../../Kubernetes/kubernetes.md)

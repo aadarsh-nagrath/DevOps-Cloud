@@ -1,6 +1,6 @@
 # AWS Networking — VPC, ELB, Route 53, CloudFront, Hybrid — Complete Notes
 
-> Part of [AWS hub](./aws.md). Long-form guide with Terraform: [Cloud Networking for DevOps](../Cloud-Networking-for-DevOps.md).
+> Part of [AWS hub](./aws.md). Long-form guide with Terraform: [Cloud Networking for DevOps](../Fundamentals/09-cloud-networking-for-devops.md).
 
 ---
 

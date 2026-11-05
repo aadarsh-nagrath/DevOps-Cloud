@@ -351,12 +351,29 @@ function getFolderIconClass(folderName, folderPath) {
   return 'fa-solid fa-folder-closed'; // Default folder closed
 }
 
+// Sidebar ordering: study/interview material and overviews first,
+// installation/setup material last, everything else in between.
+const STUDY_FOLDERS = /^(interview questions|cka|cheatsheets and books)$/;
+const OVERVIEW_FILES = /^(readme|index|imp_concepts)\.md$|learning-path/;
+const SETUP_ITEMS = /^tutorials?$|^course-files$|local-setup|install|^setup|sample-project/;
+
+function sortRank(key, isFile, parentPath) {
+  const name = key.toLowerCase();
+  if (SETUP_ITEMS.test(name)) return 3;
+  if (!isFile && !parentPath && name === 'interview questions') return -1;
+  if (!isFile && !parentPath && STUDY_FOLDERS.test(name)) return 0;
+  if (isFile && OVERVIEW_FILES.test(name)) return 0;
+  return isFile ? 2 : 1;
+}
+
 // Generate Nodes recursively
 function createTreeNodes(obj, container, autoExpand, parentPath = '') {
-  // Sort properties so folders appear first, then files
+  // Sort by rank (study first, setup last), folders before files, then name
   const keys = Object.keys(obj).sort((a, b) => {
     const aIsFile = obj[a]._file !== undefined;
     const bIsFile = obj[b]._file !== undefined;
+    const rankDiff = sortRank(a, aIsFile, parentPath) - sortRank(b, bIsFile, parentPath);
+    if (rankDiff !== 0) return rankDiff;
     if (aIsFile && !bIsFile) return 1;
     if (!aIsFile && bIsFile) return -1;
     return a.localeCompare(b);

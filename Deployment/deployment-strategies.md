@@ -90,8 +90,8 @@ flowchart TB
 |---|---|---|---|---|---|
 | [Recreate](recreate-deployment.md) | Yes (full outage) | Fast (redeploy old) | 1x (no extra capacity) | 100% of users | Lowest |
 | [Rolling Update](rolling-deployment.md) | None (if done right) | Medium (must roll back instance by instance) | ~1x–1.25x (a few extra instances mid-rollout) | Partial, grows during rollout | Low |
-| [Blue-Green](Blue-Green%20Deployment/blue-green-deployment.md) | None | Instant (flip traffic back) | 2x (full duplicate environment) | 0% until cutover, then 100% | Medium |
-| [Canary](Canary%20Deployment/canary-deployment.md) | None | Fast (shift traffic back to 0%) | ~1x–1.1x (small canary fleet) | Small % of users, controlled | Medium-High |
+| [Blue-Green](blue-green-deployment.md) | None | Instant (flip traffic back) | 2x (full duplicate environment) | 0% until cutover, then 100% | Medium |
+| [Canary](canary-deployment.md) | None | Fast (shift traffic back to 0%) | ~1x–1.1x (small canary fleet) | Small % of users, controlled | Medium-High |
 | [A/B Testing](ab-testing-deployment.md) | None | Fast | ~1x–1.1x | Small % of users, but running for a long time | High (needs analytics, not just ops) |
 | [Shadow / Dark Launch](shadow-deployment.md) | None | N/A (shadow traffic isn't user-facing) | ~2x compute (duplicate processing, no duplicate response path) | 0% (users never see shadow responses) | High |
 | [Feature Flags / Progressive Delivery](feature-flags-and-progressive-delivery.md) | None | Instant (flip flag off) | 1x (single deployed version, flag-gated) | Configurable per flag/segment | Medium (needs flag infra) |
@@ -104,8 +104,8 @@ flowchart TB
 |---|---|
 | [recreate-deployment.md](recreate-deployment.md) | Simplest strategy — stop everything, deploy new version, start everything. When downtime is acceptable. |
 | [rolling-deployment.md](rolling-deployment.md) | Gradually replace old instances with new ones. Kubernetes' default Deployment strategy. maxSurge/maxUnavailable tuning. |
-| [Blue-Green Deployment/blue-green-deployment.md](Blue-Green%20Deployment/blue-green-deployment.md) | Two full identical environments, instant traffic cutover, instant rollback. |
-| [Canary Deployment/canary-deployment.md](Canary%20Deployment/canary-deployment.md) | Gradual traffic shifting to a new version with automated metric-based promotion/rollback. |
+| [Blue-Green Deployment/blue-green-deployment.md](blue-green-deployment.md) | Two full identical environments, instant traffic cutover, instant rollback. |
+| [Canary Deployment/canary-deployment.md](canary-deployment.md) | Gradual traffic shifting to a new version with automated metric-based promotion/rollback. |
 | [ab-testing-deployment.md](ab-testing-deployment.md) | Deployment strategy vs product experimentation — running two versions to measure user behavior, not just verify technical health. |
 | [shadow-deployment.md](shadow-deployment.md) | Mirroring real production traffic to a new version without affecting real responses — the safest way to test at real scale. |
 | [feature-flags-and-progressive-delivery.md](feature-flags-and-progressive-delivery.md) | Decoupling deployment from release; ring-based/percentage rollouts controlled by flags rather than infrastructure. |

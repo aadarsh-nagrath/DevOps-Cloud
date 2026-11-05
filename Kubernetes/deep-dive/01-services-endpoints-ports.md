@@ -1,6 +1,6 @@
 # Services, Endpoints, Pod IPs & Ports — In Depth
 
-> Companion to [k8s-learning-path §4 & §30](../k8s-learning-path.md), [Networking.md](../Networking.md) and the [Ingress deep dive](../../Service%20Mesh/kubernetes-ingress-deep-dive.md). This file answers: *"when a request arrives, which IP and which port does it actually hit at each hop?"*
+> Companion to [k8s-learning-path §4 & §30](../k8s-learning-path.md), [Networking.md](../networking/Networking.md) and the [Ingress deep dive](../../Service%20Mesh/kubernetes-ingress-deep-dive.md). This file answers: *"when a request arrives, which IP and which port does it actually hit at each hop?"*
 
 ---
 

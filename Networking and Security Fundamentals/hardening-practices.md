@@ -28,7 +28,7 @@ The **Center for Internet Security (CIS) Benchmarks** are the industry-standard,
 4. **Change the default SSH port** only as defense-in-depth noise reduction (NOT a real security control — don't rely on it alone).
 5. **Enable a host firewall** (ufw/firewalld/nftables) with default-deny inbound — see [firewalls.md](firewalls.md).
 6. **Remove/disable unused services and packages** — every running service is attack surface.
-7. **Set up centralized logging** so host compromise attempts are visible — see [Monitoring & Logging](../Monitoring%20and%20Loggin/index.md).
+7. **Set up centralized logging** so host compromise attempts are visible — see [Monitoring & Logging](../Monitoring%20and%20Logging/index.md).
 
 ---
 
@@ -68,7 +68,7 @@ fs.suid_dumpable = 0                     # no core dumps from setuid processes (
 - **umask**: default `022` gives world-readable files; tighten to `027` in sensitive environments so new files aren't group/world-readable by default.
 - Set correct ownership/permissions on sensitive files: `chmod 600` on private keys, `chmod 644` + root ownership on config files that shouldn't be world-writable.
 - **`noexec`/`nosuid`/`nodev`** mount options on `/tmp`, `/var/tmp`: prevents executing binaries or exploiting setuid binaries staged in world-writable temp directories — a common privilege-escalation vector.
-- See [Linux Permissions](../scripting/linux-permissions.md) for the full chmod/chown/ACL reference this builds on.
+- See [Linux Permissions](../Scripting/linux-permissions.md) for the full chmod/chown/ACL reference this builds on.
 
 ### Least Privilege — IAM & Service Accounts
 - Every service/process should run as its own dedicated, minimally-privileged user — never run application processes as `root` unless a specific, unavoidable capability requires it (and even then, prefer granting just that Linux **capability** via `setcap` instead of full root).
@@ -104,7 +104,7 @@ Beyond standard Unix permissions (discretionary access control — the file owne
 
 ### Container & Kubernetes Hardening (Cross-Reference)
 This repo already has dedicated deep-dives — the summary connective tissue:
-- [Docker Security](../docker/docker-security.md): non-root containers, dropped capabilities, seccomp/AppArmor profiles, image scanning, read-only root filesystems, secrets handling.
+- [Docker Security](../Docker/docker-security.md): non-root containers, dropped capabilities, seccomp/AppArmor profiles, image scanning, read-only root filesystems, secrets handling.
 - [Container & Image Security](../Security%20in%20DevOps/container-and-image-security.md): base image minimization (distroless/scratch), SBOM generation, image signing (cosign), admission control (Kyverno/Gatekeeper) enforcing hardening policy at deploy time.
 - Kubernetes-specific: **Pod Security Standards** (`restricted` profile), disabling the default service account token auto-mount where unneeded, RBAC least privilege, NetworkPolicy default-deny (see [firewalls.md](firewalls.md#kubernetes-networkpolicy)), and etcd encryption at rest.
 
@@ -114,7 +114,7 @@ This repo already has dedicated deep-dives — the summary connective tissue:
 - **Runtime security** (Falco, Cilium Tetragon): eBPF-based detection of anomalous *runtime* behavior (unexpected shell spawned in a container, unexpected outbound connection) — catches what static hardening/scanning can't, because it observes actual behavior instead of configuration.
 
 ### Immutable Infrastructure as a Hardening Strategy
-Rather than patching a live, long-running server (which accumulates configuration drift and ad-hoc manual fixes over time), **immutable infrastructure** rebuilds instances from a fresh, hardened, patched image and replaces old ones entirely — drift becomes structurally impossible because nothing is ever mutated in place. This is the same principle underlying [Blue-Green Deployment](../Deployment/Blue-Green%20Deployment/blue-green-deployment.md) and golden-image pipelines, applied specifically as a security control rather than just a deployment strategy.
+Rather than patching a live, long-running server (which accumulates configuration drift and ad-hoc manual fixes over time), **immutable infrastructure** rebuilds instances from a fresh, hardened, patched image and replaces old ones entirely — drift becomes structurally impossible because nothing is ever mutated in place. This is the same principle underlying [Blue-Green Deployment](../Deployment/blue-green-deployment.md) and golden-image pipelines, applied specifically as a security control rather than just a deployment strategy.
 
 ### Secrets & Credential Hygiene
 - Never bake secrets into images/AMIs/container layers — inject at runtime via a secrets manager (Vault, AWS Secrets Manager, external-secrets-operator) — full treatment in [Secrets Management](../Security%20in%20DevOps/secrets-management.md).
@@ -150,6 +150,6 @@ Rather than patching a live, long-running server (which accumulates configuratio
 - [DevSecOps Overview](../Security%20in%20DevOps/devsecops-overview.md)
 - [IAM & Least Privilege](../Security%20in%20DevOps/iam-and-least-privilege.md)
 - [Container & Image Security](../Security%20in%20DevOps/container-and-image-security.md)
-- [Docker Security](../docker/docker-security.md)
+- [Docker Security](../Docker/docker-security.md)
 - [Secrets Management](../Security%20in%20DevOps/secrets-management.md)
-- [Linux Permissions](../scripting/linux-permissions.md)
+- [Linux Permissions](../Scripting/linux-permissions.md)

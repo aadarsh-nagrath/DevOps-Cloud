@@ -43,7 +43,7 @@ upstream backend {
     server 10.0.0.2 weight=1;   # gets ~25% of traffic
 }
 ```
-This same mechanism (weighted routing) is exactly how [canary deployments](../Deployment/Canary%20Deployment/canary-deployment.md) implement gradual traffic shifting — start the new version's weight at a small value and increase it as confidence grows.
+This same mechanism (weighted routing) is exactly how [canary deployments](../Deployment/canary-deployment.md) implement gradual traffic shifting — start the new version's weight at a small value and increase it as confidence grows.
 
 ## 3. Least Connections
 

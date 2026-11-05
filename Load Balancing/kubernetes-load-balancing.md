@@ -175,7 +175,7 @@ Everything above handles load balancing traffic *into* the cluster or between a 
 
 Why this matters beyond what kube-proxy already does:
 - **L7-aware internal load balancing**: retries, timeouts, circuit breaking per-service — kube-proxy has none of this, it's purely L4 round-robin-ish.
-- **Fine-grained traffic splitting** for canary/blue-green *between internal services*, not just at the cluster's edge — see [Canary Deployment](../Deployment/Canary%20Deployment/canary-deployment.md) for the Istio `VirtualService` weight-based example.
+- **Fine-grained traffic splitting** for canary/blue-green *between internal services*, not just at the cluster's edge — see [Canary Deployment](../Deployment/canary-deployment.md) for the Istio `VirtualService` weight-based example.
 - **mTLS between services** as a byproduct of the sidecar architecture (each sidecar proxy handles the encryption transparently).
 - **Rich per-service observability** (latency, error rate, request volume between every pair of services) without instrumenting application code.
 

@@ -107,7 +107,7 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | [GCP Storage & Databases](Cloud/GCP/gcp-storage-and-databases.md) | Cloud Storage, disks, Cloud SQL, AlloyDB, Spanner, Firestore, Bigtable, BigQuery |
 | [GCP Networking](Cloud/GCP/gcp-networking.md) | Global VPC, firewall, Cloud NAT, PGA/PSC, Shared VPC, VPN/Interconnect, LBs, CDN, Armor |
 | [GCP Data, DevOps & Operations](Cloud/GCP/gcp-data-devops-and-operations.md) | Pub/Sub, Dataflow, Composer, Cloud Build/Deploy, Operations suite, cost |
-| [Cloud Networking](Cloud/Cloud-Networking-for-DevOps.md) | VPC, Subnets, Load Balancers, DNS, CDN, hybrid connectivity |
+| [Cloud Networking](Cloud/Fundamentals/09-cloud-networking-for-devops.md) | VPC, Subnets, Load Balancers, DNS, CDN, hybrid connectivity |
 
 ---
 
@@ -118,10 +118,10 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | [☸️ Kubernetes Hub (start here)](Kubernetes/README.md) | Ordered learning path across every Kubernetes note, beginner → expert |
 | [Kubernetes Core](Kubernetes/kubernetes.md) | Pods, Deployments, Services, ConfigMaps, RBAC, namespaces |
 | [K8s Pods Deep Dive](Kubernetes/K-pods.md) | Pod lifecycle, init containers, probes, resource limits |
-| [Kubernetes Networking Deep Dive](Kubernetes/kubernetes-networking-deep-dive.md) | Network model, netns/veth/iptables, CNI & IPAM, packet walks (real IPIP capture), Calico/Cilium/VPC CNI, Service VIP internals (real kube-proxy chains), iptables/IPVS/nftables/eBPF, EndpointSlices, traffic policies, CoreDNS & ndots, Gateway API, NetworkPolicy (lab-tested), egress, EKS/GKE/AKS, MTU, troubleshooting playbook, lab |
-| [Kubernetes Networking](Kubernetes/Networking.md) | CNI, Services, Ingress, Network Policies, DNS |
+| [Kubernetes Networking Deep Dive](Kubernetes/networking/kubernetes-networking-deep-dive.md) | Network model, netns/veth/iptables, CNI & IPAM, packet walks (real IPIP capture), Calico/Cilium/VPC CNI, Service VIP internals (real kube-proxy chains), iptables/IPVS/nftables/eBPF, EndpointSlices, traffic policies, CoreDNS & ndots, Gateway API, NetworkPolicy (lab-tested), egress, EKS/GKE/AKS, MTU, troubleshooting playbook, lab |
+| [Kubernetes Networking](Kubernetes/networking/Networking.md) | CNI, Services, Ingress, Network Policies, DNS |
 | [Kubernetes Doubts](Kubernetes/k8-doubts.md) | Common questions, gotchas, and interview prep |
-| [Good Practice Networking](Kubernetes/good-practice-networking.md) | Production networking best practices |
+| [Good Practice Networking](Kubernetes/networking/good-practice-networking.md) | Production networking best practices |
 | [Ingress Examples](Kubernetes/examples/ingress-eg.md) | NGINX Ingress controller configurations |
 | [Kubernetes Learning Path](Kubernetes/k8s-learning-path.md) | Beginner → advanced learning & revision path across every core K8s topic |
 | [Deep Dives — Hub](Kubernetes/deep-dive/README.md) | Field-level companions to the learning path |
@@ -172,17 +172,17 @@ Welcome to the centralized index of all notes in this repository. Click any link
 
 | Note | Description |
 |---|---|
-| [Docker Fundamentals](docker/docker.md) | Overview & index — containers vs VMs, architecture, install, glossary |
-| [Docker Commands](docker/commands.md) | Essential Docker CLI cheat sheet |
-| [Docker Advanced](docker/docker-more.md) | Volume drivers, multi-stage builds, `Dockerfile.lock` |
-| [Dockerfile Deep Dive](docker/dockerfile-deep-dive.md) | Every instruction, build context, layer caching, BuildKit, buildx |
-| [Docker Networking](docker/docker-networking.md) | Bridge/host/overlay/macvlan drivers, DNS, port publishing, troubleshooting |
-| [Docker Storage & Volumes](docker/docker-storage-and-volumes.md) | Volumes vs bind mounts vs tmpfs, backup/restore, stateful patterns |
-| [Docker Compose](docker/docker-compose.md) | Multi-container apps, full YAML reference, profiles, override files |
-| [Docker Swarm](docker/docker-swarm.md) | Swarm mode, services, stacks, routing mesh, secrets |
-| [Docker Security](docker/docker-security.md) | Non-root, capabilities, seccomp/AppArmor, image scanning, secrets |
-| [Docker Registries & Distribution](docker/docker-registries-and-distribution.md) | Docker Hub vs private registries, tagging, auth, multi-arch manifests |
-| [Docker Production & Orchestration](docker/docker-production-and-orchestration.md) | Health checks, logging, restart policies, orchestrator comparison, CI/CD |
+| [Docker Fundamentals](Docker/docker.md) | Overview & index — containers vs VMs, architecture, install, glossary |
+| [Docker Commands](Docker/commands.md) | Essential Docker CLI cheat sheet |
+| [Docker Advanced](Docker/docker-more.md) | Volume drivers, multi-stage builds, `Dockerfile.lock` |
+| [Dockerfile Deep Dive](Docker/dockerfile-deep-dive.md) | Every instruction, build context, layer caching, BuildKit, buildx |
+| [Docker Networking](Docker/docker-networking.md) | Bridge/host/overlay/macvlan drivers, DNS, port publishing, troubleshooting |
+| [Docker Storage & Volumes](Docker/docker-storage-and-volumes.md) | Volumes vs bind mounts vs tmpfs, backup/restore, stateful patterns |
+| [Docker Compose](Docker/docker-compose.md) | Multi-container apps, full YAML reference, profiles, override files |
+| [Docker Swarm](Docker/docker-swarm.md) | Swarm mode, services, stacks, routing mesh, secrets |
+| [Docker Security](Docker/docker-security.md) | Non-root, capabilities, seccomp/AppArmor, image scanning, secrets |
+| [Docker Registries & Distribution](Docker/docker-registries-and-distribution.md) | Docker Hub vs private registries, tagging, auth, multi-arch manifests |
+| [Docker Production & Orchestration](Docker/docker-production-and-orchestration.md) | Health checks, logging, restart policies, orchestrator comparison, CI/CD |
 
 ---
 
@@ -190,24 +190,24 @@ Welcome to the centralized index of all notes in this repository. Click any link
 
 | Note | Description |
 |---|---|
-| [Terraform: Zero to Mastery (start here)](Terraform%20and%20CF/terraform.md) | Learning path, IaC fundamentals, architecture (core/providers/state), what init/plan/apply really do, reading plans, mental models, cheat sheet |
-| [Terraform HCL Language Deep Dive](Terraform%20and%20CF/terraform-hcl-language.md) | Types, `optional()`, variables & precedence, validation, locals, outputs, `for`/splat/`dynamic`, unknown values, sensitive vs ephemeral, functions, gotchas |
-| [Terraform Meta-Arguments & Lifecycle](Terraform%20and%20CF/terraform-meta-arguments-and-lifecycle.md) | `count` vs `for_each` (index-shift trap), `depends_on`, every `lifecycle` option, pre/postconditions, `check`, data sources, `terraform_data`, provisioners |
-| [Terraform State Deep Dive](Terraform%20and%20CF/terraform-state-deep-dive.md) | State JSON internals, backends, S3 native locking, `state` commands, import blocks, drift, secrets in state, splitting state, DR runbooks |
-| [Terraform Providers & Internals](Terraform%20and%20CF/terraform-providers-and-internals.md) | Version constraints, lock file, aliases (multi-region/account), DAG, plan internals, gRPC plugin protocol, mirrors, `TF_LOG` debugging |
-| [Terraform Modules](Terraform%20and%20CF/terraform-modules.md) | Sources & versioning, design rules, tested production VPC module, composition, anti-patterns, `terraform test` with mocks |
-| [Terraform CLI Reference](Terraform%20and%20CF/terraform-cli-reference.md) | Every command and the flags that matter, `-target`/`-replace`, plan files, env vars, exit codes, deprecated commands |
-| [Terraform Environments & CI/CD](Terraform%20and%20CF/terraform-environments-and-cicd.md) | Workspaces vs directories vs Terragrunt, team workflow, GitHub Actions + OIDC, Atlantis, HCP Terraform, secrets, quality gates |
-| [Terraform Production & Troubleshooting](Terraform%20and%20CF/terraform-production-and-troubleshooting.md) | `moved`/`removed`/`import` refactors, zero-downtime patterns, real error → fix table, upgrades, OpenTofu, outage gotchas, checklist |
-| [Terraform Hands-on Labs](Terraform%20and%20CF/terraform-hands-on-labs.md) | 12 verified labs (11 need no cloud account) + capstone |
-| [CloudFormation: Zero to Mastery (start here)](Terraform%20and%20CF/cloud-formation.md) | How CloudFormation works, every stack status, template sections, parameter types, all intrinsic functions, conditions, Rules, `Fn::ForEach`, dynamic references (templates cfn-lint-verified) |
-| [CloudFormation Updates, Rollbacks & Safety](Terraform%20and%20CF/cloudformation-updates-rollbacks-and-safety.md) | Replacement behaviour, change sets (incl. drift-aware), Deletion/UpdateReplacePolicy, stack policies, termination protection, rollback triggers, UPDATE_ROLLBACK_FAILED recovery, drift, import, stack refactoring |
-| [CloudFormation Composition & Extensibility](Terraform%20and%20CF/cloudformation-composition-and-extensibility.md) | Exports vs SSM vs nested stacks, StackSets, modules, macros, custom resources, registry types, Hooks, cfn-init/cfn-signal/Creation & UpdatePolicy |
-| [CloudFormation Tooling, CI/CD & Troubleshooting](Terraform%20and%20CF/cloudformation-tooling-cicd-and-troubleshooting.md) | cfn-lint and cfn-guard (real runs), SAM, CDK synth analysed, rain, taskcat, IaC generator, GitHub Actions + OIDC, error → fix table, CFN vs TF vs CDK vs Pulumi, migration |
-| [CloudFormation Hands-on Labs](Terraform%20and%20CF/cloudformation-hands-on-labs.md) | 10 sandbox labs: replacement, rollback, export locks, stack policies, drift, import, nested stacks, custom resources, Guard |
-| [Pulumi](Terraform%20and%20CF/pulumi.md) | IaC in real languages (TS/Python/Go), beginner → advanced, vs Terraform, CrossGuard policy, Automation API |
-| [Terraform Sample Project](Terraform%20and%20CF/sample-project.md) | End-to-end Terraform project walkthrough |
-| [Terraform Learn Log](Terraform%20and%20CF/learnlog.md) | Personal notes and learning progress |
+| [Terraform: Zero to Mastery (start here)](Terraform%20and%20CF/Terraform/terraform.md) | Learning path, IaC fundamentals, architecture (core/providers/state), what init/plan/apply really do, reading plans, mental models, cheat sheet |
+| [Terraform HCL Language Deep Dive](Terraform%20and%20CF/Terraform/terraform-hcl-language.md) | Types, `optional()`, variables & precedence, validation, locals, outputs, `for`/splat/`dynamic`, unknown values, sensitive vs ephemeral, functions, gotchas |
+| [Terraform Meta-Arguments & Lifecycle](Terraform%20and%20CF/Terraform/terraform-meta-arguments-and-lifecycle.md) | `count` vs `for_each` (index-shift trap), `depends_on`, every `lifecycle` option, pre/postconditions, `check`, data sources, `terraform_data`, provisioners |
+| [Terraform State Deep Dive](Terraform%20and%20CF/Terraform/terraform-state-deep-dive.md) | State JSON internals, backends, S3 native locking, `state` commands, import blocks, drift, secrets in state, splitting state, DR runbooks |
+| [Terraform Providers & Internals](Terraform%20and%20CF/Terraform/terraform-providers-and-internals.md) | Version constraints, lock file, aliases (multi-region/account), DAG, plan internals, gRPC plugin protocol, mirrors, `TF_LOG` debugging |
+| [Terraform Modules](Terraform%20and%20CF/Terraform/terraform-modules.md) | Sources & versioning, design rules, tested production VPC module, composition, anti-patterns, `terraform test` with mocks |
+| [Terraform CLI Reference](Terraform%20and%20CF/Terraform/terraform-cli-reference.md) | Every command and the flags that matter, `-target`/`-replace`, plan files, env vars, exit codes, deprecated commands |
+| [Terraform Environments & CI/CD](Terraform%20and%20CF/Terraform/terraform-environments-and-cicd.md) | Workspaces vs directories vs Terragrunt, team workflow, GitHub Actions + OIDC, Atlantis, HCP Terraform, secrets, quality gates |
+| [Terraform Production & Troubleshooting](Terraform%20and%20CF/Terraform/terraform-production-and-troubleshooting.md) | `moved`/`removed`/`import` refactors, zero-downtime patterns, real error → fix table, upgrades, OpenTofu, outage gotchas, checklist |
+| [Terraform Hands-on Labs](Terraform%20and%20CF/Terraform/terraform-hands-on-labs.md) | 12 verified labs (11 need no cloud account) + capstone |
+| [CloudFormation: Zero to Mastery (start here)](Terraform%20and%20CF/CloudFormation/cloud-formation.md) | How CloudFormation works, every stack status, template sections, parameter types, all intrinsic functions, conditions, Rules, `Fn::ForEach`, dynamic references (templates cfn-lint-verified) |
+| [CloudFormation Updates, Rollbacks & Safety](Terraform%20and%20CF/CloudFormation/cloudformation-updates-rollbacks-and-safety.md) | Replacement behaviour, change sets (incl. drift-aware), Deletion/UpdateReplacePolicy, stack policies, termination protection, rollback triggers, UPDATE_ROLLBACK_FAILED recovery, drift, import, stack refactoring |
+| [CloudFormation Composition & Extensibility](Terraform%20and%20CF/CloudFormation/cloudformation-composition-and-extensibility.md) | Exports vs SSM vs nested stacks, StackSets, modules, macros, custom resources, registry types, Hooks, cfn-init/cfn-signal/Creation & UpdatePolicy |
+| [CloudFormation Tooling, CI/CD & Troubleshooting](Terraform%20and%20CF/CloudFormation/cloudformation-tooling-cicd-and-troubleshooting.md) | cfn-lint and cfn-guard (real runs), SAM, CDK synth analysed, rain, taskcat, IaC generator, GitHub Actions + OIDC, error → fix table, CFN vs TF vs CDK vs Pulumi, migration |
+| [CloudFormation Hands-on Labs](Terraform%20and%20CF/CloudFormation/cloudformation-hands-on-labs.md) | 10 sandbox labs: replacement, rollback, export locks, stack policies, drift, import, nested stacks, custom resources, Guard |
+| [Pulumi](Terraform%20and%20CF/Pulumi/pulumi.md) | IaC in real languages (TS/Python/Go), beginner → advanced, vs Terraform, CrossGuard policy, Automation API |
+| [Terraform Sample Project](Terraform%20and%20CF/Terraform/sample-project.md) | End-to-end Terraform project walkthrough |
+| [Terraform Learn Log](Terraform%20and%20CF/Terraform/learnlog.md) | Personal notes and learning progress |
 
 ---
 
@@ -236,7 +236,7 @@ Welcome to the centralized index of all notes in this repository. Click any link
 
 | Note | Description |
 |---|---|
-| [GitOps](GitOps.md) | OpenGitOps principles, push vs pull, Argo CD and Flux internals (lab-verified on Argo CD v3.5 + Flux), repo layout, promotion, sync waves and hooks, drift/self-heal/prune, ApplicationSets, multi-cluster, secrets, image automation, progressive delivery, security, rollback/DR, troubleshooting, anti-patterns |
+| [GitOps](Continuous%20Delivery/GitOps.md) | OpenGitOps principles, push vs pull, Argo CD and Flux internals (lab-verified on Argo CD v3.5 + Flux), repo layout, promotion, sync waves and hooks, drift/self-heal/prune, ApplicationSets, multi-cluster, secrets, image automation, progressive delivery, security, rollback/DR, troubleshooting, anti-patterns |
 | [ArgoCD](Continuous%20Delivery/ArgoCD/Argo-cd.md) | ArgoCD setup, apps, sync policies, RBAC |
 | [ArgoCD + Helm/Kustomize, RBAC & Multi-Cluster](Continuous%20Delivery/ArgoCD/argo-cd-integration-helm.md) | Deploy Helm charts and Kustomize overlays via ArgoCD, RBAC policies, managing many clusters |
 | [CI/CD Pipeline Project](Project/cicd-pipeline.md) | Real-world pipeline implementation |
@@ -250,8 +250,8 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | [Deployment Strategies Overview](Deployment/deployment-strategies.md) | Index & comparison of all strategies, health checks, rollback, DB migrations |
 | [Recreate Deployment](Deployment/recreate-deployment.md) | Simplest strategy — full stop/start, accepted downtime |
 | [Rolling Deployment](Deployment/rolling-deployment.md) | Gradual instance replacement, maxSurge/maxUnavailable tuning |
-| [Blue-Green Deployment](Deployment/Blue-Green%20Deployment/blue-green-deployment.md) | Two full environments, instant cutover & rollback |
-| [Canary Deployment](Deployment/Canary%20Deployment/canary-deployment.md) | Gradual traffic shifting with automated metric-based promotion |
+| [Blue-Green Deployment](Deployment/blue-green-deployment.md) | Two full environments, instant cutover & rollback |
+| [Canary Deployment](Deployment/canary-deployment.md) | Gradual traffic shifting with automated metric-based promotion |
 | [A/B Testing](Deployment/ab-testing-deployment.md) | Product/business experimentation vs technical canary release |
 | [Shadow Deployment](Deployment/shadow-deployment.md) | Mirror real traffic to a new version with zero user-facing risk |
 | [Feature Flags & Progressive Delivery](Deployment/feature-flags-and-progressive-delivery.md) | Decoupling deploy from release, ring-based rollout, flag hygiene |
@@ -281,7 +281,7 @@ Welcome to the centralized index of all notes in this repository. Click any link
 
 | Note | Description |
 |---|---|
-| [Knative](Knative/knative.md) | Serving (revisions, traffic split), KPA autoscaling & scale-from-zero internals (activator/queue-proxy), Eventing (Broker/Trigger, CloudEvents), Functions, prod config, troubleshooting, interview Q&A |
+| [Knative](CNCF/knative/knative.md) | Serving (revisions, traffic split), KPA autoscaling & scale-from-zero internals (activator/queue-proxy), Eventing (Broker/Trigger, CloudEvents), Functions, prod config, troubleshooting, interview Q&A |
 
 ---
 
@@ -306,15 +306,15 @@ Welcome to the centralized index of all notes in this repository. Click any link
 
 | Note | Description |
 |---|---|
-| [Bash Scripting](scripting/bash-scripting.md) | Variables, loops, functions, error handling |
-| [Shell Scripting for DevOps](scripting/shell-scripting-devops.md) | Automation scripts, real DevOps use cases |
-| [Linux Commands](scripting/linux-cmds.md) | Essential Linux CLI commands reference, disk usage (`df -h`, `df -i`, `du`) and safe cleanup |
-| [Processes, Threads & Performance](scripting/processes-and-performance.md) | Process vs thread, process states, reading `top`/`htop`, `free`, slow-server troubleshooting order |
-| [Linux Permissions](scripting/linux-permissions.md) | chmod, chown, ACLs, umask explained |
-| [grep in Depth](scripting/grep-mastery.md) | Beginner → master: regex engines, PCRE lookarounds, script-safe exit codes, secret scanning + exercises |
-| [sed in Depth](scripting/sed-mastery.md) | Beginner → master: addresses, hold space, N/P/D, labels, idempotent config edits + exercises |
-| [awk in Depth](scripting/awk-mastery.md) | Beginner → master: fields, arrays, joins, functions, gawk FPAT/asort/percentiles, log reports + exercises |
-| [Text-Processing Lab](scripting/text-processing-lab.md) | Sample data (logs, CSV, configs, YAML) used by the grep/sed/awk exercises |
+| [Bash Scripting](Scripting/bash-scripting.md) | Variables, loops, functions, error handling |
+| [Shell Scripting for DevOps](Scripting/shell-scripting-devops.md) | Automation scripts, real DevOps use cases |
+| [Linux Commands](Scripting/linux-cmds.md) | Essential Linux CLI commands reference, disk usage (`df -h`, `df -i`, `du`) and safe cleanup |
+| [Processes, Threads & Performance](Scripting/processes-and-performance.md) | Process vs thread, process states, reading `top`/`htop`, `free`, slow-server troubleshooting order |
+| [Linux Permissions](Scripting/linux-permissions.md) | chmod, chown, ACLs, umask explained |
+| [grep in Depth](Scripting/grep-mastery.md) | Beginner → master: regex engines, PCRE lookarounds, script-safe exit codes, secret scanning + exercises |
+| [sed in Depth](Scripting/sed-mastery.md) | Beginner → master: addresses, hold space, N/P/D, labels, idempotent config edits + exercises |
+| [awk in Depth](Scripting/awk-mastery.md) | Beginner → master: fields, arrays, joins, functions, gawk FPAT/asort/percentiles, log reports + exercises |
+| [Text-Processing Lab](Scripting/text-processing-lab.md) | Sample data (logs, CSV, configs, YAML) used by the grep/sed/awk exercises |
 
 ---
 
@@ -350,17 +350,17 @@ Welcome to the centralized index of all notes in this repository. Click any link
 
 | Note | Description |
 |---|---|
-| [Monitoring & Logging Master Notes](Monitoring%20and%20Loggin/index.md) | Concepts tying it all together, beginner → advanced, folder map |
-| [Prometheus](Monitoring%20and%20Loggin/prometheous/prometheus.md) | Metrics collection, PromQL, alerting |
-| [Grafana](Monitoring%20and%20Loggin/grafana/grafana.md) | Visualization, dashboards, alerting |
-| [Loki](Monitoring%20and%20Loggin/loki/loki.md) | Label-indexed log aggregation, LogQL, PLG/LGTM stack, beginner → advanced |
-| [Elasticsearch](Monitoring%20and%20Loggin/elasticsearch/elasticsearch.md) | Search & analytics engine — storage layer of ELK |
-| [ELK / Logstash](Monitoring%20and%20Loggin/elk/logstash.md) | ELK stack overview, ingest/transform pipeline |
-| [Kibana](Monitoring%20and%20Loggin/kibana/kibana.md) | Visualization layer for Elasticsearch |
-| [Fluentd](Monitoring%20and%20Loggin/fluentid/fluentd.md) | Unified logging layer / log forwarder |
-| [Datadog](Monitoring%20and%20Loggin/datadog/datadog.md) | Commercial all-in-one observability SaaS |
-| [Dynatrace](Monitoring%20and%20Loggin/dynatrace/dynatrace.md) | OneAgent, Smartscape, Davis AI root cause, Grail/DQL, K8s Operator, DPS licensing, vs Datadog/OSS |
-| [Splunk](Monitoring%20and%20Loggin/splunk/splunk.md) | Forwarders/indexers/search heads, indexing pipeline & buckets, props/transforms, SPL deep dive, CIM/tstats, clustering & SmartStore, K8s via OTel, licensing/cost, troubleshooting, interview Q&A |
+| [Monitoring & Logging Master Notes](Monitoring%20and%20Logging/index.md) | Concepts tying it all together, beginner → advanced, folder map |
+| [Prometheus](Monitoring%20and%20Logging/prometheus/prometheus.md) | Metrics collection, PromQL, alerting |
+| [Grafana](Monitoring%20and%20Logging/grafana/grafana.md) | Visualization, dashboards, alerting |
+| [Loki](Monitoring%20and%20Logging/loki/loki.md) | Label-indexed log aggregation, LogQL, PLG/LGTM stack, beginner → advanced |
+| [Elasticsearch](Monitoring%20and%20Logging/elk/elasticsearch.md) | Search & analytics engine — storage layer of ELK |
+| [ELK / Logstash](Monitoring%20and%20Logging/elk/logstash.md) | ELK stack overview, ingest/transform pipeline |
+| [Kibana](Monitoring%20and%20Logging/elk/kibana.md) | Visualization layer for Elasticsearch |
+| [Fluentd](Monitoring%20and%20Logging/fluentd/fluentd.md) | Unified logging layer / log forwarder |
+| [Datadog](Monitoring%20and%20Logging/datadog/datadog.md) | Commercial all-in-one observability SaaS |
+| [Dynatrace](Monitoring%20and%20Logging/dynatrace/dynatrace.md) | OneAgent, Smartscape, Davis AI root cause, Grail/DQL, K8s Operator, DPS licensing, vs Datadog/OSS |
+| [Splunk](Monitoring%20and%20Logging/splunk/splunk.md) | Forwarders/indexers/search heads, indexing pipeline & buckets, props/transforms, SPL deep dive, CIM/tstats, clustering & SmartStore, K8s via OTel, licensing/cost, troubleshooting, interview Q&A |
 
 ---
 

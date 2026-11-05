@@ -11,7 +11,7 @@ AWS is the largest and broadest cloud platform (200+ services). This page is the
 | [AWS IAM & Security](./aws-iam-and-security.md) | IAM users/roles/policies, evaluation logic, permission boundaries, SCPs, STS, Identity Center, KMS, Secrets Manager, GuardDuty, Config, CloudTrail, WAF/Shield |
 | [AWS DevOps, IaC & Monitoring](./aws-devops-iac-monitoring.md) | CloudFormation, CDK, Terraform on AWS, CodePipeline/Build/Deploy, Systems Manager, CloudWatch, X-Ray, EventBridge |
 | [AWS Integration, Analytics & AI](./aws-integration-analytics-ai.md) | SQS, SNS, EventBridge, Kinesis, Step Functions, API Gateway, Athena/Glue, Bedrock, SageMaker |
-| [AWS Cloud Networking (multi-VPC guide)](../Cloud-Networking-for-DevOps.md) | Long-form networking guide with Terraform example |
+| [AWS Cloud Networking (multi-VPC guide)](../Fundamentals/09-cloud-networking-for-devops.md) | Long-form networking guide with Terraform example |
 
 Interview prep: [AWS Q&A (core)](../../Interview%20Questions/07-aws-cloud-qna.md) · [AWS Deep-Dive Q&A](../../Interview%20Questions/24-aws-deep-dive-qna.md) · [Architecture Scenarios](../../Interview%20Questions/27-cloud-architecture-scenarios-qna.md).
 

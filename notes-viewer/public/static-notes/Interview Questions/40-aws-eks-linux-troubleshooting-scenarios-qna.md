@@ -1,6 +1,6 @@
 # AWS / EKS / Linux Troubleshooting Scenarios (2–3 yrs) — Interview Questions & Answers
 
-> Part of the [Interview Questions](./README.md) hub. Five scenario questions that come up often in interviews for 2–3 years of experience. Each answer covers the investigation steps, the commands, and what the output tells you, and ends with an **interview-ready answer** you can say out loud. Background notes: [Processes & Performance](../scripting/processes-and-performance.md), [Disk Usage](../scripting/linux-cmds.md#disk-usage-df-du-inodes), [Reverse Proxy vs Load Balancer](../Load%20Balancing/load-balancing-overview.md#4-reverse-proxy-vs-load-balancer).
+> Part of the [Interview Questions](./README.md) hub. Five scenario questions that come up often in interviews for 2–3 years of experience. Each answer covers the investigation steps, the commands, and what the output tells you, and ends with an **interview-ready answer** you can say out loud. Background notes: [Processes & Performance](../Scripting/processes-and-performance.md), [Disk Usage](../Scripting/linux-cmds.md#disk-usage-df-du-inodes), [Reverse Proxy vs Load Balancer](../Load%20Balancing/load-balancing-overview.md#4-reverse-proxy-vs-load-balancer).
 
 **Answer every scenario in this order:** identify the symptom → gather metrics → isolate the root cause → apply a safe fix → verify recovery → prevent recurrence. Interviewers want to know which commands you'd run, what their output tells you, and what you'd do next. Definitions alone aren't enough.
 
@@ -78,7 +78,7 @@ Common causes: an infinite loop or regex backtracking, GC thrash from a memory l
 
 > **Interview-ready answer:** "I'd confirm it in CloudWatch and see when it started and whether it lines up with a deploy or traffic. On the box, I'd use `top` and `ps aux --sort=-%cpu` to find the process, and `uptime` against `nproc` plus `vmstat` to see whether it's really CPU or I/O wait or steal. On T instances I check the CPU credit balance first. For a Java process, I'd find the hot thread with `top -H`, match it in a `jstack` dump, and check GC with `jstat`. I'd collect that evidence before restarting anything, then fix the root cause or roll back, scale with an ASG if it's real load, and add alarms."
 
-**See also:** [28 Q01](./28-production-scenarios-rapid-round-qna.md#01-how-would-you-troubleshoot-high-cpu-memory-usage-and-disk-io-on-a-linux-server), [Processes & Performance](../scripting/processes-and-performance.md).
+**See also:** [28 Q01](./28-production-scenarios-rapid-round-qna.md#01-how-would-you-troubleshoot-high-cpu-memory-usage-and-disk-io-on-a-linux-server), [Processes & Performance](../Scripting/processes-and-performance.md).
 
 ---
 
@@ -136,7 +136,7 @@ Check **PodDisruptionBudgets** and replica counts before you drain, and check wh
 
 > **Interview-ready answer:** "I'd find the node with `kubectl describe node` and confirm `DiskPressure`. Then I'd get onto it through SSM and check `df -h`, `df -i` and `du` on `/var/log/pods`, `/var/lib/containerd` and `/var/lib/kubelet`. Images I'd clean through the runtime with `crictl rmi --prune`, never by deleting containerd files. Oversized logs point to an app that needs fixing. If the node is unhealthy, I'd cordon and drain it after checking PDBs and emptyDir use, and let the node group replace it. To stop it recurring: log rotation, ephemeral-storage limits, larger volumes, and disk and inode alerts."
 
-**See also:** [Disk Usage + safe cleanup](../scripting/linux-cmds.md#disk-usage-df-du-inodes), [38](./38-vpc-terraform-grafana-linux-scenarios-qna.md) (node pressure).
+**See also:** [Disk Usage + safe cleanup](../Scripting/linux-cmds.md#disk-usage-df-du-inodes), [38](./38-vpc-terraform-grafana-linux-scenarios-qna.md) (node pressure).
 
 ---
 
