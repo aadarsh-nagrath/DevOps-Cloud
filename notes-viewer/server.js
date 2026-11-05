@@ -1,6 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+const { buildSearchIndex } = require('./search-index');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -57,6 +58,23 @@ app.get('/api/notes', (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Failed to scan notes directory' });
+  }
+});
+
+// API for the full-text search index. Rebuilt only when a note was added,
+// removed or modified since the last request.
+let searchIndexCache = { signature: '', body: '' };
+app.get('/api/search-index', (req, res) => {
+  try {
+    const notes = scanDirectory(REPO_ROOT);
+    const signature = notes.map(n => `${n.path}:${n.size}:${+n.mtime}`).join('|');
+    if (signature !== searchIndexCache.signature) {
+      searchIndexCache = { signature, body: JSON.stringify(buildSearchIndex(REPO_ROOT, notes)) };
+    }
+    res.type('application/json').send(searchIndexCache.body);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to build search index' });
   }
 });
 

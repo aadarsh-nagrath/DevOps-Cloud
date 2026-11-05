@@ -69,6 +69,121 @@ Understanding system status and configurations is crucial for system administrat
 - `top`: Displays real-time information about running processes, CPU, and memory usage.
 - `htop`: Interactive process viewer for system monitoring.
 
+## Disk Usage (`df`, `du`, inodes)
+
+`df` reports usage **per filesystem** (what the kernel sees mounted). `du` walks **files and directories** and adds up their sizes. When the two disagree, that's usually a clue (see "Gotchas" below).
+
+### `df` — filesystem space
+- `df`: Usage per mounted filesystem, in 1K blocks (hard to read).
+- `df -h`: Human-readable sizes (`K`, `M`, `G`) — the one you'll type 90% of the time.
+- `df -H`: Human-readable using powers of 1000 instead of 1024 (matches what disk vendors print).
+- `df -h /var`: Show only the filesystem that holds `/var`.
+- `df -hT`: Add the filesystem **type** column (`ext4`, `xfs`, `overlay`, `tmpfs`, `nfs`).
+- `df -h -x tmpfs -x devtmpfs -x overlay`: Hide pseudo/container filesystems so only real disks show.
+- `df -t ext4 -h`: Show only filesystems of a given type.
+- `df -P`: POSIX output — one line per filesystem, never wrapped. Use this when piping to `awk` in scripts.
+- `df -h --output=source,fstype,size,used,avail,pcent,target`: Pick exactly the columns you want (GNU coreutils).
+- `df -l`: Local filesystems only (skip NFS/SMB mounts that may hang).
+
+### `df -i` — inodes
+Every file, directory, symlink and socket uses one **inode**. A filesystem can run out of inodes while still having plenty of free bytes — and then `touch`, `mkdir` and app writes fail with `No space left on device` even though `df -h` shows space.
+
+- `df -i`: Inode usage per filesystem (`Inodes`, `IUsed`, `IFree`, `IUse%`).
+- `df -ih`: Same, with counts shortened (`1.2M` instead of `1234567`).
+- `df -i /var`: Inodes for the filesystem holding `/var`.
+
+Typical causes of inode exhaustion: millions of tiny files in session/cache dirs (PHP sessions, mail queues, `/tmp`), unrotated small log files, container image layers under `/var/lib/docker`, build artifacts.
+
+```bash
+# Which directories hold the most files (inodes)? GNU du:
+du --inodes -x / 2>/dev/null | sort -n | tail -20
+
+# Portable fallback: count files per top-level dir
+for d in /var/*; do echo "$(find "$d" -xdev 2>/dev/null | wc -l) $d"; done | sort -n | tail
+```
+
+Note: `xfs` and `btrfs` allocate inodes dynamically, so inode exhaustion is mostly an `ext4` problem (inode count is fixed at `mkfs` time — `mkfs.ext4 -i <bytes-per-inode>` or `-N <count>`).
+
+### `du` — directory/file space
+- `du -sh /var/log`: Total size of one directory (`-s` summary, `-h` human-readable).
+- `du -sh *`: Size of each item in the current directory.
+- `du -sh .[!.]* *`: Same, including hidden files/dirs.
+- `du -h --max-depth=1 /var` (or `du -h -d 1 /var`): One level deep — the fastest way to drill down.
+- `du -ah /var/log`: Include files, not just directories.
+- `du -xh -d 1 /`: `-x` stays on one filesystem (don't descend into `/proc`, other mounts, NFS).
+- `du -ch *.log`: Sizes plus a grand total line (`-c`).
+- `du -sh --apparent-size file`: Logical size instead of blocks on disk (differs for sparse files like VM images).
+- `du -h --exclude='*.gz' /var/log`: Skip matching paths.
+
+```bash
+# Top 10 biggest directories under /var (sort -h understands K/M/G)
+du -xh -d 1 /var 2>/dev/null | sort -rh | head -10
+
+# Biggest files on the root filesystem
+find / -xdev -type f -size +500M -exec ls -lh {} + 2>/dev/null | sort -k5 -rh | head
+
+# Interactive explorer (if installed) — much nicer than chaining du
+ncdu -x /
+```
+
+### Disk-full troubleshooting flow
+```bash
+df -hT                      # 1. which filesystem is full? bytes or...
+df -i                       # 2. ...inodes?
+du -xh -d 1 / | sort -rh    # 3. drill down level by level
+sudo lsof +L1               # 4. deleted-but-still-open files (see below)
+```
+
+### Safe cleanup (production)
+Check what you're about to delete before you delete it, and prefer tools that know their own data over `rm`.
+
+```bash
+# systemd journal
+sudo journalctl --disk-usage
+sudo journalctl --vacuum-time=7d          # or --vacuum-size=500M
+
+# Rotated/compressed logs
+sudo du -sh /var/log/* | sort -rh | head
+sudo find /var/log -name '*.gz' -mtime +14 -delete
+sudo logrotate -f /etc/logrotate.conf     # force rotation if a log was never rotated
+
+# Docker
+docker system df                          # what's using space: images, containers, volumes, build cache
+docker image prune                        # dangling images only (safe)
+docker system prune                       # + stopped containers, unused networks, dangling images
+docker system prune -a --volumes          # also unused images AND volumes — data loss risk, review first
+
+# Kubernetes node (containerd)
+sudo crictl rmi --prune                   # remove images no container is using
+# kubelet also garbage-collects images at imageGCHighThresholdPercent (default 85%)
+
+# Package caches
+sudo apt-get clean      # Debian/Ubuntu
+sudo dnf clean all      # RHEL/Amazon Linux
+
+df -h                                     # verify the space came back
+```
+
+If the space doesn't come back after deleting, a process still has the file open — see `lsof +L1` below.
+
+### Gotchas
+- **`df` says full, `du` says small** → a process is still holding a **deleted** file open (classic with logs deleted instead of rotated). Space isn't freed until the process closes it. Find with `lsof +L1` or `lsof | grep '(deleted)'`, then restart the process or truncate via `: > /proc/<pid>/fd/<fd>`.
+- **Files hidden under a mount point**: data written to `/data` *before* a disk was mounted there still uses space on the root fs but is invisible to `du`. Check with a bind mount: `mount --bind / /mnt && du -sh /mnt/data`.
+- **Reserved blocks**: `ext4` reserves ~5% for root, so `Used + Avail < Size` and non-root users hit "full" early. View/change with `tune2fs -l /dev/sdX | grep -i reserved` / `tune2fs -m 1 /dev/sdX`.
+- **Never truncate a log with `rm`** on a live service — use `: > app.log` or `truncate -s 0 app.log` so the file handle stays valid.
+- **macOS/BSD**: `du` uses `-d 1` (no `--max-depth`), no `--inodes`; `df -i` works but is shown by default on macOS `df`.
+
+### In scripts
+```bash
+# Alert on any filesystem > 80% bytes or inodes (use -P so lines never wrap)
+df -P  | awk 'NR>1 && $5+0 > 80 {print "DISK  ", $6, $5}'
+df -Pi | awk 'NR>1 && $5+0 > 80 {print "INODES", $6, $5}'
+
+# Get just the % used for /, as a number
+used=$(df --output=pcent / | tail -1 | tr -dc '0-9')
+[ "$used" -gt 90 ] && echo "root fs at ${used}%"
+```
+
 ## Searching
 
 Efficiently search for files and patterns within files:

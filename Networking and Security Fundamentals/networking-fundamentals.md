@@ -170,6 +170,63 @@ tcpdump -i eth0 port 443  # raw packet capture for deep debugging
 nmap -p 1-65535 host      # port scan (only against systems you're authorized to test)
 ```
 
+### HTTP/1.1 vs HTTP/2 vs HTTP/3
+| | HTTP/1.1 (1997) | HTTP/2 (2015) | HTTP/3 (2022) |
+|---|---|---|---|
+| Transport | TCP | TCP | **QUIC over UDP** (443/udp) |
+| Format | Text | Binary frames | Binary frames (QPACK headers) |
+| Concurrency | One request at a time per connection (pipelining unused), so browsers open about 6 connections per host | **Multiplexed** streams on one connection | Multiplexed streams that are **independent at the transport level** |
+| Head-of-line blocking | At the HTTP level | Fixed at HTTP, but **still at TCP**: one lost packet stalls every stream | **Gone**: loss only stalls its own stream |
+| Header compression | None (repeated cookies and headers every time) | HPACK | QPACK |
+| TLS | Optional | Effectively required by browsers (ALPN `h2`) | **Built in** (TLS 1.3 inside QUIC) |
+| Handshake | TCP + TLS: 2–3 RTT | Same as 1.1 | 1 RTT, **0-RTT** on resumption |
+| Connection migration | No | No | Yes (connection ID survives Wi-Fi → 4G IP change) |
+| Server push | No | Yes, but deprecated (Chrome removed it) | Rarely used |
+
+Practical notes:
+- Browsers negotiate h2 through **ALPN** during the TLS handshake. Servers advertise h3 with an `Alt-Svc: h3=":443"` header (or a DNS HTTPS record), and the client switches to QUIC on a later request.
+- HTTP/2 makes HTTP/1-era hacks (domain sharding, sprite sheets, concatenated bundles) unnecessary or counter-productive.
+- **gRPC runs on HTTP/2**, so an L7 load balancer has to speak h2 to the backend. An L4 balancer pins every request on a long-lived connection to one pod, which is a common imbalance problem.
+- HTTP/3 helps most on lossy or mobile networks. Inside a data centre the gain is small, and UDP 443 must be allowed through firewalls and SGs. Many setups terminate h3 at the CDN or LB (CloudFront, Cloudflare) and use h1.1/h2 to origin.
+- Check: `curl -sI --http2 https://site -o /dev/null -w '%{http_version}\n'`, `curl --http3` (needs a curl built with HTTP/3), the browser DevTools "Protocol" column.
+
+The full browser-to-server walkthrough (DNS → TCP → TLS → LB → app) is in [Q&A 31 Q01](../Interview%20Questions/31-core-devops-scenarios-gap-fill-qna.md); TLS handshake in [tls-and-certificates.md](tls-and-certificates.md).
+
+### Troubleshooting Latency (method)
+Latency is the sum of several stages. Measure each one to find which is slow, rather than guessing.
+
+**1. Break one request into its phases with `curl`:**
+```bash
+curl -o /dev/null -s -w \
+'dns=%{time_namelookup} connect=%{time_connect} tls=%{time_appconnect} ttfb=%{time_starttransfer} total=%{time_total}\n' \
+https://api.example.com/health
+# dns=0.004 connect=0.021 tls=0.068 ttfb=1.912 total=1.915
+```
+These times are **cumulative**, so subtract to get each phase:
+| Phase | = | Slow means |
+|---|---|---|
+| DNS | `time_namelookup` | Resolver problem, no caching, `ndots:5` search-domain lookups in K8s, CoreDNS overloaded |
+| TCP connect | `connect − namelookup` | Network RTT, a long path, packet loss (SYN retransmits add 1 s, then 3 s), a full SYN backlog |
+| TLS | `appconnect − connect` | Handshake cost, slow OCSP, no session reuse, big cert chain, TLS 1.2 vs 1.3 |
+| Server time | `starttransfer − appconnect` | **The app or backend**: slow query, downstream call, GC, CPU saturation, thread pool exhaustion |
+| Transfer | `total − starttransfer` | Large payload, low bandwidth, no compression |
+
+In the example above, ttfb minus tls = 1.84 s, so the network is fine and **the server is slow**.
+
+**2. If it's the network:**
+```bash
+mtr -rwzc 100 api.example.com     # per-hop loss and latency (loss only at the last hop matters; mid-hop ICMP rate-limiting is normal)
+ping -c 50 host                   # RTT min/avg/max/mdev; high mdev = jitter
+ss -ti dst <ip>                   # per-connection rtt, retrans, cwnd
+nstat -az | grep -i retrans       # TCP retransmits system-wide climbing = loss
+tcpdump -i eth0 host <ip> -w cap.pcap   # then look for retransmissions/zero windows in Wireshark
+```
+Common causes: cross-AZ or cross-region hops (about 1–2 ms between AZs, tens of ms between regions), routing through a NAT gateway, proxy or inspection firewall, MTU/fragmentation black holes (large requests hang, small ones work), a saturated instance network limit (check `ethtool -S` for `bw_in_allowance_exceeded` on AWS ENA), and conntrack table full (`dmesg | grep conntrack`).
+
+**3. If it's the server:** compare the app's own latency metric with the load balancer's (`TargetResponseTime`). Look at p95/p99, not just averages. Use traces to find the slow span (DB, external API). Check saturation: CPU, `wa`, connection pools, thread pools, GC pauses. See [Processes & Performance](../scripting/processes-and-performance.md).
+
+**4. Narrow it down by asking:** is it every client or only some (one region or ISP means network/CDN)? Every endpoint or one (one endpoint means the code or a query)? Did it start after a deploy, a config change or a traffic spike? Does it happen from inside the VPC (with the LB and internet path removed)?
+
 ---
 
 ## 3. Advanced

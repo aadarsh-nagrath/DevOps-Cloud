@@ -169,7 +169,7 @@ sequenceDiagram
   CI->>CI: fmt -check, validate, tflint, checkov, terraform test
   CI->>Cloud: plan (read-only role) -out=tfplan
   CI->>PR: comment plan summary + policy results + cost diff
-  PR->>PR: review code AND plan; approve
+  PR->>PR: review code AND plan, then approve
   Dev->>PR: merge to main
   PR->>CI: trigger on main
   CI->>Cloud: plan again (or reuse artifact) → apply (write role, env protection/approval)

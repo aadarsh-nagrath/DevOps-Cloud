@@ -1220,8 +1220,8 @@
   {
     "name": "ci-fundamentals.md",
     "path": "Continuous Integration/ci-fundamentals.md",
-    "size": 11855,
-    "mtime": "2026-10-18T11:40:09.747Z"
+    "size": 15413,
+    "mtime": "2026-11-05T06:43:20.694Z"
   },
   {
     "name": "blue-green-deployment.md",
@@ -1508,8 +1508,8 @@
   {
     "name": "Index.md",
     "path": "Index.md",
-    "size": 48697,
-    "mtime": "2026-10-18T22:11:28.857Z"
+    "size": 50393,
+    "mtime": "2026-11-05T06:52:31.536Z"
   },
   {
     "name": "01-linux-and-scripting-qna.md",
@@ -1574,8 +1574,8 @@
   {
     "name": "11-monitoring-logging-observability-qna.md",
     "path": "Interview Questions/11-monitoring-logging-observability-qna.md",
-    "size": 25549,
-    "mtime": "2026-10-18T11:40:09.987Z"
+    "size": 27328,
+    "mtime": "2026-11-05T06:43:20.713Z"
   },
   {
     "name": "12-security-devsecops-qna.md",
@@ -1610,8 +1610,8 @@
   {
     "name": "17-messaging-caching-distributed-systems-qna.md",
     "path": "Interview Questions/17-messaging-caching-distributed-systems-qna.md",
-    "size": 23099,
-    "mtime": "2026-10-18T11:40:09.988Z"
+    "size": 28260,
+    "mtime": "2026-11-05T06:11:25.824Z"
   },
   {
     "name": "18-practical-scripting-challenges-qna.md",
@@ -1740,10 +1740,40 @@
     "mtime": "2026-10-18T10:04:54.784Z"
   },
   {
+    "name": "38-vpc-terraform-grafana-linux-scenarios-qna.md",
+    "path": "Interview Questions/38-vpc-terraform-grafana-linux-scenarios-qna.md",
+    "size": 73715,
+    "mtime": "2026-10-22T04:05:52.869Z"
+  },
+  {
+    "name": "39-ansible-aws-fintech-production-scenarios-qna.md",
+    "path": "Interview Questions/39-ansible-aws-fintech-production-scenarios-qna.md",
+    "size": 176806,
+    "mtime": "2026-11-03T10:04:57.588Z"
+  },
+  {
+    "name": "40-aws-eks-linux-troubleshooting-scenarios-qna.md",
+    "path": "Interview Questions/40-aws-eks-linux-troubleshooting-scenarios-qna.md",
+    "size": 24975,
+    "mtime": "2026-11-05T06:33:43.303Z"
+  },
+  {
+    "name": "41-linux-programming-dsa-gap-fill-qna.md",
+    "path": "Interview Questions/41-linux-programming-dsa-gap-fill-qna.md",
+    "size": 32510,
+    "mtime": "2026-11-05T06:52:31.534Z"
+  },
+  {
+    "name": "42-system-design-staff-sre-qna.md",
+    "path": "Interview Questions/42-system-design-staff-sre-qna.md",
+    "size": 26614,
+    "mtime": "2026-11-05T06:51:24.377Z"
+  },
+  {
     "name": "README.md",
     "path": "Interview Questions/README.md",
-    "size": 20206,
-    "mtime": "2026-10-18T10:04:59.218Z"
+    "size": 28935,
+    "mtime": "2026-11-05T06:52:31.535Z"
   },
   {
     "name": "knative.md",
@@ -1934,8 +1964,8 @@
   {
     "name": "load-balancing-overview.md",
     "path": "Load Balancing/load-balancing-overview.md",
-    "size": 6267,
-    "mtime": "2026-08-18T09:49:14.300Z"
+    "size": 10456,
+    "mtime": "2026-11-05T06:08:12.785Z"
   },
   {
     "name": "load-balancing-production-simulation.md",
@@ -1968,6 +1998,12 @@
     "mtime": "2026-10-18T11:40:09.833Z"
   },
   {
+    "name": "dynatrace.md",
+    "path": "Monitoring and Loggin/dynatrace/dynatrace.md",
+    "size": 10830,
+    "mtime": "2026-11-05T06:42:51.477Z"
+  },
+  {
     "name": "elasticsearch.md",
     "path": "Monitoring and Loggin/elasticsearch/elasticsearch.md",
     "size": 7848,
@@ -1994,8 +2030,8 @@
   {
     "name": "index.md",
     "path": "Monitoring and Loggin/index.md",
-    "size": 11292,
-    "mtime": "2026-10-18T11:40:09.830Z"
+    "size": 11435,
+    "mtime": "2026-11-05T06:43:20.793Z"
   },
   {
     "name": "kibana.md",
@@ -2048,8 +2084,8 @@
   {
     "name": "networking-fundamentals.md",
     "path": "Networking and Security Fundamentals/networking-fundamentals.md",
-    "size": 11987,
-    "mtime": "2026-10-18T11:40:09.834Z"
+    "size": 17027,
+    "mtime": "2026-11-05T06:47:25.650Z"
   },
   {
     "name": "proxy-servers.md",
@@ -2102,14 +2138,20 @@
   {
     "name": "linux-cmds.md",
     "path": "Scripting/linux-cmds.md",
-    "size": 5242,
-    "mtime": "2026-08-18T09:49:14.409Z"
+    "size": 11588,
+    "mtime": "2026-11-05T06:07:53.124Z"
   },
   {
     "name": "linux-permissions.md",
     "path": "Scripting/linux-permissions.md",
     "size": 7543,
     "mtime": "2026-10-18T11:40:09.640Z"
+  },
+  {
+    "name": "processes-and-performance.md",
+    "path": "Scripting/processes-and-performance.md",
+    "size": 16619,
+    "mtime": "2026-11-05T06:47:25.610Z"
   },
   {
     "name": "sed-mastery.md",
@@ -2120,8 +2162,8 @@
   {
     "name": "shell-scripting-devops.md",
     "path": "Scripting/shell-scripting-devops.md",
-    "size": 11100,
-    "mtime": "2026-10-18T11:40:09.639Z"
+    "size": 12994,
+    "mtime": "2026-11-05T06:42:51.890Z"
   },
   {
     "name": "text-processing-lab.md",
@@ -2414,8 +2456,8 @@
   {
     "name": "terraform-environments-and-cicd.md",
     "path": "Terraform and CF/terraform-environments-and-cicd.md",
-    "size": 16353,
-    "mtime": "2026-10-18T14:20:51.734Z"
+    "size": 16358,
+    "mtime": "2026-11-05T07:39:17.556Z"
   },
   {
     "name": "terraform-hands-on-labs.md",

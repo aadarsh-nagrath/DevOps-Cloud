@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { buildSearchIndex } = require('./search-index');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
 const PUBLIC_DIR = path.resolve(__dirname, 'public');
@@ -67,6 +68,12 @@ try {
     JSON.stringify(noteList, null, 2),
     'utf-8'
   );
+
+  // Full-text search index (section-level), loaded by the viewer's search panel
+  const searchIndex = buildSearchIndex(REPO_ROOT, noteList);
+  const searchIndexJson = JSON.stringify(searchIndex);
+  fs.writeFileSync(path.join(STATIC_NOTES_DIR, 'search-index.json'), searchIndexJson, 'utf-8');
+  console.log(`Search index: ${searchIndex.docs.length} notes, ${(searchIndexJson.length / 1e6).toFixed(1)} MB`);
 
   console.log(`Static build complete successfully! Copied ${noteList.length} notes and assets to public/static-notes/`);
 } catch (error) {

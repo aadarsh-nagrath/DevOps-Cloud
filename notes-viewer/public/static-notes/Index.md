@@ -25,7 +25,7 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | [Deployment Strategies, System Design & Behavioral Q&A](Interview%20Questions/14-deployment-systemdesign-behavioral-qna.md) | Rolling/blue-green/canary/shadow deployments, system-design scenarios, STAR-method behavioral prep |
 | [Python for DevOps Q&A](Interview%20Questions/15-python-for-devops-qna.md) | subprocess, boto3/AWS SDK, JSON/YAML parsing, testing/mocking, CLI tool design |
 | [Agile, Scrum & DevOps Culture Q&A](Interview%20Questions/16-agile-scrum-devops-culture-qna.md) | Scrum/Kanban, CALMS, the Three Ways, Conway's Law, driving cultural change |
-| [Messaging, Caching & Distributed Systems Q&A](Interview%20Questions/17-messaging-caching-distributed-systems-qna.md) | Kafka/RabbitMQ/SQS, Redis/CDN caching, CAP theorem, replication/sharding, microservices vs monolith |
+| [Messaging, Caching & Distributed Systems Q&A](Interview%20Questions/17-messaging-caching-distributed-systems-qna.md) | Kafka/RabbitMQ/SQS, Redis/CDN caching (incl. cache poisoning from failed DB reads), CAP theorem, replication/sharding, microservices vs monolith |
 | [Practical Scripting Challenges Q&A](Interview%20Questions/18-practical-scripting-challenges-qna.md) | Real live-coding-style tasks with working code (top processes, disk alerts, cert expiry, failover scripts) |
 | [Company-Specific Patterns & Behavioral-Plus Q&A](Interview%20Questions/19-company-specific-and-behavioral-plus-qna.md) | Amazon Leadership Principles, Google/SRE-style loops, resume walkthroughs, rapid-fire round-up |
 | [Roadmap Gap-Fill Q&A](Interview%20Questions/20-devops-roadmap-gap-fill-qna.md) | GitOps (Argo CD/Flux), production K8s design, DR, FinOps, observability at scale, supply chain security |
@@ -49,6 +49,9 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | [DevOps Fundamentals Screening Round Q&A](Interview%20Questions/37-devops-fundamentals-screening-round-qna.md) | First-round screen: web servers, Linux, Git, Jenkins, Docker, AWS, K8s, IaC |
 | [VPC, Terraform, Grafana & Linux Scenarios Q&A](Interview%20Questions/38-vpc-terraform-grafana-linux-scenarios-qna.md) | VPC/Terraform/Grafana basics, Linux production scenarios, three-round senior loop |
 | [Ansible, AWS Ops, Fintech Payments & Production Scenarios Q&A](Interview%20Questions/39-ansible-aws-fintech-production-scenarios-qna.md) | Full Ansible set, EC2/EBS/S3/DB ops, Docker & K8s production, Terraform drift/migration, UPI payments SRE loop, Git recovery |
+| [AWS / EKS / Linux Troubleshooting Scenarios Q&A](Interview%20Questions/40-aws-eks-linux-troubleshooting-scenarios-qna.md) | EC2 100% CPU, EKS node disk pressure, ALB 502/503, Java memory leak vs normal usage, NGINX load balancing |
+| [Linux Internals, Coding & DSA Gap-Fill Q&A](Interview%20Questions/41-linux-programming-dsa-gap-fill-qna.md) | OOM killer, disk I/O, zombies/orphans, HTTP/2 vs 3, Go/Python concurrency, backoff, memory leaks, LRU, top-K, rate limiter, sliding window |
+| [System Design & Staff/Principal SRE Q&A](Interview%20Questions/42-system-design-staff-sre-qna.md) | URL shortener, distributed rate limiter, backpressure, scaling to millions, MTBF, reliability standards, SLO adoption, cost, blast radius, influence |
 
 ---
 
@@ -283,7 +286,7 @@ Welcome to the centralized index of all notes in this repository. Click any link
 
 | Note | Description |
 |---|---|
-| [Load Balancing Overview](Load%20Balancing/load-balancing-overview.md) | Core concepts, glossary, where LBs sit in a real architecture |
+| [Load Balancing Overview](Load%20Balancing/load-balancing-overview.md) | Core concepts, glossary, where LBs sit in a real architecture, reverse proxy vs load balancer |
 | [Load Balancing Algorithms](Load%20Balancing/load-balancing-algorithms.md) | Round robin, least connections, IP hash, consistent hashing, latency-based |
 | [L4 vs L7 Load Balancing](Load%20Balancing/l4-vs-l7-load-balancing.md) | Transport vs application layer — what each can and can't do |
 | [Software Load Balancers](Load%20Balancing/software-load-balancers.md) | NGINX, HAProxy, Envoy — config examples and when to pick which |
@@ -302,7 +305,8 @@ Welcome to the centralized index of all notes in this repository. Click any link
 |---|---|
 | [Bash Scripting](scripting/bash-scripting.md) | Variables, loops, functions, error handling |
 | [Shell Scripting for DevOps](scripting/shell-scripting-devops.md) | Automation scripts, real DevOps use cases |
-| [Linux Commands](scripting/linux-cmds.md) | Essential Linux CLI commands reference |
+| [Linux Commands](scripting/linux-cmds.md) | Essential Linux CLI commands reference, disk usage (`df -h`, `df -i`, `du`) and safe cleanup |
+| [Processes, Threads & Performance](scripting/processes-and-performance.md) | Process vs thread, process states, reading `top`/`htop`, `free`, slow-server troubleshooting order |
 | [Linux Permissions](scripting/linux-permissions.md) | chmod, chown, ACLs, umask explained |
 | [grep in Depth](scripting/grep-mastery.md) | Beginner → master: regex engines, PCRE lookarounds, script-safe exit codes, secret scanning + exercises |
 | [sed in Depth](scripting/sed-mastery.md) | Beginner → master: addresses, hold space, N/P/D, labels, idempotent config edits + exercises |
@@ -352,6 +356,7 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | [Kibana](Monitoring%20and%20Loggin/kibana/kibana.md) | Visualization layer for Elasticsearch |
 | [Fluentd](Monitoring%20and%20Loggin/fluentid/fluentd.md) | Unified logging layer / log forwarder |
 | [Datadog](Monitoring%20and%20Loggin/datadog/datadog.md) | Commercial all-in-one observability SaaS |
+| [Dynatrace](Monitoring%20and%20Loggin/dynatrace/dynatrace.md) | OneAgent, Smartscape, Davis AI root cause, Grail/DQL, K8s Operator, DPS licensing, vs Datadog/OSS |
 | [Splunk](Monitoring%20and%20Loggin/splunk/splunk.md) | Forwarders/indexers/search heads, indexing pipeline & buckets, props/transforms, SPL deep dive, CIM/tstats, clustering & SmartStore, K8s via OTel, licensing/cost, troubleshooting, interview Q&A |
 
 ---

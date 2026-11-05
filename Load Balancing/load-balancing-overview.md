@@ -74,7 +74,78 @@ Real production systems usually have **load balancing at multiple layers simulta
 
 ---
 
-## 4. Files in This Folder
+## 4. Reverse Proxy vs Load Balancer
+
+A **reverse proxy** sits in front of servers and forwards client requests to them. The client only ever talks to the proxy. A **load balancer** spreads requests across *several* backends. Every L7 load balancer is a reverse proxy; a reverse proxy only becomes a load balancer once it has more than one backend to choose from. They aren't alternatives. NGINX, HAProxy, Envoy and AWS ALB all do both.
+
+**Reverse proxy, one backend:** NGINX on port 80 handles TLS and headers, and the app on port 3000 never faces the internet.
+```nginx
+server {
+    listen 80;
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_set_header Host              $host;
+        proxy_set_header X-Real-IP         $remote_addr;
+        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+**Load balancer, several backends:** same `proxy_pass`, but pointing at an `upstream` pool. Round robin is the default.
+```nginx
+upstream backend_servers {
+    # least_conn;                       # or ip_hash; / hash $request_uri consistent;
+    server 10.0.1.10:8080 weight=3;     # weighted: gets ~3x the requests
+    server 10.0.1.11:8080;
+    server 10.0.1.12:8080 max_fails=3 fail_timeout=30s;   # passive health check
+    server 10.0.1.13:8080 backup;       # only used when the others are down
+}
+server {
+    listen 80;
+    location / { proxy_pass http://backend_servers; }
+}
+```
+Algorithms in depth: [load-balancing-algorithms.md](load-balancing-algorithms.md).
+
+| | Reverse proxy | Load balancer |
+|---|---|---|
+| Main job | Single front door: forward, hide, protect backends | Spread traffic for scale and availability |
+| Backends | Works with just one | Needs two or more to mean anything |
+| Typical extras | TLS termination, caching, compression, auth, path/host routing, rate limiting | Health checks, failover, session affinity, connection draining |
+| Layer | L7 (HTTP) | L4 (TCP/UDP, e.g. AWS NLB) or L7 (HTTP, e.g. AWS ALB) |
+| Examples | NGINX, Apache `mod_proxy`, Traefik, Envoy, API gateways | AWS ALB/NLB, GCP LB, Azure LB/App Gateway, HAProxy, F5, NGINX `upstream` |
+
+**Forward proxy vs reverse proxy:** a forward proxy works for *clients* when they go out (Squid, corporate egress), and the server sees the proxy's IP. A reverse proxy works for *servers* when requests come in. See [proxy-servers.md](../Networking%20and%20Security%20Fundamentals/proxy-servers.md).
+
+### Real example: request path into AWS EKS
+```
+User / Browser
+   │  HTTPS
+   ▼
+AWS ALB                 ← L7 LB + TLS termination (ACM cert), WAF
+   │                      with AWS Load Balancer Controller the ALB *is* the Ingress:
+   │                      it routes by host/path straight to Pod IPs (target-type: ip)
+   ▼
+[Ingress controller]    ← only when you run NGINX/Traefik ingress behind an NLB instead
+   │                      (another reverse proxy layer, routes by host/path)
+   ▼
+Kubernetes Service      ← stable virtual IP / DNS name; kube-proxy (iptables/IPVS) balances at L4
+   │
+   ├──► Pod 1
+   ├──► Pod 2
+   └──► Pod 3
+```
+Load balancing happens at more than one layer here: the ALB across Pods or nodes, then kube-proxy across Pod endpoints. More in [kubernetes-load-balancing.md](kubernetes-load-balancing.md).
+
+### Interview follow-ups
+- **502 from the ALB/NGINX:** the proxy is up but got no valid response from the backend. Check that the app is listening on the right port, that health checks pass, that security groups or NetworkPolicy allow the traffic, and that `kubectl get endpoints <svc>` isn't empty. **503** means there are no healthy targets at all. **504** means the backend was too slow, so compare the proxy's timeout with the app's response time.
+- **L4 vs L7:** L4 sees only IP and port (fast, any TCP/UDP protocol, can pass TLS through). L7 reads HTTP, so it can route by path, header or cookie, terminate TLS and retry. See [l4-vs-l7-load-balancing.md](l4-vs-l7-load-balancing.md).
+- **Backend sees the proxy's IP instead of the client's:** read `X-Forwarded-For` (L7) or turn on PROXY protocol (L4/NLB).
+
+---
+
+## 5. Files in This Folder
 
 | File | Covers |
 |---|---|

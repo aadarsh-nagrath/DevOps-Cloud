@@ -163,6 +163,19 @@ An artifact is a file (or set of files) produced by one job that another job (or
 ```
 Why this matters: jobs (especially in GitHub Actions/CircleCI) often run in **completely separate, ephemeral environments** — a deploy job cannot simply "see" files a build job created unless they were explicitly passed along as an artifact. Forgetting this is a common early mistake ("why can't my deploy step find the file my build step created?").
 
+### Artifact versioning & promotion
+Pipeline artifacts (above) are temporary. **Release artifacts** (container images, JARs, Helm charts, zip bundles) go into a registry (ECR, GHCR, Artifactory, Nexus, Harbor) and must be traceable for their whole life.
+
+- **Build once, promote everywhere.** dev → staging → prod deploy the *same* artifact, identified by the same digest, with environment config injected at deploy time. Rebuilding per environment means prod runs something you never tested.
+- **Version scheme:**
+  - `MAJOR.MINOR.PATCH` (SemVer) for things others consume: libraries, charts, APIs. Use a breaking-change bump for MAJOR.
+  - The **git SHA** (and/or build number) for every build: `app:1.4.2`, `app:1.4.2-a1b2c3d`, `app:sha-a1b2c3d`.
+  - Avoid deploying `:latest`. It's mutable, you can't tell what's running, and you can't roll back to it.
+- **Immutable tags**: turn on tag immutability in ECR or Artifactory so `1.4.2` can never be overwritten. In Kubernetes, pin by **digest** (`image@sha256:…`) for exact reproducibility; GitOps tools and Kustomize can write digests for you.
+- **Promotion** means moving or retagging an already-tested artifact (`crane tag`, Artifactory promote, copying between `dev`/`prod` repos), not rebuilding it. A git tag or release triggers the prod deploy.
+- **Traceability**: store metadata with the artifact (OCI labels such as `org.opencontainers.image.revision`, build URL), an **SBOM**, and a **signature/provenance** (cosign, SLSA). Then you can answer "which commit and pipeline produced what's running in prod?" and admission policy can reject unsigned images. See [Supply Chain Security](../Security%20in%20DevOps/supply-chain-security.md).
+- **Rollback** = redeploy the previous known-good version. This only works if old versions are kept, so set registry retention rules: keep the last N releases plus everything deployed in the last X days, and delete untagged or PR builds.
+
 ---
 
 ## 9. Status Checks & Branch Protection
@@ -181,6 +194,22 @@ Combine this with requiring a minimum number of code review approvals for a real
 Every CI best practice above is really in service of one core principle: **the faster a developer learns their change broke something, the cheaper it is to fix.** A failure caught in 2 minutes (while the change is still fresh in the developer's mind, before they've moved on to something else) is far cheaper to fix than one caught a day later, or worse, in production.
 
 This is why: fast checks run on every push, slow checks are reserved for less frequent triggers; caching exists to keep pipelines fast; matrices run in parallel rather than sequentially; and status checks block merges rather than relying on people noticing failures after the fact.
+
+### Pipeline optimization checklist
+**Measure first.** Find the slowest stages (pipeline analytics, or job durations over the last N runs) and the most frequently failing or flaky ones. Fix the biggest of those first.
+
+| Lever | How |
+|---|---|
+| Cache dependencies | Key on the lockfile hash (§6); cache `~/.m2`, `~/.npm`, pip, Go modules |
+| Cache Docker layers | Order the Dockerfile so dependencies come before source; BuildKit `--cache-from`/`--cache-to type=registry`; multi-stage builds |
+| Parallelize | Independent jobs (lint ∥ unit ∥ SAST) run side by side; split tests across N runners by timing (`--shard`, CircleCI `tests split`) |
+| Do less | Path filters (`paths:` / `changes:`) so a docs change doesn't build everything; in monorepos, build only affected projects (Nx, Turborepo, Bazel); shallow clone (`fetch-depth: 1`) |
+| Fail fast | Cheapest checks first (lint, compile, unit), expensive ones (integration, E2E, DAST) later or nightly; `fail-fast` in matrices; cancel superseded runs (`concurrency: cancel-in-progress`) |
+| Faster runners | Larger or autoscaling self-hosted runners close to the registry; warm images with tools pre-installed |
+| Fix flaky tests | Quarantine and track them; retries hide them but don't fix them |
+| Build once | Reuse the same artifact across environments instead of rebuilding (§8) |
+
+A typical result: a 40-minute pipeline drops to about 10 minutes, with PR checks under 10 minutes as a common target. Q&A: [05 Q24](../Interview%20Questions/05-cicd-jenkins-github-actions-qna.md), [30 Q03](../Interview%20Questions/30-azure-production-scenarios-qna.md).
 
 ---
 

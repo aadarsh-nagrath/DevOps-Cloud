@@ -4,8 +4,6 @@ let currentPath = '';
 
 // DOM Elements
 const notesTreeEl = document.getElementById('notes-tree');
-const noteSearchEl = document.getElementById('note-search');
-const clearSearchEl = document.getElementById('clear-search');
 const welcomeScreenEl = document.getElementById('welcome-screen');
 const markdownContainerEl = document.getElementById('markdown-container');
 const noteContentEl = document.getElementById('note-content');
@@ -114,6 +112,8 @@ function handleHashNavigation() {
   const hash = window.location.hash;
   if (hash && hash.startsWith('#')) {
     const targetPath = decodeURIComponent(hash.substring(1));
+    // loadNote() sets the hash itself; don't reload (and wipe search highlights) for that echo
+    if (targetPath === currentPath) return;
     const matchedNote = allNotes.find(n => n.path === targetPath);
     if (matchedNote) {
       loadNote(matchedNote.path);
@@ -129,23 +129,8 @@ function handleHashNavigation() {
 
 // Setup listeners
 function setupEventListeners() {
-  // Search filtering
-  noteSearchEl.addEventListener('input', (e) => {
-    const q = e.target.value.toLowerCase().trim();
-    if (q) {
-      clearSearchEl.style.display = 'block';
-      filterNotes(q);
-    } else {
-      clearSearchEl.style.display = 'none';
-      renderTree(allNotes);
-    }
-  });
-
-  clearSearchEl.addEventListener('click', () => {
-    noteSearchEl.value = '';
-    clearSearchEl.style.display = 'none';
-    renderTree(allNotes);
-  });
+  // Full-text search palette (defined in search.js)
+  setupSearch();
 
   // Theme Toggle
   themeToggleEl.addEventListener('click', toggleTheme);
@@ -164,14 +149,6 @@ function setupEventListeners() {
 
   // Handle browser back/forward buttons
   window.addEventListener('hashchange', handleHashNavigation);
-}
-
-// Filter notes for search
-function filterNotes(query) {
-  const filtered = allNotes.filter(note => {
-    return note.name.toLowerCase().includes(query) || note.path.toLowerCase().includes(query);
-  });
-  renderTree(filtered, true); // Auto-expand all during search
 }
 
 // Parse flat array into Hierarchical Object Tree
@@ -542,8 +519,10 @@ function getYouTubeEmbedUrl(url) {
 // Fetch and load notes content
 const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
 
-async function loadNote(notePath) {
+// highlight: optional { terms, heading } from a search result, applied after rendering
+async function loadNote(notePath, highlight = null) {
   if (isMobile()) sidebarEl.classList.add('hidden');
+  clearNoteHighlights();
   // Highlight folder in list
   currentPath = notePath;
   indexPinEl.classList.toggle('active', indexPinEl.dataset.path === notePath);
@@ -605,7 +584,24 @@ async function loadNote(notePath) {
     if (mermaidBlocks.length && window.mermaid) {
       const dark = (document.documentElement.getAttribute('data-theme') || 'light') !== 'light';
       mermaid.initialize({ startOnLoad: false, theme: dark ? 'dark' : 'default' });
-      await mermaid.run({ nodes: noteContentEl.querySelectorAll('.mermaid') });
+      // Render diagrams one at a time: a syntax error in one diagram must not take down the whole note
+      for (const div of noteContentEl.querySelectorAll('.mermaid')) {
+        const source = div.textContent;
+        try {
+          await mermaid.run({ nodes: [div] });
+        } catch (diagramErr) {
+          console.warn('Mermaid diagram failed to render:', diagramErr);
+          const fallback = document.createElement('div');
+          fallback.className = 'mermaid-error';
+          fallback.innerHTML = `<div class="mermaid-error-msg"><i class="fa-solid fa-diagram-project"></i> Diagram couldn't be rendered, showing its source</div>`;
+          const pre = document.createElement('pre');
+          const code = document.createElement('code');
+          code.textContent = source;
+          pre.appendChild(code);
+          fallback.appendChild(pre);
+          div.replaceWith(fallback);
+        }
+      }
     }
 
     // Run Prism.js on container to format styles
@@ -613,6 +609,9 @@ async function loadNote(notePath) {
     
     // Smooth scroll content to top
     document.querySelector('.viewer-body').scrollTop = 0;
+
+    // Mark search hits last, so Prism/Mermaid don't overwrite them
+    if (highlight && currentPath === notePath) highlightInNote(highlight.terms, highlight.heading);
   } catch (err) {
     noteContentEl.innerHTML = `<div class="error-msg"><i class="fa-solid fa-triangle-exclamation"></i> Error loading file content: ${err.message}</div>`;
     console.error(err);

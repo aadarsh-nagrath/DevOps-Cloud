@@ -26,11 +26,11 @@
         <p class="subtitle">Personal Learning Dashboard</p>
       </div>
 
-      <div class="search-box">
+      <button type="button" class="search-trigger" id="search-trigger" title="Search all notes">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" id="note-search" placeholder="Search notes..." autocomplete="off">
-        <button id="clear-search" class="clear-btn" style="display: none;"><i class="fa-solid fa-xmark"></i></button>
-      </div>
+        <span>Search all notes…</span>
+        <kbd class="kbd-hint">⌘K</kbd>
+      </button>
 
       <a href="#Index.md" id="index-pin" class="tree-file index-pin" style="display: none;">
         <i class="fa-solid fa-map icon-index file-icon"></i> <span>Index</span>
@@ -56,6 +56,9 @@
           </div>
         </div>
         <div class="header-right" style="display: flex; gap: 12px;">
+          <button id="header-search" class="icon-btn" title="Search all notes (⌘K or /)">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
           <a href="https://github.com/aadarsh-nagrath/DevOps-Cloud" target="_blank" class="icon-btn" title="Contribute on GitHub">
             <i class="fa-brands fa-github"></i>
           </a>
@@ -89,7 +92,43 @@
           </article>
         </div>
       </section>
+
+      <!-- In-note match navigator, shown after opening a search result -->
+      <div class="find-bar" id="find-bar" hidden>
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <span class="find-query" id="find-query"></span>
+        <span class="find-count" id="find-count"></span>
+        <button type="button" class="find-btn" id="find-prev" title="Previous match (Shift+Enter)"><i class="fa-solid fa-chevron-up"></i></button>
+        <button type="button" class="find-btn" id="find-next" title="Next match (Enter)"><i class="fa-solid fa-chevron-down"></i></button>
+        <button type="button" class="find-btn" id="find-close" title="Clear highlights (Esc)"><i class="fa-solid fa-xmark"></i></button>
+      </div>
     </main>
+  </div>
+
+  <!-- Full-text search palette -->
+  <div class="search-overlay" id="search-overlay" hidden>
+    <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search all notes">
+      <div class="search-input-row">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="search-input" placeholder="Search every note… e.g. df -i, &quot;blue-green&quot;, OOMKilled" autocomplete="off" spellcheck="false">
+        <button type="button" class="clear-btn" id="search-clear" title="Clear" hidden><i class="fa-solid fa-xmark"></i></button>
+        <button type="button" class="search-esc" id="search-close" title="Close (Esc)">Esc</button>
+      </div>
+      <div class="search-scopes" id="search-scopes" role="tablist">
+        <button type="button" class="scope-chip active" data-scope="all">All</button>
+        <button type="button" class="scope-chip" data-scope="notes">Notes</button>
+        <button type="button" class="scope-chip" data-scope="qna">Interview Q&amp;A</button>
+        <button type="button" class="scope-chip" data-scope="cka">CKA</button>
+        <span class="search-status" id="search-status"></span>
+      </div>
+      <div class="search-results" id="search-results" role="listbox"></div>
+      <div class="search-footer">
+        <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+        <span><kbd>↵</kbd> open</span>
+        <span><kbd>"…"</kbd> exact phrase</span>
+        <span><kbd>Esc</kbd> close</span>
+      </div>
+    </div>
   </div>
 
   <!-- CDN scripts -->
@@ -109,5 +148,6 @@
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
 
   <script src="app.js"></script>
+  <script src="search.js"></script>
 </body>
 </html>

@@ -431,6 +431,37 @@ cat hosts.txt | xargs -P 4 -I{} ssh {} "df -h /"
 ```
 - Always redirect output in crontab entries — cron mail delivery is unreliable/unconfigured on most hosts, and silent failures are the #1 cause of "it broke and nobody noticed."
 - Cron runs with a minimal `PATH` and no shell profile loaded — use absolute paths to binaries or explicitly `source` the environment at the top of the script.
+- **Prevent overlapping runs** when a job can take longer than its interval: `*/5 * * * * flock -n /run/lock/sync.lock /opt/scripts/sync.sh` (`-n` skips this run if the previous one still holds the lock).
+- **Monitor that the job ran, not only whether it failed.** A job that silently stops running never logs an error. Have the script ping a dead-man's switch at the end (`curl -fsS https://hc-ping.com/<uuid>`, Healthchecks.io/Cronitor), or push a "last success" timestamp metric and alert when it's stale.
+- `%` is special in crontab (it means newline), so escape it: `date +\%F`. Cron uses the server's timezone (often UTC); set `CRON_TZ=` if you need another.
+
+### systemd timers (the modern alternative to cron)
+```ini
+# /etc/systemd/system/backup.service
+[Unit]
+Description=Nightly backup
+[Service]
+Type=oneshot
+ExecStart=/opt/scripts/backup.sh
+User=backup
+
+# /etc/systemd/system/backup.timer
+[Unit]
+Description=Run backup nightly
+[Timer]
+OnCalendar=*-*-* 02:00:00
+Persistent=true            # run on boot if the box was off at 02:00
+RandomizedDelaySec=10m     # spread load across a fleet
+[Install]
+WantedBy=timers.target
+```
+```bash
+sudo systemctl daemon-reload && sudo systemctl enable --now backup.timer
+systemctl list-timers                 # next/last run of every timer
+journalctl -u backup.service -n 50    # output and exit code are logged automatically
+systemd-analyze calendar 'Mon *-*-* 02:00'   # check an OnCalendar expression
+```
+Why you'd pick timers over cron: logging is built into journald, there's no overlap (a timer won't start a unit that's still running), missed runs catch up with `Persistent=`, you get dependencies (`After=network-online.target`) and resource limits (`MemoryMax=`, `CPUQuota=`), and `OnFailure=` can trigger an alert unit. In Kubernetes the equivalent is a **CronJob** (`concurrencyPolicy: Forbid`, `startingDeadlineSeconds`, `backoffLimit`).
 
 ---
 

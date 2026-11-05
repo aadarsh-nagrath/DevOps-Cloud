@@ -115,3 +115,81 @@ This is a case where the earlier "eventual consistency is often fine" framing ex
 
 ### 21. Your organization is considering migrating from a monolith to microservices primarily because "the monolith is slow to deploy and everyone's stepping on each other." What questions would you ask before recommending that path, and what alternatives might address the same pain without the full cost of microservices?
 Before recommending a full microservices migration (which carries substantial, real operational cost — distributed transactions, network reliability between what used to be in-process calls, many more independently-deployed and independently-monitored units, and usually more infrastructure/platform investment to do well), probe whether the actual root cause is architectural coupling or simply *organizational/process* friction that a less drastic change could address: is the slow-deploy pain caused by genuine tight coupling in the codebase (a change to one area unavoidably requires touching/retesting unrelated areas), or by process issues that a monolith doesn't inherently cause (a single, slow, manual test suite gating every deploy; a single team owning deploys for a codebase multiple independent teams contribute to, creating a bottleneck; poor internal module boundaries within the monolith causing unrelated changes to conflict, which better internal modularity — a "modular monolith" — could address without actually splitting into separately-deployed services at all). Alternatives worth genuinely considering first: improving internal modularity/ownership boundaries within the existing monolith (often addresses "everyone's stepping on each other" directly, since the real cause is frequently unclear internal boundaries, not the deployment unit itself), investing in CI/CD/test suite speed and reliability (directly addresses "slow to deploy" without any architectural change), and, if genuinely warranted, extracting only the *specific* highest-pain, most independently-scalable pieces into separate services incrementally (a strangler-fig-style migration) rather than committing to a full, upfront microservices rewrite — the senior-level judgment being demonstrated here is recognizing that microservices is a tool suited to specific, real problems (independent scaling needs, genuinely independent team ownership at scale) and not treating it as a default fix for what might actually be a process or code-organization problem addressable far more cheaply.
+
+### 22. How do you avoid caching bugs where a failed or empty database response gets cached?
+**Setup:** PostgreSQL is the source of truth, Redis is the cache, and a Python/FastAPI backend uses cache-aside (Q16). A hit returns from Redis. A miss queries PostgreSQL and writes the result back to Redis with a TTL.
+
+```mermaid
+flowchart LR
+    C[Client request] --> R{Redis has key?}
+    R -->|HIT| H[Return cached data]
+    R -->|MISS| DB[(Query PostgreSQL)]
+    DB -->|success| S[SET key with TTL] --> RET[Return data]
+    DB -->|timeout / error| E[Return 503 or stale copy - do NOT cache]
+```
+
+**Where the bug happens:**
+1. A user requests `/api/users/123`, and Redis has no entry for it.
+2. The app queries PostgreSQL, which is briefly unavailable, and the query **times out**.
+3. The code catches the exception and returns `None` or `{}`, as if the user didn't exist.
+4. The caching layer can't tell the difference, so it stores `{}` for **1 hour**.
+5. PostgreSQL recovers a minute later, but every request keeps getting the empty response from Redis until the TTL runs out.
+
+A 60-second database blip has become a one-hour outage for those users. This is a **cache-poisoning (cache-correctness) bug**: an invalid result was cached as if it were valid. It usually comes from a broad `except: return None` sitting under a caching decorator.
+
+**The rule: cache only results you have confirmed are successful.** A query that failed is different from a query that succeeded and found nothing.
+
+| Database result | Cache it? | Why |
+|---|---|---|
+| Valid record returned | Yes, normal TTL | Successful response |
+| Database timeout | **No** | Temporary failure |
+| Connection error / pool exhausted | **No** | Infrastructure problem, not data |
+| SQL / query error | **No** | Bug or schema problem; caching hides it |
+| Record genuinely not found | Sometimes, with a **short** TTL (30–60 s) | Negative caching protects the DB from repeated lookups of missing keys (cache penetration), but must expire fast |
+| Valid empty list (e.g. user has no orders) | Yes, if that's a real answer | A legitimate empty result is still a successful query |
+
+**What it looks like in code:** let errors propagate, and store "not found" as an explicit marker rather than as an empty value:
+
+```python
+import json
+import redis.asyncio as redis
+from fastapi import FastAPI, HTTPException
+from sqlalchemy.exc import SQLAlchemyError
+
+app = FastAPI()
+r = redis.Redis()
+NOT_FOUND = "__not_found__"          # explicit marker, never confused with {} or null
+
+@app.get("/api/users/{user_id}")
+async def get_user(user_id: int):
+    key = f"user:{user_id}"
+    cached = await r.get(key)
+    if cached is not None:
+        if cached.decode() == NOT_FOUND:
+            raise HTTPException(404)
+        return json.loads(cached)
+
+    try:
+        row = await db.fetch_user(user_id)    # raises on timeout / connection / SQL error
+    except SQLAlchemyError:
+        # Failure: do NOT write to the cache. Return an error (or a stale copy, see below).
+        raise HTTPException(503, "database unavailable")
+
+    if row is None:                           # query succeeded, record really doesn't exist
+        await r.set(key, NOT_FOUND, ex=60)    # short negative-cache TTL
+        raise HTTPException(404)
+
+    await r.set(key, json.dumps(row), ex=3600)
+    return row
+```
+
+**Other defences:**
+- **Never catch everything and return an empty value** in the data layer. Catch the specific exceptions and re-raise them, so the caller (and the cache) can see that it was a failure.
+- **Validate before `SET`**: check the schema and required fields, and reject `None` or partial objects. Only cache responses with a 2xx status, and never cache HTTP 5xx bodies. The same rule applies to CDN and NGINX caches (`proxy_cache_valid 200 10m;` and nothing for 5xx).
+- **Use different TTLs**: long for positive hits, short for negative results. Add jitter (for example `3600 ± random(300)`) so many keys don't expire at the same moment.
+- **Serve stale on error**: keep the last good value (a longer-lived `user:123:stale` key, or the soft-TTL pattern) and return it when the database is down. This is safer than returning nothing, and it's what `stale-if-error` does for HTTP caches.
+- **Protect against cache stampedes**: when a popular key expires during a database incident, let only one request rebuild it, using a lock (`SET lock:key 1 NX EX 10`) or request coalescing. A circuit breaker on the database call adds protection.
+- **Have a recovery plan**: you need a way to purge poisoned keys (`DEL`, or bump a key version prefix such as `v2:user:*`). Alert on a sudden spike in empty or 404 responses served from the cache, or on the cache hit ratio diverging from the database error rate.
+- **Test failure paths**: in a test, make the database time out and assert that no key was written to Redis.
+
+**One-liner for the interview:** "A valid empty result and a failed query are different things. I cache only successful, validated responses, I cache not-found results with a short TTL as an explicit marker, and on database errors I return an error or a stale copy and never write to the cache."
