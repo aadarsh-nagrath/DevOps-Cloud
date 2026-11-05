@@ -52,6 +52,9 @@ Welcome to the centralized index of all notes in this repository. Click any link
 | [AWS / EKS / Linux Troubleshooting Scenarios Q&A](Interview%20Questions/40-aws-eks-linux-troubleshooting-scenarios-qna.md) | EC2 100% CPU, EKS node disk pressure, ALB 502/503, Java memory leak vs normal usage, NGINX load balancing |
 | [Linux Internals, Coding & DSA Gap-Fill Q&A](Interview%20Questions/41-linux-programming-dsa-gap-fill-qna.md) | OOM killer, disk I/O, zombies/orphans, HTTP/2 vs 3, Go/Python concurrency, backoff, memory leaks, LRU, top-K, rate limiter, sliding window |
 | [System Design & Staff/Principal SRE Q&A](Interview%20Questions/42-system-design-staff-sre-qna.md) | URL shortener, distributed rate limiter, backpressure, scaling to millions, MTBF, reliability standards, SLO adoption, cost, blast radius, influence |
+| [K8s Health Checks & Mid-Level DevOps/SRE Round-Up Q&A](Interview%20Questions/43-k8s-health-checks-mid-level-sre-qna.md) | Probes vs DB connectivity, slow dependencies, all Pods NotReady, mid-level K8s gap-fill, rapid-fire revision, topic map |
+| [Senior Platform Design & Production Scenarios Q&A](Interview%20Questions/44-senior-platform-design-scenarios-qna.md) | Multi-region K8s, intermittent 503s, stateful migration, GitOps for 20+ teams, large Terraform state, runtime security, self-healing platform, service-to-service authentication, core fundamentals index |
+| [Helm Fundamentals Q&A](Interview%20Questions/45-helm-fundamentals-qna.md) | What/why Helm, repositories (HTTP & OCI), built-in objects, values & overrides, install vs upgrade, list/uninstall releases, `helm lint` |
 
 ---
 
